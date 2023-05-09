@@ -8,6 +8,7 @@ import {
   Google,
   Hub,
   Marketplace,
+  Notification,
   Profile,
   Services,
 } from '../../../assets/images';
@@ -15,9 +16,12 @@ import Styles from './Home.styles';
 import GlobalStyle from '../../../assets/styling/GlobalStyle';
 const Home = ({navigation}) => {
   const headerProps = {
-    headerTitle: 'Store',
-    showCart: true,
-    ProgressiveImageHeader: false,
+    headerTitle: 'Home',
+    backButtonIcon: false,
+    ProgressiveImageHeader: true,
+    headerRight:true,
+    headerRightImg:false,
+    headerRightImg:Notification
   };
   const listData = [
     {
@@ -56,24 +60,12 @@ const Home = ({navigation}) => {
     <Container
       bottomSpace
       edges={['left', 'right']}
-      //  headerProps={headerProps}
+       headerProps={headerProps}
     >
       <View style={Styles.container}>
-        <View style={Styles.headerContainer}>
-          <ProgressiveImage
-            source={Profile}
-            style={{height: 40, width: 40}}
-            resizeMode={'contain'}
-          />
-          <ProgressiveImage
-            source={Cart}
-            style={{height: 40, width: 40}}
-            resizeMode={'contain'}
-          />
-        </View>
-        <CText style={Styles.mainHeading}>Welcome </CText>
-        <CText style={Styles.subHeading}>What do you need to do? </CText>
-        <CList
+        
+       
+        {/* <CList
           style={Styles.list}
           numColumns={2}
           contentContainerStyle={[GlobalStyle.list, {marginBottom: 15}]}
@@ -91,7 +83,7 @@ const Home = ({navigation}) => {
           onEndReachedThreshold={0.1}
           maxToRenderPerBatch={10}
           windowSize={10}
-        />
+        /> */}
       </View>
     </Container>
   );

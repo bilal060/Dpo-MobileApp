@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -6,15 +6,15 @@ import {
   Animated,
   Platform,
   I18nManager,
-} from "react-native";
-import {themes as theme} from "../../theme/colors";
+} from 'react-native';
+import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import {CText} from '../index';
 
 export default class ToggleSwitch extends React.Component {
   static calculateDimensions(size) {
     switch (size) {
-      case "small":
+      case 'small':
         return {
           width: 40,
           padding: 10,
@@ -22,7 +22,7 @@ export default class ToggleSwitch extends React.Component {
           circleHeight: 15,
           translateX: 22,
         };
-      case "large":
+      case 'large':
         return {
           width: 70,
           padding: 20,
@@ -43,9 +43,9 @@ export default class ToggleSwitch extends React.Component {
 
   static defaultProps = {
     isOn: false,
-    onColor: theme['light'].colors.secondary,
-    offColor: "#CFCFCF",
-    size: "medium",
+    onColor: theme['light'].colors.primary,
+    offColor: '#CFCFCF',
+    size: 'small',
     labelStyle: {},
     thumbOnStyle: {},
     thumbOffStyle: {},
@@ -55,7 +55,7 @@ export default class ToggleSwitch extends React.Component {
     disabled: false,
     animationSpeed: 300,
     useNativeDriver: true,
-    circleColor: "white",
+    circleColor: 'white',
   };
 
   offsetX = new Animated.Value(0);
@@ -63,7 +63,7 @@ export default class ToggleSwitch extends React.Component {
 
   createToggleSwitchStyle = () => [
     {
-      justifyContent: "center",
+      justifyContent: 'center',
       width: this.dimensions.width,
       borderRadius: 20,
       padding: this.dimensions.padding,
@@ -76,17 +76,17 @@ export default class ToggleSwitch extends React.Component {
 
   createInsideCircleStyle = () => [
     {
-      alignItems: "center",
-      justifyContent: "center",
-      margin: Platform.OS === "web" ? 0 : 4,
-      left: Platform.OS === "web" ? 4 : 0,
-      position: "absolute",
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: Platform.OS === 'web' ? 0 : 4,
+      left: Platform.OS === 'web' ? 4 : 0,
+      position: 'absolute',
       backgroundColor: this.props.circleColor,
-      transform: [{ translateX: this.offsetX }],
+      transform: [{translateX: this.offsetX}],
       width: this.dimensions.circleWidth,
       height: this.dimensions.circleHeight,
       borderRadius: this.dimensions.circleWidth / 2,
-      shadowColor: "#000",
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 2,
@@ -126,23 +126,25 @@ export default class ToggleSwitch extends React.Component {
     }).start();
 
     const onPress = () => {
-      onToggle(!isOn)
-    }
+      onToggle(!isOn);
+    };
 
     return (
       <View style={styles.container} {...this.props}>
-        {label ? (
-          <CText style={[GlobalStyle.inputLabel, labelStyle, styles.labelStyle]}>{label}</CText>
-        ) : null}
         <TouchableOpacity
           style={this.createToggleSwitchStyle()}
           activeOpacity={0.8}
-          onPress={() => (disabled ? null : onPress())}
-        >
+          onPress={() => (disabled ? null : onPress())}>
           <Animated.View style={this.createInsideCircleStyle()}>
             {icon}
           </Animated.View>
         </TouchableOpacity>
+        {label ? (
+          <CText
+            style={[GlobalStyle.inputLabel, labelStyle, styles.labelStyle]}>
+            {label}
+          </CText>
+        ) : null}
       </View>
     );
   }
@@ -150,12 +152,15 @@ export default class ToggleSwitch extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 30
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
   },
   labelStyle: {
-    // marginHorizontal: 10,
-    marginBottom: 0
+    marginHorizontal: 10,
+    marginBottom: 0,
+    fontSize:15,
+    color: theme['light'].colors.iconColor,
+
   },
 });

@@ -1,12 +1,12 @@
-import React from 'react';
-import {Container} from '../../../containers';
+import React, { useState } from 'react';
+import {Container, CountriesModal} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, View , Modal} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google} from '../../../assets/images';
+import {Facebook, Google, LoginImg} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen');
 
@@ -14,15 +14,12 @@ function Forgot({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const reduxState = useSelector(({auth, global}) => {
-    return {
-      loading: auth.signUpLoading,
-    };
-  });
+ 
   const headerProps = {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Reset Password',
+    showCenterLogo : LoginImg,
     bgHeadeStyle: {
       width: width * 1,
       height: height * 0.3,
@@ -33,8 +30,31 @@ function Forgot({route}) {
   };
 
   const submit = async values => {
-    navigation.navigate('ChangePassword');
+    // navigation.navigate('ChangePassword');
   };
+
+  const reduxState = useSelector(({auth, global}) => {
+    return {
+      loading: auth.signUpLoading,
+      currentCountry: global?.currentCountry,
+      countries: global?.countries,
+    };
+  });
+
+  const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
+  const [selectedCountry, updateSelectedCountry] = useState(
+      reduxState.currentCountry
+  );
+
+  const toggleCountryModal = () => {
+      updateCountryModalIsOpen(!countryModalIsOpen);
+  };
+
+  const countryOnSelect = (item) => {
+      updateSelectedCountry(item);
+      toggleCountryModal();
+  };
+
 
   return (
     <Container
@@ -47,8 +67,21 @@ function Forgot({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CPagination />
-      <CForm submit={submit} loading={reduxState?.loading} />
+      <CForm submit={submit} loading={reduxState?.loading}  selectedCountry={selectedCountry}
+                toggleCountryModal={toggleCountryModal} />
+      <Modal
+                transparent={true}
+                visible={countryModalIsOpen}
+                onRequestClose={() => toggleCountryModal()}
+            >
+                <View style={AuthStyle.modalContainer}>
+                    <View style={AuthStyle.modalInnerContainer}>
+                        <CountriesModal
+                            onSelect={(val) => countryOnSelect(val)}
+                        />
+                    </View>
+                </View>
+            </Modal>
       {/* <View style={AuthStyle.orContainer}>
        
       </View>
@@ -56,7 +89,10 @@ function Forgot({route}) {
         <CText style={AuthStyle.cardBottomText}>Already have an account? </CText>
         <CText style={[AuthStyle.cardBottomText2]}>Sign in</CText>
       </View> */}
+
+
     </Container>
+    
   );
 }
 export default Forgot;

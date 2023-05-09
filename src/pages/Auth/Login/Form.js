@@ -5,9 +5,14 @@ import {View , TouchableOpacity} from 'react-native';
 import {CButton, CInput, CText} from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
+import { EmailIcon, PassIcon } from '../../../assets/images';
+import { useTranslation } from 'react-i18next';
+
+
 
 function CForm(props) {
   const {submit, loading , onForgotPress} = props;
+  const {t,} = useTranslation();
 
   const form = useRef(null);
   const fullName = useRef(null);
@@ -38,23 +43,22 @@ function CForm(props) {
               <View style={AuthStyle.cardBody}>
                 <CInput
                   ref={email}
-                  inputLabel={'Email_address'}
-                  placeholder={'Email Address'}
+                  placeholder={t('Email Address')}
                   value={values.email}
                   onChangeText={handleChange('email')}
                   error={errors.email}
                   sec
-                  leftIconType="MaterialCommunityIcons"
-                  leftIconColor={themes.light.colors.fontColor}
-                  leftIconNAme="email"
-                  leftIconeSize={20}
+                  leftIconNAme={EmailIcon}
+                  // leftIconType="MaterialIcons"
+                  // leftIconColor={themes.light.colors.gray4}
+                  // leftIconNAme="alternate-email"
+                  // leftIconeSize={20}
                   returnKeyType="next"
                   onSubmitEditing={() => handleSubmit()}
                 />
 
                 <CInput
                   ref={password}
-                  inputLabel={'Password'}
                   placeholder={'Password'}
                   value={values.password}
                   onChangeText={handleChange('password')}
@@ -62,9 +66,11 @@ function CForm(props) {
                   error={errors.password}
                   returnKeyType="next"
                   onSubmitEditing={() => cpassword.current.focus()}
-                  leftIconType="MaterialCommunityIcons"
-                  leftIconColor={themes.light.colors.fontColor}
-                  leftIconNAme="email"
+                  // leftIconType="SimpleLineIcons"
+                  // leftIconColor={themes.light.colors.gray4}
+                  // leftIconNAme="lock"
+                  leftIconNAme={PassIcon}
+
                   leftIconeSize={18}
                   rightIconType="AntDesign"
                   rightIconName="eyeo"
@@ -73,17 +79,20 @@ function CForm(props) {
                 />
               </View>
               <TouchableOpacity onPress={onForgotPress} style={AuthStyle.forgot}>
-                <CText style={AuthStyle.forgotText}>Forgot password?</CText>
+                <CText style={AuthStyle.forgotText}>Forgot Password?</CText>
               </TouchableOpacity>
               <CButton
-                title={'Sign In'}
+                title={'Sign in'}
                 iconType="left"
                 loading={loading}
                 onPress={() => handleSubmit()}
               />
 
-              <View>
-                <CText style={AuthStyle.continueText}>Or continue with</CText>
+              <View style={{flexDirection:"row"}}>
+              <CText style={{marginTop:5 , color:"#E7E6E9"}}>______________________</CText>
+              <CText style={AuthStyle.continueText}>  OR  </CText>
+              <CText style={{marginTop:5 , color:"#E7E6E9"}}>_____________________</CText>
+
               </View>
 
             

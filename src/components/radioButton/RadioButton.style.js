@@ -6,6 +6,7 @@ export default StyleSheet.create({
     checkBoxContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent:"center",
     },
     checkBoxView: {
         width: 13,
@@ -15,8 +16,8 @@ export default StyleSheet.create({
         borderRadius: 16,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: themes['light'].colors.primary,
-    },
+        marginTop:3
+     },
     checkedBoxView: {
         backgroundColor: themes['light'].colors.primary,
     },
@@ -31,19 +32,19 @@ export default StyleSheet.create({
         color: themes['light'].colors.tertiary
     },
     checkBoxTitleContainer: {
-        flex: 1,
+        // flex: 1,
         marginLeft: 10,
         // marginLeft: getLayoutDirection() ? 0 : 10,
         // marginRight: getLayoutDirection() ? 10 : 0,
         // flexDirection: 'row',
         justifyContent: 'center',
-        // backgroundColor: 'red'
     },
     checkBoxTitle: {
-        fontSize: 12,
-        fontFamily: themes.font.regular,
-        color: themes['light'].colors.fontColor,
+        fontSize: 16,
+        fontFamily: themes.font.medium,
+        color: themes['light'].colors.dark,
         textAlign: 'left',
+        marginEnd:5
     },
     checkBoxSecondTitle: {
         color: themes['light'].colors.primary,

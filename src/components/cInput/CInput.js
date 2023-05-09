@@ -12,12 +12,18 @@ import {themes} from '../../theme/colors';
 import MaskInput from 'react-native-mask-input';
 import CText from '../cText/CText';
 import CIcon from '../cIcon/CIcon';
+import ProgressiveImage from '../progressiveImage/ProgressiveImage';
+import { EmailIcon } from '../../assets/images';
+import { useTranslation } from 'react-i18next';
 TextInput.defaultProps = {
   ...(TextInput.defaultProps || {}),
   allowFontScaling: false,
 };
 
 const CInput = React.forwardRef((props, ref) => {
+  
+  const {t} = useTranslation();
+
   const {
     inputContainerStyle,
     inputInnerContainerStyle,
@@ -38,7 +44,11 @@ const CInput = React.forwardRef((props, ref) => {
     rightButton,
     style,
     value,
-
+    selectedCountry,
+    countryView,
+    disabled,
+    onPress,
+    countryViewLoading,
     secureTextEntry = false,
     leftIconType,
     leftIconNAme,
@@ -46,9 +56,13 @@ const CInput = React.forwardRef((props, ref) => {
     leftIconeSize,
     rightIconType,
     rightIconeSize,
-    rightIconeColor
+    rightIconeColor,
+    selectValue,
+    placeholder,
+    textStyle
   } = props;
 
+  console.log('selectedCountry?.detail', leftIconNAme);
   const renderLabel = () => {
     return (
       <CText style={[{...GlobalStyle.inputLabel, ...inputLabelStyle}]}>
@@ -66,13 +80,53 @@ const CInput = React.forwardRef((props, ref) => {
           ...GlobalStyle.inputLeftIconButton,
           ...leftIconButtonStyle,
         }}>
-        <CIcon
+        <ProgressiveImage
+          resizeMode={'contain'}
+          style={{...GlobalStyle.inputIcon, ...iconStyle}}
+          source={leftIconNAme}
+        />
+        {/* <CIcon
           type={leftIconType}
           name={leftIconNAme}
           color={leftIconColor}
           size={leftIconeSize}
           style={{...GlobalStyle.inputIcon, ...iconStyle}}
-        />
+        /> */}
+      </TouchableOpacity>
+    );
+  };
+
+  const renderCountryView = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          ...GlobalStyle.countryView,
+          ...countryView,
+          ...(error && GlobalStyle.errorBorder),
+        }}
+        disabled={disabled}
+        onPress={onPress}>
+        {countryViewLoading ? (
+          <ActivityIndicator color="#000080" size={24} />
+        ) : (
+          <Fragment>
+            {/* <ProgressiveImage
+              resizeMode={'contain'}
+              style={GlobalStyle.countryViewImage}
+              source={{uri: selectedCountry?.flags?.png}}
+            /> */}
+            <CText style={GlobalStyle.countryViewText}>
+              {selectedCountry?.detail?.iso}
+            </CText>
+            <CText style={GlobalStyle.countryViewText}>
+              {selectedCountry?.detail?.code}
+            </CText>
+            <AntDesign
+              name="caretdown"
+              style={GlobalStyle.countryViewDropDownIcon}
+            />
+          </Fragment>
+        )}
       </TouchableOpacity>
     );
   };
@@ -116,8 +170,9 @@ const CInput = React.forwardRef((props, ref) => {
         ref={ref}
         maskChar="x"
         autoCorrect={false}
+        // placeholder={t(placeholder)}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor={themes['light'].colors.gray4}
+        placeholderTextColor={themes['light'].colors.gray7}
         style={[{...GlobalStyle.inputStyle, ...style}]}
         autoCapitalize="none"
         value={value}
@@ -125,6 +180,31 @@ const CInput = React.forwardRef((props, ref) => {
       />
     );
   };
+  
+  const renderSelectionView = () => {
+    return (
+      <TouchableOpacity
+        style={[
+          {...GlobalStyle.inputStyle ,...style},
+          {flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"},
+        ]}
+        onPress={onPress}>
+        <CText
+          style={[
+            {...GlobalStyle.inputTextStyle,  ...textStyle},
+             {color: themes['light'].colors.gray7},
+          ]}>
+          {selectValue   ? selectValue?.name : placeholder}
+        </CText>
+        <AntDesign
+              name="down"
+              style={GlobalStyle.slectedViewDropDownIcon}
+            />
+      </TouchableOpacity>
+    );
+  };
+
+
 
   return (
     <View style={{...GlobalStyle.inputContainer, ...inputContainerStyle}}>
@@ -135,9 +215,17 @@ const CInput = React.forwardRef((props, ref) => {
           ...inputInnerContainerStyle,
           ...(error && GlobalStyle.errorBorder),
         }}>
-        {leftIconType ? renderLeftIcon() : null}
-        {type !== 'view' ? renderInputView() : null}
+        {leftIconNAme ? renderLeftIcon() : null}
+        
+        
+          <View style={{alignSelf:"flex-start" , flex:1 ,borderBottomWidth:0.5 ,  borderBottomColor:"#E7E6E9" , flexDirection:"row" , alignItems:"center" , paddingTop:-15}}>
+          {selectedCountry && Object.keys(selectedCountry).length
+          ? renderCountryView()
+          : null}
+        {type !== 'view' ? renderInputView() : renderSelectionView()}
         {rightIconName ? renderRightIcon() : null}
+
+            </View>
       </View>
       {error ? renderErrorView() : null}
     </View>

@@ -21,7 +21,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 const Service = ({navigation}) => {
   const headerProps = {
-    ProgressiveImageHeader: false,
+    ProgressiveImageHeader: true,
     headerLeft: true,
     backBtnColor: themes.light.colors.fontLowColor,
     headerTransparentStyle: Styles.headerTransparentStyle,

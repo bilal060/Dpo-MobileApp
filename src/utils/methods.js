@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Platform, I18nManager } from "react-native";
 import Toast from "react-native-toast-message";
+import PNF, { PhoneNumberUtil } from "google-libphonenumber";
 
 export const get = (url) => {
     return axios.get(url);
@@ -68,4 +69,40 @@ export const MappedElement = ({ data, renderElement, empty }) => {
     }
     return empty ? empty() : null;
 };
+
+export const phoneUtil = PhoneNumberUtil.getInstance();
+
+export const validateNumberRegex = async (
+    country,
+    string,
+    { createError, path }
+) => {
+    if (string) {
+        if (/^[0-9]*$/.test(string)) {
+            const number = phoneUtil.parse(string, country?.cca2);
+
+            let valid = await phoneUtil.isValidNumber(number);
+
+            if (!valid) {
+                return createError({
+                    path,
+                    message: "Please_enter_valid_phone_number",
+                });
+            } else {
+                return true;
+            }
+        } else {
+            return createError({
+                path,
+                message: "Please_enter_valid_phone_number",
+            });
+        }
+    } else {
+        return createError({
+            path,
+            message: "Phone_number_is_required",
+        });
+    }
+};
+
 

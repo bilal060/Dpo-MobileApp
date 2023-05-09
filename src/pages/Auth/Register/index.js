@@ -1,13 +1,15 @@
-import React from 'react';
-import {Container} from '../../../containers';
-import {CPagination, CText, ProgressiveImage} from '../../../components';
+import React, { useState } from 'react';
+import {Container , CountriesModal} from '../../../containers';
+import {CPagination, CText, ProgressiveImage, RadioButton} from '../../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, Modal, View} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google} from '../../../assets/images';
+import {Facebook, Google, LoginImg, RegisterImg, RoleIcon} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import GlobalStyle from '../../../assets/styling/GlobalStyle';
+import { forceTouchHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/ForceTouchGestureHandler';
 const {width, height} = Dimensions.get('screen')
 
 function Register({route}) {
@@ -17,16 +19,47 @@ function Register({route}) {
   const reduxState = useSelector(({auth, global}) => {
     return {
       loading: auth.signUpLoading,
+      currentCountry: global?.currentCountry,
+      countries: global?.countries,
     };
   });
+
+  const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
+  const [selectedCountry, updateSelectedCountry] = useState(
+      reduxState.currentCountry
+  );
+const [account ,setAccount ] = useState('Customer')
+
+
+  const toggleCountryModal = () => {
+      updateCountryModalIsOpen(!countryModalIsOpen);
+  };
+
+  const countryOnSelect = (item) => {
+      updateSelectedCountry(item);
+      toggleCountryModal();
+  };
+
+
+
   const headerProps = {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Sing in',
-    bgHeadeStyle:{width: width * 1, height: height * 0.3, marginTop: -30, paddingVertical: 40, paddingHorizontal: 20}
+    showCenterLogo: RegisterImg,
+    ProgressiveImageHeader:false
   };
 
-  const submit = async values => {};
+  const submit = async values => {
+    if(account === "Owner"){
+      navigation.navigate("CompanyProfile")
+    } else{
+
+      navigation.navigate("VerifyOtp")
+    }
+  };
+
+
 
   return (
     <Container
@@ -39,24 +72,29 @@ function Register({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CPagination />
-      <CForm submit={submit} loading={reduxState?.loading} />
+        
+      <CForm submit={submit} loading={reduxState?.loading} selectedCountry={selectedCountry}
+                toggleCountryModal={toggleCountryModal}
+                account={account} setAccount={setAccount} />
+     
       <View style={AuthStyle.orContainer}>
-        <ProgressiveImage
-          source={Google}
-          resizeMode={'contain'}
-          style={AuthStyle.IconImage}
-        />
-        <ProgressiveImage
-          source={Facebook}
-          resizeMode={'contain'}
-          style={AuthStyle.IconImage}
-        />
-      </View>
-      <View style={AuthStyle.orContainer}>
-        <CText style={AuthStyle.cardBottomText}>Already have an account? </CText>
+        <CText style={AuthStyle.cardBottomText}>Already have an account?</CText>
         <CText onPress={()=> navigation.navigate('Login')} style={[AuthStyle.cardBottomText2]}>Sign in</CText>
       </View>
+      <Modal
+                transparent={true}
+                visible={countryModalIsOpen}
+                onRequestClose={() => toggleCountryModal()}
+            >
+                <View style={AuthStyle.modalContainer}>
+                    <View style={AuthStyle.modalInnerContainer}>
+                        <CountriesModal
+                            onSelect={(val) => countryOnSelect(val)}
+                        />
+                    </View>
+                </View>
+            </Modal>
+
     </Container>
   );
 }

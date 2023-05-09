@@ -1,0 +1,17 @@
+import * as Yup from "yup";
+import { validateNumberRegex } from "../../../utils/methods";
+
+const scheme = Yup.object().shape({
+    fullName: Yup.string()
+        .required("Please enter email address"),
+        bio: Yup.string()
+        .required("Please enter email address"),
+        phone: Yup.string()
+            // .test("checkPhoneNumber", (value, obj) =>
+            //     validateNumberRegex(regex, value || "", obj)
+            // )
+            .required("Phone number is required."),
+
+});
+
+export default scheme;

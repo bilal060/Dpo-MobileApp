@@ -4,14 +4,20 @@ import {themes as theme} from "../../theme/colors";
 export default StyleSheet.create({
     selectContainer: {
         height: 50,
+       
     },
     selectButtonText: {
         flex: 1,
-        marginLeft: 10,
+        marginLeft:5,
         // color: theme['light'].colors.fontColor,
         fontFamily: theme.font.regular,
         fontSize: 16,
-        color: theme['light'].colors.lightGray,
+        borderBottomColor: theme.light.colors.gray3,
+        borderBottomWidth:0.5,
+        paddingBottom:10,
+        fontFamily: theme.font.medium,
+        color:  theme['light'].colors.gray4,
+
     },
     buttonLoading : {
         marginRight: 15

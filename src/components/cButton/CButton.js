@@ -3,9 +3,12 @@ import {TouchableOpacity, ActivityIndicator, Animated} from 'react-native';
 import styles from './CButton.style';
 import {themes} from '../../theme/colors';
 import CIcon from '../cIcon/CIcon';
+import { useTranslation } from 'react-i18next';
 // import Icon from '../../assets/icons/CustomIcon';
 
 const CButton = props => {
+  const {t,} = useTranslation();
+
   const {
     title,
     children,
@@ -68,7 +71,7 @@ const CButton = props => {
               },
               buttonText,
             ]}>
-            {title}
+            {t(title)}
           </Animated.Text>
           {iconType === 'custom' && iconName
             ? null
@@ -78,7 +81,7 @@ const CButton = props => {
       ) : (
         children
       )}
-      {iconType === 'left' && (
+      {/* {iconType === 'left' && (
         <CIcon
           name={'arrow-right'}
           type={'Feather'}
@@ -86,7 +89,7 @@ const CButton = props => {
           color={iconColor}
           styles={iconStyle}
         />
-      )}
+      )} */}
       {loading ? (
         <ActivityIndicator {...loaderProps} style={{marginLeft: 10}} />
       ) : null}

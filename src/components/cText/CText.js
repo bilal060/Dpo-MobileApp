@@ -1,6 +1,7 @@
 import React  from 'react';
 import { Text, Animated } from 'react-native';
 import { themes } from '../../theme/colors';
+import { useTranslation } from 'react-i18next';
 
 Text.defaultProps = {
     ...(Text.defaultProps || {}),
@@ -8,11 +9,13 @@ Text.defaultProps = {
 };
 
 const CText = (props) => {
+  const {t,} = useTranslation();
+
    
     return <Animated.Text
         allowFontScaling={false}
         {...props} style={[props.style]}>
-        {props.children}
+        {t(props.children)}
     </Animated.Text>
 };
 

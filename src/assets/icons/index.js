@@ -12,7 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Octicons from 'react-native-vector-icons/Octicons'
 import Zocial from 'react-native-vector-icons/Zocial'
-
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 
 const icons = {
     Feather,
@@ -28,7 +28,9 @@ const icons = {
     MaterialCommunityIcons,
     MaterialIcons,
     Octicons,
-    Zocial
+    Zocial,
+    SimpleLineIcons
+
 }
 
 

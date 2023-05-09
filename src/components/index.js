@@ -16,6 +16,10 @@ import CCheckBox from "./cCheckBox/CCheckBox";
 import CIcon from "./cIcon/CIcon";
 import CPagination from "./cPagination/CPagination";
 import RadioButton from "./radioButton/RadioButton";
+import CDropDown from "./cDropDown";
+import ProfileCard from "./profileCard/index";
+import SpaceCard from "./spaceCard/SpaceCard";
+
 
 
 
@@ -38,5 +42,8 @@ export {
     CCheckBox,
     CIcon,
     RadioButton,
-    CPagination
+    CPagination,
+    CDropDown,
+    ProfileCard,
+    SpaceCard
 }

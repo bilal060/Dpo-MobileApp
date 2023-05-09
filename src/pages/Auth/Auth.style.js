@@ -1,10 +1,10 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../theme/colors';
-const {width, height} = Dimensions.get('screen')
+const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
     backgroundColor: theme['light'].colors.backgroundColor,
   },
 
@@ -20,34 +20,42 @@ export default StyleSheet.create({
   style: {
     flex: 1,
   },
-  forgot:{
-    marginTop:-30,
-    paddingBottom:20,
-    alignSelf:'flex-end',
+  forgot: {
+    marginTop: -30,
+    paddingBottom: 20,
+    alignSelf: 'flex-end',
     color: theme['light'].colors.fontColor,
-
   },
   card: {
     // borderRadius: 20,
     backgroundColor: theme['light'].colors.backgroundColor,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     paddingVertical: 30,
   },
+  uploadProfile: {
+    fontSize: 10,
+    fontFamily: theme.font.light,
+    textAlign: 'center',
+    color: theme['light'].colors.gray4,
+  },
   cardHeader: {
-    alignSelf:"center",
+    alignSelf: 'center',
     marginBottom: 30,
+    alignItems: 'center',
   },
   cardHeaderTitle: {
-    fontSize: 32,
+    fontSize: 35,
     fontFamily: theme.font.bold,
+    textAlign: 'center',
     color: theme['light'].colors.dark,
     // marginBottom: 10,
   },
   cardHeaderSubTitle: {
-    fontSize: 15,
-    fontFamily: theme.font.regular,
+    fontSize: 16,
+    fontFamily: theme.font.light,
     color: theme['light'].colors.fontLowColor,
     marginBottom: 10,
+    textAlign: 'center',
   },
 
   cardBody: {
@@ -61,23 +69,52 @@ export default StyleSheet.create({
     textAlign: 'center',
     // marginTop: 12,
   },
-
+  googleAccount: {
+    fontSize: 16,
+    fontFamily: theme.font.bold,
+    color: theme['light'].colors.dark,
+  },
   cardBottomText2: {
     fontSize: 13,
-    paddingLeft:5,
+    paddingLeft: 5,
     fontFamily: theme.font.semiBold,
     color: theme['light'].colors.fontColor,
+  },
+  profileView: {
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 100,
+    marginBottom: 10,
+    backgroundColor: theme['light'].colors.lightenGray,
+    borderWidth: 2,
+    borderColor: '#C3D6DA',
+    borderStyle: 'dashed',
+    overflow: 'hidden',
   },
 
   orContainer: {
     justifyContent: 'center',
     flexDirection: 'row',
-    marginVertical: 10,
+    alignItems: 'center',
+    // marginVertical: 10,
+  },
+  googleContainer: {
+    backgroundColor: theme['light'].colors.lightenGray,
+    marginHorizontal: 30,
+    borderRadius: 10,
+    padding: 13,
+    marginBottom: 10,
   },
   orContainerText: {
     fontSize: 20,
     fontFamily: theme.font.regular,
     color: theme['light'].colors.fontColor,
+  },
+  inputIcon: {
+    marginRight: 10,
   },
 
   bottomButton: {
@@ -89,17 +126,19 @@ export default StyleSheet.create({
     marginBottom: 30,
   },
   IconImage: {
-    height: 30,
-    width: 30,
-    marginHorizontal:15
+    height: 25,
+    width: 25,
+    marginHorizontal: 15,
   },
 
   otpInputView: {
     height: 62,
-    // width: '100%',
     marginBottom: 10,
     alignItems: 'stretch',
-    // backgroundColor: 'red'
+  },
+  inputLeftIconButton: {
+    widht: 20,
+    height: 20,
   },
 
   codeInputFieldStyle: {
@@ -127,12 +166,14 @@ export default StyleSheet.create({
     color: themes['light'].colors.shadow,
     alignSelf: 'center',
     marginTop: -30,
-    marginBottom:10,
-    fontSize:10,
+    marginBottom: 10,
+    fontSize: 10,
   },
   forgotText: {
-    color: themes['light'].colors.fontColor,
+    color: themes['light'].colors.primary,
     marginTop: -10,
+    fontFamily: themes.font.regular,
+    fontWeight: '700',
   },
 
   codeInputHighlightStyle: {
@@ -173,6 +214,86 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  bgHeadeStyle: { width: width * 1, height: height * 0.45, marginTop: -30, paddingVertical: 10, paddingHorizontal: 0 }
+  selectFileView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 20,
+    alignItems: 'center',
+    marginVertical: 10,
+    backgroundColor: '#C3D6DA',
+    borderStyle: 'dashed',
 
+    borderWidth: 2,
+
+    borderRadius: 15,
+    borderColor: theme['light'].colors.borderColor,
+  },
+  selectFile: {
+    color: themes['light'].colors.gray4,
+    fontFamily: themes.font.regular,
+    fontWeight: '400',
+  },
+  uploadText: {
+    color: themes['light'].colors.iconColor,
+    fontFamily: themes.font.medium,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
+  bgHeadeStyle: {
+    width: width * 1,
+    height: height * 0.45,
+    marginTop: -30,
+    paddingVertical: 10,
+    paddingHorizontal: 0,
+  },
+  activeUser: {
+    backgroundColor: themes['light'].colors.primary,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 5,
+    width: 150,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    padding: 10,
+  },
+  unactiveUser: {
+    backgroundColor: themes['light'].colors.gray4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 5,
+    width: 150,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    padding: 10,
+  },
+  activeText: {
+    color: themes['light'].colors.tertiary,
+    fontFamily: themes.font.medium,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  unactiveText: {
+    color: themes['light'].colors.primary,
+    fontFamily: themes.font.medium,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  timeCountDown: {
+    color: themes['light'].colors.primary,
+    fontFamily: themes.font.medium,
+    fontSize: 13,
+    marginLeft: 5,
+  },
+  timeView: {
+    color: themes['light'].colors.tertiary,
+    borderWidth: 0,
+    marginHorizontal: -10,
+  },
+  seconTime:{
+    color: themes['light'].colors.iconColor,
+    fontFamily: themes.font.medium,
+    fontSize: 13,
+  },
 });

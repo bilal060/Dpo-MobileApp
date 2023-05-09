@@ -1,0 +1,50 @@
+import {Dimensions, StyleSheet} from 'react-native';
+import {themes as theme, themes} from '../../../../theme/colors';
+const {width, height} = Dimensions.get('screen');
+export default StyleSheet.create({
+  
+  container: {
+    flexGrow: 1,
+    paddingHorizontal: 0,
+    backgroundColor: theme['light'].colors.backgroundColor,
+  },
+  memberCard:{
+    width:width*0.42,
+    flex:1,
+    backgroundColor: theme['light'].colors.lightenGray,
+    marginRight:12,
+    paddingHorizontal:5,
+    height:90,
+
+
+    
+  },
+  activeMember:{
+    fontSize:32,
+    color: theme['light'].colors.iconColor,
+    fontFamily:theme.font.semiBold,
+    marginTop:12,
+    paddingLeft:5
+
+
+  },
+  manager:{
+    fontSize:13,
+    color: theme['light'].colors.grey4,
+    fontFamily:theme.font.regular,
+    paddingTop:10,
+    paddingLeft:5
+
+  },
+  ProfileCard:{
+    flex:1,
+    marginVertical:10,
+    height:90,
+  },
+  listHeader:{
+    marginVertical:20
+  },
+  buttonStyle:{
+    marginTop:height*0.22
+  }
+})

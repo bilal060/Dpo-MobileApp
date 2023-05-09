@@ -1,31 +1,35 @@
 export const themes = {
     font: {
-        black: 'Inter-Black',
-        bold: 'Inter-Bold',
-        regular: 'Inter-Regular',
-        light: 'Inter-Light',
-        extraLight: 'Inter-ExtraLight',
-        medium: 'Inter-Medium',
-        semiBold: 'Inter-SemiBold',
+        black: 'SF-Pro-Display-Black',
+        bold: 'SF-Pro-Display-Bold',
+        heavy:'SF-Pro-Display-Heavy',
+        regular: 'SF-Pro-Display-Regular',
+        light: 'SF-Pro-Display-Light',
+        extraLight: 'SF-Pro-Display-Ultralight',
+        medium: 'SF-Pro-Display-Medium',
+        semiBold: 'SF-Pro-Display-Semibold',
+        thin:'SF-Pro-Display-Thin'
         
     },
    
     light: {
         colors: {
             
-            primary: '#5271FF',
+            primary: '#0064FA',
             secondary: '#102A74',
-            
             secondary3: '#E3E3E0',
             secondary2: 'rgba(0, 89, 247, 0.38)',
+            secondary3: 'rgba(0,100,250 , 0.1)',
+
             btnColor:"#EBF4E7",
             lightBorderColor: 'rgba(124, 128, 97, 0.30)',
+            
             lightGray: '#A8A8A8',
             lightGray2: '#DFDFDF',
-            lightenGray: '#868E96',
-            fontColor: '#7BB564',
-            fontLowColor: '#212820',
-
+            lightenGray: '#F1F6F7',
+            fontColor: '#0064FA',
+            fontLowColor: '#707070',
+            borderColor:"#C3D6DA",
             // secondary3: '#374D76',
             secondary4: '#EFF5FE',
             secondary5: '#3640B7',
@@ -41,10 +45,10 @@ export const themes = {
 
             gray1: '#737373',
             gray2: '#E2E2E2',
-            gray3: '#D8D7D5',
-            gray4: '#D4D4D4',
+            gray3: '#E7E6E9',
+            gray4: '#7D8695',
             gray6: 'rgba(229, 240, 253, 0.41)',
-            gray7: '#7D7D7D',
+            gray7: '#B5B5B5',
             gray8: '#D5D4D4',
             gray9: '#5F6565',
             gray10: '#F6F6F6',
@@ -67,8 +71,13 @@ export const themes = {
             lightSecondary: '#F1F1F1',
 
             tertiary: '#ffffff',
+            tertiaryBackground: '#F8F8F8',
             iconColor:"#171D25",
-            backgroundColor: '#F8F6F5',
+            active:"#169401",
+            activeOpacity:"rgba(22,148,1 , 0.1)",
+
+            
+            backgroundColor: '#FFFFFF',
             backgroundColorLighten: '#FAFAFA',
             lighten: 'rgba(160, 173, 184, 0.3)',
             darken: '#263238',

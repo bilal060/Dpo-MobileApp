@@ -12,7 +12,7 @@ import {CText, CIcon, ProgressiveImage} from '../../components';
 import {HeaderImg, LoginImg, Logo, Profile} from '../../assets/images';
 import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('screen');
 const Header = props => {
@@ -21,22 +21,23 @@ const Header = props => {
     headerTitle = '',
     headerTitleElement,
     headerRight = false,
-    ProgressiveImageHeader = true,
+    ProgressiveImageHeader,
     backOnPress,
     style,
     showCart = false,
     hideBackButton = true,
-    backButtonIcon = 'back-arrow',
-    showCenterLogo = false,
+    backButtonIcon = true,
+    showCenterLogo,
     headerTitleStyle,
     goBackWithRoute,
     headerTransparentStyle,
     bgHeadeStyle,
     transparent,
     centerImage,
-    backBtnColor,
+    headerRightImg,
+    rightPress,
   } = props;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const backPress = () => {
     if (backOnPress) {
@@ -47,18 +48,22 @@ const Header = props => {
   };
 
   const backButton = () => {
-    return hideBackButton ? (
+    return (
       <TouchableOpacity
         style={GlobalStyle.logostyles}
         onPress={() => backPress()}>
         <CIcon
           type="AntDesign"
           name="left"
-          color={theme.light.colors.dark}
+          color={
+            !ProgressiveImageHeader
+              ? theme.light.colors.dark
+              : theme.light.colors.tertiary
+          }
           size={20}
         />
       </TouchableOpacity>
-    ) : null;
+    );
   };
 
   const centerLogo = () => {
@@ -66,7 +71,7 @@ const Header = props => {
       <View style={styles.headerLogo}>
         <ProgressiveImage
           style={styles.headerLogoImage}
-          source={LoginImg}
+          source={showCenterLogo}
           resizeMode="contain"
         />
       </View>
@@ -92,9 +97,7 @@ const Header = props => {
         ]}
         // onPress={() => navigation.navigate('Cart')}
       >
-        {  true > 0 && <View style={styles.headerCartBadge}>
-                
-            </View>}
+        {true > 0 && <View style={styles.headerCartBadge}></View>}
         <CIcon
           type="AntDesign"
           name="shoppingcart"
@@ -106,38 +109,54 @@ const Header = props => {
   };
 
   const rightButton = () => {
-    return hideBackButton ? (
-      <TouchableOpacity
-        style={GlobalStyle.logostyles}
-        onPress={() => backPress()}>
-        <CIcon
-          type="MaterialIcons"
-          name="arrow-back"
-          color={theme.light.colors.backgroundColor}
-          size={30}
-        />
+    return (
+      <TouchableOpacity style={GlobalStyle.logostyles} onPress={rightPress}>
+        {!headerRightImg ? (
+          <CIcon
+            type="MaterialIcons"
+            name="add"
+            color={theme.light.colors.backgroundColor}
+            size={30}
+          />
+        ) : (
+          <ProgressiveImage
+            style={styles.profileImage}
+            source={headerRightImg}
+            resizeMode="contain"
+          />
+        )}
       </TouchableOpacity>
-    ) : null;
+    );
   };
+
+  const getBackgroundColor = () => {
+    if (!ProgressiveImageHeader === true) {
+      return theme['light'].colors.tertiary;
+    } else {
+      return theme['light'].colors.primary;
+    }
+  };
+
   return (
     <SafeAreaView
-      style={[styles.headerStyle, transparent, headerTransparentStyle]}
+      style={[
+        styles.headerStyle,
+        transparent,
+        headerTransparentStyle,
+        {backgroundColor: getBackgroundColor()},
+      ]}
       edges={['top']}>
-      
-        
-          <View>
-            <View style={[GlobalStyle.listItemActions]}>
-              {true ? backButton() : menuButton()}
-              {/* <CText style={GlobalStyle.toggleViewText}>{headerTitle}</CText> */}
-              {/* {headerRight && rightButton()} */}
-            </View>
-            <View>
-          {true && centerLogo()}
+      <View>
+        <View style={[GlobalStyle.listItemActions]}>
+          {backButtonIcon ? backButton() : null}
+          {ProgressiveImageHeader && (
+            <CText style={GlobalStyle.toggleViewText}>{headerTitle}</CText>
+          )}
 
-            </View>
-          </View>
-          
-        
+          {headerRight && rightButton()}
+        </View>
+        <View>{showCenterLogo && centerLogo()}</View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -147,19 +166,19 @@ export default Header;
 const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: theme.light.colors.backgroundColor,
-    paddingVertical:20,
-    paddingHorizontal:10,
-    height:170,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    // height:170,
   },
   headerLogo: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:50,
+    marginVertical: 50,
   },
   headerLogoImage: {
-    width: 100.6,
-    height: 256.62,
+    width: 130,
+    height: 250,
     // marginTop: -50,
   },
   profileImage: {
@@ -170,7 +189,7 @@ const styles = StyleSheet.create({
 
   subheaderView: {
     marginTop: 10,
-    paddingBottom:10,
+    paddingBottom: 10,
     marginHorizontal: 20,
     backgroundColor: '#FFF',
   },

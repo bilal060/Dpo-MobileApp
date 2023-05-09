@@ -4,6 +4,7 @@ import Header from './header/Header'
 import Container from './container/Container'
 import ViewContainer from './viewContainer/ViewContainer'
 import PackageCard from './packageCard/PackageCard'
+import CountriesModal from './countriesModal/CountriesModal'
 
 
 
@@ -15,5 +16,6 @@ export {
     Header,
     Container,
     ViewContainer,
-    PackageCard
+    PackageCard,
+    CountriesModal
 }

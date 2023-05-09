@@ -4,7 +4,7 @@ import {CLoading} from '../components';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getValueIntoAsyncStorage} from '../utils/asyncStorage/Functions';
 import {WELCOME_SCREEN} from '../utils/asyncStorage/Constants';
-import {ChangePassword, Forgot, Login, Register} from '../pages/Auth';
+import {ChangePassword, CompanyProfile, Forgot, Information, Login, Register, VerifyOtp} from '../pages/Auth';
 
 export const Stack = createStackNavigator();
 
@@ -39,6 +39,11 @@ function Auth({initial}) {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Forgot" component={Forgot} />
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
+          <Stack.Screen name="Information" component={Information} />
+          <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
+         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
+          
+
         </Stack.Navigator>
       );
     } else {

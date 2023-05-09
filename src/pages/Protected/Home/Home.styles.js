@@ -22,7 +22,7 @@ export default StyleSheet.create({
     color: theme.light.colors.secondary2dark,
     fontSize: 19,
     fontFamily: theme.font.regular,
-    fontWeight: '600',
+    fontWeight: '600',  
   },
   list: {
     alignSelf:'center',
@@ -45,6 +45,5 @@ export default StyleSheet.create({
     fontFamily: theme.font.regular,
     fontWeight: '400',
     marginBottom:40,
-
   }
 });

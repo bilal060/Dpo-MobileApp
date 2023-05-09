@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Container} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
 import {useDispatch, useSelector} from 'react-redux';
@@ -6,14 +6,17 @@ import {Dimensions, View} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google} from '../../../assets/images';
+import {Facebook, Google, LoginImg} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { login } from '../../../redux/actions/Auth.action';
+import ToggleSwitch from '../../../components/cToggleSwitch/CToggleSwitch';
+import i18n from '../../../utils/i18n/i18n';
 const {width, height} = Dimensions.get('screen')
 
 function Login({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [value , selectValue] = useState(false) 
 
   const reduxState = useSelector(({auth, global}) => {
     return {
@@ -24,12 +27,16 @@ function Login({route}) {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Sing in',
-    bgHeadeStyle:{width: width * 1, height: height * 0.3, marginTop: -30, paddingVertical: 40, paddingHorizontal: 20}
+    showCenterLogo : LoginImg
   };
 
   const submit = async values => {
     dispatch(login())
   };
+
+  useEffect(() => {
+    i18n.changeLanguage(!value ? "en" :"hi");
+  }, [value]);
 
   return (
     <Container
@@ -42,23 +49,28 @@ function Login({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
+        
       {/* <CPagination /> */}
       <CForm submit={submit} loading={reduxState?.loading} onForgotPress={()=> navigation.navigate('Forgot')} />
-      <View style={AuthStyle.orContainer}>
+      <View style={{flex:1 , alignSelf:"center"}}>
+      <ToggleSwitch isOn={value}  onToggle={selectValue} />
+
+        </View>
+
+
+      <View style={[AuthStyle.orContainer , AuthStyle.googleContainer]}>
         <ProgressiveImage
           source={Google}
           resizeMode={'contain'}
           style={AuthStyle.IconImage}
         />
-        <ProgressiveImage
-          source={Facebook}
-          resizeMode={'contain'}
-          style={AuthStyle.IconImage}
-        />
+        <CText style={AuthStyle.googleAccount}>Login With Google</CText>
+      
       </View>
+
       <View style={AuthStyle.orContainer}>
-        <CText style={AuthStyle.cardBottomText}>New to UNIHUB?</CText>
-        <CText onPress={()=> navigation.navigate('Register')} style={[AuthStyle.cardBottomText2]}>Sign Up</CText>
+        <CText style={AuthStyle.cardBottomText}>Don’t have an account?</CText>
+        <CText onPress={()=> navigation.navigate('Information')} style={[AuthStyle.cardBottomText2]}>Register?</CText>
       </View>
     </Container>
   );
