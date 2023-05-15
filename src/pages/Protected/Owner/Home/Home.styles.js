@@ -18,7 +18,7 @@ export default StyleSheet.create({
     fontSize: 24,
     fontFamily: theme.font.semiBold,
     fontWeight: '600',
-    paddingVertical:10
+    marginTop:10
   },
   subHeading: {
     color: theme.light.colors.gray4,
@@ -41,8 +41,10 @@ export default StyleSheet.create({
   },
   list: {
     alignSelf:'center',
-    marginVertical: 10,
+    // marginBottom:-40,
+    // marginVertical: 10,
     flexDirection: 'row',
+    marginLeft:-10
   },
   menu: {
     backgroundColor: 'rgba(188,217,174,0.3)',
@@ -60,5 +62,22 @@ export default StyleSheet.create({
     fontFamily: theme.font.regular,
     fontWeight: '400',
     marginBottom:40,
-  }
+  },
+  BarChart:{
+    backgroundColor: '#FFF',
+    padding:10,
+    overflow:'hidden',
+    borderRadius: 10,
+    elevation: 5,
+    marginVertical: 10,
+  }, 
+  Calender:{
+    backgroundColor: '#FFF',
+    padding:10,
+    overflow:'hidden',
+    borderRadius: 10,
+    elevation: 5,
+    marginVertical: 10,
+    marginBottom:20
+  },
 });

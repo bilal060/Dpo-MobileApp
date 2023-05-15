@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { AddNewManager, Managers, NewSpace,  } from '../../pages/Protected/Owner';
+import {AddNewManager, Chats, Managers, Messages, NewSpace} from '../../pages/Protected/Owner';
 const Stack = createStackNavigator();
 
 const StackScreenOptions = {
@@ -14,7 +14,10 @@ function OwnerStack() {
       screenOptions={StackScreenOptions}>
       <Stack.Screen name="Managers" component={Managers} />
       <Stack.Screen name="AddNewManager" component={AddNewManager} />
-<Stack.Screen name="NewSpace" component={NewSpace} />
+      <Stack.Screen name="NewSpace" component={NewSpace} />
+    <Stack.Screen name="Messages" component={Messages} />
+   
+     
     </Stack.Navigator>
   );
 }

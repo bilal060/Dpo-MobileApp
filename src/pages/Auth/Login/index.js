@@ -31,7 +31,7 @@ function Login({route}) {
   };
 
   const submit = async values => {
-    dispatch(login())
+    dispatch(login(values))
   };
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function Login({route}) {
 
       <View style={AuthStyle.orContainer}>
         <CText style={AuthStyle.cardBottomText}>Don’t have an account?</CText>
-        <CText onPress={()=> navigation.navigate('Information')} style={[AuthStyle.cardBottomText2]}>Register?</CText>
+        <CText onPress={()=> navigation.navigate('Register')} style={[AuthStyle.cardBottomText2]}>Register?</CText>
       </View>
     </Container>
   );

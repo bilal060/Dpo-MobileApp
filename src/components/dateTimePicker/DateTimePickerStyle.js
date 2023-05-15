@@ -10,13 +10,15 @@ export default StyleSheet.create({
         flex: 1,
         marginLeft:5,
         // color: theme['light'].colors.fontColor,
-        fontFamily: theme.font.regular,
         fontSize: 16,
         borderBottomColor: theme.light.colors.gray3,
         borderBottomWidth:0.5,
         paddingBottom:10,
+    marginLeft:10,
+
         fontFamily: theme.font.medium,
-        color:  theme['light'].colors.gray4,
+        color: theme.light.colors.gray7,
+
 
     },
     buttonLoading : {

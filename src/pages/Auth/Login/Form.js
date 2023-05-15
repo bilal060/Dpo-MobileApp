@@ -54,7 +54,7 @@ function CForm(props) {
                   // leftIconNAme="alternate-email"
                   // leftIconeSize={20}
                   returnKeyType="next"
-                  onSubmitEditing={() => handleSubmit()}
+                  onSubmitEditing={() =>password.current.focus()}
                 />
 
                 <CInput
@@ -64,8 +64,8 @@ function CForm(props) {
                   onChangeText={handleChange('password')}
                   secureTextEntry={true}
                   error={errors.password}
-                  returnKeyType="next"
-                  onSubmitEditing={() => cpassword.current.focus()}
+                  returnKeyType="done"
+                  onSubmitEditing={() => handleSubmit()}
                   // leftIconType="SimpleLineIcons"
                   // leftIconColor={themes.light.colors.gray4}
                   // leftIconNAme="lock"

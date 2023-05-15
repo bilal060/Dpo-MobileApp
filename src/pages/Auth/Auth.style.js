@@ -171,7 +171,7 @@ export default StyleSheet.create({
   },
   forgotText: {
     color: themes['light'].colors.primary,
-    marginTop: -10,
+    // marginTop: -10,
     fontFamily: themes.font.regular,
     fontWeight: '700',
   },

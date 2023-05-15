@@ -103,10 +103,10 @@ function CForm(props) {
               </View>
 
               <CInput
-                ref={dob}
+                ref={email}
                 placeholder={'Manager’s Email Address'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
+                value={values.email}
+                onChangeText={handleChange('email')}
                 error={errors.dob}
                 sec
                 leftIconNAme={EmailIcon}

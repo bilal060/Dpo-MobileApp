@@ -19,6 +19,8 @@ import RadioButton from "./radioButton/RadioButton";
 import CDropDown from "./cDropDown";
 import ProfileCard from "./profileCard/index";
 import SpaceCard from "./spaceCard/SpaceCard";
+import BookingCard from "./BookingCard/BookingCard";
+
 
 
 
@@ -45,5 +47,6 @@ export {
     CPagination,
     CDropDown,
     ProfileCard,
-    SpaceCard
+    SpaceCard,
+    BookingCard
 }

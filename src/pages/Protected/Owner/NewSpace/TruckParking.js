@@ -26,7 +26,7 @@ import {
 import * as Yup from 'yup';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 
-function TruckParking(props) {
+function CarParking(props) {
   const {submit, loading, toggleCountryModal, selectedCountry} = props;
 
   const scheme = Yup.object().shape({
@@ -39,10 +39,17 @@ function TruckParking(props) {
   const fullName = useRef(null);
   const email = useRef(null);
   const number = useRef(null);
-  const cpassword = useRef(null);
-  const password = useRef(null);
+  const decs = useRef(null);
+  const location = useRef(null);
   const dob = useRef(null);
   const idCard = useRef(null);
+  const fuel = useRef(null);
+  const parking = useRef(null);
+  const rMonth = useRef(null);
+  const rHour = useRef(null);
+  const rDay = useRef(null);
+  const rWeek = useRef(null);
+
 
   return (
     <Formik
@@ -105,11 +112,11 @@ function TruckParking(props) {
               </View>
 
               <CInput
-                ref={dob}
+                ref={location}
                 placeholder={'Enter Location'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
-                error={errors.dob}
+                value={values.location}
+                onChangeText={handleChange('location')}
+                error={errors.location}
                 sec
                 leftIconNAme={LocationIcon}
                 returnKeyType="next"
@@ -141,33 +148,33 @@ function TruckParking(props) {
                 onSubmitEditing={() => idCard.current.focus()}
               />
               <CInput
-                ref={dob}
+                ref={decs}
                 placeholder={'Add Description...'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
-                error={errors.dob}
+                value={values.decs}
+                onChangeText={handleChange('decs')}
+                error={errors.decs}
                 sec
                 leftIconNAme={DesIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => idCard.current.focus()}
               />
               <CInput
-                ref={dob}
+                ref={parking}
                 placeholder={'Enter Parking Capacity '}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
-                error={errors.dob}
+                value={values.parking}
+                onChangeText={handleChange('parking')}
+                error={errors.parking}
                 sec
                 leftIconNAme={ParkingIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => idCard.current.focus()}
               />
               <CInput
-                ref={dob}
+                ref={fuel}
                 placeholder={'Select Fuel Availability'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
-                error={errors.dob}
+                value={values.fuel}
+                onChangeText={handleChange('fuel')}
+                error={errors.fuel}
                 sec
                 type="view"
                 leftIconNAme={FuelIcon}
@@ -177,11 +184,11 @@ function TruckParking(props) {
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
                   <CInput
-                    ref={dob}
+                    ref={rHour}
                     placeholder={'Rate / Hour'}
-                    value={values.dob}
-                    onChangeText={handleChange('dob')}
-                    error={errors.dob}
+                    value={values.rHour}
+                    onChangeText={handleChange('rHour')}
+                    error={errors.rHour}
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
@@ -190,11 +197,11 @@ function TruckParking(props) {
                 </View>
                 <View style={Styles.inputView}>
                   <CInput
-                    ref={dob}
+                    ref={rDay}
                     placeholder={'Rate / Day'}
-                    value={values.dob}
-                    onChangeText={handleChange('dob')}
-                    error={errors.dob}
+                    value={values.rDay}
+                    onChangeText={handleChange('rDay')}
+                    error={errors.rDay}
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
@@ -205,11 +212,11 @@ function TruckParking(props) {
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
                   <CInput
-                    ref={dob}
+                    ref={rWeek}
                     placeholder={'Rate / Week'}
-                    value={values.dob}
-                    onChangeText={handleChange('dob')}
-                    error={errors.dob}
+                    value={values.rWeek}
+                    onChangeText={handleChange('rWeek')}
+                    error={errors.rWeek}
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
@@ -218,11 +225,11 @@ function TruckParking(props) {
                 </View>
                 <View style={Styles.inputView}>
                   <CInput
-                    ref={dob}
+                    ref={rMonth}
                     placeholder={'Rate / Month'}
-                    value={values.dob}
-                    onChangeText={handleChange('dob')}
-                    error={errors.dob}
+                    value={values.rMonth}
+                    onChangeText={handleChange('rMonth')}
+                    error={errors.rMonth}
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
@@ -242,7 +249,7 @@ function TruckParking(props) {
                     source={UploadIcon}
                     style={Styles.inputLeftIconButton}
                     resizeMode={'contain'}
-                  />
+                  /> 
                 </View>
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
@@ -275,4 +282,4 @@ function TruckParking(props) {
     </Formik>
   );
 }
-export default memo(TruckParking);
+export default memo(CarParking);

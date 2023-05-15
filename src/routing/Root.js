@@ -37,6 +37,10 @@ import {useNavigation} from '@react-navigation/native';
 import OwnerStack from './Stacks/Owner';
 import {themes} from '../theme/colors';
 import HomeStack from './Stacks/HomeStack';
+import SpaceStack from './Stacks/SpaceStack';
+import { AllBooking, Chats } from '../pages/Protected/Owner';
+import ChatStack from './Stacks/Chat';
+import ProfileStack from './Stacks/MyProfile';
 
 const Screen1 = () => {
   return <View style={styles.screen1} />;
@@ -63,10 +67,10 @@ export default function App() {
         icon = selectedTab === routeName ? FocusedBooking : Booking;
         break;
       
-      case 'Manager':
+      case 'Manager1':
         icon = selectedTab === routeName ? FocusedManager : Managers;
         break;
-      case 'Message':
+      case 'Messages':
         icon = selectedTab === routeName ? FocusedMessage : Message;
         break;
       case 'Setting':
@@ -103,7 +107,7 @@ export default function App() {
   return (
     <CurvedBottomBar.Navigator
       type="DOWN"
-      screenOptions={{headerShown: false}}
+      screenOptions={{headerShown: false , }}
       tabBarOptions={{style: {backgroundColor: 'yellow'}}}
       style={{borderRadius: 50}}
       shadowStyle={styles.shawdow}
@@ -132,28 +136,29 @@ export default function App() {
       />
       <CurvedBottomBar.Screen
         name="MySpace"
-        component={() => <OwnerStack />}
+        component={() => <SpaceStack />}
         position="LEFT"
       />
       <CurvedBottomBar.Screen
         name="Booking"
-        component={() => <OwnerStack />}
+        component={() => <AllBooking />}
         position="LEFT"
       />
 
       <CurvedBottomBar.Screen
-        name="Manager"
-        component={() => {}}
+        name="Manager1"
+        component={() => <OwnerStack/>}
         position="RIGHT"
       />
       <CurvedBottomBar.Screen
-        name="Message"
-        component={() => <OwnerStack />}
+        name="Messages"
+        component={() => <ChatStack />}
         position="RIGHT"
+        
       />
       <CurvedBottomBar.Screen
         name="Setting"
-        component={() => <OwnerStack />}
+        component={() => <ProfileStack /> }
         position="RIGHT"
       />
     </CurvedBottomBar.Navigator>

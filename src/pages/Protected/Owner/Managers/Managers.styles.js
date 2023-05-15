@@ -28,6 +28,21 @@ export default StyleSheet.create({
 
 
   },
+  inputInnerContainerStyle:{
+    backgroundColor: 'transparent',
+    border:0,
+    width:width*0.90,
+    marginTop:10,
+    marginLeft:-10
+
+  },
+  mainHeading: {
+    color: theme.light.colors.iconColor,
+    fontSize: 24,
+    fontFamily: theme.font.semiBold,
+    fontWeight: '600',
+    marginTop:10,
+  },
   manager:{
     fontSize:13,
     color: theme['light'].colors.grey4,

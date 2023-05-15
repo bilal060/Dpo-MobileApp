@@ -1,11 +1,11 @@
 import React, {memo} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, FlatList} from 'react-native';
 import {CText, ProgressiveImage, RadioButton} from '../index';
 import Style from './SpaceCard.style';
 import {
   CallColoured,
   FocusedBooking,
-  FocusedSpace,
+  threeDots,
   LocationColored,
   Profile,
   SpaceImg,
@@ -15,6 +15,7 @@ import {
   lengthIcon,
   plugIcon,
   rateIcon,
+  Camera,
 } from '../../assets/images';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
@@ -23,9 +24,44 @@ const SpaceCard = ({
   name = 'Belmont, North Carolina',
   phone = '+1 012 3456 789',
   address = 'Belmont, North Carolina',
+  mainContainer,
+  onPress,
+  imgData,
 }) => {
+  const renderItem = () => {
+    return (
+      <ProgressiveImage
+        resizeMode="cover"
+        source={SpaceImg}
+        style={{
+          width: 50,
+          height: 50,
+          marginHorizontal: 5,
+          marginVertical: 5,
+          borderRadius: 5,
+        }}
+      />
+    );
+  };
+  const renderFooter = () => {
+    return (
+      <ProgressiveImage
+        resizeMode="cover"
+        source={Camera}
+        style={{
+          width: 50,
+          height: 50,
+          marginHorizontal: 5,
+          marginVertical: 5,
+          borderRadius: 5,
+        }}
+      />
+    );
+  };
   return (
-    <View style={Style.spaceContainer}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[Style.spaceContainer, mainContainer]}>
       <ProgressiveImage
         resizeMode="cover"
         source={SpaceImg}
@@ -35,15 +71,24 @@ const SpaceCard = ({
         <View
           style={{
             paddingHorizontal: 10,
+            paddingBottom: 20,
             borderBottomWidth: 1,
             borderBottomColor: '#E7E6E9',
             padding: 4,
           }}>
+          {imgData && (
+            <FlatList
+              data={imgData}
+              renderItem={renderItem}
+              ListFooterComponent={renderFooter}
+              horizontal
+            />
+          )}
           <CText style={Style.ProfileName}>{name}</CText>
           <View
             style={[
               GlobalStyle.row,
-              {alignItems: 'center', marginVertical: 4},
+              {alignItems: 'center', marginVertical: 5},
             ]}>
             <View style={[GlobalStyle.row, {width: '45%'}]}>
               <ProgressiveImage
@@ -62,7 +107,11 @@ const SpaceCard = ({
               <CText style={GlobalStyle.contact}>{phone}</CText>
             </View>
           </View>
-          <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
+          <View
+            style={[
+              GlobalStyle.row,
+              {alignItems: 'center', marginVertical: 5},
+            ]}>
             <ProgressiveImage
               source={LocationColored}
               resizeMode="contain"
@@ -102,41 +151,41 @@ const SpaceCard = ({
           </View>
         </View>
         <View
-          style={[GlobalStyle.row, {marginHorizontal: 10, marginVertical: 10}]}>
+          style={[GlobalStyle.row, {marginHorizontal: 10, marginVertical: 7}]}>
           <>
             <ToggleSwitch size={'true'} isOn={true} label="Available" />
           </>
-          <View style={[GlobalStyle.row, {marginHorizontal: 10, }]}>
+          <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
             <ProgressiveImage
               source={plugIcon}
               resizeMode="contain"
-              style={{width: 17, height: 17 , marginLeft:7}}
+              style={{width: 17, height: 17, marginLeft: 7}}
             />
             <ProgressiveImage
               source={lengthIcon}
               resizeMode="contain"
-              style={{width: 17, height: 17 , marginLeft:7}}
+              style={{width: 17, height: 17, marginLeft: 7}}
             />
             <ProgressiveImage
               source={docIcon}
               resizeMode="contain"
-              style={{width: 17, height: 17 , marginLeft:7}}
+              style={{width: 17, height: 17, marginLeft: 7}}
             />
             <ProgressiveImage
               source={fuelIcon}
               resizeMode="contain"
-              style={{width: 17, height: 17 , marginLeft:7}}
+              style={{width: 17, height: 17, marginLeft: 7}}
             />
 
-<ProgressiveImage
-              source={fuelIcon}
+            <ProgressiveImage
+              source={threeDots}
               resizeMode="contain"
-              style={{width: 17, height: 17 , marginLeft:7}}
+              style={{width: 17, height: 17, marginLeft: 7}}
             />
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

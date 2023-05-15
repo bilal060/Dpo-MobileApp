@@ -10,8 +10,7 @@ export default StyleSheet.create({
   //input style
   inputContainer: {
     marginBottom: 20,
- 
-
+    
   },
   inputLabel: {
     fontSize: 14,
@@ -38,6 +37,7 @@ export default StyleSheet.create({
     fontFamily: themes.font.medium,
     fontWeight: '400',
     flex: 1,
+    marginLeft:10,
 
     height: 45,
     // paddingHorizontal: 0,
@@ -48,13 +48,14 @@ export default StyleSheet.create({
     color: themes.light.colors.fontColor,
     fontFamily: themes.font.medium,
     fontWeight: '400',
+    marginLeft:5,
     textAlign: 'left',
   },
   inputInnerContainer: {
     // padding:5,
     // position: 'relative',
     alignContent: 'center',
-  
+
     justifyContent: 'center',
 
     // // borderColor: themes.light.colors.lightenGray,
@@ -173,12 +174,10 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   slectedViewDropDownIcon: {
-    fontSize:17,
+    fontSize: 17,
     color: theme.light.colors.gray4,
     marginLeft: 10,
-
   },
-
 
   listHeader: {
     marginHorizontal: 20,
@@ -232,7 +231,7 @@ export default StyleSheet.create({
 
   list: {
     // paddingHorizontal: 30,
-  // paddingBottom: 50,
+    // paddingBottom: 50,
   },
   listItem: {
     flexDirection: 'row',
@@ -602,4 +601,17 @@ export default StyleSheet.create({
   searchInputStyle: {
     color: theme.light.colors.primary,
   },
+  profileDetailsView: {
+    flex: 1,
+    paddingHorizontal: 10,
+    marginRight:20,
+    
+    height: 90,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E7E6E9',
+  },
+  alignItems:{
+    alignItems: 'center',
+    alignContent: 'center',
+  }
 });

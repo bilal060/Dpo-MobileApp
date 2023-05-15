@@ -79,22 +79,57 @@ import plugIcon from './icons/plug.png';
 import lengthIcon from './icons/lenght.png';
 import fuelIcon from './icons/fuel.png';
 import docIcon from './icons/doc.png';
+import threeDots from './icons/threeDots.png';
+import filterIcon from './icons/filter.png';
+import Camera from './icons/camera.png';
+import Menu from './icons/menu.png';
+import EditProfile from './icons/EditPro.png';
+import Faq from './icons/Faq.png';
+import ChangePass from './icons/ChangePass.png';
+import Privacy from './icons/Privacy.png';
+import Payment from './icons/Payment.png';
+
+import Logout from './icons/Logout.png';
+import ArrowLeft from './icons/ArrowLeft.png';
+import langIcon from './icons/langIcon.png';
+
+import Paid from './Paid.png';
+import Total from './Total.png';
+import Cancel from './Cancel.png';
+import Earning from './Earning.png';
+
 
 
 
 
 export {
   HeaderImg,
+  threeDots,
+  filterIcon,
   LocationColored,
   CallColoured,
+  Menu,
   plugIcon,
+  Total,
   lengthIcon,
+  Paid,
+  EditProfile,
+  Faq,
+  ChangePass,
+  Privacy,
+  Payment,
+  Logout,
+  langIcon,
+  Cancel,
   fuelIcon,
+  Earning,
+  ArrowLeft,
   docIcon,
   CameraIcon,
   RegisterImg,
   Logo,
   EmailIcon,
+  Camera,
   FuelIcon,
   bookingIcon,
   rateIcon,
