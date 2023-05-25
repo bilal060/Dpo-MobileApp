@@ -14,7 +14,10 @@ export const post = (url, data, config) => {
 export const put = (url, data) => {
     return axios.put(url, data);
 };
-
+export const patch = (url, data, config) => {
+    
+    return axios.patch(url, data, config);
+};
 export const encodeQueryData = (data) => {
     const ret = [];
     for (const d in data) {
@@ -53,12 +56,10 @@ export const handleSuccess = (
     otherOptions
 ) => {
     Toast.show({
-        type: "success",
-        text1: "Successfully",
-        text2: message || "",
-        topOffset: Platform.OS === "ios" ? 55 : 15,
-        ...otherOptions,
-    });
+        type: 'success',
+        text1: message,
+        text2: defaultDescription
+      });
 };
 
 export const MappedElement = ({ data, renderElement, empty }) => {

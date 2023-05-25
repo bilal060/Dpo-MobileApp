@@ -21,7 +21,7 @@ const Home = ({navigation}) => {
     ProgressiveImageHeader: true,
     headerRight:true,
     headerRightImg:false,
-    headerRightImg:Notification
+    headerRightImg:Profile
   };
   const listData = [
     {
@@ -46,7 +46,7 @@ const Home = ({navigation}) => {
     return (
       <TouchableOpacity onPress={item.onPress} style={{flexDirection: 'column', alignItems: 'center'}}>
         <View style={Styles.menu}>
-          <ProgressiveImage
+          <ProgressiveImage             
             source={item.img}
             style={{height: 40, width: 40}}
             resizeMode={'contain'}

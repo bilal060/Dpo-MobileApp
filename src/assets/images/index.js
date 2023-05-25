@@ -99,10 +99,43 @@ import Cancel from './Cancel.png';
 import Earning from './Earning.png';
 
 
+import Explore from './explore.png';
+import Banner from './banner.png';
 
+import FocusedExplore from './FocusedExplore.png';
 
+import ChargingStation from './icons/charging-station.png';
+import GasStation from './icons/gas-station.png';
+import PitStop from './icons/pit-stop.png';
+import Car from './icons/car.png';
+import Carrier from './icons/carrier.png';
+import Crane from './icons/crane.png';
 
+import Forklift from './icons/forklift.png';
+import Inventory from './icons/inventory.png';
+import Towtruck from './icons/tow-truck.png';
+import Van from './icons/van.png';
+import Warehouse from './icons/warehouse.png';
+import Wrench from './icons/wrench.png';
+import BNotification from './icons/Notification.png';
+import Language from './icons/Language.png';
+import Rating from './icons/Rating.png';
 export {
+  ChargingStation,
+  GasStation,
+  PitStop,
+  Car,
+  Carrier,
+  Crane,
+  Forklift,
+  Inventory,
+  Towtruck,
+  Van,
+  Warehouse,
+  Wrench,
+  BNotification,
+  Rating,
+  Language,
   HeaderImg,
   threeDots,
   filterIcon,
@@ -112,7 +145,10 @@ export {
   plugIcon,
   Total,
   lengthIcon,
+  Explore,
+  FocusedExplore,
   Paid,
+  Banner,
   EditProfile,
   Faq,
   ChangePass,

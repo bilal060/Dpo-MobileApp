@@ -62,7 +62,6 @@ const CInput = React.forwardRef((props, ref) => {
     textStyle
   } = props;
 
-  console.log('selectedCountry?.detail', leftIconNAme);
   const renderLabel = () => {
     return (
       <CText style={[{...GlobalStyle.inputLabel, ...inputLabelStyle}]}>

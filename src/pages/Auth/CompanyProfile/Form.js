@@ -1,7 +1,7 @@
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {
   CButton,
   CDropDown,
@@ -23,14 +23,22 @@ import {
 } from '../../../assets/images';
 
 function CForm(props) {
-  const {submit, loading, toggleCountryModal, selectedCountry} = props;
+  const {
+    submit,
+    loading,
+    toggleCountryModal,
+    selectedCountry,
+    onDocumentPress,
+    selectedFile,
+  } = props;
 
   const form = useRef(null);
-  const fullName = useRef(null);
+  const CfullName = useRef(null);
+
   const email = useRef(null);
   const number = useRef(null);
-  const cpassword = useRef(null);
-  const password = useRef(null);
+  const cAddress = useRef(null);
+  const cLicenseNo = useRef(null);
   const dob = useRef(null);
   const idCard = useRef(null);
 
@@ -53,11 +61,11 @@ function CForm(props) {
 
               <View style={AuthStyle.cardBody}>
                 <CInput
-                  ref={fullName}
+                  ref={CfullName}
                   placeholder={'Company Name'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
+                  value={values.CfullName}
+                  onChangeText={handleChange('CfullName')}
+                  error={errors.CfullName}
                   sec
                   leftIconNAme={CNameIcon}
                   returnKeyType="next"
@@ -89,25 +97,23 @@ function CForm(props) {
               </View>
 
               <CInput
-                ref={fullName}
+                ref={cLicenseNo}
                 placeholder={'Company License Number'}
-                value={values.fullName}
-                onChangeText={handleChange('fullName')}
-                error={errors.fullName}
+                value={values.cLicenseNo}
+                onChangeText={handleChange('cLicenseNo')}
+                error={errors.cLicenseNo}
                 sec
                 leftIconNAme={CardIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => dob.current.focus()}
               />
 
-
-
               <CInput
-                ref={dob}
+                ref={cAddress}
                 placeholder={'Complete Address'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
-                error={errors.dob}
+                value={values.cAddress}
+                onChangeText={handleChange('cAddress')}
+                error={errors.cAddress}
                 sec
                 leftIconNAme={LocationIcon}
                 returnKeyType="next"
@@ -166,22 +172,30 @@ function CForm(props) {
                   rightIconeColor={themes.light.colors.gray4}
                   rightIconeSize={18}
                 /> */}
-                <CText style={AuthStyle.uploadText}>Upload Registration Documents</CText>
+              <CText style={AuthStyle.uploadText}>
+                Upload Registration Documents
+              </CText>
 
-              <View style={AuthStyle.selectFileView}>
+              <TouchableOpacity
+                onPress={onDocumentPress}
+                style={AuthStyle.selectFileView}>
                 {/* <CText>HHHH</CText> */}
-                <View style={{width:40 , }}>
+                <View style={{width: 40}}>
                   <ProgressiveImage
                     source={UploadIcon}
                     style={AuthStyle.inputLeftIconButton}
-                    resizeMode={'contain'}
+                    resizeMode={'contain'}AQAQAQAQ
                   />
                 </View>
-                <View style={{width:100 , }}>
+                <View style={{width: 100}}>
                   <CText style={AuthStyle.selectFile}>Choose File</CText>
                 </View>
-              </View>
-
+              </TouchableOpacity>
+              { selectedFile?.name &&
+                <CText style={[AuthStyle.uploadText ,{marginLeft:10, marginBottom:10 , color:'#0064FA'}]}>
+                 {selectedFile?.name}
+                </CText>
+              }
               <CButton
                 title={'Register'}
                 iconType="left"

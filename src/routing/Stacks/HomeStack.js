@@ -2,7 +2,8 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import { BookCleaner, BookDetails, BookSummary,  Services } from '../../pages/Protected';
 import OrdersPlacement from './OrdersPlacement'
-import {Home} from '../../pages/Protected/Owner'
+import {Home, NewSpace} from '../../pages/Protected/Owner'
+import ProfileStack from './MyProfile';
 const Stack = createStackNavigator();
 
 const StackScreenOptions = {
@@ -15,6 +16,8 @@ function HomeStack() {
       initialRouteName="Home"
       screenOptions={StackScreenOptions}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Profile" component={ProfileStack} />
+  <Stack.Screen name="NewSpace" component={NewSpace} />
      
       
 
