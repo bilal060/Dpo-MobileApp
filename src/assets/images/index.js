@@ -96,7 +96,9 @@ import langIcon from './icons/langIcon.png';
 import Paid from './Paid.png';
 import Total from './Total.png';
 import Cancel from './Cancel.png';
+
 import Earning from './Earning.png';
+import WelcomeLogo from './WelcomeLogo.png';
 
 
 import Explore from './explore.png';
@@ -120,7 +122,11 @@ import Wrench from './icons/wrench.png';
 import BNotification from './icons/Notification.png';
 import Language from './icons/Language.png';
 import Rating from './icons/Rating.png';
+
+
 export {
+
+  WelcomeLogo,
   ChargingStation,
   GasStation,
   PitStop,
@@ -136,6 +142,7 @@ export {
   BNotification,
   Rating,
   Language,
+main,
   HeaderImg,
   threeDots,
   filterIcon,
