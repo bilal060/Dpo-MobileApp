@@ -2,6 +2,8 @@ import Managers from './Managers/Managers'
 import AddNewManager from './Managers/NewManager/NewManager'
 import NewSpace from './NewSpace'
 import Home from './Home/Home'
+import Explore from './Explore/Explore'
+
 import MySpace from './MySpace/MySpace'
 import SpaceDetails from './MySpace/SpaceDetails/SpaceDetails'
 import Chats from './Chats/Chats'
@@ -29,5 +31,6 @@ export{
     MyProfile,
     Faqs,
     Privacy,
+    Explore,
     EditProfile
 }

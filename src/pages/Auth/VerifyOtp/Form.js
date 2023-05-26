@@ -8,11 +8,11 @@ import {themes} from '../../../theme/colors';
 import { OtpIcon } from '../../../assets/images';
 
 function CForm(props) {
-  const {submit, loading , toggleCountryModal, selectedCountry} = props;
+  const {submit, loading , toggleCountryModal, selectedCountry , email} = props;
+  console.log("🚀 ~ file: Form.js:12 ~ CForm ~ email:", email)
 
   const form = useRef(null);
   const code = useRef(null);
-  const email = useRef(null);
   const number = useRef(null);
   const verifyCode = useRef(null);
 
@@ -32,14 +32,16 @@ function CForm(props) {
                 </CText>
                 <CText style={AuthStyle.cardHeaderSubTitle}>
                   A 6-digit code sent to your  
-                adam*****@gmail.com.
+                </CText>
+                <CText style={AuthStyle.cardHeaderSubTitle}>
+                 {email}  
                 </CText>
               </View>
 
               <View style={AuthStyle.cardBody}>
                 <CInput
                   ref={code}
-                  placeholder={'Enter Email OTP '}
+                  placeholder={'Enter Email OTP'}
                   value={values.otp}
                   onChangeText={handleChange('otp')}
                   error={errors.otp}

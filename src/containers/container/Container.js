@@ -38,7 +38,7 @@ function Container(props) {
 
   const getBackgroundColor = () => {
     if (backgroundColor === 'theme-color') {
-      return theme['light'].colors.danger;
+      return theme['light'].colors.tertiary;
     } else {
       return theme['light'].colors.tertiary;
     }

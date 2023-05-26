@@ -8,13 +8,14 @@ import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
 import {Facebook, Google, LoginImg} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { forgotPass } from '../../../redux/actions/Auth.action';
 const {width, height} = Dimensions.get('screen');
 
 function Forgot({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
- 
+ var email
   const headerProps = {
     showCenterLogo: false,
     headerLeft: true,
@@ -30,8 +31,14 @@ function Forgot({route}) {
   };
 
   const submit = async values => {
+    email = values?.email
+    dispatch(forgotPass(values , callBack))
     // navigation.navigate('ChangePassword');
   };
+  const callBack = (res) =>{
+    navigation.navigate('VerifyOtp' , {email : email , isForget:true})
+
+  }
 
   const reduxState = useSelector(({auth, global}) => {
     return {

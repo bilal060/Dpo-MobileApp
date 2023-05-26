@@ -80,10 +80,9 @@ function CForm(props) {
                           }}
                           source={account === e ? RoleIcon : CNameIcon}
                         />
-                        <CText style={AuthStyle.activeText}>{e}</CText>
+                        <CText style={AuthStyle.activeText}>{e}</CText> 
                       </TouchableOpacity> 
 
-                      // <RadioButton value={account === e ? true : false} onChange={()=> setAccount(e)} title={e} containerStyles={{flexDirection:"row"}} />
                     ))}
                   </View>
                 </>
@@ -97,7 +96,7 @@ function CForm(props) {
                   sec
                   leftIconNAme={EmailIcon}
                   returnKeyType="next"
-                  onSubmitEditing={() => handleSubmit()}
+                  onSubmitEditing={() =>password.current.focus()}
                 />
 
                 {/* <CInput
@@ -131,9 +130,7 @@ function CForm(props) {
                   error={errors.password}
                   returnKeyType="next"
                   onSubmitEditing={() => cpassword.current.focus()}
-                  // leftIconType="SimpleLineIcons"
-                  // leftIconColor={themes.light.colors.gray4}
-                  // leftIconNAme="lock"
+                  
                   leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
@@ -150,9 +147,7 @@ function CForm(props) {
                   error={errors.cpassword}
                   returnKeyType="done"
                   onSubmitEditing={() => handleSubmit()}
-                  // leftIconType="SimpleLineIcons"
-                  // leftIconColor={themes.light.colors.gray4}
-                  // leftIconNAme="lock"
+                  
                   leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
@@ -169,9 +164,7 @@ function CForm(props) {
                 onPress={() => handleSubmit()}
               />
 
-              {/* <View>
-                <CText style={AuthStyle.continueText}>Or continue with</CText>
-              </View> */}
+             
             </View>
           </View>
         );

@@ -34,6 +34,7 @@ const Container = () => {
         <>
             <NavigationContainer theme={theme} ref={navigationRef}>
                 <App />
+                <Toast />
             </NavigationContainer>
         </>
     )

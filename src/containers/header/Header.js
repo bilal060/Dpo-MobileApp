@@ -20,6 +20,7 @@ const Header = props => {
     headerLeft = true,
     headerTitle = '',
     headerTitleElement,
+    headerTile,
     headerRight = false,
     ProgressiveImageHeader,
     backOnPress,
@@ -149,8 +150,11 @@ const Header = props => {
       <View>
         <View style={[GlobalStyle.listItemActions]}>
           {backButtonIcon ? backButton() : null}
-          {ProgressiveImageHeader && (
-            <CText style={GlobalStyle.toggleViewText}>{headerTitle}</CText>
+          {ProgressiveImageHeader  && (
+            <CText style={[GlobalStyle.toggleViewText , headerTile]}>{headerTitle}</CText>
+          )}
+          {headerTile  && (
+            <CText style={[GlobalStyle.toggleView2Text , headerTile]}>{headerTile}</CText>
           )}
 
           {headerRight && rightButton()}

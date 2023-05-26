@@ -46,7 +46,8 @@ const Home = ({navigation}) => {
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
-    headerRightImg: Notification,
+    headerRightImg: Profile,
+    rightPress:()=> navigation.navigate('Profile')
   };
   const listData = [
     {
@@ -92,9 +93,7 @@ const Home = ({navigation}) => {
         </View>
         <CList
           style={Styles.list}
-          // numColumns={2}
           horizontal
-          // contentContainerStyle={[GlobalStyle.list, ]}
           data={listData}
           // loading={reduxState.loading}
           renderItem={renderItem}
@@ -103,12 +102,7 @@ const Home = ({navigation}) => {
             // icon: require('../../assets/images/empty.png'),
             text: 'Store not found',
           }}
-          // onRefreshLoading={reduxState.loading}
-          // onRefreshHandler={() => onRefreshHandler()}
-          // onEndReached={onEndReached}
-          // onEndReachedThreshold={0.1}
-          // maxToRenderPerBatch={10}
-          // windowSize={10}
+         
         />
         <View>
           <View

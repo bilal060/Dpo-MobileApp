@@ -20,7 +20,9 @@ function Login({route}) {
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      loading: auth.signUpLoading,
+      loading: auth.loginLoading,
+      // loading: false,
+
     };
   });
   const headerProps = {
@@ -31,8 +33,12 @@ function Login({route}) {
   };
 
   const submit = async values => {
-    dispatch(login(values))
+    dispatch(login(values , callBack))
   };
+  const callBack = (res) => {
+    console.log("🚀 ~ file: index.js:37 ~ callBack ~ res:", res)
+   
+  }
 
   useEffect(() => {
     i18n.changeLanguage(!value ? "en" :"hi");
@@ -52,10 +58,10 @@ function Login({route}) {
         
       {/* <CPagination /> */}
       <CForm submit={submit} loading={reduxState?.loading} onForgotPress={()=> navigation.navigate('Forgot')} />
-      <View style={{flex:1 , alignSelf:"center"}}>
+      {/* <View style={{flex:1 , alignSelf:"center"}}>
       <ToggleSwitch isOn={value}  onToggle={selectValue} />
 
-        </View>
+        </View> */}
 
 
       <View style={[AuthStyle.orContainer , AuthStyle.googleContainer]}>

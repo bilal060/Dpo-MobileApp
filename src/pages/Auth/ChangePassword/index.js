@@ -6,7 +6,7 @@ import {Dimensions, View} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google} from '../../../assets/images';
+import {Facebook, Google, LoginImg} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen')
 
@@ -23,10 +23,30 @@ function Forgot({route}) {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Reset Password',
-    bgHeadeStyle:{width: width * 1, height: height * 0.3, marginTop: -30, paddingVertical: 40, paddingHorizontal: 20}
+    showCenterLogo : LoginImg,
+    bgHeadeStyle: {
+      width: width * 1,
+      height: height * 0.3,
+      marginTop: -30,
+      paddingVertical: 40,
+      paddingHorizontal: 20,
+    },
   };
 
-  const submit = async values => {};
+
+  const submit = async values => {
+    const { email} = route?.params;
+
+    const payload = {
+        email: email,
+        newPass:values?.password
+    }
+    dispatch(setPassword(payload , callBack))
+  };
+  const callBack = (res) => {
+    navigation.navigate('Login')
+    
+  }
 
   return (
     <Container
@@ -39,7 +59,6 @@ function Forgot({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CPagination />
       <CForm submit={submit} loading={reduxState?.loading} />
       {/* <View style={AuthStyle.orContainer}>
        

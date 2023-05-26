@@ -54,7 +54,7 @@ address and contact number to get code.
                   onSubmitEditing={() => handleSubmit()}
                 />
 
-<CInput
+{/* <CInput
                   ref={number}
                   type="number"
                   // disabled={true}
@@ -75,7 +75,7 @@ address and contact number to get code.
                   error={errors.phone}
                   returnKeyType="next"
                   onSubmitEditing={() => handleSubmit()}
-                />
+                /> */}
                
               </View>
 

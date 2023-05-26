@@ -14,16 +14,19 @@ import {
 import Styles from './Myprofile.style';
 import {themes} from '../../../../theme/colors';
 import {
-    ArrowLeft,
+  ArrowLeft,
+  BNotification,
   ChangePass,
   EditProfile,
   Faq,
+  Language,
   Logout,
   ManagerIcon,
   Notification,
   Payment,
   Privacy,
   Profile,
+  Rating,
 } from '../../../../assets/images';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
@@ -32,13 +35,16 @@ const MyProfile = ({}) => {
   const navigation = useNavigation();
 
   const headerProps = {
-    ProgressiveImageHeader: true,
+    ProgressiveImageHeader: false,
     backButtonIcon: false,
 
-    headerTitle: 'Setting',
+    headerTile: 'Setting',
     headerRight: true,
     headerRightImg: false,
-    headerRightImg: Notification,
+    backButtonIcon: true,
+    headerTransparentStyle: Styles.headerTransparentStyle,
+    headerTitleText: Styles.headerTitleText,
+    headerRightImg: Profile,
     // rightPress: ()=> navigation.navigate("AddNewManager")
   };
 
@@ -48,7 +54,14 @@ const MyProfile = ({}) => {
       address: 'Edit Profile',
       phone: '+1 012 3456 789',
       active: true,
-       navigation: 'EditProfile',
+      navigation: 'EditProfile',
+    },
+
+    {
+      img: Payment,
+      address: 'Payment History',
+      phone: '+1 012 3456 789',
+      active: true,
     },
     {
       img: ChangePass,
@@ -57,26 +70,43 @@ const MyProfile = ({}) => {
       active: true,
     },
     {
-      img: Payment,
-      address: 'Payment History',
+      img: BNotification,
+      address: 'Notifications',
       phone: '+1 012 3456 789',
       active: true,
     },
+  ];
+  const supportdata = [
     {
       img: Faq,
       address: 'FAQs',
       phone: '+1 012 3456 789',
-      active: false,
-      navigation: 'FAQs',
-
+      active: true,
+      navigation: 'EditProfile',
     },
+
     {
       img: Privacy,
       address: 'Privacy Policy',
       phone: '+1 012 3456 789',
       active: true,
-      navigation:"Privacy"
     },
+    {
+      img: Rating,
+      address: 'Rate This App',
+      phone: '+1 012 3456 789',
+      active: true,
+    },
+  ];
+  const prefrencedata = [
+    {
+      img: Language,
+      address: 'Language',
+      phone: '+1 012 3456 789',
+      active: true,
+      navigation: 'EditProfile',
+    },
+
     {
       img: Logout,
       address: 'Log Out',
@@ -85,29 +115,6 @@ const MyProfile = ({}) => {
     },
   ];
 
-  const renderTimeSlot = ({item, index}) => {
-    return (
-      <View style={Styles.memberCard}>
-        <View style={GlobalStyle.row}>
-          <CText style={Styles.manager}>{`Total Managers`}</CText>
-          <ProgressiveImage
-            source={item?.img}
-            resizeMode="contain"
-            style={{width: 25, height: 25, marginTop: 10}}
-          />
-        </View>
-
-        <View>
-          <CText style={Styles.activeMember}>{`14`}</CText>
-        </View>
-      </View>
-    );
-  };
-
-  const renderListHeader = () => (
-    <CText style={Styles.activeMember}>{`All Managers`}</CText>
-  );
-
   const renderProfile = ({item, index}) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate(item?.navigation)}>
@@ -115,17 +122,22 @@ const MyProfile = ({}) => {
           <ProgressiveImage
             source={item?.img}
             resizeMode="contain"
-            style={{width: 25, height: 25}}
+            style={{width: 22, height: 22}}
           />
-          <View style={{flex: 1, paddingHorizontal: 10 , paddingLeft:20}}>
-            <CText style={item.address=== 'Log Out' ?  Styles.logout : Styles.messageName}>{item?.address}</CText>
+          <View style={{flex: 1, paddingHorizontal: 10, paddingLeft: 20}}>
+            <CText
+              style={
+                item.address === 'Log Out' ? Styles.logout : Styles.messageName
+              }>
+              {item?.address}
+            </CText>
           </View>
           <View>
-          <ProgressiveImage
-            source={ArrowLeft}
-            resizeMode="contain"
-            style={{width: 20, height: 20}}
-          />
+            <ProgressiveImage
+              source={ArrowLeft}
+              resizeMode="contain"
+              style={{width: 20, height: 20}}
+            />
           </View>
         </View>
         <View style={Styles.bottomView} />
@@ -146,30 +158,60 @@ const MyProfile = ({}) => {
             paddingVertical: 25,
             backgroundColor: '#FFF',
           }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignSelf: 'center',
-              marginVertical: 10,
-              flex: 1,
-              alignItems: 'center',
-            }}>
-            <ProgressiveImage
-              source={Profile}
-              resizeMode="contain"
-              style={{width: 100, height: 100, borderRadius: 10}}
-            />
-            <CText style={Styles.profileName}>{`Elvis Cadmora`}</CText>
-            <CText style={Styles.profileEmail}>{`elviscadmora@email.com`}</CText>
-            <CText style={Styles.profileContact}>{`+1 012 3456 789`}</CText>
-          </View>
+          <CText style={Styles.profileName}>{`Your Account`}</CText>
+
           <CList
             style={Styles.spacelist}
             // numColumns={2}
             //   horizontal
             // contentContainerStyle={[GlobalStyle.list, ]}
             data={data}
+            // loading={reduxState.loading}
+            renderItem={renderProfile}
+            keyExtractor={(item, index) => index.toString()}
+            emptyOptions={{
+              // icon: require('../../assets/images/empty.png'),
+              text: 'Store not found',
+            }}
+            // onRefreshLoading={reduxState.loading}
+            // onRefreshHandler={() => onRefreshHandler()}
+            // onEndReached={onEndReached}
+            // onEndReachedThreshold={0.1}
+            // maxToRenderPerBatch={10}
+            // windowSize={10}
+          />
+
+          <CText style={Styles.profileName}>{`Support`}</CText>
+
+          <CList
+            style={Styles.spacelist}
+            // numColumns={2}
+            //   horizontal
+            // contentContainerStyle={[GlobalStyle.list, ]}
+            data={supportdata}
+            // loading={reduxState.loading}
+            renderItem={renderProfile}
+            keyExtractor={(item, index) => index.toString()}
+            emptyOptions={{
+              // icon: require('../../assets/images/empty.png'),
+              text: 'Store not found',
+            }}
+            // onRefreshLoading={reduxState.loading}
+            // onRefreshHandler={() => onRefreshHandler()}
+            // onEndReached={onEndReached}
+            // onEndReachedThreshold={0.1}
+            // maxToRenderPerBatch={10}
+            // windowSize={10}
+          />
+
+          <CText style={Styles.profileName}>{`Preferences`}</CText>
+
+          <CList
+            style={Styles.spacelist}
+            // numColumns={2}
+            //   horizontal
+            // contentContainerStyle={[GlobalStyle.list, ]}
+            data={prefrencedata}
             // loading={reduxState.loading}
             renderItem={renderProfile}
             keyExtractor={(item, index) => index.toString()}

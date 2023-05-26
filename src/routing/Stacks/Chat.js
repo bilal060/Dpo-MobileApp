@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { BookCleaner, BookDetails, BookSummary,  Services } from '../../pages/Protected';
-import OrdersPlacement from './OrdersPlacement'
 import {Chats, Home, Messages, MySpace, SpaceDetails} from '../../pages/Protected/Owner'
 const Stack = createStackNavigator();
 
