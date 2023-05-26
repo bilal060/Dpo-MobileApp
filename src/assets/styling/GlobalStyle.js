@@ -123,7 +123,7 @@ export default StyleSheet.create({
     height: 20,
     width: 20,
 
-    color: themes.light.colors.danger,
+    color: themes.light.colors.tertiary,
   },
 
   inputRightButton: {
@@ -428,6 +428,14 @@ export default StyleSheet.create({
     // marginRight: 30,
     fontFamily: themes.font.regular,
     color: themes.light.colors.tertiary,
+    textAlign: 'center',
+  },
+  toggleView2Text: {
+    flex: 1,
+    fontSize: 24,
+    // marginRight: 30,
+    fontFamily: themes.font.regular,
+    color: themes.light.colors.dark,
     textAlign: 'center',
   },
 

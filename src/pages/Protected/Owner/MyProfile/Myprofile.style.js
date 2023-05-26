@@ -14,11 +14,12 @@ export default StyleSheet.create({
   },
   profileName: {
     color: theme['light'].colors.iconColor,
-    fontSize: 18,
-    fontFamily: theme.font.semiBold,
-    textAlign: 'center',
+    fontSize: 20,
+    fontFamily: theme.font.bold,
+    textAlign: 'left',
     lineHeight: 18,
-    marginTop: 5,
+    marginTop: 10,
+    paddingTop:5,
     letterSpacing: 0.5,
   },
   profileEmail: {
@@ -28,7 +29,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     lineHeight: 12,
     marginTop: 5,
-    letterSpacing: 0.5,
+    letterSpacing: 0.5, 
   },
   profileContact: {
     color: theme['light'].colors.dark,
@@ -41,12 +42,12 @@ export default StyleSheet.create({
   },
   ProfileCard: {
     flexDirection: 'row',
-    marginVertical: 10,
-    padding: 10,
+    marginVertical: 5,
+    padding: 8,
     alignItems: 'center',
   },
   messageName: {
-    color: theme['light'].colors.gray4,
+    color: theme['light'].colors.iconColor,
     fontSize: 16,
     fontFamily: theme.font.medium,
     lineHeight: 16,
@@ -70,14 +71,20 @@ export default StyleSheet.create({
     letterSpacing: 0.5,
     marginVertical: 10,
   },
+  headerTransparentStyle:{
+    backgrounColor:"red"
+  },
   answer: {
     color: theme['light'].colors.dark,
-    fontSize: 13,
+    fontSize: 13, 
     fontFamily: theme.font.light,
     lineHeight: 13,
     marginTop: 5,
     letterSpacing: 1,
     marginVertical: 10,
+  },
+  headerTitleText:{
+    color:theme['light'].colors.dark
   },
   card: {
     // borderRadius: 20,

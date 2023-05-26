@@ -11,7 +11,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen');
 import i18n from '../../../utils/i18n/i18n';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import {updateUserProfile} from '../../../redux/actions/Auth.action';
+import moment from 'moment';
+import { navigate } from '../../../routing/Ref';
 function Information({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -27,7 +29,6 @@ function Information({route}) {
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
   const [profileImage, updateProfileImage] = useState(false);
   const [selectDate, updateSelectDate] = useState(false);
-
 
   const [selectedCountry, updateSelectedCountry] = useState(
     reduxState.currentCountry,
@@ -50,8 +51,8 @@ function Information({route}) {
       },
     };
     launchImageLibrary(options, response => {
-      console.log("🚀 ~ file: index.js:80 ~ Information ~ open:", response)
-      updateProfileImage(response?.assets?.[0])
+      console.log('🚀 ~ file: index.js:80 ~ Information ~ open:', response);
+      updateProfileImage(response?.assets?.[0]);
       console.log(response);
     });
   };
@@ -64,7 +65,30 @@ function Information({route}) {
   };
 
   const submit = async values => {
-    navigation.navigate('VerifyOtp');
+    const payload = new FormData();
+    payload.append('fullName', values?.fullName);
+    payload.append('phoneNo', values?.phone);
+    payload.append('dob', moment(selectDate).format('L'));
+    payload.append('bio', values?.bio);
+    payload.append('profile_img', {
+      uri: profileImage?.uri,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    // formData.append('doc_img', selectedFile);
+    // const payload = {
+    //   cType:values?.CfullName,
+    //   cPhone:values?.phone,
+    //   cLicenseNo:values?.cLicenseNo,
+    //   doc_img:selectedFile
+    // }
+    dispatch(updateUserProfile(payload, callBack));
+
+    // navigation.navigate("VerifyOtp")
+  };
+  const callBack = res => {
+    navigation.navigate('Login')
+    console.log('🚀 ~ file: index.js:58 ~ callBack ~ res:', res);
   };
 
   return (

@@ -37,8 +37,8 @@ const App = () => {
 
   return (
     <>
-    <Welcome/>
-     {/* {reduxState?.isLoggedin ? <Auth /> : <Root />} */}
+
+     {!reduxState?.isLoggedin ? <Auth /> : <Root />}
     </>
   );
 };

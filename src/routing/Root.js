@@ -13,9 +13,11 @@ import {
   Add,
   Booking,
   Celender,
+  Explore,
   Faceid,
   FocusedBooking,
   FocusedCalender,
+  FocusedExplore,
   FocusedHome,
   FocusedManager,
   FocusedMegaphone,
@@ -38,7 +40,7 @@ import OwnerStack from './Stacks/Owner';
 import {themes} from '../theme/colors';
 import HomeStack from './Stacks/HomeStack';
 import SpaceStack from './Stacks/SpaceStack';
-import { AllBooking, Chats } from '../pages/Protected/Owner';
+import {AllBooking, Chats, Explore as ExploreScreen} from '../pages/Protected/Owner';
 import ChatStack from './Stacks/Chat';
 import ProfileStack from './Stacks/MyProfile';
 
@@ -60,13 +62,17 @@ export default function App() {
       case 'Home1':
         icon = selectedTab === routeName ? FocusedHome : Home;
         break;
+        case 'Explore':
+        icon = selectedTab === routeName ? FocusedExplore : Explore;
+        break;
       case 'MySpace':
         icon = selectedTab === routeName ? FocusedSpace : MySpace;
         break;
+      
       case 'Booking':
         icon = selectedTab === routeName ? FocusedBooking : Booking;
         break;
-      
+
       case 'Manager1':
         icon = selectedTab === routeName ? FocusedManager : Managers;
         break;
@@ -89,7 +95,7 @@ export default function App() {
         <ProgressiveImage
           source={icon}
           resizeMode={'contain'}
-          style={{width: 55, height: 55, alignSelf: 'center'}}
+          style={{width: 45, height: 45, alignSelf: 'center'}}
         />
       </TouchableOpacity>
     );
@@ -107,7 +113,7 @@ export default function App() {
   return (
     <CurvedBottomBar.Navigator
       type="DOWN"
-      screenOptions={{headerShown: false , }}
+      screenOptions={{headerShown: false}}
       tabBarOptions={{style: {backgroundColor: 'yellow'}}}
       style={{borderRadius: 50}}
       shadowStyle={styles.shawdow}
@@ -117,22 +123,30 @@ export default function App() {
       bgColor="#FFF"
       initialRouteName="title1"
       borderTopLeftRight
-      renderCircle={({selectedTab, navigate}) => (
+      renderCircle={({selectedTab, navigate}) => {
+        console.log("🚀 ~ file: Root.js:177 ~ App ~ navigate:", )
+        return (
         <Animated.View style={styles.btnCircleUp}>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
-            <ProgressiveImage
-              source={Add}
-              resizeMode={'contain'}
-              style={{width: 30, height: 30, alignSelf: 'center'}}
-            />
-          </TouchableOpacity>
-        </Animated.View>
-      )}
+          	<TouchableOpacity onPress={()=> navigate('NewSpace')} style={styles.button} >
+            	<ProgressiveImage
+              	source={Add}
+              	resizeMode={'contain'}
+              	style={{width: 30, height: 30, alignSelf: 'center'}}
+            	/>
+          	</TouchableOpacity>
+        	</Animated.View>
+      	)}}
+      // })
       tabBar={renderTabBar}>
       <CurvedBottomBar.Screen
         name="Home1"
         position="LEFT"
         component={() => <HomeStack />}
+      />
+      <CurvedBottomBar.Screen
+        name="Explore"
+        component={() => <ExploreScreen />}
+        position="LEFT"
       />
       <CurvedBottomBar.Screen
         name="MySpace"
@@ -142,25 +156,24 @@ export default function App() {
       <CurvedBottomBar.Screen
         name="Booking"
         component={() => <AllBooking />}
-        position="LEFT"
+        position="RIGHT"
       />
 
       <CurvedBottomBar.Screen
         name="Manager1"
-        component={() => <OwnerStack/>}
+        component={() => <OwnerStack />}
         position="RIGHT"
       />
       <CurvedBottomBar.Screen
         name="Messages"
         component={() => <ChatStack />}
         position="RIGHT"
-        
       />
-      <CurvedBottomBar.Screen
+      {/* <CurvedBottomBar.Screen
         name="Setting"
-        component={() => <ProfileStack /> }
+        component={() => <ProfileStack />}
         position="RIGHT"
-      />
+      /> */}
     </CurvedBottomBar.Navigator>
   );
 }

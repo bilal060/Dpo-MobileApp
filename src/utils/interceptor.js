@@ -35,7 +35,9 @@ const interceptor = () => {
             return response;
         },
         function (error) {
-            console.log('error', error);
+    console.log("axios.defaults.baseURL" ,axios.defaults.baseURL)
+
+            console.log('error', error.JS);
             console.log('error message', error.response);
             if(error?.response?.status === 401){
                 // store.dispatch(logout(true, 'expire', error?.response?.data?.Message))

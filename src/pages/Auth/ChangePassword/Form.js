@@ -5,6 +5,7 @@ import {View} from 'react-native';
 import {CButton, CInput, CText} from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
+import { PassIcon } from '../../../assets/images';
 
 function CForm(props) {
   const {submit, loading} = props;
@@ -27,17 +28,16 @@ function CForm(props) {
             <View style={AuthStyle.card}>
               <View style={AuthStyle.cardHeader}>
                 <CText style={AuthStyle.cardHeaderTitle}>
-                  Forgot your password
+                Reset Password
                 </CText>
                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                  Enter your new password below
+                Create your new password.
                 </CText>
               </View>
 
               <View style={AuthStyle.cardBody}>
-                <CInput
+              <CInput
                   ref={password}
-                  inputLabel={'Password'}
                   placeholder={'Password'}
                   value={values.password}
                   onChangeText={handleChange('password')}
@@ -45,29 +45,25 @@ function CForm(props) {
                   error={errors.password}
                   returnKeyType="next"
                   onSubmitEditing={() => cpassword.current.focus()}
-                  leftIconType="MaterialCommunityIcons"
-                  leftIconColor={themes.light.colors.fontColor}
-                  leftIconNAme="email"
+                  
+                  leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
                   rightIconName="eyeo"
                   rightIconeColor={themes.light.colors.gray4}
                   rightIconeSize={18}
                 />
-                <CText style={AuthStyle.changePassText}>Password must be eight characters long including one uppercase letter, one special character and alphanumeric characters.</CText>
                 <CInput
-                  ref={password}
-                  inputLabel={'Re-enter Password'}
-                  placeholder={'Re-enter Password'}
-                  value={values.password}
-                  onChangeText={handleChange('password')}
+                  ref={cpassword}
+                  placeholder={'Confirm Password'}
+                  value={values.cpassword}
+                  onChangeText={handleChange('cpassword')}
                   secureTextEntry={true}
-                  error={errors.password}
-                  returnKeyType="next"
-                  onSubmitEditing={() => cpassword.current.focus()}
-                  leftIconType="MaterialCommunityIcons"
-                  leftIconColor={themes.light.colors.fontColor}
-                  leftIconNAme="email"
+                  error={errors.cpassword}
+                  returnKeyType="done"
+                  onSubmitEditing={() => handleSubmit()}
+                  
+                  leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
                   rightIconName="eyeo"
