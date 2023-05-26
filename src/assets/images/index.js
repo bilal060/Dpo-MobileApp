@@ -142,7 +142,6 @@ export {
   BNotification,
   Rating,
   Language,
-main,
   HeaderImg,
   threeDots,
   filterIcon,

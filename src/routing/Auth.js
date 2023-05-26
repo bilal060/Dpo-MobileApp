@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {getValueIntoAsyncStorage} from '../utils/asyncStorage/Functions';
 import {WELCOME_SCREEN} from '../utils/asyncStorage/Constants';
 import {ChangePassword, CompanyProfile, Forgot, Information, Login, Register, VerifyOtp} from '../pages/Auth';
+import Welcome from '../pages/Welcome';
 
 export const Stack = createStackNavigator();
 
@@ -35,7 +36,9 @@ function Auth({initial}) {
         <Stack.Navigator
           initialRouteName={initialRouteName}
           screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Login" component={Login} />
+
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Forgot" component={Forgot} />
           <Stack.Screen name="ChangePassword" component={ChangePassword} />

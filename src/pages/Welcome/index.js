@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,30 +9,28 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { Profile, WelcomeLogo } from '../../assets/images';
-import { ProgressiveImage } from '../../components';
-const Welcome = () => {
+
+import {Profile, WelcomeLogo} from '../../assets/images';
+import {CText, ProgressiveImage} from '../../components';
+import {themes} from '../../theme/colors';
+const {width, height} = Dimensions.get('screen');
+const Welcome = ({navigation}) => {
   const onPressLogin = () => {
+    navigation.navigate('Login');
     // Do something about login operation
   };
   const onPressForgotPassword = () => {
+    navigation.navigate('Register');
+
     // Do something about forgot password operation
   };
   const onPressSignUp = () => {
+    navigation.navigate('Register')
+
     // Do something about signup operation
   };
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  })
 
   return (
     <View style={styles.container}>
@@ -42,102 +40,108 @@ const Welcome = () => {
         resizeMode="contain"
       />
 
-      <TouchableOpacity
-        onPress={onPressLogin}
-        style={styles.loginBtn}>
-        <Text style={[styles.loginText, { color: "white", fontWeight: "bold", }]}>LOGIN </Text>
+      <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+        <CText style={[styles.loginText, {color: 'white', fontWeight: 'bold'}]}>
+          Login
+        </CText>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={onPressLogin}
-        style={styles.createBtn}>
-        <Text style={[styles.loginText, { color: "#0064FA", fontWeight: "bold", }]}>Create New Account </Text>
+      <TouchableOpacity onPress={onPressLogin} style={styles.createBtn}>
+        <CText
+          style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
+          Create New Account
+        </CText>
       </TouchableOpacity>
 
-      <View style={{flexDirection: "row"}}>
+      <View style={{flexDirection: 'row'}}>
         <View style={styles.hairline} />
 
-        <TouchableOpacity onPress={onPressSignUp}>
-          <Text style={styles.forgotAndSignUpText}>OR</Text>
-        </TouchableOpacity>
+        <CText onPress={onPressSignUp} style={styles.forgotAndSignUpText}>
+          OR
+        </CText>
 
         <View style={styles.hairline} />
       </View>
 
-      <TouchableOpacity
-        onPress={onPressLogin}
-        style={styles.registerBtn}
-        color="#000"
-      >
-        <Text style={[styles.loginText, { color: "#0064FA", fontWeight: "bold", }]}>Register as Service Provder </Text>
+      <TouchableOpacity onPress={onPressLogin} style={styles.registerBtn}>
+        <CText
+          style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
+          Register as Service Provder
+        </CText>
       </TouchableOpacity>
     </View>
   );
-}
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: themes.light.colors.tertiary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   hairline: {
     marginTop: 31,
-    backgroundColor: '#E7E6E9',
+    backgroundColor: themes.light.colors.gray3,
     height: 2,
-    width: 150
+    width: width * 0.37,
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 50,
-    color: "#000",
+    color: '#000',
     marginBottom: 50,
   },
   logo: {
     width: 187,
-    height: 62,
+    height: 65,
     marginBottom: 120,
   },
   forgotAndSignUpText: {
-    color: "grey",
+    color: themes.light.colors.gray4,
     marginTop: 24,
-    fontFamily: 'AvenirNext-Bold',
-  fontSize: 11,
-  paddingHorizontal: 5,
-  alignSelf: 'center',
+    fontFamily: themes.font.medium,
+    fontSize: 11,
+    paddingHorizontal: 5,
+    alignSelf: 'center',
+  },
+  loginText: {
+    fontFamily: themes.font.regular,
+    fontSize: 15,
+    lineHeight: 16,
   },
   loginBtn: {
+    width: '80%',
+    color: 'white',
+    backgroundColor: themes.light.colors.primary,
+    fontFamily: themes.font.semiBold,
 
-    width: "80%",
-    color: "white",
-    backgroundColor: "#0064FA",
     borderRadius: 8,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     // marginTop: 20,
     // marginBottom: 10
   },
   createBtn: {
-    width: "80%",
-    color: "#0064FA",
-    backgroundColor: "#F1F6F7",
+    width: '80%',
+    color: themes.light.colors.fontColor,
+    backgroundColor: themes.light.colors.lightenGray,
     borderRadius: 8,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 16,
     // marginBottom: 10
   },
   registerBtn: {
-    width: "80%",
-    color: "#0064FA",
-    backgroundColor: "#E6EFFE",
+    width: '80%',
+    color: '#0064FA',
+    backgroundColor: themes.light.colors.secondary4,
     borderWidth: 1,
-    borderColor: "#0064FA",
+    borderColor: '#0064FA',
     borderRadius: 8,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 31,
     // marginBottom: 10
   },
