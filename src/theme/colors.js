@@ -20,7 +20,7 @@ export const themes = {
             secondary3: '#E3E3E0',
             secondary2: 'rgba(0, 89, 247, 0.38)',
             secondary3: 'rgba(0,100,250 , 0.1)',
-
+            secondary4:"#E6EFFE",
             btnColor:"#EBF4E7",
             lightBorderColor: 'rgba(124, 128, 97, 0.30)',
             
