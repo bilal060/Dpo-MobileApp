@@ -9,6 +9,11 @@ import {changeLanguage} from './src/redux/actions/Language.action';
 import {useTranslation} from 'react-i18next';
 import i18n from './src/utils/i18n/i18n'
 import OwnerStack from './src/routing/Stacks/Owner';
+import Welcome from './src/pages/Welcome';
+
+
+// yaha import kro welcome Screen 
+
 const App = () => {
   const dispatch = useDispatch();
   const {t,} = useTranslation();
@@ -32,7 +37,8 @@ const App = () => {
 
   return (
     <>
-     {reduxState?.isLoggedin ? <Auth /> : <Root />}
+    <Welcome/>
+     {/* {reduxState?.isLoggedin ? <Auth /> : <Root />} */}
     </>
   );
 };

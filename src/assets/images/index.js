@@ -97,12 +97,14 @@ import Paid from './Paid.png';
 import Total from './Total.png';
 import Cancel from './Cancel.png';
 import Earning from './Earning.png';
+import WelcomeLogo from './WelcomeLogo.png'
 
 
 
 
 
 export {
+  WelcomeLogo,
   HeaderImg,
   threeDots,
   filterIcon,
