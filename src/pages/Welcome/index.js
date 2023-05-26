@@ -16,20 +16,21 @@ import {Profile, WelcomeLogo} from '../../assets/images';
 import {CText, ProgressiveImage} from '../../components';
 import {themes} from '../../theme/colors';
 const {width, height} = Dimensions.get('screen');
-const Welcome = () => {
+const Welcome = ({navigation}) => {
   const onPressLogin = () => {
+    navigation.navigate('Login');
     // Do something about login operation
   };
   const onPressForgotPassword = () => {
+    navigation.navigate('Register');
+
     // Do something about forgot password operation
   };
   const onPressSignUp = () => {
+    navigation.navigate('Register')
+
     // Do something about signup operation
   };
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
 
   return (
     <View style={styles.container}>
@@ -54,11 +55,9 @@ const Welcome = () => {
       <View style={{flexDirection: 'row'}}>
         <View style={styles.hairline} />
 
-        {/* <TouchableOpacity > */}
         <CText onPress={onPressSignUp} style={styles.forgotAndSignUpText}>
           OR
         </CText>
-        {/* </TouchableOpacity> */}
 
         <View style={styles.hairline} />
       </View>
@@ -105,11 +104,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   loginText: {
-   
     fontFamily: themes.font.regular,
     fontSize: 15,
-    lineHeight:16
-   
+    lineHeight: 16,
   },
   loginBtn: {
     width: '80%',
