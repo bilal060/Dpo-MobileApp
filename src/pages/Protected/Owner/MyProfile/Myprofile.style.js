@@ -29,7 +29,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     lineHeight: 12,
     marginTop: 5,
-    letterSpacing: 0.5,
+    letterSpacing: 0.5, 
   },
   profileContact: {
     color: theme['light'].colors.dark,
@@ -76,7 +76,7 @@ export default StyleSheet.create({
   },
   answer: {
     color: theme['light'].colors.dark,
-    fontSize: 13,
+    fontSize: 13, 
     fontFamily: theme.font.light,
     lineHeight: 13,
     marginTop: 5,

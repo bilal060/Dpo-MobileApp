@@ -58,10 +58,10 @@ function Login({route}) {
         
       {/* <CPagination /> */}
       <CForm submit={submit} loading={reduxState?.loading} onForgotPress={()=> navigation.navigate('Forgot')} />
-      <View style={{flex:1 , alignSelf:"center"}}>
+      {/* <View style={{flex:1 , alignSelf:"center"}}>
       <ToggleSwitch isOn={value}  onToggle={selectValue} />
 
-        </View>
+        </View> */}
 
 
       <View style={[AuthStyle.orContainer , AuthStyle.googleContainer]}>

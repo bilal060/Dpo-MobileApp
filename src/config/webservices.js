@@ -1,4 +1,4 @@
-export const BASE_URL = "http://10.7.55.80:5001/api/v1/";
+export const BASE_URL = "http://10.7.54.74:5001/api/v1/";
 
 
 export const LOGIN = `${BASE_URL}users/login`;
