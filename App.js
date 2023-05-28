@@ -10,6 +10,7 @@ import {useTranslation} from 'react-i18next';
 import i18n from './src/utils/i18n/i18n'
 import OwnerStack from './src/routing/Stacks/Owner';
 import Welcome from './src/pages/Welcome';
+import NewPayment from './src/pages/Protected/Owner/Payment/NewPayment/NewPayment';
 
 
 // yaha import kro welcome Screen 
@@ -37,8 +38,9 @@ const App = () => {
 
   return (
     <>
-
-     {!reduxState?.isLoggedin ? <Auth /> : <Root />}
+    <NewPayment/>
+{/* <Welcome/> */}
+     {/* {!reduxState?.isLoggedin ? <Auth /> : <Root />} */}
     </>
   );
 };

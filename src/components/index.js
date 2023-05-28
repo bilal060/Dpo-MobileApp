@@ -1,5 +1,6 @@
 import CInput from './cInput/CInput';
 import CButton from "./cButton/CButton";
+import CButtonTrans from "./cButtonTrans/CButtonTrans";
 import CLoading from "./cLoading/CLoading";
 import ProgressiveImage from "./progressiveImage/ProgressiveImage";
 import DateTimePicker from "./dateTimePicker/DateTimePicker";
@@ -29,6 +30,7 @@ import BookingCard from "./BookingCard/BookingCard";
 export {
     CInput,
     CButton,
+    CButtonTrans,
     CLoading,
     DateTimePicker,
     ProgressiveImage,

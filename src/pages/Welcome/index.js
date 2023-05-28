@@ -16,9 +16,11 @@ import {Profile, WelcomeLogo} from '../../assets/images';
 import {CText, ProgressiveImage} from '../../components';
 import {themes} from '../../theme/colors';
 const {width, height} = Dimensions.get('screen');
+
+
 const Welcome = ({navigation}) => {
   const onPressLogin = () => {
-    navigation.navigate('Login');
+    // navigation.navigate('Login');
     // Do something about login operation
   };
   const onPressForgotPassword = () => {
