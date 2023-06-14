@@ -19,6 +19,7 @@ import {
 } from '../../assets/images';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
+import {BASE_URL_IMG} from '../../config/webservices';
 
 const SpaceCard = ({
   name = 'Belmont, North Carolina',
@@ -27,12 +28,16 @@ const SpaceCard = ({
   mainContainer,
   onPress,
   imgData,
+  ratePrize = '0',
+  img,
+  mapView,
+  imgStyles,
 }) => {
-  const renderItem = () => {
+  const renderItem = ({item}) => {
     return (
       <ProgressiveImage
         resizeMode="cover"
-        source={SpaceImg}
+        source={{uri: `${BASE_URL_IMG}${item}`}}
         style={{
           width: 50,
           height: 50,
@@ -62,11 +67,19 @@ const SpaceCard = ({
     <TouchableOpacity
       onPress={onPress}
       style={[Style.spaceContainer, mainContainer]}>
-      <ProgressiveImage
-        resizeMode="cover"
-        source={SpaceImg}
-        style={{width: '100%', height: '50%'}}
-      />
+      {!img ? (
+        <ProgressiveImage
+          resizeMode="cover"
+          source={SpaceImg}
+          style={[{width: '100%', height: '50%'}, imgStyles]}
+        />
+      ) : (
+        <ProgressiveImage
+          resizeMode="cover"
+          source={{uri: img}}
+          style={[{width: '100%', height: '50%'}, imgStyles]}
+        />
+      )}
       <View>
         <View
           style={{
@@ -79,6 +92,8 @@ const SpaceCard = ({
           {imgData && (
             <FlatList
               data={imgData}
+              nestedScrollEnabled
+
               renderItem={renderItem}
               ListFooterComponent={renderFooter}
               horizontal
@@ -90,6 +105,7 @@ const SpaceCard = ({
               GlobalStyle.row,
               {alignItems: 'center', marginVertical: 5},
             ]}>
+              
             <View style={[GlobalStyle.row, {width: '45%'}]}>
               <ProgressiveImage
                 source={CallColoured}
@@ -98,15 +114,38 @@ const SpaceCard = ({
               />
               <CText style={GlobalStyle.contact}>{phone}</CText>
             </View>
-            <View style={[GlobalStyle.row, {width: '45%'}]}>
-              <ProgressiveImage
-                source={CallColoured}
-                resizeMode="contain"
-                style={{width: 12, height: 12}}
-              />
-              <CText style={GlobalStyle.contact}>{phone}</CText>
-            </View>
+           
+            {!mapView && (
+              <View
+                style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
+                <ProgressiveImage
+                  source={rateIcon}
+                  resizeMode="contain"
+                  style={{width: 12, height: 12}}
+                />
+                <CText style={[GlobalStyle.contact]}>Rate :</CText>
+                <CText style={[Style.place, {flex: 1, marginLeft: -30}]}>
+                  {'$ ' + ratePrize}
+                </CText>
+              </View>
+            )}
+            
           </View>
+          {mapView && (
+              <View
+                style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
+                <ProgressiveImage
+                  source={rateIcon}
+                  resizeMode="contain"
+                  style={{width: 12, height: 12}}
+                />
+                <CText style={[GlobalStyle.contact]}>Rate :</CText>
+                <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
+                  {'$ ' + ratePrize}
+                </CText>
+              </View>
+            )}
+
           <View
             style={[
               GlobalStyle.row,
@@ -117,7 +156,7 @@ const SpaceCard = ({
               resizeMode="contain"
               style={{width: 12, height: 12}}
             />
-            <CText style={GlobalStyle.contact}>{address}</CText>
+            <CText numberOfLines={1} style={GlobalStyle.contact}>{address}</CText>
           </View>
           <View
             style={[
@@ -132,58 +171,51 @@ const SpaceCard = ({
                 style={{width: 11, height: 11}}
               />
               <CText style={[GlobalStyle.contact]}>Type :</CText>
-              <CText style={[Style.place, {flex: 1, marginLeft: -50}]}>
+              <CText style={[Style.place, {flex: 1, marginLeft: -10}]}>
                 Car Parking
               </CText>
             </View>
-            <View
-              style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
+          </View>
+        </View>
+        {!mapView && (
+          <View
+            style={[
+              GlobalStyle.row,
+              {marginHorizontal: 10, marginVertical: 7},
+            ]}>
+            <>
+              <ToggleSwitch size={'true'} isOn={true} label="Available" />
+            </>
+            <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
               <ProgressiveImage
-                source={rateIcon}
+                source={plugIcon}
                 resizeMode="contain"
-                style={{width: 12, height: 12}}
+                style={{width: 17, height: 17, marginLeft: 7}}
               />
-              <CText style={[GlobalStyle.contact]}>Rate :</CText>
-              <CText style={[Style.place, {flex: 1, marginLeft: -30}]}>
-                $50
-              </CText>
+              <ProgressiveImage
+                source={lengthIcon}
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+              <ProgressiveImage
+                source={docIcon}
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+              <ProgressiveImage
+                source={fuelIcon}
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+
+              <ProgressiveImage
+                source={threeDots}
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
             </View>
           </View>
-        </View>
-        <View
-          style={[GlobalStyle.row, {marginHorizontal: 10, marginVertical: 7}]}>
-          <>
-            <ToggleSwitch size={'true'} isOn={true} label="Available" />
-          </>
-          <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
-            <ProgressiveImage
-              source={plugIcon}
-              resizeMode="contain"
-              style={{width: 17, height: 17, marginLeft: 7}}
-            />
-            <ProgressiveImage
-              source={lengthIcon}
-              resizeMode="contain"
-              style={{width: 17, height: 17, marginLeft: 7}}
-            />
-            <ProgressiveImage
-              source={docIcon}
-              resizeMode="contain"
-              style={{width: 17, height: 17, marginLeft: 7}}
-            />
-            <ProgressiveImage
-              source={fuelIcon}
-              resizeMode="contain"
-              style={{width: 17, height: 17, marginLeft: 7}}
-            />
-
-            <ProgressiveImage
-              source={threeDots}
-              resizeMode="contain"
-              style={{width: 17, height: 17, marginLeft: 7}}
-            />
-          </View>
-        </View>
+        )}
       </View>
     </TouchableOpacity>
   );

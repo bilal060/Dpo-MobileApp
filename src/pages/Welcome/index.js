@@ -19,19 +19,18 @@ const {width, height} = Dimensions.get('screen');
 const Welcome = ({navigation}) => {
   const onPressLogin = () => {
     navigation.navigate('Login');
-    // Do something about login operation
   };
   const onPressForgotPassword = () => {
     navigation.navigate('Register');
 
-    // Do something about forgot password operation
   };
   const onPressSignUp = () => {
-    navigation.navigate('Register')
-
-    // Do something about signup operation
+    navigation.navigate('Register', {role: 'Business Owner'});
   };
+  const onPressCustomerSignUp = () => {
+    navigation.navigate('Register', {role: 'Customer'});
 
+  };
   return (
     <View style={styles.container}>
       <ProgressiveImage
@@ -45,7 +44,9 @@ const Welcome = ({navigation}) => {
           Login
         </CText>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPressLogin} style={styles.createBtn}>
+      <TouchableOpacity
+        onPress={onPressCustomerSignUp}
+        style={styles.createBtn}>
         <CText
           style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
           Create New Account
@@ -55,14 +56,12 @@ const Welcome = ({navigation}) => {
       <View style={{flexDirection: 'row'}}>
         <View style={styles.hairline} />
 
-        <CText onPress={onPressSignUp} style={styles.forgotAndSignUpText}>
-          OR
-        </CText>
+        <CText style={styles.forgotAndSignUpText}>OR</CText>
 
         <View style={styles.hairline} />
       </View>
 
-      <TouchableOpacity onPress={onPressLogin} style={styles.registerBtn}>
+      <TouchableOpacity onPress={onPressSignUp} style={styles.registerBtn}>
         <CText
           style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
           Register as Service Provder

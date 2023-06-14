@@ -35,8 +35,10 @@ function DateTimePicker({
   disabled,
   minimumDate,
   maximumDate = null,
+  selectButtonText,
   mode = 'date',
   hideIcon,
+  selectContainer
 }) {
   // const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -59,6 +61,7 @@ function DateTimePicker({
           style={[
             GlobalStyle.inputInnerContainer,
             Styles.selectContainer,
+            selectContainer,
             error && GlobalStyle.errorBorder,
           ]}
           activeOpacity={activeOpacity}
@@ -76,10 +79,11 @@ function DateTimePicker({
           <CText
             style={[
               Styles.selectButtonText,
+              selectButtonText,
               {fontSize: 16},
               !value && {color: theme['light'].colors.lightGray},
             ]}>
-            {value ? moment(value).format('MM-DD-YYYY') : placeHolder}
+            {value ? mode === "time" ? moment(value).format('LT') :moment(value).format('MM-DD-YYYY') : placeHolder}
           </CText>
         </TouchableOpacity>
         <ErrorView message={error} />

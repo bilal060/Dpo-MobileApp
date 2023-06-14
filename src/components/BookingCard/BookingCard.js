@@ -31,60 +31,22 @@ import GlobalStyle from '../../assets/styling/GlobalStyle';
 
 // Dummy content to show
 // You can also use dynamic data by calling web service
-const CONTENT = [
-  {
-    title: 'Terms and Conditions',
-    content: `  The following terms and conditions, togethe with any referenced documents form a legal 
-        agreement between you and your employer, employees,
-        agents, contractors and any other entity on whose 
-        behalf you accept these terms`,
-  },
-  {
-    title: 'Privacy Policy',
-    content: `A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users,
-       what kind of personal data you collect and what you do
-       with that data.`,
-  },
-  {
-    title: 'Return Policy',
-    content: `  'Our Return & Refund Policy template lets you get 
-        started with a Return and Refund Policy agreement. 
-        This template is free to download and use. According to
-        TrueShip study, over 60% of customers review a Return/Refund
-        Policy before they make a purchasing decision.'`,
-  },
-];
 
-//To make the selector (Something like tabs)
-const SELECTORS = [
-  {title: 'T&C', value: 0},
-  {title: 'Privacy Policy', value: 1},
-  {title: 'Return Policy', value: 2},
-  {title: 'Reset all'},
-];
 
-const BookingCard = () => {
-  // Default active selector
+const BookingCard = ({Active , fullName , time , contact , parkingType , prize, eTime , sTime ,date, location }) => {
   const [activeSections, setActiveSections] = useState([]);
-  // Collapsed condition for the single collapsible
   const [collapsed, setCollapsed] = useState(true);
-  // MultipleSelect is for the Multiple Expand allowed
-  // True: Expand multiple at a time
-  // False: One can be expand at a time
   const [multipleSelect, setMultipleSelect] = useState(false);
 
   const toggleExpanded = () => {
-    // Toggling the state of single Collapsible
     setCollapsed(!collapsed);
   };
 
   const setSections = sections => {
-    // Setting up a active section state
     setActiveSections(sections.includes(undefined) ? [] : sections);
   };
 
   const renderHeader = (section, _, isActive) => {
-    // Accordion header view
     return (
       <Animatable.View
         duration={400}
@@ -96,7 +58,6 @@ const BookingCard = () => {
   };
 
   const renderContent = (section, _, isActive) => {
-    // Accordion Content view
     return (
       <Animatable.View
         duration={400}
@@ -132,18 +93,18 @@ const BookingCard = () => {
             />
             <View>
               <CText style={styles.titleHeaindg}>Full Name</CText>
-              <CText style={styles.nameHeaindg}>Alexander Franks</CText>
+              <CText style={styles.nameHeaindg}>{fullName}</CText>
             </View>
             <View>
               <CText style={styles.titleHeaindg}>Slot Booked</CText>
-              <CText style={styles.nameHeaindg}>1 Hour Ago</CText>
+              <CText style={styles.nameHeaindg}>{time}</CText>
             </View>
             <View>
               <CIcon
                 type="AntDesign"
                 name={collapsed ? 'up' : 'down'}
                 size={20}
-                color="7D8695"
+                color="#7D8695"
               />
             </View>
             {/*Heading of Single Collapsible*/}
@@ -155,33 +116,47 @@ const BookingCard = () => {
             <View style={[styles.header, {marginTop: -20}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Contact No.</CText>
-                <CText style={styles.nameHeaindg}>+1 012 345 6789</CText>
+                <CText style={styles.nameHeaindg}>{contact}</CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Space Type</CText>
-                <CText style={styles.nameHeaindg}>Truck Parking</CText>
+                <CText style={styles.nameHeaindg}>{parkingType}</CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Total Amount</CText>
-                <CText style={styles.nameHeaindg}>$5</CText>
+                <CText style={styles.nameHeaindg}>{`$${prize}`}</CText>
               </View>
 
               {/*Heading of Single Collapsible*/}
             </View>
-            <View style={[styles.header, {marginTop: -20}]}>
+            <View style={[styles.header, {marginTop: -30}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Booking From</CText>
-                <CText style={styles.nameHeaindg}>Alexander Franks</CText>
+                <CText style={styles.nameHeaindg}>{sTime?.split(":")[0]+": " + sTime?.split(":")[1]}</CText>
+                <CText style={[styles.nameHeaindg , {marginTop:-10}]}>{date}</CText>
+
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Booking To</CText>
-                <CText style={styles.nameHeaindg}>12:30 PM</CText>
+                <CText style={styles.nameHeaindg}>{eTime?.split(":")[0]+": " + eTime?.split(":")[1]}</CText>
+                <CText style={[styles.nameHeaindg , {marginTop:-10}]}>{date}</CText>
+
+
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Status</CText>
-                                  <CText style={GlobalStyle.activeCard}>{'Active'}</CText>
+                <CText style={GlobalStyle.activeCard}>{!Active ? 'Active' : 'Paid'}</CText>
 
               </View>
+
+            </View>
+            <View style={[styles.header, {marginTop: -30}]}>
+              <View>
+                <CText style={styles.titleHeaindg}>Branch Location</CText>
+                <CText style={styles.nameHeaindg}>{location}</CText>
+
+              </View>
+              
 
             </View>
           </>

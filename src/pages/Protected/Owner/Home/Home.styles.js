@@ -80,4 +80,41 @@ export default StyleSheet.create({
     marginVertical: 10,
     marginBottom:20
   },
+  bookingCard: {
+    backgroundColor: theme['light'].colors.tertiary,
+    elevation:5,
+    width: width * 0.415,
+    margin: 8,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height:70,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    padding: 10,
+    // alignSelf:"center"
+  },
+  cardHeading: {
+    color: theme.light.colors.gray4,
+    fontSize: 11,
+    lineHeight: 11,
+    fontFamily: theme.font.regular,
+    fontWeight: '600',
+  },
+  cardHeading: {
+    color: theme.light.colors.gray4,
+    fontSize: 11,
+    lineHeight: 11,
+    fontFamily: theme.font.regular,
+    fontWeight: '600',
+  },
+  cardValue: {
+    color: theme.light.colors.iconColor,
+    fontSize: 16,
+    lineHeight: 16,
+    paddingTop:5,
+    fontFamily: theme.font.semiBold, 
+    fontWeight: '600',
+  },
+ 
 });

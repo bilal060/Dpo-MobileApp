@@ -10,7 +10,8 @@ const scheme = Yup.object().shape({
             // .test("checkPhoneNumber", (value, obj) =>
             //     validateNumberRegex(regex, value || "", obj)
             // )
-            .required("Phone number is required."),
+            .required("Phone number is required.")
+            .min(9, 'Number is too short - should be 9 chars minimum.')
 
 });
 

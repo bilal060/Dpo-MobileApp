@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, Text, View , ScrollView} from 'react-native';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Container, PackageCard} from '../../../../../containers';
 import {
   CButton,
@@ -16,8 +16,12 @@ import Styles from '../Chats.style';
 import {ManagerIcon, Menu, Notification, Profile} from '../../../../../assets/images';
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 import {themes} from '../../../../../theme/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getConversationMessages } from '../../../../../redux/actions/Root.Action';
+import { Socket } from '../../../../../utils/methods';
+import moment from 'moment';
 
-const Managers = ({}) => {
+const Managers = ({route}) => {
   const headerProps = {
     ProgressiveImageHeader: true,
     backButtonIcon: false,
@@ -75,39 +79,93 @@ const Managers = ({}) => {
    
   ];
 
-  const renderTimeSlot = ({item, index}) => {
-    return (
-      <View style={Styles.memberCard}>
-        <View style={GlobalStyle.row}>
-          <CText style={Styles.manager}>{`Total Managers`}</CText>
-          <ProgressiveImage
-            source={ManagerIcon}
-            resizeMode="contain"
-            style={{width: 25, height: 25, marginTop: 10}}
-          />
-        </View>
 
-        <View>
-          <CText style={Styles.activeMember}>{`14`}</CText>
-        </View>
-      </View>
-    );
+  const {conversationId} = route?.params ||{}; 
+  const dispatch = useDispatch();
+  const scrollRef = useRef();
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);  
+  console.log("🚀 ~ file: Messages.js:87 ~ Managers ~ messages:", messages)
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const token = useSelector(state => state.auth.token);
+  const userId = useSelector(state => state.auth.user._id); 
+  useEffect(() => {
+    if (conversationId){
+      getMessages();
+    }
+  }, [conversationId]);   
+  useEffect(() => { 
+    Socket.on("getMessage", (data) => { 
+      const newmessage = {
+        receiverId: data.receiverId,
+        sender: data.senderId,
+        message: data.message, 
+      };
+      setArrivalMessage(newmessage);
+      // setMessages(pre => [...pre, newmessage]);
+    });
+  }, []);
+  useEffect(() => {
+    arrivalMessage &&
+    messages!=undefined && messages[0].conversationId.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  // useEffect(() => {
+  //   scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, []);
+
+  const getMessages = async () => {
+    try {
+      dispatch(getConversationMessages(conversationId, callbackFunc))
+
+    } catch (err) {
+      console.log(err);
+    }
   };
+  const callbackFunc =(res)=>{
+    setMessages(res.messages);
 
-  const renderListHeader = () => (
-    <CText style={Styles.activeMember}>{`All Managers`}</CText>
-  );
+  }
+
+
+  const sendMessage = async ()=>{
+    const newmessage = {
+      "conversationId":conversationId,
+      "sender": userId,
+      "message": message
+    }
+    dispatch(send_messages(newmessage,token)); 
+    setMessages(pre => [...pre, newmessage]);
+    
+
+    setMessage("");
+
+    const receiverId = await messages!=undefined && messages[0].conversationId.members.find(
+      (member) => member !== userId
+    );
+    Socket.emit("sendMessage", {
+      senderId: userId,
+      receiverId: receiverId,
+      message: message,
+    });
+  }
+
+  
 
   const renderProfile = (item, index) => {
-    console.log('itemitemitem', item);
+    const isSender = item?.sender === userId
+    console.log("🚀 ~ file: Messages.js:157 ~ renderProfile ~ isSender:", isSender)
+
+    console.log('itemitemitem---mrssage', item);
     return (
-        <View style={item?.type  === "sender" ?  Styles.reciverView : Styles.senderView}>
+        <View style={isSender ?  Styles.reciverView : Styles.senderView}>
           
           <View style={{flex: 1, paddingHorizontal: 10}}>
-            <CText style={ item?.type  === "sender" ?  Styles?.reviverMessageName  : Styles.senderMessageName}>{item.name}</CText>
+            <CText style={ isSender ?  Styles?.reviverMessageName  : Styles.senderMessageName}>{item.message}</CText>
           </View>
           <View>
-            <CText style={ item?.type  === "sender" ?   Styles?.reciverDate : Styles.senderDate}>{`4/27/23`}</CText>
+            <CText style={ isSender ?   Styles?.reciverDate : Styles.senderDate}>{moment(item?.conversationId?.updatedAt).format('L')}</CText>
           </View>
         </View>
     );
@@ -162,7 +220,8 @@ const Managers = ({}) => {
         <ScrollView style={Styles.chatlist}>
             
         <View style={{marginBottom:50}} >
-          {data.map((item) => (
+          
+          {messages!=undefined && messages.length >= 0 && messages.map((item) => (
             renderProfile(item)
           ))}
           

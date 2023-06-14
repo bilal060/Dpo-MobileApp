@@ -12,14 +12,14 @@ export const Stack = createStackNavigator();
 function Auth({initial}) {
   const dispatch = useDispatch();
 
-  const [initialRouteName, updateInitialRouteName] = useState(null);
+  const [initialRouteName, updateInitialRouteName] = useState("Welcome");
 
   const getAndCheck = async () => {
     let val = await getValueIntoAsyncStorage(WELCOME_SCREEN);
     if (val === 'hide') {
-      updateInitialRouteName(initial ? 'Login' : 'sign_in');
+      updateInitialRouteName(initial ? 'Welcome' : 'sign_in');
     } else {
-      updateInitialRouteName(initial ? 'welcome' : 'sign_in');
+      updateInitialRouteName(initial ? 'Welcome' : 'sign_in');
     }
   };
 

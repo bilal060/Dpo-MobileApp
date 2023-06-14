@@ -30,10 +30,12 @@ import {
 } from '../../../../assets/images';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../../../redux/actions/Auth.action';
 
 const MyProfile = ({}) => {
   const navigation = useNavigation();
-
+const dispatch = useDispatch()
   const headerProps = {
     ProgressiveImageHeader: false,
     backButtonIcon: false,
@@ -104,7 +106,7 @@ const MyProfile = ({}) => {
       address: 'Language',
       phone: '+1 012 3456 789',
       active: true,
-      navigation: 'EditProfile',
+      navigation: 'Langugae',
     },
 
     {
@@ -114,10 +116,13 @@ const MyProfile = ({}) => {
       active: false,
     },
   ];
+  const logOut = ()=>{
+    dispatch(userLogout())
+  }
 
   const renderProfile = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate(item?.navigation)}>
+      <TouchableOpacity onPress={() => item.address === 'Log Out' ? logOut() : navigation.navigate(item?.navigation)}>
         <View style={Styles.ProfileCard}>
           <ProgressiveImage
             source={item?.img}
@@ -185,9 +190,7 @@ const MyProfile = ({}) => {
 
           <CList
             style={Styles.spacelist}
-            // numColumns={2}
-            //   horizontal
-            // contentContainerStyle={[GlobalStyle.list, ]}
+    
             data={supportdata}
             // loading={reduxState.loading}
             renderItem={renderProfile}
@@ -196,12 +199,7 @@ const MyProfile = ({}) => {
               // icon: require('../../assets/images/empty.png'),
               text: 'Store not found',
             }}
-            // onRefreshLoading={reduxState.loading}
-            // onRefreshHandler={() => onRefreshHandler()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
-            // maxToRenderPerBatch={10}
-            // windowSize={10}
+        
           />
 
           <CText style={Styles.profileName}>{`Preferences`}</CText>
@@ -216,15 +214,9 @@ const MyProfile = ({}) => {
             renderItem={renderProfile}
             keyExtractor={(item, index) => index.toString()}
             emptyOptions={{
-              // icon: require('../../assets/images/empty.png'),
               text: 'Store not found',
             }}
-            // onRefreshLoading={reduxState.loading}
-            // onRefreshHandler={() => onRefreshHandler()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
-            // maxToRenderPerBatch={10}
-            // windowSize={10}
+           
           />
         </View>
       </View>

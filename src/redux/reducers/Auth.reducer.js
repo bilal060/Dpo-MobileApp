@@ -5,6 +5,7 @@ const initialState = {
   registerLoading: false,
   verifyLoading: false,
   forgitPassLoading: false,
+  updateUserLoading: false,
   user: {},
   role: '',
 };
@@ -24,6 +25,14 @@ export default (state = initialState, action = {}) => {
         registerLoading: action.loading,
         role: action.role,
       };
+    case AUTH.UPDATE_USERPROFILE_API:
+      return {
+        ...state,
+        updateUserLoading: action.loading,
+        role: action.role,
+      };
+    case AUTH.LOGOUT_USER_API:
+      return {...state, isLoggedIn: action.isLoggedIn, user: action.user};
     case AUTH.VERIFY_OWNER_API:
       return {
         ...state,
@@ -36,6 +45,7 @@ export default (state = initialState, action = {}) => {
         forgitPassLoading: action.loading,
       };
     default:
-      return state;
+      return {...state};
   }
 };
+ 

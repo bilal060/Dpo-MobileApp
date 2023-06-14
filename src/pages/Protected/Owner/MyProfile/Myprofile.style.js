@@ -124,5 +124,16 @@ export default StyleSheet.create({
     lineHeight: 14,
     marginTop: 5,
     letterSpacing: 0.5,
+  },
+  containerStyles:{
+    flex:1,
+    backgroundColor:"red",
+    flexDirection:"row-reverse",
+    justifyContent:"space-between",
+    padding:10
+  },
+  myStyle2:{
+    height:15,
+    width:15
   }
 });

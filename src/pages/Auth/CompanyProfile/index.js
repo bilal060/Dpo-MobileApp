@@ -5,16 +5,29 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Dimensions, Modal, View} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
+import ComapnyForm from './ComapnyForm';
+
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google, LoginImg, RegisterImg} from '../../../assets/images';
+import {
+  Company,
+  Facebook,
+  FocusedCompany,
+  FocusedTruck,
+  Google,
+  LoginImg,
+  RegisterImg,
+  Truck,
+} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {updateUserProfile} from '../../../redux/actions/Auth.action';
+import {updateCompnayProfile, updateUserProfile} from '../../../redux/actions/Auth.action';
 const {width, height} = Dimensions.get('screen');
 import DocumentPicker from 'react-native-document-picker';
+import GlobalStyle from '../../../assets/styling/GlobalStyle';
 
 function CompanyProfile({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [account, setAccount] = useState('Individual');
 
   const reduxState = useSelector(({auth, global}) => {
     return {
@@ -23,6 +36,10 @@ function CompanyProfile({route}) {
       countries: global?.countries,
     };
   });
+  const cData = [
+    {name: 'Individual', image: Truck, activeImg: FocusedTruck},
+    {name: 'Company', image: Company, activeImg: FocusedCompany},
+  ];
 
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
   const [selectedCountry, updateSelectedCountry] = useState(
@@ -46,29 +63,24 @@ function CompanyProfile({route}) {
   };
 
   const submit = async values => {
+    console.log("🚀 ~ file: index.js:66 ~ submit ~ values:", values, null, 2)
+    // "cAddress": "ee", "cName": "aabb", "noOFTruck": "12", "phone": "1234", "truckType": "abc"}
     const formData = new FormData();
-    formData.append('cType', values?.CfullName);
-    formData.append('cPhone', values?.phone);
-    formData.append('cLicenseNo', values?.cLicenseNo);
-    formData.append('cAddress', values?.cAddress);
+    formData.append('companyName', values?.cName);
+    formData.append('companyType', "Individual");
+    formData.append('companyPhone', values?.phone);
+    formData.append('companyLicenseNo', values?.cLicenseNo);
+    formData.append('companyAddress', values?.cAddress);
     formData.append('c_docs', selectedFile);
-    // const payload = {
-    //   cType:values?.CfullName,
-    //   cPhone:values?.phone,
-    //   cLicenseNo:values?.cLicenseNo,
-    //   doc_img:selectedFile
-    // }
-    dispatch(updateUserProfile(formData, callBack));
-
     
+    dispatch(updateCompnayProfile(formData, callBack));
+
     // navigation.navigate("VerifyOtp")
   };
   const callBack = res => {
-    if(res){
-    navigation.navigate("Login")
-
+    if (res) {
+      navigation.navigate('Login');
     }
-    console.log('🚀 ~ file: index.js:58 ~ callBack ~ res:', res);
   };
   const [selected, setSelected] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState();
@@ -80,18 +92,17 @@ function CompanyProfile({route}) {
     {label: 'Four', value: '4'},
     {label: 'Five', value: '5'},
   ];
+
+
+
   const onDocumentPress = async () => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles],
-        //There can me more options as well
-        // DocumentPicker.types.allFiles
-        // DocumentPicker.types.images
-        // DocumentPicker.types.plainText
-        // DocumentPicker.types.audio
-        // DocumentPicker.types.pdf
+        type: [DocumentPicker.types.allFiles]
       });
-      setSelectedFile(res?.[0]);
+
+      setSelectedFile(res?.[0])
+      
       //Printing the log realted to the file
 
       //Setting the state to show single file attributes
@@ -120,17 +131,55 @@ function CompanyProfile({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CForm
-        selectedFile={selectedFile}
-        onDocumentPress={onDocumentPress}
-        label="Select Item"
-        data={data}
-        onSelect={setSelected}
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-      />
+      <View style={[AuthStyle.cardHeader, {marginTop: 20}]}>
+        <CText style={AuthStyle.cardHeaderTitle}>Business Info</CText>
+        <CText style={AuthStyle.cardHeaderSubTitle}>
+          Enter your business information below.
+        </CText>
+      </View>
+      {/* <View style={AuthStyle.typesView}>
+        {cData?.map(e => (
+          <TouchableOpacity
+            onPress={() => setAccount(e.name)}
+            style={
+              account === e?.name
+                ? AuthStyle.activeUser
+                : AuthStyle.unactiveUser
+            }>
+            <ProgressiveImage
+              resizeMode={'contain'}
+              style={{
+                ...GlobalStyle.inputIcon,
+                ...AuthStyle.inputIcon,
+              }}
+              source={account === e.name ? e?.activeImg : e?.image}
+            />
+            <CText
+              style={
+                account === e.name
+                  ? AuthStyle.activeText
+                  : AuthStyle.unActiveText
+              }>
+              {e?.name}
+            </CText>
+          </TouchableOpacity>
+        ))}
+      </View> */}
+      
+        <CForm
+          selectedFile={selectedFile}
+          onDocumentPress={onDocumentPress}
+          label="Select Item"
+          data={data}
+          onSelect={setSelected}
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          account={account}
+          setAccount={setAccount}
+        />
+    
 
       <View
         style={[

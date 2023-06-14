@@ -11,10 +11,23 @@ import {
 } from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
-import {CNameIcon, EmailIcon, PassIcon, PhoneIcon, RoleIcon} from '../../../assets/images';
+import {
+  BServices,
+  CNameIcon,
+  EmailIcon,
+  FocusedOwner,
+  FocusedServices,
+  FocusedTruck,
+  Onwer,
+  PassIcon,
+  PhoneIcon,
+  RoleIcon,
+  Services,
+  Truck,
+} from '../../../assets/images';
 import GlobalStyle from '../../../assets/styling/GlobalStyle';
 import Styles from '../../../containers/tabBar/TabBar.style';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function CForm(props) {
   const {
@@ -24,6 +37,7 @@ function CForm(props) {
     selectedCountry,
     account,
     setAccount,
+    role
   } = props;
   const form = useRef(null);
   const fullName = useRef(null);
@@ -31,6 +45,14 @@ function CForm(props) {
   const number = useRef(null);
   const cpassword = useRef(null);
   const password = useRef(null);
+  const data = [
+    {name: 'Truck Driver', image: Truck, activeImg: FocusedTruck},
+    {name: 'Service Provider', image: BServices, activeImg: FocusedServices},
+    {name: 'Storage Owner', image: Onwer, activeImg: FocusedOwner},
+  ];
+  const [passShow , setPassShow]= useState(true)
+  const [cPassShow , setCPassShow]= useState(true)
+
 
   return (
     <Formik
@@ -50,42 +72,41 @@ function CForm(props) {
               </View>
 
               <View style={AuthStyle.cardBody}>
-                <>
-                  {/* <View style={{flexDirection:"row" , paddingVertical:10 , paddingHorizontal:20 , }}>
-                  <ProgressiveImage
-                    resizeMode={'contain'}
-                    style={{...GlobalStyle.inputIcon , ...AuthStyle.inputIcon}}
-                    source={RoleIcon}
-                  />
-
-                  <CText>Select Role</CText>
-
-                </View> */}
-                  <View
-                    style={{
-                      paddingVertical: 5,
-                      paddingHorizontal: 40,
-                      marginVertical: 10,
-                      marginTop: -10,
-                      flexDirection: 'row',
-                      alignSelf: 'center',
-                    }}>
-                    {['Customer', 'Owner'].map(e => (
-                      <TouchableOpacity onPress={()=>  setAccount(e)}  style={account === e ? AuthStyle.activeUser : AuthStyle.unactiveUser}>
-                        <ProgressiveImage
-                          resizeMode={'contain'}
-                          style={{
-                            ...GlobalStyle.inputIcon,
-                            ...AuthStyle.inputIcon,
-                          }}
-                          source={account === e ? RoleIcon : CNameIcon}
-                        />
-                        <CText style={AuthStyle.activeText}>{e}</CText> 
-                      </TouchableOpacity> 
-
-                    ))}
-                  </View>
-                </>
+                {role !== 'Customer' && (
+                  <>
+                  
+                    <View style={AuthStyle.typesView}>
+                      {data?.map(e => (
+                        <TouchableOpacity
+                          onPress={() => setAccount(e.name)}
+                          style={
+                            account === e?.name
+                              ? AuthStyle.activeUser
+                              : AuthStyle.unactiveUser
+                          }>
+                          <ProgressiveImage
+                            resizeMode={'contain'}
+                            style={{
+                              ...GlobalStyle.inputIcon,
+                              ...AuthStyle.inputIcon,
+                            }}
+                            source={
+                              account === e.name ? e?.activeImg : e?.image
+                            }
+                          />
+                          <CText
+                            style={
+                              account === e.name
+                                ? AuthStyle.activeText
+                                : AuthStyle.unActiveText
+                            }>
+                            {e?.name}
+                          </CText>
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+                  </>
+                )}
 
                 <CInput
                   ref={email}
@@ -96,7 +117,7 @@ function CForm(props) {
                   sec
                   leftIconNAme={EmailIcon}
                   returnKeyType="next"
-                  onSubmitEditing={() =>password.current.focus()}
+                  onSubmitEditing={() => password.current.focus()}
                 />
 
                 {/* <CInput
@@ -126,11 +147,11 @@ function CForm(props) {
                   placeholder={'Password'}
                   value={values.password}
                   onChangeText={handleChange('password')}
-                  secureTextEntry={true}
+                  secureTextEntry={passShow}
+                  toggleRightIconFunc={()=> setPassShow(!passShow)}
                   error={errors.password}
                   returnKeyType="next"
                   onSubmitEditing={() => cpassword.current.focus()}
-                  
                   leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
@@ -143,11 +164,12 @@ function CForm(props) {
                   placeholder={'Confirm Password'}
                   value={values.cpassword}
                   onChangeText={handleChange('cpassword')}
-                  secureTextEntry={true}
+                  secureTextEntry={cPassShow}
+                  
+                  toggleRightIconFunc={()=> setCPassShow(!cPassShow)}
                   error={errors.cpassword}
                   returnKeyType="done"
                   onSubmitEditing={() => handleSubmit()}
-                  
                   leftIconNAme={PassIcon}
                   leftIconeSize={18}
                   rightIconType="AntDesign"
@@ -163,8 +185,6 @@ function CForm(props) {
                 loading={loading}
                 onPress={() => handleSubmit()}
               />
-
-             
             </View>
           </View>
         );

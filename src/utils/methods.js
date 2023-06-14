@@ -3,6 +3,8 @@ import axios from "axios";
 import { Platform, I18nManager } from "react-native";
 import Toast from "react-native-toast-message";
 import PNF, { PhoneNumberUtil } from "google-libphonenumber";
+import { io } from "socket.io-client"; 
+import { SCOKET_URL } from "../config/webservices";
 
 export const get = (url) => {
     return axios.get(url);
@@ -106,4 +108,5 @@ export const validateNumberRegex = async (
     }
 };
 
+export const Socket = io(SCOKET_URL);
 

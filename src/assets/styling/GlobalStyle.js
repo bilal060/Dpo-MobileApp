@@ -233,6 +233,10 @@ export default StyleSheet.create({
     // paddingHorizontal: 30,
     // paddingBottom: 50,
   },
+  list2: {
+    paddingHorizontal: 30,
+    paddingBottom: 50,
+  },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',

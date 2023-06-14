@@ -2,6 +2,8 @@ import Managers from './Managers/Managers'
 import AddNewManager from './Managers/NewManager/NewManager'
 import NewSpace from './NewSpace'
 import Home from './Home/Home'
+import TruckHome from './Home/TruckHome'
+
 import Explore from './Explore/Explore'
 
 import MySpace from './MySpace/MySpace'
@@ -15,9 +17,10 @@ import Privacy from './MyProfile/Privacy/Privacy'
 
 import EditProfile from './MyProfile/EditProfile/index'
 
+import Payment from './Payment/Payment'
+import Langugae from './MyProfile/Langugae/Langugae'
 
-
-
+import AddVechieal  from './MySpace/AddVechiel'
 export{
     Managers,
     AddNewManager,
@@ -32,5 +35,9 @@ export{
     Faqs,
     Privacy,
     Explore,
-    EditProfile
+    EditProfile,
+    Payment,
+    Langugae,
+    TruckHome,
+    AddVechieal
 }

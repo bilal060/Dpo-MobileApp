@@ -13,14 +13,15 @@ import i18n from '../../../utils/i18n/i18n';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {updateUserProfile} from '../../../redux/actions/Auth.action';
 import moment from 'moment';
-import { navigate } from '../../../routing/Ref';
+import {navigate} from '../../../routing/Ref';
 function Information({route}) {
+  const {role} = route?.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      loading: auth.signUpLoading,
+      loading: false ,
       currentCountry: global?.currentCountry,
       countries: global?.countries,
     };
@@ -29,6 +30,7 @@ function Information({route}) {
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
   const [profileImage, updateProfileImage] = useState(false);
   const [selectDate, updateSelectDate] = useState(false);
+  const [account, setAccount] = useState('Truck Driver');
 
   const [selectedCountry, updateSelectedCountry] = useState(
     reduxState.currentCountry,
@@ -69,11 +71,12 @@ function Information({route}) {
     payload.append('fullName', values?.fullName);
     payload.append('phoneNo', values?.phone);
     payload.append('dob', moment(selectDate).format('L'));
-    payload.append('bio', values?.bio);
+    payload.append('bio', values?.bio);   
+     payload.append('field', 'Personal');
     payload.append('profile_img', {
-      uri: profileImage?.uri,
-      type: 'image/jpeg',
-      name: 'image.jpg',
+      uri:profileImage?.uri,
+      type:"image/jpeg",
+      name:"image.jpg"
     });
     // formData.append('doc_img', selectedFile);
     // const payload = {
@@ -87,7 +90,11 @@ function Information({route}) {
     // navigation.navigate("VerifyOtp")
   };
   const callBack = res => {
-    navigation.navigate('Login')
+    if (role === 'Customer') {
+      navigation.navigate('Login');
+    } else {
+      navigation.navigate('CompanyProfile');
+    }
     console.log('🚀 ~ file: index.js:58 ~ callBack ~ res:', res);
   };
 

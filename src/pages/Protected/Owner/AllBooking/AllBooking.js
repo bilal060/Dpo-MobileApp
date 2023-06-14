@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Container} from '../../../../containers';
 import {
   BookingCard,
@@ -30,11 +30,14 @@ import Styles from './AllBooking.style';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBooking } from '../../../../redux/actions/Root.Action';
+import moment from 'moment';
 
 const AllBooking = ({navigation}) => {
   const type = useRef(null);
   const sort = useRef(null);
-
+  const dispatch = useDispatch()
   const headerProps = {
     headerTitle: 'All Booking',
     backButtonIcon: false,
@@ -43,6 +46,15 @@ const AllBooking = ({navigation}) => {
     headerRightImg: false,
     headerRightImg: Notification,
   };
+  const reduxState = useSelector(({auth, language, root}) => {
+    console.log('rootrootrootrootrootroot', root, auth);
+    return {
+      booking: root?.booking,
+      loading: root?.bookingLoading,
+    };
+  });
+  const userId = useSelector(state => state.auth?.user?._id);
+
   const listData = [
     {
       img: Total,
@@ -65,6 +77,14 @@ const AllBooking = ({navigation}) => {
       value: '$15,35',
     },
   ];
+
+  useEffect(() => {
+    getbooking();
+  },[]);
+
+  const getbooking = () => {
+    dispatch(getAllBooking(userId))
+  };
   const renderItem = ({item}) => {
     return (
       <View style={Styles.bookingCard}>
@@ -84,7 +104,8 @@ const AllBooking = ({navigation}) => {
     );
   };
   const renderBooking = ({item}) => {
-    return <BookingCard />;
+    console.log("🚀 ~ file: AllBooking.js:104 ~ renderBooking ~ item:", item)
+    return <BookingCard location={item?.spaceId?.location?.address} date={moment(item?.createdAt).format('LL')} contact={item?.userId?.phoneNo} fullName={item?.userId?.fullName} time={moment(item?.createdAt).startOf('hour').fromNow()} prize={item.price} eTime={item?.to} sTime={item?.from}/>;
   };
   return (
     <Container
@@ -99,7 +120,7 @@ const AllBooking = ({navigation}) => {
           //   horizontal
           // contentContainerStyle={[GlobalStyle.list, ]}
           data={listData}
-          // loading={reduxState.loading}
+          loading={reduxState.loading}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
@@ -122,16 +143,16 @@ const AllBooking = ({navigation}) => {
           // numColumns={2}
           //   horizontal
           contentContainerStyle={[GlobalStyle.list]}
-          data={[1, 22, 3]}
+          data={reduxState?.booking}
           // loading={reduxState.loading}
           renderItem={renderBooking}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
             // icon: require('../../assets/images/empty.png'),
-            text: 'Store not found',
+            text: 'Booking not found',
           }}
           // onRefreshLoading={reduxState.loading}
-          // onRefreshHandler={() => onRefreshHandler()}
+          onRefreshHandler={() => getAllBooking()}
           // onEndReached={onEndReached}
           // onEndReachedThreshold={0.1}
           // maxToRenderPerBatch={10}
@@ -159,7 +180,6 @@ const AllBooking = ({navigation}) => {
           // onChangeText={handleChange('fuel')}
           // error={errors.fuel}
           inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-        
           sec
           type="view"
           leftIconNAme={FuelIcon}

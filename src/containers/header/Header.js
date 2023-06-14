@@ -8,13 +8,15 @@ import {
 } from 'react-native';
 import React from 'react';
 import SafeAreaView from '../safeAreaView/SafeAreaView';
-import {CText, CIcon, ProgressiveImage} from '../../components';
-import {HeaderImg, LoginImg, Logo, Profile} from '../../assets/images';
+import {CText, CIcon, ProgressiveImage, CInput} from '../../components';
+import {CFilter, HeaderImg, LoginImg, Logo, Profile} from '../../assets/images';
 import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
-
+import {useSelector} from 'react-redux';
 const {width, height} = Dimensions.get('screen');
+
+
 const Header = props => {
   const {
     headerLeft = true,
@@ -39,6 +41,11 @@ const Header = props => {
     rightPress,
   } = props;
   const navigation = useNavigation();
+  const reduxState = useSelector(({auth, language}) => {
+    return {
+      userRole: auth?.user?.role,
+    };
+  });
 
   const backPress = () => {
     if (backOnPress) {
@@ -130,9 +137,10 @@ const Header = props => {
     );
   };
 
-  const getBackgroundColor = () => {
+  const getBackgroundColor = () => { 
     if (!ProgressiveImageHeader === true) {
       return theme['light'].colors.tertiary;
+    
     } else {
       return theme['light'].colors.primary;
     }
@@ -148,18 +156,58 @@ const Header = props => {
       ]}
       edges={['top']}>
       <View>
-        <View style={[GlobalStyle.listItemActions]}>
-          {backButtonIcon ? backButton() : null}
-          {ProgressiveImageHeader  && (
-            <CText style={[GlobalStyle.toggleViewText , headerTile]}>{headerTitle}</CText>
-          )}
-          {headerTile  && (
-            <CText style={[GlobalStyle.toggleView2Text , headerTile]}>{headerTile}</CText>
-          )}
+        {/* {reduxState?.userRole === 'Customer' ? ( */}
 
-          {headerRight && rightButton()}
-        </View>
-        <View>{showCenterLogo && centerLogo()}</View>
+      {true ? (
+
+          <>
+            <View style={[GlobalStyle.listItemActions]}>
+              {backButtonIcon ? backButton() : null}
+              {ProgressiveImageHeader && (
+                <CText style={[GlobalStyle.toggleViewText, headerTile]}>
+                  {headerTitle}
+                </CText>
+              )}
+              {headerTile && (
+                <CText style={[GlobalStyle.toggleView2Text, headerTile]}>
+                  {headerTile}
+                </CText>
+              )}
+
+              {headerRight && rightButton()}
+            </View>
+            <View>{showCenterLogo && centerLogo()}</View>
+          </>
+        ) : (
+          <>
+            {/* <View style={[GlobalStyle.row, styles.headerView]}>
+              <CInput
+                placeholder={'Sort By'}
+                // value={values.fuel}
+                // onChangeText={handleChange('fuel')}
+                // error={errors.fuel}
+                sec
+                inputInnerContainerStyle={styles.inputInnerContainerStyle}
+                //   type="view"
+                //   leftIconNAme={FuelIcon}
+                returnKeyType="next"
+              />
+              <View style={{backgroundColor:"#FFF" , width:40, height:40, padding:2 , borderRadius:100 , justifyContent:"center", alignItems:"center"}}>
+ 
+              <ProgressiveImage
+                style={[styles.profileImage2]}
+                source={CFilter}
+                resizeMode="contain"
+                />
+                </View>
+              <ProgressiveImage
+                style={styles.profileImage}
+                source={Profile}
+                resizeMode="contain"
+              />
+            </View> */}
+          </>
+        )} 
       </View>
     </SafeAreaView>
   );
@@ -169,7 +217,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: theme.light.colors.backgroundColor,
+    backgroundColor: theme.light.colors.backgroundColor, 
     paddingVertical: 20,
     paddingHorizontal: 10,
     // height:170,
@@ -179,6 +227,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 50,
+  },
+  headerView: {
+    alignItems: 'center',
+    marginVertical: 10,
+    marginHorizontal:10
   },
   headerLogoImage: {
     width: 130,
@@ -190,7 +243,11 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 50,
   },
-
+  profileImage2: {
+    width: 25,
+    height: 25,
+    justifyContent:"center"
+  },
   subheaderView: {
     marginTop: 10,
     paddingBottom: 10,
@@ -225,6 +282,13 @@ const styles = StyleSheet.create({
     right: 5,
     zIndex: 1,
     padding: 3,
+  },
+  inputInnerContainerStyle: {
+    backgroundColor: '#FFF',
+    borderBottomWidth  : 0,
+    width: width * 0.63,
+    marginTop: 10,
+    borderRadius: 50,
   },
   headerCartBadgeText: {
     fontSize: 8,

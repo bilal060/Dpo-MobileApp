@@ -7,11 +7,12 @@ import AuthStyle from '../Myprofile.style';
 import {themes} from '../../../../../theme/colors';
 import { DesIcon, EmailIcon, PassIcon, PhoneIcon, langIcon } from '../../../../../assets/images';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 
 
 
 function CForm(props) {
-  const {submit, loading , onForgotPress , selectedCountry , toggleCountryModal , selectDate , updateSelectDate} = props;
+  const {submit, loading , onForgotPress , selectedCountry , toggleCountryModal , selectDate , updateSelectDate , user} = props;
   const {t,} = useTranslation();
 
   const form = useRef(null);
@@ -26,10 +27,10 @@ const des = useRef(null);
       enableReinitialize
       onSubmit={values => submit(values)}
       initialValues={{
-        fullName:"Elvis Cadmora",
-        phone:"012 3456 789",
-        email:"elviscadmora@email.com",
-        des:"Lorem ipsum dolor sit amet consr."
+        fullName:user?.fullName,
+        phone:user?.phone,
+        email:user?.email,
+        des:user?.bio
       }}
       validationSchema={Validations}>
       {({handleChange, values, handleSubmit, errors}) => {
@@ -86,7 +87,7 @@ const des = useRef(null);
                   returnKeyType="next"
                   onSubmitEditing={() => bio.current.focus()}
                 />
-              <DateTimePicker placeHolder={"Date of birth"}  hideIcon value={new Date()} onChange={updateSelectDate}/>
+              <DateTimePicker placeHolder={"Date of birth"}  hideIcon value={selectDate ? selectDate : new Date(user?.dob)} onChange={updateSelectDate}/>
 
                  <CInput
                   ref={des}
@@ -101,7 +102,7 @@ const des = useRef(null);
                   onSubmitEditing={() =>password.current.focus()}
                 />
                  
-                <CInput
+                {/* <CInput
                   ref={fullName}
                   placeholder={'Select Branch'}
                   value={values.fullName}
@@ -112,7 +113,7 @@ const des = useRef(null);
                   leftIconNAme={langIcon}
                   returnKeyType="next"
                   onSubmitEditing={() => dob.current.focus()}
-                />
+                /> */}
 
                
               </View>

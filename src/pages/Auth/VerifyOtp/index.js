@@ -13,8 +13,8 @@ import CountDown from 'react-native-countdown-component';
 import {verifyOTP} from '../../../redux/actions/Auth.action';
 
 function VerifyOtp({route}) {
-  const {email, isForget} = route?.params || {};
-  console.log("🚀 ~ file: index.js:17 ~ VerifyOtp ~ isForget:", route?.params)
+  const {email, isForget , role} = route?.params || {};
+  console.log('🚀 ~ file: index.js:17 ~ VerifyOtp ~ isForget:', route?.params);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -63,11 +63,14 @@ function VerifyOtp({route}) {
     if (res) {
       if (isForget) {
         navigation.navigate('ChangePassword');
-      } else if (reduxState?.role === 'Business Owner') {
-        navigation.navigate('CompanyProfile');
-      } else if (reduxState?.role === 'Customer') {
-        navigation.navigate('Information');
+      } else {
+        navigation.navigate('Information' ,{role:role} );
       }
+      // else if (reduxState?.role === 'Business Owner') {
+      //   navigation.navigate('    ');
+      // } else if (reduxState?.role === 'Customer') {
+      //   navigation.navigate('Information');
+      // }
     }
   };
 
@@ -92,9 +95,9 @@ function VerifyOtp({route}) {
 
       <View style={[AuthStyle.orContainer, {marginTop: -20}]}>
         <CText style={AuthStyle.cardBottomText}>Re-Send code in.</CText>
-        <CountDown 
+        <CountDown
           until={100}
-          onFinish={() => {}}
+          onFinish={(va) => {}}
           onPress={() => {}}
           size={15}
           timeToShow={['S']}

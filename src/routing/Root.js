@@ -55,7 +55,6 @@ const Screen2 = () => {
 export default function App() {
   const navigation = useNavigation();
   const _renderIcon = (routeName, selectedTab) => {
-    console.log('selectedTab', selectedTab);
     let icon = '';
 
     switch (routeName) {
@@ -113,8 +112,15 @@ export default function App() {
   return (
     <CurvedBottomBar.Navigator
       type="DOWN"
-      screenOptions={{headerShown: false}}
-      tabBarOptions={{style: {backgroundColor: 'yellow'}}}
+      screenOptions= {{
+        headerShown:false,
+        tabBarStyle:[
+          {
+            display: 'flex',
+          },
+          null,
+        ],
+      }}
       style={{borderRadius: 50}}
       shadowStyle={styles.shawdow}
       //   height={65}
@@ -124,7 +130,6 @@ export default function App() {
       initialRouteName="title1"
       borderTopLeftRight
       renderCircle={({selectedTab, navigate}) => {
-        console.log("🚀 ~ file: Root.js:177 ~ App ~ navigate:", )
         return (
         <Animated.View style={styles.btnCircleUp}>
           	<TouchableOpacity onPress={()=> navigate('NewSpace')} style={styles.button} >
@@ -159,7 +164,7 @@ export default function App() {
         position="RIGHT"
       />
 
-      <CurvedBottomBar.Screen
+      <CurvedBottomBar.Screen 
         name="Manager1"
         component={() => <OwnerStack />}
         position="RIGHT"

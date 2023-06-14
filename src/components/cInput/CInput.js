@@ -193,7 +193,7 @@ const CInput = React.forwardRef((props, ref) => {
             {...GlobalStyle.inputTextStyle,  ...textStyle},
              {color: themes['light'].colors.gray7},
           ]}>
-          {selectValue   ? selectValue?.name : placeholder}
+          {selectValue   ? selectValue?.name  || selectValue?.description: placeholder}
         </CText>
         <AntDesign
               name="down"

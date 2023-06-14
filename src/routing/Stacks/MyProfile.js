@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Chats, EditProfile, Faqs, Home, Messages, MyProfile, MySpace, Privacy, SpaceDetails} from '../../pages/Protected/Owner'
+import {Chats, EditProfile, Faqs, Home, Langugae, Messages, MyProfile, MySpace, Privacy, SpaceDetails} from '../../pages/Protected/Owner'
 const Stack = createStackNavigator();
 
 const StackScreenOptions = {
@@ -17,7 +17,7 @@ function ProfileStack() {
     <Stack.Screen name="FAQs" component={Faqs} />
     <Stack.Screen name="Privacy" component={Privacy} />
     <Stack.Screen name="EditProfile" component={EditProfile} />
-
+    <Stack.Screen name="Langugae" component={Langugae} />
 
       
      

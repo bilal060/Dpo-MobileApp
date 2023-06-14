@@ -23,14 +23,14 @@ import GlobalStyle from '../../../assets/styling/GlobalStyle';
 import {forceTouchHandlerName} from 'react-native-gesture-handler/lib/typescript/handlers/ForceTouchGestureHandler';
 import {registerOwner} from '../../../redux/actions/Auth.action';
 import axios from 'axios';
-import { handleSuccess } from '../../../utils/methods';
+import {handleSuccess} from '../../../utils/methods';
 const {width, height} = Dimensions.get('screen');
-var payload 
+var payload;
 
 function Register({route}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const {role} = route?.params;
   const reduxState = useSelector(({auth, global}) => {
     return {
       loading: auth.registerLoading,
@@ -43,7 +43,7 @@ function Register({route}) {
   const [selectedCountry, updateSelectedCountry] = useState(
     reduxState.currentCountry,
   );
-  const [account, setAccount] = useState('Customer');
+  const [account, setAccount] = useState(role);
   console.log('🚀 ~ file: index.js:33 ~ Register ~ account:', account);
 
   const toggleCountryModal = () => {
@@ -63,18 +63,18 @@ function Register({route}) {
   };
   selectedCountry?.detai;
   const submit = async values => {
-     payload = {
+    payload = {
       email: values?.email,
       password: values?.password,
-      role:  account === 'Owner'? 'Business Owner' : "Customer",
+      role: account,
       passwordConfirm: values?.cpassword,
     };
-
+    // navigation.navigate('VerifyOtp', {email: payload?.email});
     dispatch(registerOwner(payload, callBack));
   };
-  const callBack = (res) => {
-    if(res){
-      navigation.navigate('VerifyOtp' , {email :  payload?.email , })
+  const callBack = res => {
+    if (res) {
+      navigation.navigate('VerifyOtp', {email: payload?.email , role:role});
     }
     console.log('res', res);
   };
@@ -89,8 +89,7 @@ function Register({route}) {
       loading={reduxState?.loading}
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
-      }}> 
-
+      }}>
       <CForm
         submit={submit}
         loading={reduxState?.loading}
@@ -98,6 +97,7 @@ function Register({route}) {
         toggleCountryModal={toggleCountryModal}
         account={account}
         setAccount={setAccount}
+        role={role}
       />
       <View style={AuthStyle.orContainer}>
         <CText style={AuthStyle.cardBottomText}>Already have an account?</CText>

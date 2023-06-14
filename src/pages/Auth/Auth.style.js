@@ -42,6 +42,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 30,
     alignItems: 'center',
+    marginTop:-30
   },
   cardHeaderTitle: {
     fontSize: 35,
@@ -114,7 +115,11 @@ export default StyleSheet.create({
     color: theme['light'].colors.fontColor,
   },
   inputIcon: {
-    marginRight: 10,
+    // marginRight: 10,
+    height:28,
+    width:28,
+    alignSelf:'center',
+  
   },
 
   bottomButton: {
@@ -139,6 +144,7 @@ export default StyleSheet.create({
   inputLeftIconButton: {
     widht: 20,
     height: 20,
+   
   },
 
   codeInputFieldStyle: {
@@ -218,10 +224,10 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingVertical: 20,
+    paddingVertical: 15,
     alignItems: 'center',
     marginVertical: 10,
-    backgroundColor: '#C3D6DA',
+    backgroundColor: '#F1F6F7',
     borderStyle: 'dashed',
 
     borderWidth: 2,
@@ -250,30 +256,54 @@ export default StyleSheet.create({
   },
   activeUser: {
     backgroundColor: themes['light'].colors.primary,
-    flexDirection: 'row',
+    alignItems: 'center',
+    // flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 5,
-    width: 150,
+    width: width * 0.25,
+    height: 95,
     marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
   },
   unactiveUser: {
-    backgroundColor: themes['light'].colors.gray4,
-    flexDirection: 'row',
+    backgroundColor: themes['light'].colors.lightenGray,
+    alignItems: 'center',
+    // flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 5,
-    width: 150,
+    width: width * 0.25 ,
+    height: 95,
     marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
   },
+  typesView: {
+    paddingVertical: 5,
+    // paddingHorizontal: 20,
+    marginVertical: 10,
+    marginTop: -10,
+    flexDirection: 'row',
+    // alignSelf: 'center',
+  },
+
   activeText: {
     color: themes['light'].colors.tertiary,
     fontFamily: themes.font.medium,
-    fontSize: 16,
+    fontSize: 15,
+    paddingTop:5,
     fontWeight: '600',
+    textAlign:"center"
   },
+  unActiveText: {
+    paddingTop:5,
+    color: themes['light'].colors.gray4,
+    fontFamily: themes.font.medium,
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign:"center"
+  },
+  
   unactiveText: {
     color: themes['light'].colors.primary,
     fontFamily: themes.font.medium,
@@ -291,7 +321,7 @@ export default StyleSheet.create({
     borderWidth: 0,
     marginHorizontal: -10,
   },
-  seconTime:{
+  seconTime: {
     color: themes['light'].colors.iconColor,
     fontFamily: themes.font.medium,
     fontSize: 13,

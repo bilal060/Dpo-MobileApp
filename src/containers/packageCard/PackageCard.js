@@ -33,7 +33,9 @@ const PackageCard = ({name = '', data , onBtnPress}) => {
       {data && data.map(({title}) => renderFeatures(title))}
 
       <CText style={Styles.selectPackage}>{'Select Package'}</CText>
-      <FlatList data={data} renderItem={renderPrizeBox} horizontal />
+      <FlatList data={data} renderItem={renderPrizeBox} horizontal 
+              nestedScrollEnabled
+              />
       <CButton title="Next" iconType="left" iconStyle={{}} onPress={onBtnPress} />
     </View>
   );

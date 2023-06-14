@@ -76,7 +76,7 @@ export default StyleSheet.create({
     marginRight: 8,
   },
   nameHeaindg: {
-    fontFamilyamily: themes.font.medium,
+    fontFamily: themes.font.medium,
     color: themes['light'].colors.iconColor,
     paddingVertical: 5,
     fontSize: 13,
@@ -85,7 +85,7 @@ export default StyleSheet.create({
     // letterSpacing: 0.5,
   },
   titleHeaindg: {
-    fontFamilyamily: themes.font.light,
+    fontFamily: themes.font.light,
     color: themes['light'].colors.gray4,
     paddingVertical: 5,
     fontSize: 12,

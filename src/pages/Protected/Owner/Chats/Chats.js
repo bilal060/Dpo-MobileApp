@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View , TouchableOpacity} from 'react-native';
-import React from 'react';
+import {FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
 import {Container, PackageCard} from '../../../../containers';
 import {
   CButton,
@@ -15,7 +15,16 @@ import Styles from './Chats.style';
 import {themes} from '../../../../theme/colors';
 import {ManagerIcon, Notification, Profile} from '../../../../assets/images';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import io from 'socket.io-client';
+import {SCOKET_URL} from '../../../../config/webservices';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  getConversationMessages,
+  getUserConversations,
+} from '../../../../redux/actions/Root.Action';
+
+import ContentLoader, {Rect, Circle, Path} from 'react-content-loader/native';
 
 const Chats = ({}) => {
   const navigation = useNavigation();
@@ -30,27 +39,50 @@ const Chats = ({}) => {
     headerRightImg: Notification,
     // rightPress: ()=> navigation.navigate("AddNewManager")
   };
+  const reduxState = useSelector(({auth, language, root}) => {
+    console.log('🚀 ~ file: Chats.js:38 ~ reduxState ~ root:', root);
+    return {
+      conversation: root?.conversations,
+      userRole: auth?.user?.role,
+      loading: root?.conversationsLoading,
+    };
+  });
+  console.log(
+    '🚀 ~ file: Chats.js:45 ~ reduxState ~ reduxState:',
+    reduxState?.conversation,
+  );
+
+  const userId = useSelector(state => state.auth?.user?._id);
+  const dispatch = useDispatch();
+  console.log('🚀 ~ file: Chats.js:38 ~ Chats ~ userId:', userId);
 
   const data = [
     {
+      _id: '646253ebeab5392df8b507f1',
       name: 'Tony Stark',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
       active: true,
     },
     {
+      _id: '6462552aeab5392df8b507fc',
+
       name: 'Tony Stark',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
       active: true,
     },
     {
+      _id: '64774d6121738d1cb4a4975d',
+
       name: 'Tony Stark',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
       active: true,
     },
     {
+      _id: '646253ebeab5392df8b507f1',
+
       name: 'Tony Stark',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
@@ -82,6 +114,13 @@ const Chats = ({}) => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(getUserConversations(userId, callBack));
+  }, [userId]);
+  const callBack = () => {
+    console.log('🚀 ~ file: Chats.js:106 ~ callBack ~ callBack:', callBack);
+  };
+
   const renderTimeSlot = ({item, index}) => {
     return (
       <View style={Styles.memberCard}>
@@ -105,10 +144,16 @@ const Chats = ({}) => {
     <CText style={Styles.activeMember}>{`All Managers`}</CText>
   );
 
+  const onSocket = item => {
+    dispatch(getConversationMessages(item?._id));
+    navigation.navigate('Messages', {conversationId: item?._id});
+  };
+
   const renderProfile = ({item, index}) => {
-    
+    const user = item?.members?.filter(e => e?._id !== userId);
+    console.log('🚀 ~ file: Chats.js:146 ~ renderProfile ~ item: ---', user);
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+      <TouchableOpacity onPress={() => onSocket(item)}>
         <View style={Styles.ProfileCard}>
           <ProgressiveImage
             source={Profile}
@@ -116,7 +161,7 @@ const Chats = ({}) => {
             style={{width: 60, height: 60, borderRadius: 100}}
           />
           <View style={{flex: 1, paddingHorizontal: 10}}>
-            <CText style={Styles.messageName}>{`Total Managers`}</CText>
+            <CText style={Styles.messageName}>{user?.[0]?.fullName}</CText>
             <CText style={Styles.message}>{`Your reservation is done.`}</CText>
           </View>
           <View>
@@ -142,30 +187,48 @@ const Chats = ({}) => {
             paddingVertical: 25,
             backgroundColor: '#FFF',
           }}>
-          <CList
-            style={Styles.spacelist}
-            // numColumns={2}
-            //   horizontal
-            // contentContainerStyle={[GlobalStyle.list, ]}
-            data={data}
-            // loading={reduxState.loading}
-            renderItem={renderProfile}
-            keyExtractor={(item, index) => index.toString()}
-            emptyOptions={{
-              // icon: require('../../assets/images/empty.png'),
-              text: 'Store not found',
-            }}
-            // onRefreshLoading={reduxState.loading}
-            // onRefreshHandler={() => onRefreshHandler()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
-            // maxToRenderPerBatch={10}
-            // windowSize={10}
-          />
+          {reduxState?.loading ? (
+              <ContentLoader
+      speed={2}
+      width={400}
+      height={160}
+      viewBox="0 0 400 160"
+      backgroundColor="#d9d9d9"
+      foregroundColor="#ededed"
+    >
+      <Rect x="50" y="10" rx="4" ry="4" width="250" height="45" />
+      <Rect x="8" y="10" rx="4" ry="4" width="35" height="45" />
+      <Rect x="50" y="65" rx="4" ry="4" width="250" height="45" />
+      <Rect x="8" y="65" rx="4" ry="4" width="35" height="45" />
+      <Rect x="50" y="124" rx="4" ry="4" width="250" height="45" />
+      <Rect x="8" y="124" rx="4" ry="4" width="35" heigh   t="45" />
+    </ContentLoader>
+          ) : (
+            <CList
+              style={Styles.spacelist}
+              // numColumns={2}
+              //   horizontal
+              // contentContainerStyle={[GlobalStyle.list, ]}
+              data={reduxState?.conversation}
+              // loading={reduxState.loading}
+              renderItem={renderProfile}
+              keyExtractor={(item, index) => index.toString()}
+              emptyOptions={{
+                // icon: require('../../assets/images/empty.png'),
+                text: 'No Any Messgaes',
+              }}
+              // onRefreshLoading={reduxState.loading}
+              // onRefreshHandler={() => onRefreshHandler()}
+              // onEndReached={onEndReached}
+              // onEndReachedThreshold={0.1}
+              // maxToRenderPerBatch={10}
+              // windowSize={10}
+            />
+          )}
         </View>
       </View>
     </Container>
-  );
+  ); 
 };
 
 export default Chats;

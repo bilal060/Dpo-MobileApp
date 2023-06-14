@@ -2,10 +2,12 @@ import * as Yup from "yup";
 
 const scheme = Yup.object().shape({
    
-        CfullName: Yup.string()
-        .required("Please enter company name"),
+        truckType: Yup.string()
+        .required("Please enter truck type"),
         cLicenseNo: Yup.string()
         .required("Please enter company licenseNo"), 
+        cName: Yup.string()
+        .required("Please enter company Name"), 
         cAddress: Yup.string()
         .required("Please enter company address"),
         phone: Yup.string()

@@ -161,6 +161,8 @@ const NewSpace = ({navigation}) => {
             data={timeSlot}
             renderItem={renderTimeSlot}
             horizontal
+            nestedScrollEnabled
+            
             ListHeaderComponentStyle={{flex: 1}}
             showsHorizontalScrollIndicator={false}
           />

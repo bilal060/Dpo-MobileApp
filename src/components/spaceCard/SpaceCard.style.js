@@ -5,7 +5,7 @@ const {width , height } = Dimensions.get("window")
 export default StyleSheet.create({
     spaceContainer: {
         height:height*0.45,
-        width:width*0.75,
+        width:width*0.85,
         margin:10,
         borderRadius:10,
         backgroundColor: themes['light'].colors.tertiary,
@@ -14,7 +14,7 @@ export default StyleSheet.create({
 
     },
     spaceHeading:{
-        fontFamilyamily: themes.font.medium,
+        fontFamily: themes.font.medium,
         fontSize: 14,
         fontWeight: "700",
         lineHeight:14 ,
@@ -65,7 +65,7 @@ export default StyleSheet.create({
         textDecorationLine: 'underline'
     },
     place:{
-        fontSize: 11,
+        fontSize: 12,
         fontFamily: themes.font.medium,
         color: themes['light'].colors.dark,
     }

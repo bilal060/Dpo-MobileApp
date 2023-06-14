@@ -50,6 +50,7 @@ const cDropDown = ({ label, data, onSelect }) => {
           <View style={[styles.dropdown, { top: dropdownTop }]}>
             <FlatList
               data={data}
+              nestedScrollEnabled
               renderItem={renderItem}
               keyExtractor={(item, index) => index.toString()}
             />

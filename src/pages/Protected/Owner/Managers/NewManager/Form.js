@@ -2,7 +2,7 @@ import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
 import {View} from 'react-native';
-import {CButton, CInput, CText} from '../../../../../components';
+import {CButton, CInput, CText , } from '../../../../../components';
 import Styles from '../Managers.styles';
 import {themes} from '../../../../../theme/colors';
 import {
@@ -17,12 +17,21 @@ import {
 } from '../../../../../assets/images';
 
 function CForm(props) {
-  const {submit, loading, toggleCountryModal, selectedCountry} = props;
+  const {
+    submit,
+    loading,
+    toggleCountryModal,
+    selectedCountry,
+    toggleBranchModal,
+    selectedBranch,
+    selectedTime,
+    toggleTimeModal
+  } = props;
 
   const form = useRef(null);
   const fullName = useRef(null);
   const email = useRef(null);
-  const number = useRef(null);
+  const phone = useRef(null);
   const cpassword = useRef(null);
   const password = useRef(null);
   const dob = useRef(null);
@@ -35,6 +44,7 @@ function CForm(props) {
       initialValues={{}}
       validationSchema={Validations}>
       {({handleChange, values, handleSubmit, errors}) => {
+        console.log('errorserrorserrorserrors', errors);
         return (
           <View>
             <View style={[Styles.card]}>
@@ -56,7 +66,8 @@ function CForm(props) {
                   placeholder={'Select Branch'}
                   value={values.fullName}
                   onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
+                  onPress={toggleBranchModal}
+                  selectValue={selectedBranch}
                   sec
                   type="view"
                   leftIconNAme={CNameIcon}
@@ -64,22 +75,22 @@ function CForm(props) {
                   onSubmitEditing={() => dob.current.focus()}
                 />
 
-<CInput
+                <CInput
                   ref={fullName}
                   placeholder={'Select Time Slot'}
                   value={values.fullName}
                   onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
                   sec
+                  onPress={toggleTimeModal}
+                  selectValue={selectedTime}
                   type="view"
-                  
                   leftIconNAme={TimeIcon}
                   returnKeyType="next"
                   onSubmitEditing={() => dob.current.focus()}
                 />
 
                 <CInput
-                  ref={number}
+                  ref={phone}
                   type="number"
                   // disabled={true}
                   selectedCountry={selectedCountry}
@@ -107,13 +118,13 @@ function CForm(props) {
                 placeholder={'Manager’s Email Address'}
                 value={values.email}
                 onChangeText={handleChange('email')}
-                error={errors.dob}
+                error={errors.email}
                 sec
                 leftIconNAme={EmailIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => idCard.current.focus()}
               />
-             
+
               <CButton
                 title={'Send Invite'}
                 iconType="left"

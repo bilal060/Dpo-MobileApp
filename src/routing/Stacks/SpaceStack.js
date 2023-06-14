@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Home, MySpace, SpaceDetails} from '../../pages/Protected/Owner'
+import {Home, MySpace, SpaceDetails , AddVechieal} from '../../pages/Protected/Owner'
 const Stack = createStackNavigator();
 
 const StackScreenOptions = {
@@ -14,6 +14,8 @@ function SpaceStack() {
       screenOptions={StackScreenOptions}>
       <Stack.Screen name="MySpace" component={MySpace} />
       <Stack.Screen name="SpaceDetails" component={SpaceDetails} />
+      <Stack.Screen name="AddVechile" component={AddVechieal} />
+
 
       
      

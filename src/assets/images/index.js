@@ -53,15 +53,12 @@ import RateIcon from './rateIcon.png';
 import DesIcon from './desIcon.png';
 import CameraIcon from './cameraIcon.png';
 
-
-
 import MySpace from './MySpace.png';
 import Booking from './Booking.png';
 import Managers from './Managers.png';
 import Message from './Message.png';
 import Setting from './Setting.png';
 import Add from './Add.png';
-
 
 import FocusedSpace from './FocusedSpace.png';
 import FocusedBooking from './FocusedBooking.png';
@@ -100,7 +97,6 @@ import Cancel from './Cancel.png';
 import Earning from './Earning.png';
 import WelcomeLogo from './WelcomeLogo.png';
 
-
 import Explore from './explore.png';
 import Banner from './banner.png';
 
@@ -122,19 +118,58 @@ import Wrench from './icons/wrench.png';
 import BNotification from './icons/Notification.png';
 import Language from './icons/Language.png';
 import Rating from './icons/Rating.png';
+import Onwer from './icons/Onwer.png';
+import BServices from './icons/Services.png';
+import FocusedTruck from './icons/FocusedTruck.png';
+import FocusedServices from './icons/FocusedServices.png';
+import FocusedOwner from './icons/FocusedOwner.png';
+import Truck from './icons/Truck.png';
+import Company from './icons/Company.png';
+import FocusedCompany from './icons/FocusedCompany.png';
+
+import PaymentHistory from './icons/PaymentHistory.png';
+import FPaymentHistory from './icons/FPaymentHistory.png';
+import CFilter from './icons/CFilter.png';
+import FGirdView from './icons/FGirdView.png';
+import FMapView from './icons/FMapView.png';
+import MapViewImage from './icons/MapView.png';
+import GirdView from './icons/GirdView.png';
+import MarkerImage from './icons/Marker.png';
+
+import Vreg from './icons/Vreg.png';
+import VModal from './icons/VModal.png';
+import VComapny from './icons/VComapny.png';
 
 
 export {
-
+  Company,
+  FocusedCompany,
   WelcomeLogo,
   ChargingStation,
+  MarkerImage,
   GasStation,
   PitStop,
+  FPaymentHistory,
+  PaymentHistory,
   Car,
   Carrier,
   Crane,
+  GirdView,
+  MapViewImage,
+  FMapView,
+  FGirdView,
   Forklift,
   Inventory,
+  Truck,
+  FocusedOwner,
+  VComapny,
+  VModal,
+  Vreg,
+  CFilter,
+  FocusedServices,
+  FocusedTruck,
+  Onwer,
+  BServices,
   Towtruck,
   Van,
   Warehouse,

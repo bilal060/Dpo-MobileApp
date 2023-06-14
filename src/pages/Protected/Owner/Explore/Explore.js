@@ -39,8 +39,11 @@ import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
 import {SliderBox} from 'react-native-image-slider-box';
 import TruckParking from '../NewSpace/TruckParking';
+import { useNavigation } from '@react-navigation/native';
 
-const Explore = ({navigation}) => {
+const Explore = ({}) => {
+  const navigation = useNavigation();
+
   const [activeImg, setActiveImg] = useState(0);
   var isActive;
   console.log('🚀 ~ file: Explore.js:32 ~ Explore ~ activeImg:', activeImg);
@@ -127,14 +130,14 @@ const Explore = ({navigation}) => {
   const renderItem = ({item}) => {
     console.log("🚀 ~ file: Explore.js:117 ~ renderItem ~ item:", item)
     return (
-      <View style={Styles.iconView}>
+      <TouchableOpacity onPress={() => navigation.navigate("MySpace")} style={Styles.iconView}>
         <ProgressiveImage
           style={Styles.icon}
           source={item?.img}
           resizeMode="contain"
         />
         <CText style={Styles.iconTitle}>{item?.title}</CText>
-      </View>
+      </TouchableOpacity>
     );
   };
   const renderBooking = ({item}) => {

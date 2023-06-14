@@ -20,8 +20,8 @@ function Login({route}) {
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      loading: auth.loginLoading,
-      // loading: false,
+      // loading: auth.loginLoading,
+      loading: false,
 
     };
   });
@@ -40,9 +40,9 @@ function Login({route}) {
    
   }
 
-  useEffect(() => {
-    i18n.changeLanguage(!value ? "en" :"hi");
-  }, [value]);
+  // useEffect(() => {
+  //   i18n.changeLanguage(!value ? "en" :"hi");
+  // }, [value]);
 
   return (
     <Container
@@ -76,7 +76,7 @@ function Login({route}) {
 
       <View style={AuthStyle.orContainer}>
         <CText style={AuthStyle.cardBottomText}>Don’t have an account?</CText>
-        <CText onPress={()=> navigation.navigate('Register')} style={[AuthStyle.cardBottomText2]}>Register?</CText>
+        <CText onPress={()=> navigation.navigate('Register',{role: 'Customer'})} style={[AuthStyle.cardBottomText2]}>Register?</CText>
       </View>
     </Container>
   );

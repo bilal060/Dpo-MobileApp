@@ -21,7 +21,10 @@ function CList(props) {
        <View style={styles.listContainer}>
           {loading ? <CLoading transparent={true} loading={true}/> : <FlatList
            {...props}
+
            data={data}
+           nestedScrollEnabled
+           extraData={data}
            refreshControl={onRefreshHandler ? <RefreshControl
                color={Theme['light'].colors.primary}
                tintColor={Theme['light'].colors.primary}

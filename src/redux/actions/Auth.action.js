@@ -16,7 +16,7 @@ import {
   getValueIntoLocalStorage,
   removeUserDetail,
 } from '../../utils/asyncStorage/Functions';
-import {FORGOTPASSWORD, LOGIN, OTPVERIFY, REGISTER, UPDATEPROFILE} from '../../config/webservices';
+import {FORGOTPASSWORD, LOGIN, OTPVERIFY, REGISTER, UPDATECOMPANYPROFILE, UPDATEPROFILE} from '../../config/webservices';
 
 export const login = (payload, CB) => async dispatch => {
   console.log('🚀 ~ file: Auth.action.js ~ line 17 ~ login ~ payload', payload);
@@ -35,8 +35,8 @@ export const login = (payload, CB) => async dispatch => {
       dispatch({type: AUTH.LOGIN_USER_API, loading: false});
       handleError(response?.data?.data?.message || '');
     } else {
-      await _setDataToAsyncStorage(TOKEN, response?.data?.data?.token);
-      await getTokenAndSetIntoHeaders(response?.data?.data?.token);
+      await _setDataToAsyncStorage(TOKEN, response?.data?.token);
+      await getTokenAndSetIntoHeaders(response?.data?.token);
       dispatch({
         type: AUTH.LOGIN_USER_API,
         loading: false,
@@ -50,7 +50,7 @@ export const login = (payload, CB) => async dispatch => {
   } catch (error) {
     console.table('🚀 ~ file: Auth.action.js ~ line 42 ~ login ~ error', error);
 
-    handleError(error?.data?.error, {autoHide: false});
+    handleError(error?.data?.message, {autoHide: false});
     dispatch({type: AUTH.LOGIN_USER_API, loading: false});
   }
 };
@@ -118,8 +118,8 @@ export const verifyOTP = (payload, CB) => async dispatch => {
 };
 
 export const updateUserProfile = (payload, CB) => async dispatch => {
+   console.log("🚀 ~ file: Auth.action.js:121 ~ updateUserProfile ~ payload:", payload)
    const token = await getValueIntoAsyncStorage(TOKEN)
-   console.log("🚀 ~ file: Auth.action.js:112 ~ updateUserProfile ~ token:", token)
    getTokenAndSetIntoHeaders(token)
   dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: true});
   const config = {
@@ -131,6 +131,7 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
   };
   try {
     let response = await patch(UPDATEPROFILE, payload, config);
+    console.log("🚀 ~ file: Auth.action.js:134 ~ updateUserProfile ~ response:", response)
    
     if (response?.data?.error) {
       dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: false});
@@ -147,11 +148,48 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
     }
     CB && CB(response?.data);
   } catch (error) {
-    console.table('🚀 ~ file: Auth.action.js ~ line 42 ~ login ~ errordddddddd', error);
+  console.log("🚀 ~ file: Auth.action.js:150 ~ updateUserProfile ~ error:", error)
 
     handleError(error?.data?.error, {autoHide: false});
     dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: false});
   }
+};
+export const updateCompnayProfile = (payload, CB) => async dispatch => {
+  console.log("🚀 ~ file: Auth.action.js:121 ~ updateUserProfile ~ payload:", payload)
+  const token = await getValueIntoAsyncStorage(TOKEN)
+  getTokenAndSetIntoHeaders(token)
+ dispatch({type: AUTH.UPDATE_CPROFILE_API, loading: true});
+ const config = {
+   headers: {
+       'Content-Type': 'multipart/form-data',
+       Accept: "application/json",
+       Authorization: `Bearer ${token}`,
+   },
+ };
+ try {
+   let response = await patch(UPDATECOMPANYPROFILE, payload, config);
+   console.log("🚀 ~ file: Auth.action.js:134 ~ updateUserProfile ~ response:", response)
+  
+   if (response?.data?.error) {
+     dispatch({type: AUTH.UPDATE_CPROFILE_API, loading: false});
+     handleError(response?.data?.data?.message || '');
+   } else {
+   
+     dispatch({
+       type: AUTH.UPDATE_CPROFILE_API,
+       loading: false,
+       user: response?.data?.data?.user,
+       // isLoggedIn: true,
+     });
+     handleSuccess(response?.data?.message);
+   }
+   CB && CB(response?.data);
+ } catch (error) {
+ console.log("🚀 ~ file: Auth.action.js:150 ~ updateUserProfile ~ error:", error)
+
+   handleError(error?.data?.error, {autoHide: false});
+   dispatch({type: AUTH.UPDATE_CPROFILE_API, loading: false});
+ }
 };
 
 
@@ -187,4 +225,18 @@ export const forgotPass = (payload, CB) => async dispatch => {
       dispatch({type: AUTH.FORGOT_PASS, loading: false});
     }
   };
+
+  export const userLogout =
+    (showToast = true, type, message = "Successfully logout!") =>
+    async (dispatch) => {
+        // if(showToast) {
+        //     if(type === 'expire') {
+        //         handleError(message);
+        //     } else {
+        //         // handleSuccess(message);
+        //     }
+        // }
+        dispatch({ type: AUTH.LOGOUT_USER_API , isLoggedIn:false});
+        // await removeUserDetail();
+    };
   
