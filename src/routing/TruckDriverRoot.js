@@ -14,7 +14,7 @@ import ChatStack from './Stacks/Chat';
 import ProfileStack from './Stacks/MyProfile';
 import {Home} from '../pages/Protected';
 import SpaceStack from './Stacks/SpaceStack';
-import { customerRoutes } from '../utils/constant';
+import { customerRoutes, truckDriverRoutes } from '../utils/constant';
 
 // import {
 //     HomeStack,
@@ -31,7 +31,7 @@ const Root = ({initial}) => {
   return (
     <Tab.Navigator
       // initialRouteName={!initial ? "Home" : "Cart"}
-      tabBar={props => <TabBar {...props} customerRoutes={customerRoutes} />}
+      tabBar={props => <TabBar {...props} customerRoutes={truckDriverRoutes}  />}
       screenOptions={{
         headerShown: false,
         tabBarStyle: [
@@ -41,22 +41,22 @@ const Root = ({initial}) => {
           null,
         ],
       }}>
-      <Tab.Screen name="Home" component={ExploreScreen} />
-      <Tab.Screen name="Booking" component={AllBooking} />
+      <Tab.Screen name="Home" component={AllBooking} />
+      <Tab.Screen name="Booking" component={ExploreScreen} />
       <Tab.Screen name="Payment" component={Payment} />
 
       <Tab.Screen name="Chats" component={ChatStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
 
       <Tab.Screen
-        name="MySpace"
+        name="MySpace" 
         component={SpaceStack}
         options={{
           tabBarVisible: false, // Hide the tab bar for this screen
         }}
       />
     </Tab.Navigator>
-  );
+  ); 
 };
 
 export default Root;

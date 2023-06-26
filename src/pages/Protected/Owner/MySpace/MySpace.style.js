@@ -254,4 +254,73 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-});
+  addCard:{
+     alignItems:"center",
+     backgroundColor:themes['light'].colors.tertiary,
+     elevation:1 ,
+     borderRadius:10,
+     padding:15,
+     marginBottom:50
+  },
+  multplyCard:{
+     alignItems:"flex-start",
+     backgroundColor:themes['light'].colors.tertiary,
+     elevation:1 ,
+     borderRadius:10,
+     padding:15,
+     marginVertical:10
+  },
+  selectedMultplyCard:{
+     alignItems:"flex-start",
+     backgroundColor:themes['light'].colors.tertiary,
+     elevation:1 ,
+     borderRadius:10,
+     padding:15,
+     marginVertical:10,
+     borderWidth:1,
+     borderColor:themes['light'].colors.primaryb ,
+
+  },
+  img:{
+    width:25, height:25,
+    justifyContent:"center"
+  },
+  cardText:{
+    color: theme.light.colors.iconColor,
+    fontSize: 14,
+    fontFamily: theme.font.semiBold,
+  },
+  addCardText:{
+    color: theme.light.colors.primary,
+    fontSize: 13,
+    fontFamily: theme.font.semiBold,
+  },
+  inputView:{
+    width:width*0.45
+  },
+  memberCard: {
+    flex: 1,
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: theme['light'].colors.primary,
+    borderRadius: 7,
+    
+  },
+  unActiveMember: {
+    flex: 1,
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: theme['light'].colors.lightenGray,
+    borderRadius: 7,
+  },
+  manager: {
+    fontSize: 12,
+    color: theme['light'].colors.tertiary,
+    fontFamily: theme.font.semiBold,
+  },
+  unActivemanager: {
+    fontSize: 12,
+    color: theme['light'].colors.gray4,
+    fontFamily: theme.font.medium,
+  },
+})

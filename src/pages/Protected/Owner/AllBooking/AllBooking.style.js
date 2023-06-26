@@ -180,4 +180,16 @@ export default StyleSheet.create({
     fontFamily: theme.font.medium,
     fontWeight: '400',
   },
+  modalInnerContainer: {
+    flex: 1,
+    backgroundColor: theme['light'].colors.tertiary,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(124, 128, 97, 0.7)',
+    paddingTop: 200,
+    paddingHorizontal: 20,
+  },
 });

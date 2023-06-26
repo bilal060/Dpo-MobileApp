@@ -33,6 +33,7 @@ import {BASE_URL, BASE_URL_IMG} from '../../../../../config/webservices';
 import {useDispatch, useSelector} from 'react-redux';
 import {createBooking} from '../../../../../redux/actions/Root.Action';
 import moment from 'moment';
+import { handleError } from '../../../../../utils/methods';
 
 const SpaceDetails = ({navigation, route}) => {
   const reduxState = useSelector(({auth, language, root}) => {
@@ -51,7 +52,7 @@ const SpaceDetails = ({navigation, route}) => {
   const fullName = useRef(null);
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
-
+  const [prize, updatedPrize] = useState();
   const headerProps = {
     headerTitle: 'My Space',
     backButtonIcon: false,
@@ -85,22 +86,37 @@ const SpaceDetails = ({navigation, route}) => {
     );
   };
   const reverseSlot = () => {
-    const sTIme = `${
-      moment(startTime).format('LT').split(' ')[0].split(':')[0]
-    }${':'}${moment(startTime).format('LT').split(' ')[0].split(':')[1]}`;
-    const eTIme = `${
-      moment(endTime).format('LT').split(' ')[0].split(':')[0]
-    }${':'}${moment(endTime).format('LT').split(' ')[0].split(':')[1]}`;
+    if(!startTime && !endTime){
+      handleError("Please Select  time")
+    } else if(!prize){
+      handleError("Please enter price")
 
-    console.log('🚀 ~ file: SpaceDetails.js:89 ~ reverseSlot ~ sTIme:', sTIme);
-    const payload = {
-      from: sTIme,
-      to: eTIme,
-      price: '200',
-      spaceId: item?._id,
-      userId: reduxState?.userId,
-    };
-    dispatch(createBooking(payload, handleBack));
+    } else {
+      navigation.navigate('AddVechile', {
+        price: prize,
+        spaceId: item?._id,
+        startTime:startTime,
+        endTime:endTime
+      });
+    }
+    
+
+    // const sTIme = `${
+    //   moment(startTime).format('LT').split(' ')[0].split(':')[0]
+    // }${':'}${moment(startTime).format('LT').split(' ')[0].split(':')[1]}`;
+    // const eTIme = `${
+    //   moment(endTime).format('LT').split(' ')[0].split(':')[0]
+    // }${':'}${moment(endTime).format('LT').split(' ')[0].split(':')[1]}`;
+
+    // console.log('🚀 ~ file: SpaceDetails.js:89 ~ reverseSlot ~ sTIme:', sTIme);
+    // const payload = {
+    //   from: sTIme,
+    //   to: eTIme,
+    //   price: '200',
+    //   spaceId: item?._id,
+    //   userId: reduxState?.userId,
+    // };
+    // dispatch(createBooking(payload, handleBack));
   };
   const handleBack = res => {
     navigation.navigate('AddVechile');
@@ -207,7 +223,7 @@ const SpaceDetails = ({navigation, route}) => {
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
         />
-        {isCustomer ? 
+        {isCustomer ? (
           <View style={Styles.reverseSlot}>
             <CText style={Styles.selectTime}>Select Time</CText>
             <View style={Styles.timevIew}>
@@ -231,10 +247,19 @@ const SpaceDetails = ({navigation, route}) => {
                 selectContainer={Styles.selectContainer}
               />
             </View>
+            <CInput
+              placeholder={'Prize'}
+              value={prize}
+              onChangeText={updatedPrize}
+              sec
+              // leftIconNAme={Pri}
+              returnKeyType="next"
+              onSubmitEditing={() => {}}
+            />
 
             <CButton title="Reserve Slot" onPress={() => reverseSlot()} />
-          </View> : null
-        } 
+          </View>
+        ) : null}
 
         <View>
           <View

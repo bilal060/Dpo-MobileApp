@@ -44,13 +44,6 @@ import {AllBooking, Chats, Explore as ExploreScreen} from '../pages/Protected/Ow
 import ChatStack from './Stacks/Chat';
 import ProfileStack from './Stacks/MyProfile';
 
-const Screen1 = () => {
-  return <View style={styles.screen1} />;
-};
-
-const Screen2 = () => {
-  return <View style={styles.screen2} />;
-};
 
 export default function App() {
   const navigation = useNavigation();

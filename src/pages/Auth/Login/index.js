@@ -20,8 +20,8 @@ function Login({route}) {
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      // loading: auth.loginLoading,
-      loading: false,
+      loading: auth.loginLoading,
+      // loading: false,
 
     };
   });

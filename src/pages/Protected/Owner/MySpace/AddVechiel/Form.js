@@ -46,6 +46,7 @@ const des = useRef(null);
     //   validationSchema={Validations}
       >
       {({handleChange, values, handleSubmit, errors}) => {
+        console.log('errors', errors);
         return (
           <View>
             <View style={AuthStyle.card}>
@@ -170,7 +171,7 @@ const des = useRef(null);
                 iconType="left"
                 loading={loading}
                 buttonStyle={AuthStyle.spaceSaveBtn}
-                onPress={() => handleSubmit()}
+                onPress={() => submit()}
               />
 
               

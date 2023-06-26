@@ -132,14 +132,14 @@ const BookingCard = ({Active , fullName , time , contact , parkingType , prize, 
             <View style={[styles.header, {marginTop: -30}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Booking From</CText>
-                <CText style={styles.nameHeaindg}>{sTime?.split(":")[0]+": " + sTime?.split(":")[1]}</CText>
-                <CText style={[styles.nameHeaindg , {marginTop:-10}]}>{date}</CText>
+                <CText style={[styles.nameHeaindg ,{fontSize:10}]}>{sTime?.split(":")[0]+": " + sTime?.split(":")[1]}</CText>
+                <CText style={[styles.nameHeaindg , {marginTop:-10 , fontSize:10}]}>{date}</CText>
 
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Booking To</CText>
-                <CText style={styles.nameHeaindg}>{eTime?.split(":")[0]+": " + eTime?.split(":")[1]}</CText>
-                <CText style={[styles.nameHeaindg , {marginTop:-10}]}>{date}</CText>
+                <CText style={[styles.nameHeaindg ,{fontSize:10}]}>{eTime?.split(":")[0]+": " + eTime?.split(":")[1]}</CText>
+                <CText style={[styles.nameHeaindg , {marginTop:-10 , fontSize:10}]}>{date}</CText>
 
 
               </View>

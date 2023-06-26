@@ -29,6 +29,7 @@ function EditProfile({route}) {
     };
   });
   const [selectDate, updateSelectDate] = useState(null);
+  console.log("🚀 ~ file: index.js:32 ~ EditProfile ~ selectDate:", selectDate)
 
   const headerProps = {
     ProgressiveImageHeader: true,
@@ -37,23 +38,21 @@ function EditProfile({route}) {
     headerTitle: 'Edit Profile',
     headerRight: false,
   };
-  console.log(
-    '`${BASE_URL_IMG}${reduxState?.user?.photo}`',
-    `${BASE_URL_IMG}${reduxState?.user?.photo}`,
-  );
+  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(/\\/g, "/");
+
   const submit = (values) => {
     const payload = new FormData();
     payload.append('fullName', values?.fullName);
     payload.append('phoneNo', values?.phone);
-    payload.append('dob', moment(selectDate).format('L'));
-    payload.append('bio', values?.bio);
-    payload.append('field', 'Personal');
-    // payload.append('profile_img', {
-    //   uri: profileImage?.uri,
-    //   type: 'image/jpeg',
-    //   name: 'image.jpg',
-    // }); 
-    dispatch(updateUserProfile(payload, callBack));
+    payload.append('dob', moment(reduxState?.user?.dob).format('L'));
+    payload.append('bio', values?.des);
+
+    payload.append('profile_img', {
+      uri: convertedFilePath,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    }); 
+    dispatch(updateUserProfile(payload, reduxState?.user, callBack));
 
   };
   const callBack = res => {
@@ -79,7 +78,7 @@ function EditProfile({route}) {
         }}>
         {reduxState?.user?.photo ? (
           <ProgressiveImage
-            source={{uri: `${BASE_URL_IMG}${reduxState?.user?.photo}`}}
+            source={{uri: convertedFilePath}}
             resizeMode="contain"
             style={{width: 100, height: 100, borderRadius: 10}}
           />

@@ -16,12 +16,28 @@ export const GETALLSPACES = `${BASE_URL}spaces`;
 
 
 export const INVITEMANAGER = `${BASE_URL}users/manager-invitation`;
+export const ADDMEWSPACE = `${BASE_URL}spaces/add_space`;
 
 
 export const GETUSERSPACES = id => `${BASE_URL}spaces/space/${id}`;
 
 export const CREATEBOOKING = `${BASE_URL}bookings/create_booking`;
 export const ALLBOOKING = id => `${BASE_URL}bookings/user_bookings/${id}`;
+export const OWNERBOOKING = id => `${BASE_URL}bookings/owner_bookings/${id}`;
+export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers/${id}`;
+
+export const FILTERMANAGERS = (ownerId , spaceId) => `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
+export const FILTERBOOKING = (ownerId , spaceId) => `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
+
+export const GETCATEGORIES = user_role => `${BASE_URL}category/specific?role=${user_role}`;
+export const GETCARDS = user_id => `${BASE_URL}users/user-cards/${user_id}`;
+
+export const ADDCARDS = `${BASE_URL}users/add_card`;
+
+
+
+
+
 
 export const GETCONVERSATION = id => `${BASE_URL}conversations/${id}`;
 export const CONVERSATIONMESSAGE = id => `${BASE_URL}messages/${id}`;

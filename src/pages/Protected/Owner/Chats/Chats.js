@@ -45,6 +45,7 @@ const Chats = ({}) => {
       conversation: root?.conversations,
       userRole: auth?.user?.role,
       loading: root?.conversationsLoading,
+      userId:auth?.userId
     };
   });
   console.log(
@@ -52,9 +53,8 @@ const Chats = ({}) => {
     reduxState?.conversation,
   );
 
-  const userId = useSelector(state => state.auth?.user?._id);
   const dispatch = useDispatch();
-  console.log('🚀 ~ file: Chats.js:38 ~ Chats ~ userId:', userId);
+
 
   const data = [
     {
@@ -115,8 +115,8 @@ const Chats = ({}) => {
   ];
 
   useEffect(() => {
-    dispatch(getUserConversations(userId, callBack));
-  }, [userId]);
+    dispatch(getUserConversations(reduxState?.userId, callBack));
+  }, [reduxState?.userId]);
   const callBack = () => {
     console.log('🚀 ~ file: Chats.js:106 ~ callBack ~ callBack:', callBack);
   };
@@ -150,7 +150,7 @@ const Chats = ({}) => {
   };
 
   const renderProfile = ({item, index}) => {
-    const user = item?.members?.filter(e => e?._id !== userId);
+    const user = item?.members?.filter(e => e?._id !== reduxState?.userId);
     console.log('🚀 ~ file: Chats.js:146 ~ renderProfile ~ item: ---', user);
     return (
       <TouchableOpacity onPress={() => onSocket(item)}>

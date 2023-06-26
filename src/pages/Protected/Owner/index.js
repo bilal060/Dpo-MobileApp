@@ -21,6 +21,8 @@ import Payment from './Payment/Payment'
 import Langugae from './MyProfile/Langugae/Langugae'
 
 import AddVechieal  from './MySpace/AddVechiel'
+import AddCard  from './MySpace/AddCard'
+
 export{
     Managers,
     AddNewManager,
@@ -39,5 +41,6 @@ export{
     Payment,
     Langugae,
     TruckHome,
-    AddVechieal
+    AddVechieal,
+    AddCard
 }

@@ -81,11 +81,11 @@ function CForm(props) {
               <TouchableOpacity onPress={onForgotPress} style={AuthStyle.forgot}>
                 <CText style={AuthStyle.forgotText}>Forgot Password?</CText>
               </TouchableOpacity>
-              <CButton
+              <CButton                                                              
                 title={'Sign in'}
                 iconType="left"
                 loading={loading}
-                onPress={() => handleSubmit()}
+                onPress={() => handleSubmit()}                                                                                                                                                                                                     
               />
 
               <View style={{flexDirection:"row"}}>

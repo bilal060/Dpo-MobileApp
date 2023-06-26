@@ -30,91 +30,24 @@ import {
 } from '../../assets/images';
 import {useNavigationState} from '@react-navigation/native';
 
-const TabBar = ({state, navigation}) => {
-  const navigationState = useNavigationState(state => state);
-  const isOwnerScreenActive =  navigationState?.routes[navigationState?.index]?.name === 'Messages';
-  const reduxState = useSelector(({auth, language, root}) => {
-    return {
-      messages: root?.messages,
-    };
-  });
+const TabBar = ({state, navigation  , customerRoutes}) => {
+ console.log("🚀 ~ file: TabBar.js:34 ~ TabBar ~ routes:", customerRoutes)
+ 
   
-  const routes = [
-    {
-      name: 'Home',
-      key: 'home',
-      icon: 'home',
-      onPress: () => navigation.navigate('Home'),
-      fontSize: 32,
-      marginTop: -40,
-      type: 'antdesign',
-      img: Home,
-      img2: FocusedHome,
-    },
-    {
-      name: 'Cart',
-      key: 'cart',
-      icon: 'shopping-basket',
-      onPress: () =>
-        navigation.navigate('Booking', {
-          screen: 'Booking',
-          initial: false,
-        }),
-      // onPress: () =>  navigation.navigate('Cart'),
-      fontSize: 30,
-      type: 'fontisto',
-      img: Booking,
-      img2: FocusedBooking,
-    },
-    {
-      name: 'Search',
-      key: 'store',
-      icon: 'search1',
-      onPress: () =>
-        navigation.navigate('Payment', {
-          screen: 'Payment',
-          initial: false,
-        }),
-      fontSize: 30,
-      type: 'antdesign',
-      img: PaymentHistory,
-      img2: FPaymentHistory,
-    },
-    {
-      name: 'Location',
-      key: 'location',
-      icon: 'location-outline',
-      onPress: () => navigation.navigate('Chats'),
-      fontSize: 30,
-      type: 'ionicon',
-      img: Message,
-      img2: FocusedMessage,
-    },
-    {
-      name: 'Profile',
-      key: 'profile',
-      icon: 'user',
-      onPress: () => navigation.navigate('Profile'),
-      fontSize: 30,
-      type: 'antdesign',
-      img: Setting,
-      img2: FocusedSetting,
-    },
-  ];
+
   return (
     <SafeAreaView
       edges={['left', 'right', 'bottom']}
       style={Styles.tabContainer}>
       <View style={Styles.tabInnerContainer}>
         <MappedElement
-          data={routes}
+          data={customerRoutes}
           renderElement={(route, i) => {
 
-            const isroute = state?.routes?.[3]?.name === 'Messages' ? true : false;
 
             return (
                 <TouchableOpacity
-                  onPress={route.onPress}
+                  onPress={() => navigation.navigate(route?.navigate)}
                   key={i}
                   style={Styles.tab}>
                   <ProgressiveImage

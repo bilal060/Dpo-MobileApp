@@ -21,7 +21,7 @@ function Information({route}) {
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      loading: false ,
+      loading: auth?.registerLoading ,
       currentCountry: global?.currentCountry,
       countries: global?.countries,
     };
@@ -85,11 +85,12 @@ function Information({route}) {
     //   cLicenseNo:values?.cLicenseNo,
     //   doc_img:selectedFile
     // }
-    dispatch(updateUserProfile(payload, callBack));
+    dispatch(updateUserProfile(payload,  callBack));
 
     // navigation.navigate("VerifyOtp")
   };
   const callBack = res => {
+    console.log("🚀 ~ file: index.js:93 ~ callBack ~ res:", res)
     if (role === 'Customer') {
       navigation.navigate('Login');
     } else {

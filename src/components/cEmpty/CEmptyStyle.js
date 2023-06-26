@@ -17,7 +17,7 @@ export default StyleSheet.create({
         marginTop: 25,
         fontSize: 14,
         fontFamily: themes.font.bold,
-        color: themes['light'].colors.gray3,
+        color: themes['light'].colors.gray4,
         textAlign: 'center'
     },
     subText: {

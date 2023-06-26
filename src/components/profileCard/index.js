@@ -15,7 +15,7 @@ const ProfileCard = ({name , address , phone , active , profieContainer}) => {
         <CText style={GlobalStyle.ProfileName}>{name}</CText>
         <View style={[GlobalStyle.row , {flex:1 , alignItems:"center" , width:200}]}>
             <ProgressiveImage source={LocationColored} resizeMode="contain" style={{width:15 , height:15 ,  }} />
-            <CText style={GlobalStyle.contact}>{address}</CText>
+            <CText numberOfLines={1} style={GlobalStyle.contact}>{address}</CText>
         </View>
         <View style={[GlobalStyle.row , {flex:1 , alignItems:"center", width:200 , paddingBottom:10  }]}>
           <ProgressiveImage source={CallColoured} resizeMode="contain" style={{width:15 , height:15 , }} />

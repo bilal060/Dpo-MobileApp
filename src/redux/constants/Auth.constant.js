@@ -8,6 +8,7 @@ const AuthConstant = {
     FORGOT_PASS: "FORGOT_PASS",
     LOGOUT_USER_API: "LOGOUT_USER_API",
     GETSP:"GETSP"
+    
 
 
 

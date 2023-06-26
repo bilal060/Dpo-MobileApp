@@ -64,7 +64,7 @@ function Container(props) {
         <CLoading loading={loading} />
         <View style={{flex: 1}}>
           {scrollView ? (
-            <ScrollView {...scrollViewProps} scrollEventThrottle={16}>
+            <ScrollView {...scrollViewProps} nestedScrollEnabled scrollEventThrottle={16}>
               {children}
             </ScrollView>
           ) : (

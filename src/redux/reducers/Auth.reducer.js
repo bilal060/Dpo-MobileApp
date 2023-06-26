@@ -7,7 +7,6 @@ const initialState = {
   forgitPassLoading: false,
   updateUserLoading: false,
   user: {},
-  role: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -23,13 +22,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         registerLoading: action.loading,
-        role: action.role,
       };
     case AUTH.UPDATE_USERPROFILE_API:
       return {
         ...state,
         updateUserLoading: action.loading,
-        role: action.role,
+        user:action?.user
       };
     case AUTH.LOGOUT_USER_API:
       return {...state, isLoggedIn: action.isLoggedIn, user: action.user};
@@ -44,8 +42,13 @@ export default (state = initialState, action = {}) => {
         ...state,
         forgitPassLoading: action.loading,
       };
+      case "ALLSPACE":
+      return {
+        ...state,
+        spaceData: action.data,
+      }; 
     default:
-      return {...state};
+      return state
   }
 };
- 
+  

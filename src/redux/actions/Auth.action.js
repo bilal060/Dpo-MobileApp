@@ -71,7 +71,6 @@ export const registerOwner = (payload, CB) => async dispatch => {
       dispatch({
         type: AUTH.REGISTER_OWNER_API,
         loading: false,
-        role: payload?.role
       });
       handleSuccess(response?.data?.message);
     }
@@ -117,11 +116,11 @@ export const verifyOTP = (payload, CB) => async dispatch => {
   }
 };
 
-export const updateUserProfile = (payload, CB) => async dispatch => {
+export const updateUserProfile = (payload , CB) => async dispatch => {
    console.log("🚀 ~ file: Auth.action.js:121 ~ updateUserProfile ~ payload:", payload)
    const token = await getValueIntoAsyncStorage(TOKEN)
    getTokenAndSetIntoHeaders(token)
-  dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: true});
+  dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: true , });
   const config = {
     headers: {
         'Content-Type': 'multipart/form-data',
@@ -131,7 +130,7 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
   };
   try {
     let response = await patch(UPDATEPROFILE, payload, config);
-    console.log("🚀 ~ file: Auth.action.js:134 ~ updateUserProfile ~ response:", response)
+    console.log("🚀 ~ file: Auth.action.js:134 ~ updateUserProfile ~ response:", response?.data)
    
     if (response?.data?.error) {
       dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: false});
@@ -151,7 +150,7 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
   console.log("🚀 ~ file: Auth.action.js:150 ~ updateUserProfile ~ error:", error)
 
     handleError(error?.data?.error, {autoHide: false});
-    dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: false});
+    dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: false });
   }
 };
 export const updateCompnayProfile = (payload, CB) => async dispatch => {
@@ -239,4 +238,8 @@ export const forgotPass = (payload, CB) => async dispatch => {
         dispatch({ type: AUTH.LOGOUT_USER_API , isLoggedIn:false});
         // await removeUserDetail();
     };
+
+    export const newSpace = () => async => dispatch =>{
+      dispatch({type: "ALLSPACE", loading: true})
+    }
   

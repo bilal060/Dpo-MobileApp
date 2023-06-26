@@ -139,13 +139,22 @@ import MarkerImage from './icons/Marker.png';
 import Vreg from './icons/Vreg.png';
 import VModal from './icons/VModal.png';
 import VComapny from './icons/VComapny.png';
+import AddCard from './icons/add.png';
+import VisaCard from './icons/visa.png';
+import AreaIcon from './area.png';
 
-
+import FTruckIcon from './icons/FTruckIcon.png';
+import TruckIcon from './icons/TruckIcon.png';
 export {
   Company,
+  AreaIcon,
   FocusedCompany,
   WelcomeLogo,
+  VisaCard,
+  AddCard,
   ChargingStation,
+  FTruckIcon,
+  TruckIcon, 
   MarkerImage,
   GasStation,
   PitStop,

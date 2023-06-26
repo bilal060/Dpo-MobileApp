@@ -119,6 +119,7 @@ const NewManager = ({navigation}) => {
         from: '9:00 am',
         to: '10:00 pm',
       },
+      managerOwner: reduxState?.userId
     };
     console.log('🚀 ~ file: NewManager.js:120 ~ submit ~ payload:', payload);
     dispatch(add_managers(payload, managerCallBack));

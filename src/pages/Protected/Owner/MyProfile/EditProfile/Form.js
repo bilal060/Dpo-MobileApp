@@ -13,6 +13,7 @@ import moment from 'moment';
 
 function CForm(props) {
   const {submit, loading , onForgotPress , selectedCountry , toggleCountryModal , selectDate , updateSelectDate , user} = props;
+  console.log("🚀 ~ file: Form.js:16 ~ CForm ~ user:", user)
   const {t,} = useTranslation();
 
   const form = useRef(null);
@@ -28,7 +29,7 @@ const des = useRef(null);
       onSubmit={values => submit(values)}
       initialValues={{
         fullName:user?.fullName,
-        phone:user?.phone,
+        phone:user?.phoneNo,
         email:user?.email,
         des:user?.bio
       }}

@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useEffect, useRef} from 'react';
-import {Container} from '../../../../containers';
+import {StyleSheet, Text, View, TouchableOpacity, Modal} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Container, CountriesModal} from '../../../../containers';
 import {
   BookingCard,
   CInput,
@@ -30,14 +30,19 @@ import Styles from './AllBooking.style';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllBooking } from '../../../../redux/actions/Root.Action';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  filter_ownerBooking,
+  getAllBooking,
+  getSpacsss,
+  get_ownerBooking,
+} from '../../../../redux/actions/Root.Action';
 import moment from 'moment';
 
 const AllBooking = ({navigation}) => {
   const type = useRef(null);
   const sort = useRef(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const headerProps = {
     headerTitle: 'All Booking',
     backButtonIcon: false,
@@ -51,9 +56,12 @@ const AllBooking = ({navigation}) => {
     return {
       booking: root?.booking,
       loading: root?.bookingLoading,
+      userId: auth?.user?._id,
+      userRole: auth?.user?.role,
     };
   });
-  const userId = useSelector(state => state.auth?.user?._id);
+  const [booking, setAllBooking] = useState([]);
+  const [spaces, setSpaces] = useState([]);
 
   const listData = [
     {
@@ -80,11 +88,48 @@ const AllBooking = ({navigation}) => {
 
   useEffect(() => {
     getbooking();
-  },[]);
+  }, []);
 
   const getbooking = () => {
-    dispatch(getAllBooking(userId))
+    const isCustomer = reduxState?.userRole === 'Customer';
+    if (isCustomer) {
+      dispatch(getAllBooking(reduxState?.userId, callBack));
+    } else {
+      dispatch(getSpacsss(reduxState?.userId, spaceCallBack));
+
+      dispatch( (reduxState?.userId, callBack));
+    }
   };
+
+  const spaceCallBack = res => {
+    setSpaces(res?.spaces);
+  };
+  const callBack = res => {
+    setAllBooking(res?.bookings);
+    console.log('🚀 ~ file: AllBooking.js:90 ~ callBack ~ res:', res);
+  };
+
+  const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
+  const [selectedCountry, updateSelectedCountry] = useState('');
+
+  const toggleCountryModal = () => {
+    updateCountryModalIsOpen(!countryModalIsOpen);
+  };
+
+  const countryOnSelect = item => {
+    filterBooking(item?._id);
+    updateSelectedCountry(item);
+    toggleCountryModal();
+  };
+
+  const filterBooking = id => {
+    const payload = {
+      id: reduxState?.userId,
+      spaceId: id,
+    };
+    dispatch(filter_ownerBooking(payload, callBack));
+  };
+
   const renderItem = ({item}) => {
     return (
       <View style={Styles.bookingCard}>
@@ -98,21 +143,32 @@ const AllBooking = ({navigation}) => {
 
         <View style={{flexDirection: 'column', paddingLeft: 10}}>
           <CText style={Styles.cardHeading}>{item?.title}</CText>
-          <CText style={Styles.cardValue}>{item?.value}</CText>
+          <CText style={Styles.cardValue}>{booking?.length || 0}</CText>
         </View>
       </View>
     );
   };
   const renderBooking = ({item}) => {
-    console.log("🚀 ~ file: AllBooking.js:104 ~ renderBooking ~ item:", item)
-    return <BookingCard location={item?.spaceId?.location?.address} date={moment(item?.createdAt).format('LL')} contact={item?.userId?.phoneNo} fullName={item?.userId?.fullName} time={moment(item?.createdAt).startOf('hour').fromNow()} prize={item.price} eTime={item?.to} sTime={item?.from}/>;
+    console.log('🚀 ~ file: AllBooking.js:104 ~ renderBooking ~ item:', item);
+    return (
+      <BookingCard
+        location={item?.spaceId?.location?.address || item?.spaceId?.address}
+        date={moment(item?.createdAt).format('LL')}
+        contact={item?.userId?.phoneNo}
+        fullName={item?.userId?.fullName}
+        time={moment(item?.createdAt).startOf('hour').fromNow()}
+        prize={item.price?.toFixed(3)}
+        eTime={item?.to}
+        sTime={item?.from}
+      />
+    );
   };
   return (
     <Container
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView>
+      scrollView> 
       <View style={Styles.container}>
         <CList
           style={Styles.sbookinglist}
@@ -143,7 +199,7 @@ const AllBooking = ({navigation}) => {
           // numColumns={2}
           //   horizontal
           contentContainerStyle={[GlobalStyle.list]}
-          data={reduxState?.booking}
+          data={booking}
           // loading={reduxState.loading}
           renderItem={renderBooking}
           keyExtractor={(item, index) => index.toString()}
@@ -161,43 +217,49 @@ const AllBooking = ({navigation}) => {
         <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
           <CText style={Styles.mainHeading}>Booking History</CText>
         </View>
-        <CInput
-          ref={type}
-          placeholder={'Sort By'}
-          // value={values.fuel}
-          // onChangeText={handleChange('fuel')}
-          // error={errors.fuel}
-          sec
-          inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-          type="view"
-          leftIconNAme={FuelIcon}
-          returnKeyType="next"
-        />
-        <CInput
-          ref={type}
-          placeholder={'Select Space Type'}
-          // value={values.fuel}
-          // onChangeText={handleChange('fuel')}
-          // error={errors.fuel}
-          inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-          sec
-          type="view"
-          leftIconNAme={FuelIcon}
-          returnKeyType="next"
-        />
+        {booking?.length > 0 && (
+          <React.Fragment>
+            <CInput
+              ref={type}
+              placeholder={'Sort By'}
+              // value={values.fuel}
+              // onChangeText={handleChange('fuel')}
+              // error={errors.fuel}
+              onPress={toggleCountryModal}
+              selectValue={selectedCountry}
+              sec
+              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+              type="view"
+              leftIconNAme={FuelIcon}
+              returnKeyType="next"
+            />
+            <CInput
+              ref={type}
+              placeholder={'Select Space Type'}
+              // value={values.fuel}
+              // onChangeText={handleChange('fuel')}
+              // error={errors.fuel}
+              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+              sec
+              type="view"
+              leftIconNAme={FuelIcon}
+              returnKeyType="next"
+            />
+          </React.Fragment>
+        )}
 
         <CList
           style={Styles.spacelist}
           // numColumns={2}
           //   horizontal
           contentContainerStyle={[GlobalStyle.list]}
-          data={[1, 22, 3]}
+          data={booking}
           // loading={reduxState.loading}
           renderItem={renderBooking}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
             // icon: require('../../assets/images/empty.png'),
-            text: 'Store not found',
+            text: 'Booking not found',
           }}
           // onRefreshLoading={reduxState.loading}
           // onRefreshHandler={() => onRefreshHandler()}
@@ -207,6 +269,19 @@ const AllBooking = ({navigation}) => {
           // windowSize={10}
         />
       </View>
+      <Modal
+        transparent={true}
+        visible={countryModalIsOpen}
+        onRequestClose={() => toggleCountryModal()}>
+        <View style={Styles.modalContainer}>
+          <View style={Styles.modalInnerContainer}>
+            <CountriesModal
+              data={spaces}
+              onSelect={val => countryOnSelect(val)}
+            />
+          </View>
+        </View>
+      </Modal>
     </Container>
   );
 };

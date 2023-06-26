@@ -97,9 +97,7 @@ const Home = ({navigation}) => {
     dispatch(getSpacsss("ss"));
   };
 
-  const cla = res => {
-    console.log('res', res);
-  };
+  
 
   const listData2 = [
     {
@@ -112,6 +110,7 @@ const Home = ({navigation}) => {
       title: 'Paid Bookings',
       value: '185',
     },
+    
     {
       img: Cancel,
       title: 'Cancelled Bookings',

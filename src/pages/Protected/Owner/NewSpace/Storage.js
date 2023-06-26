@@ -1,10 +1,11 @@
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
 import Styles from './NewSpace.style';
 import {themes} from '../../../../theme/colors';
 import {
+  AreaIcon,
   CNameIcon,
   CardIcon,
   CctvIcon,
@@ -25,19 +26,45 @@ import {
 } from '../../../../assets/images';
 import * as Yup from 'yup';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function CarParking(props) {
-  const {submit, loading, toggleCountryModal, selectedCountry} = props;
+function Storage(props) {
+  const {
+    submit,
+    loading,
+    toggleCountryModal,
+    selectedCountry,
+    toggleFuelModal,
+    selectedFuel,
+    toggleStaffModal,
+    selectedStaff,
+    selectedClimate,
+    toggleClimateModal,
+    selectedSecurity,
+    mapAdreess,
+    setMapAdreess,
+    toggleSecurityModal,
+    onDocumentPress,
+    selectedFile
+  } = props;
 
   const scheme = Yup.object().shape({
-    email: Yup.string()
-      .required('Please enter email address')
-      .email('Please enter valid email address'),
+    phone: Yup.string().required('Please enter phone number '),
+    areaSize: Yup.string().required('Please enter are size '),
+    decs: Yup.string().required('Please enter descripition  '),
+    parking: Yup.string().required('Please enter parking'),
+    rHour: Yup.string().required('Please enter your rate as per hour'),
+
+    rDay: Yup.string().required('Please enter your rate as per day'),
+    rWeek: Yup.string().required('Please enter your rate as per week'),
+
+    rMonth: Yup.string().required('Please enter your rate as per Month'),
   });
 
   const form = useRef(null);
   const fullName = useRef(null);
-  const email = useRef(null);
+  const areaSize = useRef(null);
   const number = useRef(null);
   const decs = useRef(null);
   const location = useRef(null);
@@ -50,6 +77,10 @@ function CarParking(props) {
   const rDay = useRef(null);
   const rWeek = useRef(null);
 
+  const handlePlaceSelection = (data, details) => {
+    setMapAdreess(data)
+
+  };
 
   return (
     <Formik
@@ -62,31 +93,6 @@ function CarParking(props) {
           <View>
             <View style={[Styles.card]}>
               <View style={Styles.cardBody}>
-                <CInput
-                  ref={fullName}
-                  placeholder={'Select Company'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
-                  sec
-                  leftIconNAme={CNameIcon}
-                  returnKeyType="next"
-                  onSubmitEditing={() => number.current.focus()}
-                />
-
-                <CInput
-                  ref={fullName}
-                  placeholder={'Select Branch'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
-                  sec
-                  type="view"
-                  leftIconNAme={CNameIcon}
-                  returnKeyType="next"
-                  onSubmitEditing={() => dob.current.focus()}
-                />
-
                 <CInput
                   ref={number}
                   type="number"
@@ -110,42 +116,115 @@ function CarParking(props) {
                   onSubmitEditing={() => fullName.current.focus()}
                 />
               </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginLeft: 15,
+                  marginBottom: 10,
+                }}>
+                <ProgressiveImage
+                  source={LocationIcon}
+                  resizeMode="contain"
+                  style={{width: 20, height: 20}}
+                />
+                <GooglePlacesAutocomplete
+                  placeholder={mapAdreess || "Select Your Adreess"}
+                  debounce={100}
+                  listViewDisplayed={true}
+                  minLength={2}
+                  autoFocus={true}
+                  
+                  returnKeyType={'default'}
+                  fetchDetails={true}
+                  onPress={(data, details) => {
+                    handlePlaceSelection(details);
+                  }}
+                  onPlaceSelected={place => {
+                    handlePlaceSelection(place);
+                  }}
+                  renderRow={(rowData, details) => (
+                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
+                      <CText
+                        
+                        style={Styles.suggestionText}
+                        // onPress={() => console.log('1', 1)}
+                      >
+                        {rowData.description}
+                      </CText>
+                    </TouchableOpacity>
+                  )}
+                  query={{
+                    key: 'AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA',
+                    language: 'en',
+                  }}
+                  textInputProps={{
+                    leftIcon: {type: 'font-awesome', name: 'back'},
+                    errorStyle: {color: 'red'},
+                  }}
+                  styles={{
+                    textInputContainer: Styles.textInput,
+                    textInput: Styles.input,
+                    predefinedPlacesDescription: {
+                      color: '#1faadb',
+                    },
+                    powered: {},
+                    listView: {},
+                    row: {
+                      height: 44,
+                      flexDirection: 'row',
+                    },
+                    separator: {
+                      height: 0.5,
+                      backgroundColor: '#c8c7cc',
+                      marginHorizontal: 22,
+                    },
+                    description: {},
+                    loader: {
+                      flexDirection: 'row',
+                      justifyContent: 'flex-end',
+                      height: 20,
+                    },
+                  }}
+                />
+              </View>
+              <CInput
+                ref={areaSize}
+                placeholder={'Area Size in Sq. Yd.'}
+                value={values.areaSize}
+                onChangeText={handleChange('areaSize')}
+                error={errors.areaSize}
+                sec
+                leftIconNAme={AreaIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
 
               <CInput
-                ref={location}
-                placeholder={'Enter Location'}
-                value={values.location}
-                onChangeText={handleChange('location')}
-                error={errors.location}
-                sec
-                leftIconNAme={LocationIcon}
-                returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
-              />
-              <CInput
-                ref={dob}
                 placeholder={'CCTV Cameras'}
                 value={values.dob}
-                onChangeText={handleChange('dob')}
                 error={errors.dob}
+                onPress={toggleFuelModal}
+                selectValue={selectedFuel}
                 sec
                 type="view"
                 leftIconNAme={CctvIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                onSubmitEditing={() => {}}
               />
 
               <CInput
                 ref={dob}
                 placeholder={'Security Type'}
-                value={values.dob}
-                onChangeText={handleChange('dob')}
+                onPress={toggleSecurityModal}
+                selectValue={selectedSecurity}
                 error={errors.dob}
                 sec
                 type="view"
                 leftIconNAme={SecurityIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                onSubmitEditing={() => {}}
               />
               <CInput
                 ref={decs}
@@ -156,7 +235,7 @@ function CarParking(props) {
                 sec
                 leftIconNAme={DesIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                onSubmitEditing={() => {}}
               />
               <CInput
                 ref={parking}
@@ -167,19 +246,50 @@ function CarParking(props) {
                 sec
                 leftIconNAme={ParkingIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                onSubmitEditing={() => {}}
               />
               <CInput
                 ref={fuel}
                 placeholder={'Select Fuel Availability'}
                 value={values.fuel}
                 onChangeText={handleChange('fuel')}
+                onPress={toggleFuelModal}
+                selectValue={selectedFuel}
                 error={errors.fuel}
                 sec
                 type="view"
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                onSubmitEditing={() => {}}
+              />
+              <CInput
+                ref={fuel}
+                placeholder={'Select Paid Staff'}
+                value={values.fuel}
+                onPress={toggleStaffModal}
+                selectValue={selectedStaff}
+                onChangeText={handleChange('fuel')}
+                error={errors.fuel}
+                sec
+                type="view"
+                leftIconNAme={FuelIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
+
+              <CInput
+                ref={fuel}
+                placeholder={'Select Climate Control'}
+                value={values.fuel}
+                onPress={toggleClimateModal}
+                selectValue={selectedClimate}
+                onChangeText={handleChange('fuel')}
+                error={errors.fuel}
+                sec
+                type="view"
+                leftIconNAme={FuelIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
               />
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
@@ -192,7 +302,7 @@ function CarParking(props) {
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
-                    onSubmitEditing={() => idCard.current.focus()}
+                    onSubmitEditing={() => {}}
                   />
                 </View>
                 <View style={Styles.inputView}>
@@ -205,7 +315,7 @@ function CarParking(props) {
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
-                    onSubmitEditing={() => idCard.current.focus()}
+                    onSubmitEditing={() => {}}
                   />
                 </View>
               </View>
@@ -220,7 +330,7 @@ function CarParking(props) {
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
-                    onSubmitEditing={() => idCard.current.focus()}
+                    onSubmitEditing={() => {}}
                   />
                 </View>
                 <View style={Styles.inputView}>
@@ -233,28 +343,36 @@ function CarParking(props) {
                     sec
                     leftIconNAme={RateIcon}
                     returnKeyType="next"
-                    onSubmitEditing={() => idCard.current.focus()}
+                    onSubmitEditing={() => {}}
                   />
                 </View>
               </View>
 
-              <CText style={Styles.uploadText}>
-              Upload Images
-              </CText>
+              <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <View style={Styles.selectFileView}>
+              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
                 <View style={{width: 40}}>
                   <ProgressiveImage
                     source={UploadIcon}
                     style={Styles.inputLeftIconButton}
                     resizeMode={'contain'}
-                  /> 
+                  />
                 </View>
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
-              </View>
+                
+              </TouchableOpacity>
+              {selectedFile?.name && (
+                  <CText
+                    style={[
+                      Styles.uploadText,
+                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                    ]}>
+                    {selectedFile?.name}
+                  </CText>
+                )}
 
               <CButton
                 title={'Cancel'}
@@ -282,4 +400,4 @@ function CarParking(props) {
     </Formik>
   );
 }
-export default memo(CarParking);
+export default memo(Storage);

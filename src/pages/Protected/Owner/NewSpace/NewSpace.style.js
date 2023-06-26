@@ -45,7 +45,6 @@ export default StyleSheet.create({
   },
   buttonStyle: {
     marginTop: height * 0,
-
   },
   headerView: {
     marginBottom: 20,
@@ -91,20 +90,43 @@ export default StyleSheet.create({
     widht: 20,
     height: 20,
   },
-  spaceCancelBtn:{
+  spaceCancelBtn: {
     backgroundColor: themes['light'].colors.secondary3,
-    marginVertical:10,
+    marginVertical: 10,
     marginHorizontal: 10,
-
-
   },
-  spaceSaveBtn:{
+  spaceSaveBtn: {
     marginHorizontal: 10,
-
+    marginBottom:50
   },
-  buttonText:{
+  buttonText: {
     color: themes['light'].colors.primary,
 
-  }
-  
+
+  },
+  input: {
+    height: 42,
+    color: themes['light'].colors.gray4,
+    fontFamily: themes.font.medium,
+
+    borderColor: themes['light'].colors.gray3,
+    backgroundColor: 'transparent',
+    fontSize: 16,
+    borderBottomWidth: 0.5,
+  },
+  textInput: {
+    marginHorizontal: 5,
+  },
+  modalInnerContainer: {
+    flex: 1,
+    backgroundColor: theme['light'].colors.tertiary,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(124, 128, 97, 0.7)',
+    paddingTop: 200,
+    paddingHorizontal: 20,
+  },
 });

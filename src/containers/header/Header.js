@@ -14,8 +14,8 @@ import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import { BASE_URL_IMG } from '../../config/webservices';
 const {width, height} = Dimensions.get('screen');
-
 
 const Header = props => {
   const {
@@ -44,9 +44,12 @@ const Header = props => {
   const reduxState = useSelector(({auth, language}) => {
     return {
       userRole: auth?.user?.role,
+      user: auth?.user,
     };
   });
+  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(/\\/g, "/");
 
+  console.log("🚀 ~ file: Header.js:52 ~ convertedFilePath:", convertedFilePath)
   const backPress = () => {
     if (backOnPress) {
       backOnPress();
@@ -129,7 +132,7 @@ const Header = props => {
         ) : (
           <ProgressiveImage
             style={styles.profileImage}
-            source={headerRightImg}
+            source={!reduxState?.user ? headerRightImg : {uri: convertedFilePath}}
             resizeMode="contain"
           />
         )}
@@ -137,10 +140,9 @@ const Header = props => {
     );
   };
 
-  const getBackgroundColor = () => { 
+  const getBackgroundColor = () => {
     if (!ProgressiveImageHeader === true) {
       return theme['light'].colors.tertiary;
-    
     } else {
       return theme['light'].colors.primary;
     }
@@ -158,8 +160,7 @@ const Header = props => {
       <View>
         {/* {reduxState?.userRole === 'Customer' ? ( */}
 
-      {true ? (
-
+        {true ? (
           <>
             <View style={[GlobalStyle.listItemActions]}>
               {backButtonIcon ? backButton() : null}
@@ -207,7 +208,7 @@ const Header = props => {
               />
             </View> */}
           </>
-        )} 
+        )}
       </View>
     </SafeAreaView>
   );
@@ -217,7 +218,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: theme.light.colors.backgroundColor, 
+    backgroundColor: theme.light.colors.backgroundColor,
     paddingVertical: 20,
     paddingHorizontal: 10,
     // height:170,
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
   headerView: {
     alignItems: 'center',
     marginVertical: 10,
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   headerLogoImage: {
     width: 130,
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
   profileImage2: {
     width: 25,
     height: 25,
-    justifyContent:"center"
+    justifyContent: 'center',
   },
   subheaderView: {
     marginTop: 10,
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
   },
   inputInnerContainerStyle: {
     backgroundColor: '#FFF',
-    borderBottomWidth  : 0,
+    borderBottomWidth: 0,
     width: width * 0.63,
     marginTop: 10,
     borderRadius: 50,
