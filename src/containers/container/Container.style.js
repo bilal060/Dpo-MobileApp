@@ -64,5 +64,6 @@ export default StyleSheet.create({
     },
     homeHeaderButtons: {
         justifyContent: 'flex-end',
+        
     },
 });

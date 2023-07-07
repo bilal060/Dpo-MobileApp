@@ -1,10 +1,11 @@
-import {FlatList, StyleSheet, Text, View , ScrollView} from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import {FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {Container, PackageCard} from '../../../../../containers';
 import {
   CButton,
   CheckBox,
   CIcon,
+  CInput,
   CList,
   CPagination,
   CText,
@@ -13,13 +14,21 @@ import {
   RadioButton,
 } from '../../../../../components';
 import Styles from '../Chats.style';
-import {ManagerIcon, Menu, Notification, Profile} from '../../../../../assets/images';
+import {
+  CardIcon,
+  CemeraPhoto,
+  ManagerIcon,
+  Menu,
+  Notification,
+  Profile,
+} from '../../../../../assets/images';
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 import {themes} from '../../../../../theme/colors';
-import { useDispatch, useSelector } from 'react-redux';
-import { getConversationMessages } from '../../../../../redux/actions/Root.Action';
-import { Socket } from '../../../../../utils/methods';
+import {useDispatch, useSelector} from 'react-redux';
+import {getConversationMessages, send_messages} from '../../../../../redux/actions/Root.Action';
+import {Socket} from '../../../../../utils/methods';
 import moment from 'moment';
+import {TextInput} from 'react-native-gesture-handler';
 
 const Managers = ({route}) => {
   const headerProps = {
@@ -38,68 +47,59 @@ const Managers = ({route}) => {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum ',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-      type: "sender",
+      type: 'sender',
     },
     {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-      type: "sender",
-
+      type: 'sender',
     },
     {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-      type: "reciver",
-
-
+      type: 'reciver',
     },
     {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-
     },
     {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-      type: "sender",
-
-
+      type: 'sender',
     },
     {
       name: 'Lorem ipsum dolor sit amet consectetur. Non dolor sit. Lorem ipsum',
       address: 'Belmont, North Carolina',
       phone: '+1 012 3456 789',
-      type: "sender",
-
+      type: 'sender',
     },
-   
   ];
 
-
-  const {conversationId} = route?.params ||{}; 
+  const {conversationId} = route?.params || {};
   const dispatch = useDispatch();
   const scrollRef = useRef();
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);  
-  console.log("🚀 ~ file: Messages.js:87 ~ Managers ~ messages:", messages)
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  console.log('🚀 ~ file: Messages.js:87 ~ Managers ~ messages:', messages);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const token = useSelector(state => state.auth.token);
-  const userId = useSelector(state => state.auth.user._id); 
+  const userId = useSelector(state => state.auth.user._id);
   useEffect(() => {
-    if (conversationId){
+    if (conversationId) {
       getMessages();
     }
-  }, [conversationId]);   
-  useEffect(() => { 
-    Socket.on("getMessage", (data) => { 
+  }, [conversationId]);
+  useEffect(() => {
+    Socket.on('getMessage', data => {
       const newmessage = {
         receiverId: data.receiverId,
         sender: data.senderId,
-        message: data.message, 
+        message: data.message,
       };
       setArrivalMessage(newmessage);
       // setMessages(pre => [...pre, newmessage]);
@@ -107,8 +107,9 @@ const Managers = ({route}) => {
   }, []);
   useEffect(() => {
     arrivalMessage &&
-    messages!=undefined && messages[0].conversationId.members.includes(arrivalMessage.sender) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
+      messages != undefined &&
+      messages[0].conversationId.members.includes(arrivalMessage.sender) &&
+      setMessages(prev => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
   // useEffect(() => {
@@ -117,64 +118,68 @@ const Managers = ({route}) => {
 
   const getMessages = async () => {
     try {
-      dispatch(getConversationMessages(conversationId, callbackFunc))
-
+      dispatch(getConversationMessages(conversationId, callbackFunc));
     } catch (err) {
       console.log(err);
     }
   };
-  const callbackFunc =(res)=>{
+  const callbackFunc = res => {
     setMessages(res.messages);
+  };
 
-  }
-
-
-  const sendMessage = async ()=>{
+  const sendMessage = async () => {
     const newmessage = {
-      "conversationId":conversationId,
-      "sender": userId,
-      "message": message
-    }
-    dispatch(send_messages(newmessage,token)); 
+      conversationId: conversationId,
+      sender: userId,
+      message: message,
+    };
+    dispatch(send_messages(newmessage));
     setMessages(pre => [...pre, newmessage]);
-    
 
-    setMessage("");
+    setMessage('');
 
-    const receiverId = await messages!=undefined && messages[0].conversationId.members.find(
-      (member) => member !== userId
-    );
-    Socket.emit("sendMessage", {
+    const receiverId =
+      (await messages) != undefined &&
+      messages[0].conversationId.members.find(member => member !== userId);
+    Socket.emit('sendMessage', {
       senderId: userId,
       receiverId: receiverId,
       message: message,
     });
-  }
-
-  
+  };
 
   const renderProfile = (item, index) => {
-    const isSender = item?.sender === userId
-    console.log("🚀 ~ file: Messages.js:157 ~ renderProfile ~ isSender:", isSender)
+    const isSender = item?.sender === userId;
+    console.log(
+      '🚀 ~ file: Messages.js:157 ~ renderProfile ~ isSender:',
+      isSender,
+    );
 
     console.log('itemitemitem---mrssage', item);
     return (
-        <View style={isSender ?  Styles.reciverView : Styles.senderView}>
-          
-          <View style={{flex: 1, paddingHorizontal: 10}}>
-            <CText style={ isSender ?  Styles?.reviverMessageName  : Styles.senderMessageName}>{item.message}</CText>
-          </View>
-          <View>
-            <CText style={ isSender ?   Styles?.reciverDate : Styles.senderDate}>{moment(item?.conversationId?.updatedAt).format('L')}</CText>
-          </View>
+      <View style={isSender ? Styles.reciverView : Styles.senderView}>
+        <View style={{flex: 1, paddingHorizontal: 10}}>
+          <CText
+            style={
+              isSender ? Styles?.reviverMessageName : Styles.senderMessageName
+            }>
+            {item.message}
+          </CText>
         </View>
+        <View>
+          <CText style={isSender ? Styles?.reciverDate : Styles.senderDate}>
+            {moment(item?.conversationId?.updatedAt).format('L')}
+          </CText>
+        </View>
+      </View>
     );
   };
 
   return (
     <Container
-      //   scrollView
-      bottomSpace
+      scrollView
+      messagesScreen
+      // bottomSpace
       edges={['left', 'right']}
       style={Styles.container}
       //   headerProps={headerProps}
@@ -210,21 +215,56 @@ const Managers = ({route}) => {
             </View>
           </View>
           <View>
-          <ProgressiveImage
+            <ProgressiveImage
               source={Menu}
               resizeMode="contain"
-              style={{width: 25, height: 25,}}
+              style={{width: 25, height: 25}}
             />
           </View>
         </View>
-        <ScrollView style={Styles.chatlist}>
-            
-        <View style={{marginBottom:50}} >
-          
-          {messages!=undefined && messages.length >= 0 && messages.map((item) => (
-            renderProfile(item)
-          ))}
-          
+        {/* <ScrollView style={Styles.chatlist}> */}
+          {messages != undefined &&
+            messages.length >= 0 &&
+            <FlatList style={{  height:550 }}  nestedScrollEnabled data={messages} renderItem={({item})=> renderProfile(item)}/>
+            // messages.map(item => renderProfile(item))
+          }
+
+<View
+          style={{
+            marginTop: 10,
+            flexDirection: 'row',
+            // position:"absolute",
+            // top:200,
+            // alignItems:"center",
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+          }}>
+          <View style={{backgroundColor: '#0064FA' , padding:5 , width: 45, justifyContent:"center", alignItems:"center", height: 45, borderRadius:10}}>
+            <ProgressiveImage
+              source={CemeraPhoto}
+              resizeMode="contain"
+              style={{width: 25, height: 25, }}
+            />
+          </View>
+          <View style={{flex: 1, marginLeft: 20, marginTop: 5 , }}>
+            <CInput
+              placeholder={'Send Messgae'}
+              value={message}
+              toggleRightIconFunc={sendMessage}
+              styles={{flex: 1}}
+              onChangeText={setMessage}
+              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+              sec
+              // rightIconName={CardIcon}
+              rightIconType="Feather"
+              rightIconName="send"
+              rightIconeSize={20}
+              rightIconeColor="#0064FA"
+              returnKeyType="done"
+              onSubmitEditing={() => sendMessage()}
+            />
+          </View>
+        </View>
           {/* <CList
             style={}
             // numColumns={2}
@@ -235,7 +275,7 @@ const Managers = ({route}) => {
             renderItem={renderProfile}
             keyExtractor={(item, index) => index.toString()}
             emptyOptions={{
-              // icon: require('../../assets/images/empty.png'),
+              // icon: require('../../assets/images/empty.png'), 
               text: 'Store not found',
             }}
             // onRefreshLoading={reduxState.loading}
@@ -245,8 +285,7 @@ const Managers = ({route}) => {
             // maxToRenderPerBatch={10}
             // windowSize={10}
           /> */}
-        </View>
-        </ScrollView>
+        {/* </ScrollView> */}
 
       </View>
 

@@ -122,7 +122,8 @@ const Home = ({navigation}) => {
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView>
+      scrollView
+      >
       <View style={Styles.container}>
         <CText style={Styles.mainHeading}>My Spaces</CText>
         <View style={GlobalStyle.row}>

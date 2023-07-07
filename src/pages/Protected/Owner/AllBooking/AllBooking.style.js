@@ -4,6 +4,7 @@ const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
+    flex:1,
     paddingHorizontal: 15,
     paddingVertical: 15,
     backgroundColor: theme['light'].colors.tertiaryBackground,
@@ -191,5 +192,22 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(124, 128, 97, 0.7)',
     paddingTop: 200,
     paddingHorizontal: 20,
+  },
+  BarChart:{
+    backgroundColor: '#FFF',
+    padding:10,
+    overflow:'hidden',
+    borderRadius: 10,
+    elevation: 5,
+    marginVertical: 10,
+  }, 
+  Calender:{
+    backgroundColor: '#FFF',
+    padding:10,
+    overflow:'hidden',
+    borderRadius: 10,
+    elevation: 5,
+    marginVertical: 10,
+    marginBottom:20
   },
 });

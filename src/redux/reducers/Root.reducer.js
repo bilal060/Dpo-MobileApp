@@ -14,52 +14,52 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   console.log('🚀 ~ file: Root.reducer.js:13 ~ action:', action);
   switch (action.type) {
-    // case ROOT.GET_SPACES:
-    //   return {
-    //     ...state,
-    //     spacesLoading: action.loading,
-    //     spaces: action.allSpace,
-    //   };
+    case ROOT.GET_SPACES:
+      return {
+        ...state,
+        spacesLoading: action.loading,
+        spaces: action.allSpace,
+      };
 
     case ROOT.CREATE_BOOKING:
       return {
         ...state,
-        // bookingLoading: action.loading,
+        bookingLoading: action.loading,
       };
     case ROOT.ADD_VEHICLE:
       return {
         ...state,
-        // vehicleLoading: action.loading,
+        vehicleLoading: action.loading,
       };
     case ROOT.USER_CONVERSATIONS:
       return {
         ...state,
-        // conversationsLoading: action.loading,
-        // conversations: action.data,
+        conversationsLoading: action.loading,
+        conversations: action.data,
       };
     case ROOT.CONVERSATION_MESSAGES:
       return {
         ...state,
-        // conversationsLoading: action.loading,
-        // messages: action.data,
+        conversationsLoading: action.loading,
+        messages: action.data,
       };
     case ROOT.USER_SPACESES:
       return {
         ...state,
-        // userspacesLoading: action.loading,
-        // userSpace: action.data,
+        userspacesLoading: action.loading,
+        userSpace: action.data,
       };
-    case ROOT.GET_ALL_BOOKING: 
+    case ROOT.GET_ALL_BOOKING:
       return {
         ...state,
-        // bookingLoading: action.loading,
-        // booking: action.data,
+        bookingLoading: action.loading,
+        booking: action.data,
       };
     case ROOT.GET_USER_SPACES:
       return {
         ...state,
-        // spLoad: action.loading,
-        // userspaces: action.data,
+        spLoad: action.loading,
+        userspaces: action.data,
       };
     case ROOT.GET_CUSTOMER_CARDS:
       return {
@@ -77,9 +77,13 @@ export default (state = initialState, action = {}) => {
         ...state,
         spaceData: action.data,
       };
+
+    case ROOT.SEND_MESSAGE:
+      return {
+        ...state,
+        messages: action.data,
+      };
     default:
       return {...state};
   }
 };
-
-   

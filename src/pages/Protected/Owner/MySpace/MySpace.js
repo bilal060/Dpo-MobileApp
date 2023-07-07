@@ -35,7 +35,8 @@ import {getAllSpaces, getSpacsss} from '../../../../redux/actions/Root.Action';
 import {BASE_URL, BASE_URL_IMG} from '../../../../config/webservices';
 import MapView, {Marker} from 'react-native-maps';
 
-const MySpace = ({navigation}) => {
+const MySpace = ({navigation , route}) => {
+  console.log("🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:", route?.params)
   const fullName = useRef(null);
   const dispatch = useDispatch();
   const reduxState = useSelector(({auth, language, root}) => {
@@ -54,7 +55,7 @@ const MySpace = ({navigation}) => {
 
   const [account, setAccount] = useState('Grid View');
   const headerProps = {
-    headerTitle: 'My Spaces',
+    headerTitle:  route?.params || 'My Spaces',
     backButtonIcon: false,
     ProgressiveImageHeader: true,
     headerRight: true,
@@ -94,6 +95,7 @@ const MySpace = ({navigation}) => {
     );
   };
   const renderVerticalItem = ({item}) => {
+    console.log("🚀 ~ file: MySpace.js:98 ~ renderVerticalItem ~ item:", item)
     return (
       <SpaceCard
         mainContainer={Styles.mainContainer2}
@@ -118,7 +120,7 @@ const MySpace = ({navigation}) => {
 
   useEffect(() => {
     allSpaces();
-  }, []);
+  }, [spaces]);
   const allSpaces = () => {
     if (isCustomer) {
       dispatch(getAllSpaces('', callBack));

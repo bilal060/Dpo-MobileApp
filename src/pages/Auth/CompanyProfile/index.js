@@ -136,11 +136,13 @@ function CompanyProfile({route}) {
         <CText style={AuthStyle.cardHeaderSubTitle}>
           Enter your business information below.
         </CText>
-      </View>
+      </View> 
+
+      
       {/* <View style={AuthStyle.typesView}>
         {cData?.map(e => (
           <TouchableOpacity
-            onPress={() => setAccount(e.name)}
+            onPress={() => setAccount(e.name)}  
             style={
               account === e?.name
                 ? AuthStyle.activeUser

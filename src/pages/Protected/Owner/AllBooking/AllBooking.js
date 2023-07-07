@@ -40,19 +40,22 @@ import {
 import moment from 'moment';
 
 const AllBooking = ({navigation}) => {
+  console.log("🚀 ~ file: AllBooking.js:43 ~ AllBooking ~ navigation.getParent():", navigation.getState())
   const type = useRef(null);
   const sort = useRef(null);
   const dispatch = useDispatch();
+
+
   const headerProps = {
-    headerTitle: 'All Booking',
+    headerTitle: navigation.getState()?.index === 0  ? "Home" : 'All Booking',
     backButtonIcon: false,
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    rightPress:()=> navigation.navigate("Profile")
   };
   const reduxState = useSelector(({auth, language, root}) => {
-    console.log('rootrootrootrootrootroot', root, auth);
     return {
       booking: root?.booking,
       loading: root?.bookingLoading,
@@ -106,7 +109,6 @@ const AllBooking = ({navigation}) => {
   };
   const callBack = res => {
     setAllBooking(res?.bookings);
-    console.log('🚀 ~ file: AllBooking.js:90 ~ callBack ~ res:', res);
   };
 
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
@@ -163,6 +165,21 @@ const AllBooking = ({navigation}) => {
       />
     );
   };
+
+  const barData = [
+    {value: 500, label: 'Jan', frontColor: '#177AD5'},
+    {value: 700, label: 'Feb', frontColor: '#177AD5'},
+    {value: 630, label: 'Mar', frontColor: '#177AD5'},
+    {value: 270, label: 'Apr', frontColor: '#177AD5'},
+    {value: 520, label: 'May', frontColor: '#177AD5'},
+    {value: 710, label: 'June', frontColor: '#177AD5'},
+    {value: 180, label: 'July', frontColor: '#177AD5'},
+    {value: 950, label: 'Aug', frontColor: '#177AD5'},
+    {value: 800, label: 'Sep', frontColor: '#177AD5'},
+    {value: 450, label: 'Oct', frontColor: '#177AD5'},
+    {value: 830, label: 'Nov', frontColor: '#177AD5'},
+    {value: 100, label: 'Dec', frontColor: '#177AD5'},
+  ];
   return (
     <Container
       bottomSpace
@@ -184,7 +201,7 @@ const AllBooking = ({navigation}) => {
             text: 'Store not found',
           }}
           // onRefreshLoading={reduxState.loading}
-          // onRefreshHandler={() => onRefreshHandler()}
+          onRefreshHandler={() => getbooking()}
           // onEndReached={onEndReached}
           // onEndReachedThreshold={0.1}
           // maxToRenderPerBatch={10}
@@ -196,8 +213,7 @@ const AllBooking = ({navigation}) => {
 
         <CList
           style={Styles.spacelist}
-          // numColumns={2}
-          //   horizontal
+    
           contentContainerStyle={[GlobalStyle.list]}
           data={booking}
           // loading={reduxState.loading}
@@ -222,9 +238,7 @@ const AllBooking = ({navigation}) => {
             <CInput
               ref={type}
               placeholder={'Sort By'}
-              // value={values.fuel}
-              // onChangeText={handleChange('fuel')}
-              // error={errors.fuel}
+              
               onPress={toggleCountryModal}
               selectValue={selectedCountry}
               sec
@@ -236,9 +250,7 @@ const AllBooking = ({navigation}) => {
             <CInput
               ref={type}
               placeholder={'Select Space Type'}
-              // value={values.fuel}
-              // onChangeText={handleChange('fuel')}
-              // error={errors.fuel}
+              
               inputInnerContainerStyle={Styles.inputInnerContainerStyle}
               sec
               type="view"
@@ -250,8 +262,6 @@ const AllBooking = ({navigation}) => {
 
         <CList
           style={Styles.spacelist}
-          // numColumns={2}
-          //   horizontal
           contentContainerStyle={[GlobalStyle.list]}
           data={booking}
           // loading={reduxState.loading}
@@ -268,7 +278,44 @@ const AllBooking = ({navigation}) => {
           // maxToRenderPerBatch={10}
           // windowSize={10}
         />
+         <View style={Styles.BarChart}>
+          <BarChart
+            width={330}
+            data={barData}
+            barWidth={14}
+            isAnimated={true}
+            height={150}
+            maxValue={1000}
+            initialSpacing={3}
+            // stepHeight={10}
+            // stepValue={6}
+            // spacing={10}
+            noOfSections={4}
+            frontColor="lightgray"
+            yAxisThickness={0}
+            xAxisThickness={0}
+          />
+        </View>
+        <View style={Styles.Calender}>
+          <DatePicker
+            options={{
+              backgroundColor: '#FFFFF',
+              textHeaderColor: '#707070',
+              textDefaultColor: '#707070',
+              selectedTextColor: '#fff',
+              mainColor: '#0064FA',
+              textSecondaryColor: '#707070',
+              borderColor: 'rgba(122, 146, 165, 0.1)',
+            }}
+            current="2023-05-09"
+            selected="2023-05-09"
+            mode="calendar"
+            minuteInterval={30}
+            style={{borderRadius: 10}}
+          />
+        </View>
       </View>
+     
       <Modal
         transparent={true}
         visible={countryModalIsOpen}

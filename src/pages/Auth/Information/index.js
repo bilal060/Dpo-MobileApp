@@ -24,7 +24,7 @@ function Information({route}) {
       loading: auth?.registerLoading ,
       currentCountry: global?.currentCountry,
       countries: global?.countries,
-    };
+    }
   });
 
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);

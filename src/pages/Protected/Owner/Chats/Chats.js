@@ -40,18 +40,14 @@ const Chats = ({}) => {
     // rightPress: ()=> navigation.navigate("AddNewManager")
   };
   const reduxState = useSelector(({auth, language, root}) => {
-    console.log('🚀 ~ file: Chats.js:38 ~ reduxState ~ root:', root);
     return {
       conversation: root?.conversations,
       userRole: auth?.user?.role,
       loading: root?.conversationsLoading,
-      userId:auth?.userId
+      userId:auth?.user?._id
     };
   });
-  console.log(
-    '🚀 ~ file: Chats.js:45 ~ reduxState ~ reduxState:',
-    reduxState?.conversation,
-  );
+ 
 
   const dispatch = useDispatch();
 
@@ -116,7 +112,7 @@ const Chats = ({}) => {
 
   useEffect(() => {
     dispatch(getUserConversations(reduxState?.userId, callBack));
-  }, [reduxState?.userId]);
+  }, []);
   const callBack = () => {
     console.log('🚀 ~ file: Chats.js:106 ~ callBack ~ callBack:', callBack);
   };
@@ -140,9 +136,7 @@ const Chats = ({}) => {
     );
   };
 
-  const renderListHeader = () => (
-    <CText style={Styles.activeMember}>{`All Managers`}</CText>
-  );
+ 
 
   const onSocket = item => {
     dispatch(getConversationMessages(item?._id));
@@ -151,7 +145,6 @@ const Chats = ({}) => {
 
   const renderProfile = ({item, index}) => {
     const user = item?.members?.filter(e => e?._id !== reduxState?.userId);
-    console.log('🚀 ~ file: Chats.js:146 ~ renderProfile ~ item: ---', user);
     return (
       <TouchableOpacity onPress={() => onSocket(item)}>
         <View style={Styles.ProfileCard}>
@@ -179,6 +172,7 @@ const Chats = ({}) => {
       scrollView
       bottomSpace
       edges={['left', 'right']}
+      
       headerProps={headerProps}>
       <View style={Styles.container}>
         <View

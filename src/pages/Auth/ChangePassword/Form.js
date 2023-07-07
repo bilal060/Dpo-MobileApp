@@ -53,13 +53,14 @@ function CForm(props) {
                   rightIconeColor={themes.light.colors.gray4}
                   rightIconeSize={18}
                 />
+
                 <CInput
                   ref={cpassword}
                   placeholder={'Confirm Password'}
                   value={values.cpassword}
                   onChangeText={handleChange('cpassword')}
                   secureTextEntry={true}
-                  error={errors.cpassword}
+                  error={errors.cpassword}  
                   returnKeyType="done"
                   onSubmitEditing={() => handleSubmit()}
                   
@@ -81,7 +82,7 @@ function CForm(props) {
               {/* 
               <View>
                 <CText style={AuthStyle.continueText}>Or continue with</CText>
-              </View> */}
+              </View> */} 
             </View>
           </View>
         );

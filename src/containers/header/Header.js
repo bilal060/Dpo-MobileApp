@@ -122,12 +122,13 @@ const Header = props => {
   const rightButton = () => {
     return (
       <TouchableOpacity style={GlobalStyle.logostyles} onPress={rightPress}>
+        
         {!headerRightImg ? (
           <CIcon
             type="MaterialIcons"
             name="add"
             color={theme.light.colors.backgroundColor}
-            size={30}
+            size={35}
           />
         ) : (
           <ProgressiveImage

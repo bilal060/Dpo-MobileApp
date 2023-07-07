@@ -7,7 +7,7 @@ import React ,{useEffect} from 'react'
 
 import { name as appName } from './app.json';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppRegistry, LogBox, StatusBar, View } from 'react-native';
+import { AppRegistry, LogBox, StatusBar, View  ,Linking } from 'react-native';
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context";
@@ -17,6 +17,7 @@ import { navigationRef } from './src/routing/Ref';
 import { themes } from './src/theme/colors';
 import { interceptor } from './src/utils/interceptor';
 import SplashScreen from 'react-native-splash-screen';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
 LogBox.ignoreAllLogs();
@@ -28,6 +29,23 @@ const theme = {
     },
 };
 
+const handleDeepLink = ({ url }) => {
+    // Parse the deep link URL and extract necessary data
+    // You can use a library like 'url-parse' or built-in URL APIs to parse the URL
+    console.log('Received deep link:', url);
+    // Extract relevant data from the URL and handle accordingly
+    // For example, navigate to a specific screen or update app state based on the deep link
+  };
+  
+  // Register a listener for deep links
+  Linking.addEventListener('url', handleDeepLink);
+  
+  // Handle initial deep link when the app is opened with a deep link URL
+  Linking.getInitialURL().then((url) => {
+    if (url) {
+      handleDeepLink({ url });
+    }
+  });
 
 const Container = () => {
     return ( 
@@ -41,6 +59,13 @@ const Container = () => {
 };
 
 function dpoApp() {
+    useEffect(async () => {
+
+        GoogleSignin.configure({
+          webClientId: '332080344949-p588iqkva5d7uqh9nncrvjqs23luupag.apps.googleusercontent.com',
+        });
+      }, [])
+
     return (
         <Provider store={store} >
             <StatusBar

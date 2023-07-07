@@ -92,6 +92,8 @@ const dispatch = useDispatch()
       address: 'Privacy Policy',
       phone: '+1 012 3456 789',
       active: true,
+      navigation: 'Payment',
+
     },
     {
       img: Rating,

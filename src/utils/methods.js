@@ -48,7 +48,8 @@ export const handleError = (description = "", otherOptions) => {
         text1: "Error",
         text2: description || "Something went wrong!",
         topOffset: Platform.OS === "ios" ? 55 : 23,
-        ...otherOptions,
+        autoHide:true,
+        // ...otherOptions,
     });
 };
 
@@ -60,7 +61,9 @@ export const handleSuccess = (
     Toast.show({
         type: 'success',
         text1: message,
-        text2: defaultDescription
+        text2: defaultDescription,
+        autoHide:true,
+
       });
 };
 

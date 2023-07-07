@@ -145,10 +145,15 @@ import AreaIcon from './area.png';
 
 import FTruckIcon from './icons/FTruckIcon.png';
 import TruckIcon from './icons/TruckIcon.png';
+import CemeraPhoto from './icons/photos.png';
+
+
+
 export {
   Company,
   AreaIcon,
   FocusedCompany,
+  CemeraPhoto,
   WelcomeLogo,
   VisaCard,
   AddCard,

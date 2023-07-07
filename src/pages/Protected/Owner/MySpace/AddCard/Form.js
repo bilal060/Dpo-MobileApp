@@ -136,6 +136,7 @@ function CForm(props) {
                       leftIconNAme={CardIcon}
                       returnKeyType="done"
                       onSubmitEditing={() => submit()}
+                      
                     />
                   </View>
                 </View>

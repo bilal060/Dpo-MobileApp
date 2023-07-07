@@ -11,7 +11,7 @@ export default StyleSheet.create({
   subcontainer: {
     flexGrow: 1,
     paddingHorizontal: 0,
-    backgroundColor: theme['light'].colors.primary,
+    // backgroundColor: theme['light'].colors.primary,
   },
   ProfileCard:{
     marginVertical:10,
@@ -42,9 +42,10 @@ export default StyleSheet.create({
     
   },
   messageHeader:{
-    height:80,
+    height:100,
     flexDirection:"row",
-    marginTop:20,
+
+    paddingTop:40,
     alignItems:'center',
     backgroundColor: themes.light.colors.primary,
     paddingHorizontal: 20,
@@ -73,10 +74,8 @@ export default StyleSheet.create({
   },
   chatlist :{
     backgroundColor: theme.light.colors.tertiary,
-    height:height*0.77,
     paddingHorizontal: 20,
     paddingVertical: 25,
-
 
   },
   senderView:{
@@ -148,4 +147,8 @@ export default StyleSheet.create({
         margin:10,
         marginBottom:-5,
       },
+      inputInnerContainerStyle:{
+        backgroundColor:"#C3D6DA",
+        borderRadius:10
+      }
 })

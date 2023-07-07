@@ -22,6 +22,8 @@ import Langugae from './MyProfile/Langugae/Langugae'
 
 import AddVechieal  from './MySpace/AddVechiel'
 import AddCard  from './MySpace/AddCard'
+import MyVechiles  from './MyVechiles/MyVechiles'
+
 
 export{
     Managers,
@@ -42,5 +44,6 @@ export{
     Langugae,
     TruckHome,
     AddVechieal,
-    AddCard
+    AddCard,
+    MyVechiles
 }

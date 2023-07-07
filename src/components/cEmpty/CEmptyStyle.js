@@ -10,11 +10,11 @@ export default StyleSheet.create({
         // backgroundColor:'red'
     },
     icon: {
-        width: 92,
-        height: 92,
+        // width: 92,
+        // height: 92,
     },
     text: {
-        marginTop: 25,
+        // marginTop: 25,
         fontSize: 14,
         fontFamily: themes.font.bold,
         color: themes['light'].colors.gray4,

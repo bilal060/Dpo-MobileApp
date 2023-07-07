@@ -8,7 +8,7 @@ import {ChangePassword, CompanyProfile, Forgot, Information, Login, Register, Ve
 import Welcome from '../pages/Welcome';
 import { AllBooking, Chats, Explore, MyProfile, MySpace, Payment } from '../pages/Protected/Owner';
 
-export const Stack = createStackNavigator();
+export const Stack = createStackNavigator();  
 
 function Home({initial}) {
   const dispatch = useDispatch();

@@ -49,10 +49,7 @@ function CForm(props) {
                   error={errors.email}
                   sec
                   leftIconNAme={EmailIcon}
-                  // leftIconType="MaterialIcons"
-                  // leftIconColor={themes.light.colors.gray4}
-                  // leftIconNAme="alternate-email"
-                  // leftIconeSize={20}
+                  
                   returnKeyType="next"
                   onSubmitEditing={() =>password.current.focus()}
                 />
@@ -65,10 +62,8 @@ function CForm(props) {
                   secureTextEntry={true}
                   error={errors.password}
                   returnKeyType="done"
-                  onSubmitEditing={() => handleSubmit()}
-                  // leftIconType="SimpleLineIcons"
-                  // leftIconColor={themes.light.colors.gray4}
-                  // leftIconNAme="lock"
+                  onSubmitEditing={() => handleSubmit()} 
+                 
                   leftIconNAme={PassIcon}
 
                   leftIconeSize={18}

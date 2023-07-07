@@ -5,7 +5,7 @@ export default StyleSheet.create({
   
   container: {
     flexGrow: 1,
-    paddingHorizontal: 0,
+    // paddingHorizontal: 0,
     backgroundColor: theme['light'].colors.backgroundColor,
   },
   memberCard:{

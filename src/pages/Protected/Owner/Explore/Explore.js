@@ -40,36 +40,25 @@ import DatePicker from 'react-native-modern-datepicker';
 import {SliderBox} from 'react-native-image-slider-box';
 import TruckParking from '../NewSpace/TruckParking';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { BASE_URL_IMG } from '../../../../config/webservices';
 
 const Explore = ({}) => {
   const navigation = useNavigation();
 
   const [activeImg, setActiveImg] = useState(0);
   var isActive;
-  console.log('🚀 ~ file: Explore.js:32 ~ Explore ~ activeImg:', activeImg);
-  const barData = [
-    {value: 500, label: 'Jan', frontColor: '#177AD5'},
-    {value: 700, label: 'Feb', frontColor: '#177AD5'},
-    {value: 630, label: 'Mar', frontColor: '#177AD5'},
-    {value: 270, label: 'Apr', frontColor: '#177AD5'},
-    {value: 520, label: 'May', frontColor: '#177AD5'},
-    {value: 710, label: 'June', frontColor: '#177AD5'},
-    {value: 180, label: 'July', frontColor: '#177AD5'},
-    {value: 950, label: 'Aug', frontColor: '#177AD5'},
-    {value: 800, label: 'Sep', frontColor: '#177AD5'},
-    {value: 450, label: 'Oct', frontColor: '#177AD5'},
-    {value: 830, label: 'Nov', frontColor: '#177AD5'},
-    {value: 100, label: 'Dec', frontColor: '#177AD5'},
-  ];
 
-  const headerProps = {
-    headerTitle: 'Home',
-    backButtonIcon: false,
-    ProgressiveImageHeader: true,
-    headerRight: true,
-    headerRightImg: false,
-    headerRightImg: Notification,
-  };
+  const reduxState = useSelector(({auth, language}) => {
+    return {
+      userRole: auth?.user?.role,
+      user: auth?.user,
+    };
+  });
+  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(/\\/g, "/");
+ 
+
+  
   const images = [
     Banner,
     Banner,
@@ -130,7 +119,7 @@ const Explore = ({}) => {
   const renderItem = ({item}) => {
     console.log("🚀 ~ file: Explore.js:117 ~ renderItem ~ item:", item)
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("MySpace")} style={Styles.iconView}>
+      <TouchableOpacity onPress={() => navigation.navigate("MySpace" ,item?.title)} style={Styles.iconView}>
         <ProgressiveImage
           style={Styles.icon}
           source={item?.img}
@@ -165,7 +154,8 @@ const Explore = ({}) => {
           />
           <ProgressiveImage
             style={Styles.profileImage}
-            source={Profile}
+            source={!reduxState?.user ? Profile : {uri: convertedFilePath}}
+
             resizeMode="contain"
           />
         </View>

@@ -188,9 +188,9 @@ const SpaceDetails = ({navigation, route}) => {
           </View>
         </View>
         <CText style={Styles.reviews}>
-          {
-            'Lorem ipsum dolor sit amet consectetur. Et in cursus egestas ipsum scelerisque cursus a vestibulum. Fringilla non semper purus vestibulum tortor faucibus. Pretium varius elit quis et.'
-          }
+          
+            Lorem ipsum dolor sit amet consectetur. Et in cursus egestas ipsum scelerisque cursus a vestibulum. Fringilla non semper purus vestibulum tortor faucibus. Pretium varius elit quis et.
+          
         </CText>
         <View style={Styles.border} />
       </>
@@ -278,7 +278,7 @@ const SpaceDetails = ({navigation, route}) => {
                   item?.managers.length > 0 ? '#FFF' : 'transparent',
                 marginBottom: 10,
                 borderRadius: 10,
-                marginTop: item?.managers.length > 0 ? 10 : -50,
+                // marginTop: item?.managers.length > 0 ? 10 : -50,
                 elevation: item?.managers.length > 0 ? 5 : 0,
               },
             ]}
@@ -310,7 +310,6 @@ const SpaceDetails = ({navigation, route}) => {
                   item?.managers.length > 0 ? '#FFF' : 'transparent',
                 marginBottom: 30,
                 borderRadius: 10,
-                marginTop: item?.managers.length > 0 ? 10 : -50,
                 elevation: item?.managers.length > 0 ? 5 : 0,
                 paddingBottom: 20,
               },

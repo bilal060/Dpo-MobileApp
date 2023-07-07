@@ -4,17 +4,33 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabBar} from '../containers';
 import HomeStack from './Stacks/HomeStack';
 import {
+  AddCard,
+  AddNewManager,
+  AddVechieal,
   AllBooking,
   Chats,
+  EditProfile,
   Explore as ExploreScreen,
+  Faqs,
+  Langugae,
+  Managers,
   Messages,
+  MyProfile,
   Payment,
+  Privacy,
+  SpaceDetails,
+  Home,
+  MySpace,
+  Change,
+  MyVechiles,
+  NewSpace,
 } from '../pages/Protected/Owner';
 import ChatStack from './Stacks/Chat';
 import ProfileStack from './Stacks/MyProfile';
-import {Home} from '../pages/Protected';
 import SpaceStack from './Stacks/SpaceStack';
-import { customerRoutes, truckDriverRoutes } from '../utils/constant';
+import {customerRoutes, truckDriverRoutes} from '../utils/constant';
+import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 // import {
 //     HomeStack,
@@ -26,37 +42,75 @@ import { customerRoutes, truckDriverRoutes } from '../utils/constant';
 // } from "./stacks";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const Root = ({initial}) => {
+  const TruckDriverStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Booking" component={AllBooking} />
+        <Stack.Screen name="Profile" component={MyProfile} />
+      </Stack.Navigator>
+    );
+  };
+
+  const StorageOwnerStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Profile" component={MyProfile} />
+      </Stack.Navigator>
+    );
+  };
+  const reduxState = useSelector(({auth, language}) => {
+    return {
+      userRole: auth?.user?.role,
+    };
+  });
+
+  const getScreen = () => {
+    if (reduxState?.userRole === 'Storage Owner') {
+      return <StorageOwnerStack />;
+    }
+    // return <TruckDriverStack />;
+  };
+
   return (
-    <Tab.Navigator
+    <Stack.Navigator
       // initialRouteName={!initial ? "Home" : "Cart"}
-      tabBar={props => <TabBar {...props} customerRoutes={truckDriverRoutes}  />}
+
       screenOptions={{
         headerShown: false,
-        tabBarStyle: [
-          {
-            display: 'flex',
-          },
-          null,
-        ],
       }}>
-      <Tab.Screen name="Home" component={AllBooking} />
-      <Tab.Screen name="Booking" component={ExploreScreen} />
-      <Tab.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="Home" component={getScreen} />
+      <Stack.Screen name="Profile" component={MyProfile} />
+      <Stack.Screen name="FAQs" component={Faqs} />
+      <Stack.Screen name="Privacy" component={Privacy} />
+      <Stack.Screen name="Booking" component={AllBooking} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Langugae" component={Langugae} />
+      <Stack.Screen name="Explore" component={ExploreScreen} />
+      <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="Chats" component={Chats} />
+      <Stack.Screen name="Messages" component={Messages} />
+      <Stack.Screen name="MySpace" component={MySpace} />
+      <Stack.Screen name="SpaceDetails" component={SpaceDetails} />
+      <Stack.Screen name="AddVechile" component={AddVechieal} />
+      <Stack.Screen name="AddCard" component={AddCard} />
+      <Stack.Screen name="Managers" component={Managers} />
+      <Stack.Screen name="MyVechiles" component={MyVechiles} />
+      <Stack.Screen name="AddNewManager" component={AddNewManager} />
+      <Stack.Screen name="NewSpace" component={NewSpace} />
 
-      <Tab.Screen name="Chats" component={ChatStack} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
-
-      <Tab.Screen
-        name="MySpace" 
-        component={SpaceStack}
-        options={{
-          tabBarVisible: false, // Hide the tab bar for this screen
-        }}
-      />
-    </Tab.Navigator>
-  ); 
+      {/* <Stack.Screen name="Messages" component={Messages} /> */}
+    </Stack.Navigator>
+  );
 };
 
 export default Root;

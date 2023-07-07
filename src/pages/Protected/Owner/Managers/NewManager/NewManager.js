@@ -51,10 +51,7 @@ const NewManager = ({navigation}) => {
 
   const [branchModalIsOpen, updateBranchModalIsOpen] = useState(false);
   const [selectedBranch, updateSelectedBranch] = useState('');
-  console.log(
-    '🚀 ~ file: NewManager.js:51 ~ NewManager ~ selectedBranch:',
-    selectedBranch,
-  );
+
 
   const [timeModalIsOpen, updateTimeModalIsOpen] = useState(false);
   const [selectedTime, updateSelectedTime] = useState('');
@@ -131,15 +128,11 @@ const NewManager = ({navigation}) => {
 
   return (
     <Container
-      backgroundColor={'theme-color'}
-      showPattern={true}
-      scrollView={true}
-      style={Styles.style}
-      headerProps={headerProps}
-      loading={reduxState?.loading}
-      scrollViewProps={{
-        contentContainerStyle: Styles.container,
-      }}>
+    bottomSpace
+    edges={['left', 'right']}
+    headerProps={headerProps}
+    scrollView
+    >
       <View style={{paddingHorizontal: 20, paddingVertical: 25}}>
         <CForm
           submit={submit}

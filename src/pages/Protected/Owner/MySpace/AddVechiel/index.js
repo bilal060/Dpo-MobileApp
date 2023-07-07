@@ -109,7 +109,7 @@ function AddVechiel({route}) {
   useEffect(() => {
     getCard();
     getSpaceCategory()
-  dispatch(getAllSpaces('', callBack));
+  // dispatch(getAllSpaces('', callBack));
 
   }, [reduxState?.userId]);
   const getCard = () => {

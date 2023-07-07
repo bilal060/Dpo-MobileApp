@@ -127,6 +127,8 @@ const des = useRef(null);
                   returnKeyType="next"
                   onSubmitEditing={() =>password.current.focus()}
                 />
+
+                
                 
                 <CInput
                   ref={des}
@@ -140,6 +142,7 @@ const des = useRef(null);
                   returnKeyType="next"
                   onSubmitEditing={() =>password.current.focus()}
                 />
+              
                
                  
                 {/* <CInput

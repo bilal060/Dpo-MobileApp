@@ -46,7 +46,6 @@ function CForm(props) {
       {({handleChange, values, handleSubmit, errors}) => {
         console.log('errorserrorserrorserrors', errors);
         return (
-          <View>
             <View style={[Styles.card]}>
               <View style={Styles.cardBody}>
                 <CInput
@@ -137,7 +136,6 @@ function CForm(props) {
                 <CText style={Styles.continueText}>Or continue with</CText>
               </View> */}
             </View>
-          </View>
         );
       }}
     </Formik>

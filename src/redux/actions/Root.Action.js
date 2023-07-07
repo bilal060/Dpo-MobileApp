@@ -34,12 +34,14 @@ import {
   GETCONVERSATION,
   GETUSERALLSPACES,
   GETUSERSPACES,
+  GETVEHICLES,
   INVITEMANAGER,
   LOGIN,
   OTPVERIFY,
   OWNERBOOKING,
   OWNERMANAGERS,
   REGISTER,
+  SENDMESSAGE,
   UPDATEPROFILE,
 } from '../../config/webservices';
 
@@ -239,7 +241,7 @@ export const getUserConversations = (payload, CB) => async dispatch => {
     }
     CB && CB(response?.data);
   } catch (error) {
-    console.log('🚀 ~ file: Root.Action.js:77 ~ createBooking ~ error:', error);
+    console.log('🚀 ~ file: Root.Action.js:77error:', error);
 
     handleError(error?.data?.error, {autoHide: false});
     dispatch({type: ROOT.USER_CONVERSATIONS, loading: false});
@@ -609,6 +611,65 @@ export const add_CustomerCard = (payload, CB) => async dispatch => {
       });
 
       handleSuccess(response?.data?.message);
+    }
+    CB && CB(response?.data);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.Action.js:545 ~ error:', error);
+
+    handleError(error?.data?.error, {autoHide: false});
+  }
+};
+
+export const getAllVechiles = (payload, CB) => async dispatch => {
+  dispatch({type: ROOT.GET_VEHICLE, loading: true});
+
+  // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
+  try {
+    let response = await get(GETVEHICLES(payload));
+    console.log("🚀 ~ file: Root.Action.js:596 ~ response:", response?.data)
+
+    if (response?.data?.error) {
+      dispatch({type: ROOT.GET_VEHICLE, loading: false});
+
+      handleError(response?.data?.data?.message || '');
+    } else {
+      console.log('');
+      dispatch({
+        type: ROOT.GET_VEHICLE,
+        loading: false,
+        data: response?.data,
+      });
+
+    }
+    CB && CB(response?.data);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.Action.js:545 ~ error:', error);
+
+    handleError(error?.data?.error, {autoHide: false});
+  }
+};
+
+
+export const send_messages = (payload, CB) => async dispatch => {
+  dispatch({type: ROOT.SEND_MESSAGE, loading: true});
+
+  // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
+  try {
+    let response = await post(SENDMESSAGE  , payload);
+    console.log("🚀 ~ file: Root.Action.js:596 ~ response:", response?.data)
+
+    if (response?.data?.error) {
+      dispatch({type: ROOT.SEND_MESSAGE, loading: false});
+
+      handleError(response?.data?.data?.message || '');
+    } else {
+      console.log('');
+      dispatch({
+        type: ROOT.SEND_MESSAGE,
+        loading: false,
+        data: response.data.messages,
+      });
+
     }
     CB && CB(response?.data);
   } catch (error) {

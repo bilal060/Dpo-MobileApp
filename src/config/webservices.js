@@ -1,8 +1,8 @@
 // export const BASE_URL = "https://api.instantspace.app/api/v1/";
 // export const BASE_URL_IMG = "https://api.instantspace.app/";
 
-export const BASE_URL = 'http://10.7.54.74:5001/api/v1/';
-export const BASE_URL_IMG = 'http://10.7.54.74:5001/';
+export const BASE_URL = 'http://10.7.55.49:5001/api/v1/';
+export const BASE_URL_IMG = 'http://10.7.55.49:5001/';
 
 export const SCOKET_URL = 'ws://localhost:8900';
 
@@ -31,9 +31,11 @@ export const FILTERBOOKING = (ownerId , spaceId) => `${BASE_URL}users/owner-mana
 
 export const GETCATEGORIES = user_role => `${BASE_URL}category/specific?role=${user_role}`;
 export const GETCARDS = user_id => `${BASE_URL}users/user-cards/${user_id}`;
+export const GETVEHICLES  = (user_id) => `${BASE_URL}vehicle/user/${user_id}`;
+
 
 export const ADDCARDS = `${BASE_URL}users/add_card`;
-
+ 
 
 
 
@@ -41,6 +43,9 @@ export const ADDCARDS = `${BASE_URL}users/add_card`;
 
 export const GETCONVERSATION = id => `${BASE_URL}conversations/${id}`;
 export const CONVERSATIONMESSAGE = id => `${BASE_URL}messages/${id}`;
+export const SENDMESSAGE  = `${BASE_URL}messages`;
+
+
 
 // export const ADDVEHICLE =  `${BASE_URL}vehicle/add_vehicle`;
 // export const ADDVEHICLE =  `${BASE_URL}vehicle/add_vehicle`;

@@ -34,7 +34,11 @@ import {
 } from '../../../../redux/actions/Root.Action';
 const NewSpace = ({navigation}) => {
   const dispatch = useDispatch();
-  const [selectValue, setSelectedValue] = useState('Storage Unit');
+  const [selectValue, setSelectedValue] = useState({
+    _id: '6470b05d2490274856cf6472',
+    name: 'Storage Unit',
+  });
+  console.log('🚀 ~ file: index.js:38 ~ NewSpace ~ selectValue:', selectValue);
   const [categories, setCategories] = useState({});
   const [mapAdreess, setMapAdreess] = useState('');
   const [selectedFile, setSelectedFile] = useState();
@@ -81,7 +85,7 @@ const NewSpace = ({navigation}) => {
   };
   const renderTimeSlot = ({item, index}) => {
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => setSelectedValue(item)}
         style={
           item?.name === selectValue?.name
