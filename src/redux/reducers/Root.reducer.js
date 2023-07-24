@@ -83,6 +83,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         messages: action.data,
       };
+      case ROOT.GET_ALL_CATEGORY:
+        return {
+          ...state,
+          category: action.data,
+        };
     default:
       return {...state};
   }

@@ -8,6 +8,7 @@ import {
   CText,
   ProgressiveImage,
   SpaceCard,
+  TruckCard,
 } from '../../../../components';
 import {
   CNameIcon,
@@ -85,7 +86,7 @@ const MyVechiles = ({navigation, route}) => {
   ];
   const renderItem = ({item}) => {
     return (
-      <SpaceCard
+      <TruckCard
         mainContainer={Styles.mainContainer}
         name={item?.description}
         phone={item?.contact}
@@ -97,27 +98,21 @@ const MyVechiles = ({navigation, route}) => {
     );
   };
   const renderVerticalItem = ({item}) => {
+    var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(/\\/g, "/");
+
     return (
-      <SpaceCard
-        mainContainer={Styles.mainContainer2}
+      <TruckCard
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
         address={item?.location?.address}
-        img={`${BASE_URL_IMG}${item?.images?.[0]}`}
-        mapView
+        img={convertedFilePath}
         imgStyles={{width: 100, height: '100%'}}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
       />
     );
   };
-  const renderBooking = ({item}) => {
-    return <BookingCard />;
-  };
-  const data = [
-    {name: 'Grid View', image: GirdView, activeImg: FGirdView},
-    {name: 'Map View', image: FMapView, activeImg: MapViewImage},
-  ];
+  
 
   useEffect(() => {
     dispatch(getAllVechiles(reduxState?.userId , callBack))
@@ -152,7 +147,7 @@ const MyVechiles = ({navigation, route}) => {
           // contentContainerStyle={[GlobalStyle.list, ]}
           data={vehicles}
           loading={reduxState.loading}
-          renderItem={renderVerticalItem}
+          renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
             // icon: require('../../assets/images/empty.png'),

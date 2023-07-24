@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Container, CountriesModal} from '../../../../../containers';
-import {CPagination, CText, ProgressiveImage} from '../../../../../components';
+import {
+  CList,
+  CPagination,
+  CText,
+  ProgressiveImage,
+} from '../../../../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dimensions, FlatList, Modal, View} from 'react-native';
 import AuthStyle from '../MySpace.style';
@@ -25,18 +30,19 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 const {width, height} = Dimensions.get('screen');
+import { useIsFocused } from '@react-navigation/native';
 
 function AddVechiel({route}) {
-  console.log("🚀 ~ file: index.js:31 ~ AddVechiel ~ spaceId:", route)
-  const {spaceId , startTime ,price , endTime} = route?.params || {}
-  console.log("🚀 ~ file: index.js:32 ~ AddVechiel ~ price:", price)
+  const {spaceId, startTime, price, endTime} = route?.params || {};
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
   const [carValue, selectCarValue] = useState(false);
-  console.log("🚀 ~ file: index.js:33 ~ AddVechiel ~ carValue:", carValue)
+  
   const [spaces, setSpaces] = useState([]);
   const [selectValue, setSelectedValue] = useState('Storage Unit');
-  console.log("🚀 ~ file: index.js:36 ~ AddVechiel ~ selectValue:", selectValue)
+ 
   const [categories, setCategories] = useState({});
 
   const [stateModalIsOpen, updateStateModalIsOpen] = useState(false);
@@ -45,7 +51,10 @@ function AddVechiel({route}) {
 
   const [companyModalIsOpen, updateCompanyModalIsOpen] = useState(false);
   const [selectedCompany, updateSelectedCompany] = useState('');
-  console.log("🚀 ~ file: index.js:45 ~ AddVechiel ~ selectedCompany:", selectedCompany)
+  console.log(
+    '🚀 ~ file: index.js:45 ~ AddVechiel ~ selectedCompany:',
+    selectedCompany,
+  );
   const [selectedCompanyError, updateSelectedCompanyError] = useState('');
 
   const [companyModelModalIsOpen, updateCompanyModelModalIsOpen] =
@@ -108,18 +117,17 @@ function AddVechiel({route}) {
   };
   useEffect(() => {
     getCard();
-    getSpaceCategory()
-  // dispatch(getAllSpaces('', callBack));
-
-  }, [reduxState?.userId]);
+    getSpaceCategory();
+    // dispatch(getAllSpaces('', callBack));
+  }, [reduxState?.userId , isFocused]);
   const getCard = () => {
     dispatch(get_CustomerCard(reduxState?.userId));
   };
 
   const getSpaceCategory = () => {
-    dispatch(get_spaceCategory("Storage Owner", categoryCallBack));
+    dispatch(get_spaceCategory('Storage Owner', categoryCallBack));
   };
-  const categoryCallBack = res => {
+  const categoryCallBack = res => { 
     setCategories(res?.roleCategory);
   };
 
@@ -174,43 +182,39 @@ function AddVechiel({route}) {
     {name: 'Compactors'},
   ];
 
-
-
   const callBack = res => {
     setSpaces(res?.spaces);
   };
 
   const handleCallApi = () => {
     console.log('2', 2);
-    const payload ={
+    const payload = {
       userId: reduxState?.userId,
-    spaceId: spaceId,
-    from: startTime,
-    to: endTime,
-    price: price,
-    card:carValue,
-    subcategoryId :selectValue?._id,
-    details: {
+      spaceId: spaceId,
+      from: startTime,
+      to: endTime,
+      price: price,
+      card: carValue,
+      subcategoryId: selectValue?._id,
+      details: {
         company: selectedCompany?.name,
         model: selectedCompanyModel?.name,
         type: selectedState?.name,
         regNo: registerNo,
-        license: dregisterNo
-    }
-    }
+        license: dregisterNo,
+      },
+    };
     // formData.append('userId', reduxState?.userId),
     //   formData.append('company', selectedCompany?.name),
     //   formData.append('model', selectedCompanyModel?.name),
     //   formData.append('type', selectedState?.name),
     //   formData.append('regiterNo', registerNo),
     //   formData.append('drivingLicenseNo',dregisterNo),
-        dispatch(createBooking(payload, handleBack));
-
+    dispatch(createBooking(payload, handleBack));
   };
   const handleBack = res => {
     navigation.navigate('Home');
   };
-
 
   const renderTimeSlot = ({item, index}) => {
     return (
@@ -233,8 +237,6 @@ function AddVechiel({route}) {
     );
   };
 
-
-
   const handleRes = res => {};
   return (
     <Container
@@ -247,16 +249,39 @@ function AddVechiel({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-        <FlatList
+      {/* <FlatList
             data={categories?.subcategories}
             renderItem={renderTimeSlot}
             horizontal
-            style={{marginBottom:20}}
+            contentContainerStyle={{height:50 , backgroundColor:"red"}}
             nestedScrollEnabled
-            ListHeaderComponentStyle={{flex: 1 }}
+            // ListHeaderComponentStyle={{flex: 1 }}
             showsHorizontalScrollIndicator={false}
-          />
-      {/* <CPagination /> */}
+          /> */}
+      <View style={{height: 50}}>
+        <CList
+          contentContainerStyle={{height: 100}}
+          // numColumns={2}
+          //   horizontal
+          // contentContainerStyle={[GlobalStyle.list, ]}
+          data={categories?.subcategories}
+          loading={reduxState.loading}
+          renderItem={renderTimeSlot}
+          horizontal
+          keyExtractor={(item, index) => index.toString()}
+          emptyOptions={{
+            // icon: require('../../assets/images/empty.png'),
+            text: 'time slot not found',
+          }}
+          onRefreshLoading={reduxState.loading}
+          onRefreshHandler={() => {}}
+          // onEndReached={onEndReached}
+          // onEndReachedThreshold={0.1}
+          // maxToRenderPerBatch={10}
+          // windowSize={10}
+        />
+      </View>
+
       <CForm
         user={reduxState?.user}
         submit={submit}
@@ -285,12 +310,18 @@ function AddVechiel({route}) {
         return (
           <TouchableOpacity
             onPress={() => selectCarValue(val?.id)}
-            style={val?.id === carValue  ? AuthStyle.selectedMultplyCard :  AuthStyle.multplyCard}>
+            style={
+              val?.id === carValue
+                ? AuthStyle.selectedMultplyCard
+                : AuthStyle.multplyCard
+            }>
             <ProgressiveImage
               source={VisaCard}
               style={{width: 20, height: 20}}
             />
-            <CText style={AuthStyle.cardText}> {`Ending in **** **** ****  ${val?.last4}`}
+            <CText style={AuthStyle.cardText}>
+              {' '}
+              {`Ending in **** **** ****  ${val?.last4}`}
             </CText>
           </TouchableOpacity>
         );
@@ -337,9 +368,8 @@ function AddVechiel({route}) {
       <Modal
         transparent={true}
         visible={companyModelModalIsOpen}
-        onRequestClose={() => toggleCompanyModelModal()}> 
+        onRequestClose={() => toggleCompanyModelModal()}>
         <View style={AuthStyle.modalContainer}>
-           
           <View style={AuthStyle.modalInnerContainer}>
             <CountriesModal
               onSelect={val => companyModelOnSelect(val)}

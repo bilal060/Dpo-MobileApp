@@ -1,8 +1,10 @@
 // export const BASE_URL = "https://api.instantspace.app/api/v1/";
 // export const BASE_URL_IMG = "https://api.instantspace.app/";
 
-export const BASE_URL = 'http://10.7.55.49:5001/api/v1/';
-export const BASE_URL_IMG = 'http://10.7.55.49:5001/';
+export const BASE_URL = 'http://10.7.55.59:5001/api/v1/';
+export const BASE_URL_IMG = 'http://10.7.55.59:5001/';
+// export const BASE_URL_IMG = "https://api.instantspace.app/";
+
 
 export const SCOKET_URL = 'ws://localhost:8900';
 
@@ -13,6 +15,9 @@ export const UPDATEPROFILE = `${BASE_URL}users/UpdateUserProfile`;
 export const UPDATECOMPANYPROFILE = `${BASE_URL}users/UpdateCompanyProfile`;
 export const FORGOTPASSWORD = `${BASE_URL}users/forgotpassword`;
 export const GETALLSPACES = `${BASE_URL}spaces`;
+
+export const GETSPACESBYCATORGY =  (catId) => `${BASE_URL}spaces/cat-spaces/${catId}`;
+
 
 
 export const INVITEMANAGER = `${BASE_URL}users/manager-invitation`;
@@ -30,6 +35,9 @@ export const FILTERMANAGERS = (ownerId , spaceId) => `${BASE_URL}users/owner-man
 export const FILTERBOOKING = (ownerId , spaceId) => `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
 
 export const GETCATEGORIES = user_role => `${BASE_URL}category/specific?role=${user_role}`;
+
+export const GETALLCATEGORIES = `${BASE_URL}category`;
+
 export const GETCARDS = user_id => `${BASE_URL}users/user-cards/${user_id}`;
 export const GETVEHICLES  = (user_id) => `${BASE_URL}vehicle/user/${user_id}`;
 

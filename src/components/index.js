@@ -20,6 +20,9 @@ import CDropDown from "./cDropDown";
 import ProfileCard from "./profileCard/index";
 import SpaceCard from "./spaceCard/SpaceCard";
 import BookingCard from "./BookingCard/BookingCard";
+import TruckCard from './truckCard/TruckCard'
+import CCalender from './cCalender/CCalender'
+
 
 
 
@@ -48,5 +51,7 @@ export {
     CDropDown,
     ProfileCard,
     SpaceCard,
-    BookingCard
+    BookingCard,
+    CCalender,
+    TruckCard
 }

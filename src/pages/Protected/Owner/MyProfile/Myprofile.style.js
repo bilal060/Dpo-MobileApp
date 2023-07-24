@@ -127,7 +127,6 @@ export default StyleSheet.create({
   },
   containerStyles:{
     flex:1,
-    backgroundColor:"red",
     flexDirection:"row-reverse",
     justifyContent:"space-between",
     padding:10

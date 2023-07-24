@@ -104,6 +104,7 @@ export default class ToggleSwitch extends React.Component {
       useNativeDriver,
       isOn,
       onToggle,
+      onPress,
       disabled,
       labelStyle,
       label,
@@ -125,9 +126,9 @@ export default class ToggleSwitch extends React.Component {
       useNativeDriver: useNativeDriver,
     }).start();
 
-    const onPress = () => {
-      onToggle(!isOn);
-    };
+    // const onPress = () => {
+    //   onToggle(!isOn);
+    // };
 
     return (
       <View style={styles.container} {...this.props}>

@@ -4,8 +4,11 @@ const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
+
+
     paddingHorizontal: 0,
     backgroundColor: theme['light'].colors.backgroundColor,
+    // textAlign:'right'
   },
 
   header: {
@@ -19,6 +22,8 @@ export default StyleSheet.create({
 
   style: {
     flex: 1,
+
+ 
   },
   forgot: {
     marginTop: -30,

@@ -53,7 +53,6 @@ function Information({route}) {
       },
     };
     launchImageLibrary(options, response => {
-      console.log('🚀 ~ file: index.js:80 ~ Information ~ open:', response);
       updateProfileImage(response?.assets?.[0]);
       console.log(response);
     });
@@ -78,13 +77,7 @@ function Information({route}) {
       type:"image/jpeg",
       name:"image.jpg"
     });
-    // formData.append('doc_img', selectedFile);
-    // const payload = {
-    //   cType:values?.CfullName,
-    //   cPhone:values?.phone,
-    //   cLicenseNo:values?.cLicenseNo,
-    //   doc_img:selectedFile
-    // }
+    
     dispatch(updateUserProfile(payload,  callBack));
 
     // navigation.navigate("VerifyOtp")

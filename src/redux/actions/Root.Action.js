@@ -28,10 +28,12 @@ import {
   FILTERBOOKING,
   FILTERMANAGERS,
   FORGOTPASSWORD,
+  GETALLCATEGORIES,
   GETALLSPACES,
   GETCARDS,
   GETCATEGORIES,
   GETCONVERSATION,
+  GETSPACESBYCATORGY,
   GETUSERALLSPACES,
   GETUSERSPACES,
   GETVEHICLES,
@@ -65,7 +67,35 @@ export const getAllSpaces = (payload, CB) => async dispatch => {
       });
       // handleSuccess(response?.data?.message);
     }
-    CB && CB(response?.data);
+    CB && CB(response?.data?.spaces);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.A  AllSpaces ~ error:', error);
+
+    handleError(error?.data?.error, {autoHide: false});
+    // dispatch({type: ROOT.GET_SPACES, loading: false});
+  }
+};
+
+export const getSpacesByCategory = (payload, CB) => async dispatch => {
+  console.log("🚀 ~ file: Root.Action.js:80 ~ getSpacesByCategory ~ payload:", payload)
+  dispatch({type: ROOT.GET_SPACES, loading: true});
+  await getTokenAndSetIntoHeaders();
+  try {
+    let response = await get(GETSPACESBYCATORGY(payload));
+    console.log("🚀 ~ file: Root.Action.js:84 ~ getSpacesByCategory ~ response:", response?.data?.subcatSpaces)
+   
+    if (response?.data?.error) {
+      dispatch({type: ROOT.GET_SPACES, loading: false});
+      handleError(response?.data?.data?.message || '');
+    } else {
+      dispatch({
+        type: ROOT.GET_SPACES,
+        loading: false,
+        allSpace: response?.data?.spaces,
+      });
+      // handleSuccess(response?.data?.message);
+    }
+    CB && CB(response?.data?.subcatSpaces);
   } catch (error) {
     console.log('🚀 ~ file: Root.A  AllSpaces ~ error:', error);
 
@@ -368,7 +398,7 @@ export const getSpacsss = (payload, CB) => async dispatch => {
       // });
       // handleSuccess(response?.data?.message);
     }
-    CB && CB(response?.data);
+    CB && CB(response?.data?.spaces);
   } catch (error) {
     console.log(
       '🚀 ~ file: Root.Action.js:160 ~ getConversationMessages ~ error:',
@@ -507,12 +537,7 @@ export const get_spaceCategory = (payload, CB) => async dispatch => {
   await getTokenAndSetIntoHeaders();
   try {
     let response = await get(GETCATEGORIES(payload));
-    console.log(
-      '🚀 ~ file: Root.Action.js:454 ~ response:',
-      response?.data,
-      'AAAAAAAAAAAAAAA',
-      GETCATEGORIES(payload),
-    );
+   
 
     if (response?.data?.error) {
       handleError(response?.data?.data?.message || '');
@@ -678,3 +703,37 @@ export const send_messages = (payload, CB) => async dispatch => {
     handleError(error?.data?.error, {autoHide: false});
   }
 };
+
+export const get_all_category = (payload, CB) => async dispatch => {
+  console.log("🚀 ~ file: Root.Action.js:679 ~ payload:", payload)
+  // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: true});
+
+  // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
+  try {
+    let response = await get(GETALLCATEGORIES);
+    console.log("🚀 ~ file: Root.Action.js:684 ~ response:", response)
+
+    if (response?.data?.error) {
+      // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: false});
+
+      handleError(response?.data?.data?.message || '');
+    } else {
+      console.log('');
+      // dispatch({
+      //   type: ROOT.GET_ALL_CATEGORY,
+      //   loading: false,
+      //   data: response.data,
+      // });
+
+    }
+    CB && CB(response?.data);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.Action.js:545 ~ error:', error);
+    // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: false});
+
+    handleError(error?.data?.error, {autoHide: false});
+  }
+};
+
+
+

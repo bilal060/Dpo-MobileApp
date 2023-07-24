@@ -31,7 +31,7 @@ import {
   User,
 } from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
-import {storageOwnerRoutes, truckDriverRoutes} from '../../utils/constant';
+import {customerRoutes, storageOwnerRoutes, truckDriverRoutes} from '../../utils/constant';
 import {useRoute} from '@react-navigation/native';
 
 const TabBar = ({state}) => {
@@ -50,6 +50,10 @@ const TabBar = ({state}) => {
   const returnRoutes = ()=>{
     if(reduxState?.userRole === "Storage Owner"){
       return  storageOwnerRoutes
+    } else if(reduxState?.userRole === "Customer"){
+      return  customerRoutes
+    } else if(reduxState?.userRole === "Truck Driver"){
+      return  truckDriverRoutes
     }
   }
 

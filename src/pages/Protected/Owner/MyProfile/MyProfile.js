@@ -57,6 +57,7 @@ const dispatch = useDispatch()
       phone: '+1 012 3456 789',
       active: true,
       navigation: 'EditProfile',
+
     },
 
     {
@@ -64,6 +65,8 @@ const dispatch = useDispatch()
       address: 'Payment History',
       phone: '+1 012 3456 789',
       active: true,
+      navigation: 'Payment',
+
     },
     {
       img: ChangePass,
@@ -78,13 +81,14 @@ const dispatch = useDispatch()
       active: true,
     },
   ];
+
   const supportdata = [
     {
       img: Faq,
       address: 'FAQs',
       phone: '+1 012 3456 789',
       active: true,
-      navigation: 'EditProfile',
+      navigation: 'FAQs',
     },
 
     {
@@ -92,7 +96,7 @@ const dispatch = useDispatch()
       address: 'Privacy Policy',
       phone: '+1 012 3456 789',
       active: true,
-      navigation: 'Payment',
+      navigation: 'Privacy',
 
     },
     {
@@ -102,6 +106,8 @@ const dispatch = useDispatch()
       active: true,
     },
   ];
+
+  
   const prefrencedata = [
     {
       img: Language,

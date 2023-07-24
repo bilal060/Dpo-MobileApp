@@ -96,6 +96,7 @@ export default StyleSheet.create({
   mainPlaceContainer: {
     width: width * 0.9,
     marginLeft: -5,
+    height:height*0.56
     // marginLeft:-5
   },
   inputStyles: {
@@ -215,7 +216,11 @@ export default StyleSheet.create({
     alignItems:"center"
     },
   inputContainer: {
-    width: 130,
+    width: width*0.38,
+    height:50
+  },
+  inputDateContainer: {
+    width: width*0.8,
     height:50
   },
   selectButtonText: {
@@ -260,7 +265,7 @@ export default StyleSheet.create({
      elevation:1 ,
      borderRadius:10,
      padding:15,
-     marginBottom:50
+    //  marginBottom:50
   },
   multplyCard:{
      alignItems:"flex-start",
@@ -299,7 +304,7 @@ export default StyleSheet.create({
     width:width*0.45
   },
   memberCard: {
-    flex: 1,
+    // flex: 1,
     padding: 10,
     marginHorizontal: 5,
     backgroundColor: theme['light'].colors.primary,
@@ -307,12 +312,14 @@ export default StyleSheet.create({
     
   },
   unActiveMember: {
-    flex: 1,
+    // flex: 1,
     padding: 10,
     marginHorizontal: 5,
     backgroundColor: theme['light'].colors.lightenGray,
     borderRadius: 7,
   },
+
+  
   manager: {
     fontSize: 12,
     color: theme['light'].colors.tertiary,

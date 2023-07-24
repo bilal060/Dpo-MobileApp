@@ -3,9 +3,9 @@ import { validateNumberRegex } from "../../../utils/methods";
 
 const scheme = Yup.object().shape({
     fullName: Yup.string()
-        .required("Please enter email address"),
+        .required("Please enter full aname"),
         bio: Yup.string()
-        .required("Please enter email address"),
+        .required("Please enter bio"),
         phone: Yup.string()
             // .test("checkPhoneNumber", (value, obj) =>
             //     validateNumberRegex(regex, value || "", obj)

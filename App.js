@@ -9,7 +9,6 @@ import {getCountries} from './src/redux/actions/Global.action';
 import {changeLanguage} from './src/redux/actions/Language.action';
 import {useTranslation} from 'react-i18next';
 import i18n from './src/utils/i18n/i18n';
-
 import {Socket} from './src/utils/methods';
 // yaha import kro welcome Screen
 
@@ -26,6 +25,7 @@ const App = () => {
       SplashScreen.hide();
     }, 2000);
     dispatch(getCountries());
+    handleLanguageChange("en")
     dispatch(changeLanguage({lan: 'ger'}));
   }, []);
 
@@ -48,10 +48,12 @@ const App = () => {
   const renderRoot = () => {
     if (!reduxState?.isLoggedin) {
       return <Auth />;
-    } else {
+    } else { 
       return <TruckDriverRoot />;
     }
   };
+
+
 
   return renderRoot();
 };

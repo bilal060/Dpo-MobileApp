@@ -4,7 +4,8 @@ import {themes as theme, themes} from '../../theme/colors';
 export default StyleSheet.create({
   fullContainer: {
     flex: 1,
-    backgroundColor: themes.light.colors.tertiary,
+    // backgroundColor: themes.light.colors.tertiary,
+
   },
 
   //input style
@@ -55,6 +56,7 @@ export default StyleSheet.create({
     // padding:5,
     // position: 'relative',
     alignContent: 'center',
+    backgroundColor:'red',
 
     justifyContent: 'center',
 
@@ -96,8 +98,8 @@ export default StyleSheet.create({
   },
   contact: {
     flex: 1,
-    fontSize: 12,
-    color: theme.light.colors.gray4,
+    fontSize: 14,
+    color: theme.light.colors.iconColor,
     fontFamily: themes.font.medium,
     // paddingTop:3,
     paddingLeft: 5,

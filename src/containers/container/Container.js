@@ -73,15 +73,14 @@ function Container(props) {
         },
         style,
       ]}>
-      {showPattern ? (
-        <ProgressiveImage style={Styles.backgroundPattern} source={HeaderImg} />
-      ) : null}
+          
       {renderHeader()}
       <SafeAreaView
         edges={getEdges()}
         style={[Styles.backgroundContainer, SafeAreaViewStyle]}>
         <CLoading loading={loading} />
         <View style={{flex: 1}}>
+          
           {scrollView ? (
             <ScrollView
               {...scrollViewProps}

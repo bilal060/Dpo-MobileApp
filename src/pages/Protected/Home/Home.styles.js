@@ -32,7 +32,7 @@ export default StyleSheet.create({
   menu: {
     backgroundColor: 'rgba(188,217,174,0.3)',
     alignItems:'center',
-    height: 90,
+    height: 90,  
     width: 90,
     justifyContent: 'center',
     borderRadius: 32,

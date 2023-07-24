@@ -4,6 +4,7 @@ import {Container} from '../../../../../containers';
 import {
   BookingCard,
   CButton,
+  CCalender,
   CInput,
   CList,
   CText,
@@ -33,7 +34,7 @@ import {BASE_URL, BASE_URL_IMG} from '../../../../../config/webservices';
 import {useDispatch, useSelector} from 'react-redux';
 import {createBooking} from '../../../../../redux/actions/Root.Action';
 import moment from 'moment';
-import { handleError } from '../../../../../utils/methods';
+import {handleError} from '../../../../../utils/methods';
 
 const SpaceDetails = ({navigation, route}) => {
   const reduxState = useSelector(({auth, language, root}) => {
@@ -45,13 +46,17 @@ const SpaceDetails = ({navigation, route}) => {
       userId: auth?.user?._id,
     };
   });
+  const isCustomer = reduxState?.userRole === 'Customer';
+
   const dispatch = useDispatch();
   const {item} = route?.params || {};
-  const isCustomer = reduxState?.userRole === 'Customer';
+  const [selectValue, setSelectedValue] = useState('Hourly');
 
   const fullName = useRef(null);
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
+  const [selectDate, setSelectDate] = useState();
+
   const [prize, updatedPrize] = useState();
   const headerProps = {
     headerTitle: 'My Space',
@@ -86,20 +91,18 @@ const SpaceDetails = ({navigation, route}) => {
     );
   };
   const reverseSlot = () => {
-    if(!startTime && !endTime){
-      handleError("Please Select  time")
-    } else if(!prize){
-      handleError("Please enter price")
-
+    if (!startTime && !endTime) {
+      handleError('Please Select  time');
+    } else if (!prize) {
+      handleError('Please enter price');
     } else {
       navigation.navigate('AddVechile', {
         price: prize,
         spaceId: item?._id,
-        startTime:startTime,
-        endTime:endTime
+        startTime: startTime,
+        endTime: endTime,
       });
     }
-    
 
     // const sTIme = `${
     //   moment(startTime).format('LT').split(' ')[0].split(':')[0]
@@ -120,7 +123,6 @@ const SpaceDetails = ({navigation, route}) => {
   };
   const handleBack = res => {
     navigation.navigate('AddVechile');
-    console.log('🚀 ~ file: SpaceDetails.js:98 ~ handleBack ~ res:', res);
   };
   const renderBooking = ({item}) => {
     return (
@@ -159,6 +161,23 @@ const SpaceDetails = ({navigation, route}) => {
     );
   };
 
+  const renderTimeSlot = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => setSelectedValue(item)}
+        style={
+          item === selectValue ? Styles.memberCard : Styles.unActiveMember
+        }>
+        <CText
+          style={
+            item === selectValue ? Styles.manager : Styles.unActivemanager
+          }>
+          {item}
+        </CText>
+      </TouchableOpacity>
+    );
+  };
+
   const renderCustomerReviews = ({item}) => {
     return (
       <>
@@ -188,14 +207,20 @@ const SpaceDetails = ({navigation, route}) => {
           </View>
         </View>
         <CText style={Styles.reviews}>
-          
-            Lorem ipsum dolor sit amet consectetur. Et in cursus egestas ipsum scelerisque cursus a vestibulum. Fringilla non semper purus vestibulum tortor faucibus. Pretium varius elit quis et.
-          
+          Lorem ipsum dolor sit amet consectetur. Et in cursus egestas ipsum
+          scelerisque cursus a vestibulum. Fringilla non semper purus vestibulum
+          tortor faucibus. Pretium varius elit quis et.
         </CText>
         <View style={Styles.border} />
       </>
     );
   };
+  const onRangeSelected = (res) => {
+    console.log("🚀 ~ file: SpaceDetails.js:219 ~ onRangeSelected ~ res:", res)
+  
+  }
+
+  const timeSlot = ['Hourly', 'Daily', 'Weekly', 'Monthly'];
   return (
     <Container
       bottomSpace
@@ -222,32 +247,68 @@ const SpaceDetails = ({navigation, route}) => {
           img={`${BASE_URL_IMG}${item?.images?.[0]}`}
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
+          isCustomer={isCustomer}
         />
         {isCustomer ? (
           <View style={Styles.reverseSlot}>
             <CText style={Styles.selectTime}>Select Time</CText>
+
+            <CList
+              data={timeSlot}
+              style={{marginVertical: 20}}
+              renderItem={renderTimeSlot}
+              horizontal
+              nestedScrollEnabled
+              ListHeaderComponentStyle={{flex: 1}}
+              showsHorizontalScrollIndicator={false}
+              // loading={reduxState.loading}
+              keyExtractor={(item, index) => index.toString()}
+              emptyOptions={{
+                // icon: require('../../assets/images/empty.png'),
+                text: 'Time Slots not found',
+              }}
+            />
+
             <View style={Styles.timevIew}>
-              <DateTimePicker
-                mode="time"
-                value={startTime}
-                onChange={setStartTime}
-                placeHolder={`00 : 00`}
-                inputContainer={Styles.inputContainer}
-                selectButtonText={Styles.selectButtonText}
-                selectContainer={Styles.selectContainer}
-              />
-              <CText>To</CText>
-              <DateTimePicker
-                mode="time"
-                value={endTime}
-                onChange={setEndTime}
-                placeHolder={'00 : 00'}
-                inputContainer={Styles.inputContainer}
-                selectButtonText={Styles.selectButtonText}
-                selectContainer={Styles.selectContainer}
-              />
+              {selectValue === 'Hourly' ? (
+                <>
+                  <DateTimePicker
+                    mode={selectValue === 'Hourly' ? 'time' : 'date'}
+                    value={startTime}
+                    onChange={setStartTime}
+                    placeHolder={`00 : 00`}
+                    inputContainer={Styles.inputContainer}
+                    selectButtonText={Styles.selectButtonText}
+                    selectContainer={Styles.selectContainer}
+                  />
+                  <CText>To</CText>
+                  <DateTimePicker
+                    mode={selectValue === 'Hourly' ? 'time' : 'date'}
+                    value={endTime}
+                    onChange={setEndTime}
+                    placeHolder={'00 : 00'}
+                    inputContainer={Styles.inputContainer}
+                    selectButtonText={Styles.selectButtonText}
+                    selectContainer={Styles.selectContainer}
+                  />
+                </>
+              ) : selectValue === 'Weekly' ? (
+                <CCalender   onRangeSelected={onRangeSelected} />
+              ) : (
+                <>
+                  <DateTimePicker
+                    mode={'date'}
+                    value={selectDate}
+                    onChange={setSelectDate}
+                    placeHolder={'Select Date'}
+                    inputContainer={Styles.inputDateContainer}
+                    selectButtonText={Styles.selectButtonText}
+                    selectContainer={Styles.selectContainer}
+                  />
+                </>
+              )}
             </View>
-            <CInput
+            {/* <CInput
               placeholder={'Prize'}
               value={prize}
               onChangeText={updatedPrize}
@@ -255,7 +316,7 @@ const SpaceDetails = ({navigation, route}) => {
               // leftIconNAme={Pri}
               returnKeyType="next"
               onSubmitEditing={() => {}}
-            />
+            /> */}
 
             <CButton title="Reserve Slot" onPress={() => reverseSlot()} />
           </View>

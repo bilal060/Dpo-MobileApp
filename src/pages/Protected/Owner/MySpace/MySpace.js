@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image, Alert} from 'react-native';
 import React, {useRef, useState, useLayoutEffect, useEffect} from 'react';
 import {Container} from '../../../../containers';
 import {
@@ -18,6 +18,7 @@ import {
   GirdView,
   Google,
   Hub,
+  LocationColored,
   MapViewImage,
   MarkerImage,
   Marketplace,
@@ -31,12 +32,15 @@ import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllSpaces, getSpacsss} from '../../../../redux/actions/Root.Action';
+import {getAllSpaces, getSpacesByCategories, getSpacesByCategory, getSpacsss} from '../../../../redux/actions/Root.Action';
 import {BASE_URL, BASE_URL_IMG} from '../../../../config/webservices';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, Callout} from 'react-native-maps';
 
-const MySpace = ({navigation , route}) => {
-  console.log("🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:", route?.params)
+const MySpace = ({navigation, route}) => {
+  
+  console.log('🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:', route?.params);
+  const {name  , _id} = route?.params
+  console.log("🚀 ~ file: MySpace.js:43 ~ name:", name)
   const fullName = useRef(null);
   const dispatch = useDispatch();
   const reduxState = useSelector(({auth, language, root}) => {
@@ -46,21 +50,23 @@ const MySpace = ({navigation , route}) => {
       userRole: auth?.user?.role,
       loading: root?.spacesLoading,
       userId: auth?.user?._id,
-
     };
   });
 
   const isCustomer = reduxState?.userRole === 'Customer';
+  console.log('🚀 ~ file: MySpace.js:54 ~ MySpace ~ isCustomer:', isCustomer);
   const [spaces, setSpaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const [account, setAccount] = useState('Grid View');
   const headerProps = {
-    headerTitle:  route?.params || 'My Spaces',
+    headerTitle: name || 'My Spaces',
     backButtonIcon: false,
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    rightPress: () => navigation.navigate('Profile'),
   };
   const listData = [
     {
@@ -82,31 +88,42 @@ const MySpace = ({navigation , route}) => {
     },
   ];
   const renderItem = ({item}) => {
+    var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(
+      /\\/g,
+      '/',
+    );
+
     return (
       <SpaceCard
         mainContainer={Styles.mainContainer}
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.location?.address}
-        img={`${BASE_URL_IMG}${item?.images?.[0]}`}
+        address={item?.address}
+        img={convertedFilePath}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
+        isCustomer={isCustomer}
       />
     );
   };
   const renderVerticalItem = ({item}) => {
-    console.log("🚀 ~ file: MySpace.js:98 ~ renderVerticalItem ~ item:", item)
+    var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(
+      /\\/g,
+      '/',
+    );
+
     return (
       <SpaceCard
         mainContainer={Styles.mainContainer2}
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.location?.address}
-        img={`${BASE_URL_IMG}${item?.images?.[0]}`}
+        address={item?.address}
+        img={convertedFilePath}
         mapView
         imgStyles={{width: 100, height: '100%'}}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
+        isCustomer={isCustomer}
       />
     );
   };
@@ -120,18 +137,24 @@ const MySpace = ({navigation , route}) => {
 
   useEffect(() => {
     allSpaces();
-  }, [spaces]);
+  }, []);
   const allSpaces = () => {
     if (isCustomer) {
-      dispatch(getAllSpaces('', callBack));
+      if(_id){
+        dispatch(getSpacesByCategory(_id, callBack));
+
+      } else {
+
+        dispatch(getAllSpaces('', callBack));
+
+      }
     } else {
-      dispatch(getSpacsss(reduxState?.userId , callBack))
-
-
+      dispatch(getSpacsss(reduxState?.userId, callBack));
     }
   };
   const callBack = res => {
-    setSpaces(res?.spaces);
+    console.log("🚀 ~ file: MySpace.js:154 ~ callBack ~ res:", res)
+    setSpaces(res);
   };
 
   return (
@@ -209,59 +232,119 @@ const MySpace = ({navigation , route}) => {
           <>
             <MapView
               initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitude: 24.8651,
+                longitude: 67.077643,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.05,
               }}
-              minZoomLevel={20}
-              style={{flex: 1, height: 200}}>
-              <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}}>
-                <ProgressiveImage
-                  resizeMode={'contain'}
-                  style={{
-                    ...GlobalStyle.inputIcon,
-                    width: 30,
-                    height: 30,
-                  }}
-                  source={MarkerImage}
-                />
-              </Marker>
-              <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}}>
-                <ProgressiveImage
-                  resizeMode={'contain'}
-                  style={{
-                    ...GlobalStyle.inputIcon,
-                    width: 30,
-                    height: 30,
-                  }}
-                  source={MarkerImage}
-                />
-              </Marker>
-              <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}}>
-                <ProgressiveImage
-                  resizeMode={'contain'}
-                  style={{
-                    ...GlobalStyle.inputIcon,
-                    width: 30,
-                    height: 30,
-                  }}
-                  source={MarkerImage}
-                />
-              </Marker>
-              <Marker coordinate={{latitude: 37.145, longitude: -122.123}}>
-                <ProgressiveImage
-                  resizeMode={'contain'}
-                  style={{
-                    ...GlobalStyle.inputIcon,
-                    width: 30,
-                    height: 30,
-                  }}
-                  source={MarkerImage}
-                />
-              </Marker>
+              minZoomLevel={5}
+              style={{flex: 1, height: 400}}>
+              {spaces.map(item => {
+                console.log(
+                  '🚀 ~ file: MySpace.js:231 ~ MySpace ~ item:',
+                  item,
+                );
+                var convertedFilePath2 =
+                  `${BASE_URL_IMG}${item?.images?.[0]}`.replace(/\\/g, '/');
+                console.log(
+                  '🚀 ~ file: MySpace.js:237 ~ MySpace ~ convertedFilePath2:',
+                  convertedFilePath2,
+                );
+
+                return (
+                  <Marker
+                    onPress={evt => setSelectedPlace(item)}
+                    calloutVisible={
+                      selectedPlace && selectedPlace.id === item.id
+                    }
+                    coordinate={{
+                      latitude: item?.location?.coordinates?.[1],
+
+                      longitude: item?.location?.coordinates?.[0],
+                      latitudeDelta: 0.04,
+                      longitudeDelta: 0.05,
+                    }}>
+                    <ProgressiveImage
+                      resizeMode={'contain'}
+                      style={{
+                        ...GlobalStyle.inputIcon,
+                        width: 30,
+                        height: 30,
+                      }}
+                      source={MarkerImage}
+                    />
+                    <Callout 
+                       onPress={() => navigation.navigate('SpaceDetails', {item})} 
+                    style={{width: 200, height: 130}}>
+                        <View  style={{
+                                width: 100,
+                                height: 70,
+                              }}>
+                          {item?.images?.[0] && (
+                            <ProgressiveImage
+                              resizeMode="contain"
+                              style={{
+                                width: 100,
+                                height: 70,
+                              }}
+                              source={Profile}
+                            />
+                          )}
+                        </View>
+                        
+                        <View style={{flexDirection: 'row'}}>
+                          <CText numberOfLines={1} style={Styles.addCardText}>
+                            Address :
+                          </CText>
+                          <CText numberOfLines={1} style={Styles.cardText}>
+                            {item?.address}
+                          </CText>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <CText numberOfLines={1} style={Styles.addCardText}>
+                            Space Name :
+                          </CText>
+                          <CText numberOfLines={1} style={Styles.cardText}>
+                            {item?.description}
+                          </CText>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <CText numberOfLines={1} style={Styles.addCardText}>
+                            Price :
+                          </CText>
+                          <CText numberOfLines={1} style={Styles.cardText}>
+                            {item?.rate_hour}
+                          </CText>
+                        </View> 
+                        
+
+                        {/* <View style={{flexDirection: 'row'}}>
+                          <CText numberOfLines={2} style={Styles.addCardText}}>
+                            Address:
+                          </CText>
+                          <CText numberOfLines={2} style={Styles.addCardText}}>
+                            {item?.address}
+                          </CText>
+                        </View>
+
+                        {/* <Image
+                  resizeMode="cover"
+                  style={{ width: 100, height: 100 }}
+                  source={item.image}
+                /> */}
+                    </Callout>
+                  </Marker>
+                );
+              })}
+              {/* {selectedPlace && (
+                <View style={{position: 'absolute', bottom: 20, left: 20 , backgroundColor:"red"}}>
+                  {/* <Image
+                    resizeMode="cover"
+                    style={{width: 100, height: 100}}
+                    source={selectedPlace?.image}
+                  /> */}
             </MapView>
-            <CList
+            {/* <CList
               style={Styles.spacelist}
               // numColumns={2}
               //   horizontal
@@ -280,7 +363,7 @@ const MySpace = ({navigation , route}) => {
               // onEndReachedThreshold={0.1}
               // maxToRenderPerBatch={10}
               // windowSize={10}
-            />
+            /> */}
           </>
         )}
       </View>

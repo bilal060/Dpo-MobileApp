@@ -4,9 +4,10 @@ const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
+    flex:1,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: theme['light'].colors.tertiaryBackground,
+    // backgroundColor: theme['light'].colors.tertiaryBackground,
   },
   headerContainer: {
     marginVertical: 60,
@@ -18,11 +19,14 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   inputInnerContainerStyle: {
-    backgroundColor: '#FFF',
+    backgroundColor: 'white',
     border: 0,
     width: width * 0.7,
     marginTop: 10,
     borderRadius: 50,
+    borderWidth:0.5,
+    // backgroundColor: theme['light'].colors.tertiaryBackground,
+
   },
   mainHeading: {
     color: theme.light.colors.iconColor,

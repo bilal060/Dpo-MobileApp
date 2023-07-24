@@ -68,6 +68,20 @@ const Root = ({initial}) => {
       </Stack.Navigator>
     );
   };
+
+  const CustomerStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Explore" component={ExploreScreen} />
+        <Stack.Screen name="Profile" component={MyProfile} />
+      </Stack.Navigator>
+    );
+  };
+
+
   const reduxState = useSelector(({auth, language}) => {
     return {
       userRole: auth?.user?.role,
@@ -77,6 +91,10 @@ const Root = ({initial}) => {
   const getScreen = () => {
     if (reduxState?.userRole === 'Storage Owner') {
       return <StorageOwnerStack />;
+    } else if (reduxState?.userRole === 'Customer') {
+      return <CustomerStack />;
+    } else if (reduxState?.userRole === 'Truck Driver') {
+      return <TruckDriverStack />;
     }
     // return <TruckDriverStack />;
   };

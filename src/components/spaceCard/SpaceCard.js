@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {View, TouchableOpacity, FlatList} from 'react-native';
 import {CText, ProgressiveImage, RadioButton} from '../index';
 import Style from './SpaceCard.style';
@@ -16,10 +16,12 @@ import {
   plugIcon,
   rateIcon,
   Camera,
+  isCustomer,
 } from '../../assets/images';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
 import {BASE_URL_IMG} from '../../config/webservices';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 const SpaceCard = ({
   name = 'Belmont, North Carolina',
@@ -63,8 +65,11 @@ const SpaceCard = ({
       />
     );
   };
+
+  const [isOn, setIsOn] = useState(false);
   return (
     <TouchableOpacity
+      // disabled={true}
       onPress={onPress}
       style={[Style.spaceContainer, mainContainer]}>
       {!img ? (
@@ -93,7 +98,6 @@ const SpaceCard = ({
             <FlatList
               data={imgData}
               nestedScrollEnabled
-
               renderItem={renderItem}
               ListFooterComponent={renderFooter}
               horizontal
@@ -105,7 +109,6 @@ const SpaceCard = ({
               GlobalStyle.row,
               {alignItems: 'center', marginVertical: 5},
             ]}>
-              
             <View style={[GlobalStyle.row, {width: '45%'}]}>
               <ProgressiveImage
                 source={CallColoured}
@@ -114,7 +117,7 @@ const SpaceCard = ({
               />
               <CText style={GlobalStyle.contact}>{phone}</CText>
             </View>
-           
+
             {!mapView && (
               <View
                 style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
@@ -129,22 +132,21 @@ const SpaceCard = ({
                 </CText>
               </View>
             )}
-            
           </View>
           {mapView && (
-              <View
-                style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
-                <ProgressiveImage
-                  source={rateIcon}
-                  resizeMode="contain"
-                  style={{width: 12, height: 12}}
-                />
-                <CText style={[GlobalStyle.contact]}>Rate :</CText>
-                <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
-                  {'$ ' + ratePrize}
-                </CText>
-              </View>
-            )}
+            <View
+              style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
+              <ProgressiveImage
+                source={rateIcon}
+                resizeMode="contain"
+                style={{width: 12, height: 12}}
+              />
+              <CText style={[GlobalStyle.contact]}>Rate :</CText>
+              <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
+                {'$ ' + ratePrize}
+              </CText>
+            </View>
+          )}
 
           <View
             style={[
@@ -156,7 +158,9 @@ const SpaceCard = ({
               resizeMode="contain"
               style={{width: 12, height: 12}}
             />
-            <CText numberOfLines={1} style={GlobalStyle.contact}>{address}</CText>
+            <CText numberOfLines={1} style={GlobalStyle.contact}>
+              {address}
+            </CText>
           </View>
           <View
             style={[
@@ -184,7 +188,31 @@ const SpaceCard = ({
               {marginHorizontal: 10, marginVertical: 7},
             ]}>
             <>
-              <ToggleSwitch size={'true'} isOn={true} label="Available" />
+              {isCustomer ? (
+                <ToggleSwitch
+                  size={'true'}
+                  isOn={isOn}
+                  label="Available"
+                  onPress={() => setIsOn(!isOn)}
+                />
+              ) : (
+                <>
+                <Rating
+                  type="star"
+                  isDisabled={true}
+                  selectedColor="yellow"
+                  ratingCount={1}
+                  count={1}
+                  minValue={1}
+                  defaultRating={5}
+                  imageSize={20}
+                  // showRating
+                  // onFinishRating={this.ratingCompleted}
+                />
+                <CText style={[GlobalStyle.contact]}>4.0</CText>
+                </>
+
+              )}
             </>
             <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
               <ProgressiveImage

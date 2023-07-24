@@ -1,5 +1,5 @@
 import {FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Container, PackageCard} from '../../../../../containers';
 import {
   CButton,
@@ -24,36 +24,64 @@ import {
   Payment,
   Privacy,
   Profile,
+  SecurityIcon,
 } from '../../../../../assets/images';
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
 import Accordion from 'react-native-collapsible/Accordion';
+import { MappedElement } from '../../../../../utils/methods';
+import i18n from '../../../../../utils/i18n/i18n';
 
 const PrivacyScreen = ({}) => {
   const navigation = useNavigation();
-const [selectedLan , setSelectedLan] = useState(false)
+  const [selectedLan, setSelectedLan] = useState(false);
+  const [options, setOptions] = useState([{
+    title: 'English',
+    content: 'Lorem ipsum...',
+    value: false,
+    code:"en"
+  },
+  {
+    title: 'German',
+    content: 'Lorem ipsum...',
+    value: false,
+    code:"hi"
+
+  },
+  {
+    title: 'Arabic',
+    content: 'Lorem ipsum...',
+    value: true,
+    code:"ar"
+
+  },
+])
   const headerProps = {
     ProgressiveImageHeader: true,
     backButtonIcon: true,
 
     headerTitle: 'Langugae',
     headerRight: false,
-  };
+  };  
 
-  const SECTIONS = [
-    {
-      title: 'English',
-      content: 'Lorem ipsum...',
-    },
-    {
-      title: 'Germon',
-      content: 'Lorem ipsum...',
-    },
-    {
-        title: 'Arabic',
-        content: 'Lorem ipsum...',
-      },
-  ];
+    
+
+  const handleOptionChange = (option) => {
+    const updatedOptions = options.map((opt) => {
+      if (opt?.title === option?.title) {
+        return { ...opt, value: true };
+      } else {
+        return { ...opt, value: false };
+      }
+      
+    });
+    console.log("🚀 ~ file: Langugae.js:72 ~ updatedOptions ~ updatedOptions:", updatedOptions)
+    setOptions(updatedOptions);
+    handleLanguageChange(option?.code)
+  };
+  const handleLanguageChange = languageCode => {
+    i18n.changeLanguage(languageCode);
+  };
 
   //  const  _renderSectionTitle = (section) => {
   //     return (
@@ -62,7 +90,7 @@ const [selectedLan , setSelectedLan] = useState(false)
   //       </View>
   //     );
   //   };
-
+  
   const _renderHeader = section => {
     return (
       <View style={styles.header}>
@@ -123,7 +151,27 @@ const [selectedLan , setSelectedLan] = useState(false)
             backgroundColor: '#FFF',
           }}>
           <CText style={Styles.title}>Select Language</CText>
-          <RadioButton title="Abc" value={selectedLan} onChange={()=> setSelectedLan(!selectedLan)} containerStyles={Styles.containerStyles} myStyle2={Styles.myStyle2} />
+
+          <MappedElement
+            data={options}
+            renderElement={(item , index) => (
+              <RadioButton
+                title={item?.title}
+                value={item?.value}
+                onChange={(val) => handleOptionChange(item)}
+                containerStyles={Styles.containerStyles}
+                myStyle2={Styles.myStyle2}
+              />
+            )}
+          />
+
+          {/* <RadioButton
+            title="Abc"
+            value={selectedLan}
+            onChange={() => handleOptionChange(SECT)}
+            containerStyles={Styles.containerStyles}
+            myStyle2={Styles.myStyle2}
+          /> */}
         </View>
       </View>
     </Container>

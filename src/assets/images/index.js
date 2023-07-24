@@ -146,6 +146,10 @@ import AreaIcon from './area.png';
 import FTruckIcon from './icons/FTruckIcon.png';
 import TruckIcon from './icons/TruckIcon.png';
 import CemeraPhoto from './icons/photos.png';
+import CompanyLince from './icons/truckLin.png';
+import TruckName from './icons/truckName.png';
+import TruckType from './icons/truckType.png';
+import TruckNo from './icons/truckNo.png';
 
 
 
@@ -156,6 +160,10 @@ export {
   CemeraPhoto,
   WelcomeLogo,
   VisaCard,
+  CompanyLince,
+  TruckName,
+  TruckType,
+  TruckNo,
   AddCard,
   ChargingStation,
   FTruckIcon,
