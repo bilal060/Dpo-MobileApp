@@ -76,6 +76,13 @@ import plugIcon from './icons/plug.png';
 import lengthIcon from './icons/lenght.png';
 import fuelIcon from './icons/fuel.png';
 import docIcon from './icons/doc.png';
+
+import FplugIcon from './icons/FPlug.png';
+import FlengthIcon from './icons/Flenght.png';
+import FfuelIcon from './icons/FFue.png';
+import FdocIcon from './icons/Fdoc.png';
+
+
 import threeDots from './icons/threeDots.png';
 import filterIcon from './icons/filter.png';
 import Camera from './icons/camera.png';
@@ -156,6 +163,10 @@ import TruckNo from './icons/truckNo.png';
 export {
   Company,
   AreaIcon,
+  FplugIcon,
+  FlengthIcon,
+  FfuelIcon,
+  FdocIcon,
   FocusedCompany,
   CemeraPhoto,
   WelcomeLogo,

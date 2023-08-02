@@ -36,6 +36,7 @@ import {BASE_URL_IMG} from '../../../../config/webservices';
 import {get_all_category} from '../../../../redux/actions/Root.Action';
 import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { PayAsYouDriveSkeleton } from '../../../../skeleton';
 
 const Explore = ({}) => {
   const navigation = useNavigation();
@@ -254,7 +255,7 @@ const Explore = ({}) => {
                   width={150}
                   height={20}
                   borderRadius={4}
-                  marginTop={10}
+                  marginTop={10} 
                 />  
                 <SkeletonPlaceholder.Item
                   width={100}
@@ -266,6 +267,8 @@ const Explore = ({}) => {
               {/* </SkeletonPlaceholder>
             </View> */}
           {/* }> */}
+          {/* <SkeletonPlaceholderComponent layout={PayAsYouDriveSkeleton} > */}
+
           <CList
             style={Styles.list}
             //   horizontal
@@ -274,12 +277,15 @@ const Explore = ({}) => {
             // loading={reduxState.loading}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
-            emptyOptions={{
+            emptyOptions={{ 
               // icon: require('../../assets/images/empty.png'),
               text: 'Store not found',
             }}
           />
           {/* </SkeletonPlaceholderComponent> */}
+
+          {/* </SkeletonPlaceholderComponent> */}
+   
       </View>
     </Container>
   );
@@ -288,3 +294,4 @@ const Explore = ({}) => {
 export default Explore;
 
 const styles = StyleSheet.create({});
+ 

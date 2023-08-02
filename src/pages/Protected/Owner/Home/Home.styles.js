@@ -118,5 +118,30 @@ export default StyleSheet.create({
     fontFamily: theme.font.semiBold, 
     fontWeight: '600',
   },
+  day:{
+    color: theme.light.colors.iconColor,
+
+    fontSize: 13,
+    lineHeight: 16,
+    // paddingTop:5,
+    fontFamily: theme.font.semiBold, 
+textAlign:'center',
+marginTop:10,
+    fontWeight: '600',
+  },
+  totalLenght:{
+    color: theme.light.colors.tertiary,
+backgroundColor: theme.light.colors.primary,
+alignSelf:"center",
+marginTop:5,
+width:25,
+textAlign:'center',
+    fontSize: 8,
+    borderRadius:100,
+    lineHeight: 16,
+    // paddingTop:5,
+    fontFamily: theme.font.semiBold, 
+    fontWeight: '600',
+  }
  
 });

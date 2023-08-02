@@ -87,7 +87,7 @@ const SpaceDetails = ({navigation, route}) => {
   ];
   const renderItem = ({item}) => {
     return (
-      <SpaceCard mainContainer={Styles.mainContainer} imgData={listData} />
+      <SpaceCard item={item} mainContainer={Styles.mainContainer} imgData={listData} />
     );
   };
   const reverseSlot = () => {
@@ -220,7 +220,7 @@ const SpaceDetails = ({navigation, route}) => {
   
   }
 
-  const timeSlot = ['Hourly', 'Daily', 'Weekly', 'Monthly'];
+  const timeSlot = ['Hourly', 'Daily', 'Monthly'];
   return (
     <Container
       bottomSpace
@@ -248,6 +248,8 @@ const SpaceDetails = ({navigation, route}) => {
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
           isCustomer={isCustomer}
+        item={item}
+
         />
         {isCustomer ? (
           <View style={Styles.reverseSlot}>

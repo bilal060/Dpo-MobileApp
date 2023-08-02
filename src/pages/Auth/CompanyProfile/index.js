@@ -59,6 +59,8 @@ function CompanyProfile({route}) {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Sing in',
+    headerRightText:'Skip',
+    rightTextPress:()=> navigation.navigate('Login')
     // showCenterLogo: RegisterImg
   };
 
@@ -131,18 +133,20 @@ function CompanyProfile({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
+        {/* <CText style={AuthStyle.skip}>Business Info</CText> */}
+
       <View style={[AuthStyle.cardHeader, {marginTop: 20}]}>
         <CText style={AuthStyle.cardHeaderTitle}>Business Info</CText>
         <CText style={AuthStyle.cardHeaderSubTitle}>
           Enter your business information below.
-        </CText>
+        </CText> v 
       </View> 
 
       
       {/* <View style={AuthStyle.typesView}>
-        {cData?.map(e => (
-          <TouchableOpacity
-            onPress={() => setAccount(e.name)}  
+        {cData?.map(e => (  
+          <TouchableOpacity 
+            onPress={() => setAccount(e.name)}    
             style={
               account === e?.name
                 ? AuthStyle.activeUser
@@ -150,7 +154,7 @@ function CompanyProfile({route}) {
             }>
             <ProgressiveImage
               resizeMode={'contain'}
-              style={{
+              style={{ 
                 ...GlobalStyle.inputIcon,
                 ...AuthStyle.inputIcon,
               }}

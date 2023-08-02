@@ -1,5 +1,3 @@
-
-
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,9 +22,12 @@ import {
   get_ownerBooking,
 } from '../../../../redux/actions/Root.Action';
 import {reduxStateSelector} from '../../../../utils/selector';
-import { BASE_URL_IMG } from '../../../../config/webservices';
+import {BASE_URL_IMG} from '../../../../config/webservices';
 import moment from 'moment';
+import {Calendar} from 'react-native-calendars';
+
 const width = Dimensions.get('screen').width;
+
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const [spaces, setSpaces] = useState([]);
@@ -53,11 +54,11 @@ const Home = ({navigation}) => {
   }, []);
 
   const callBack = res => {
-    console.log("🚀 ~ file: Home.js:276 ~ callBack ~ res:", res)
-    setSpaces(res?.spaces);
+    console.log('🚀 ~ file: Home.js:276 ~ callBack ~ res:', res);
+    setSpaces(res);
   };
   const handleBookingCallBack = res => {
-    setOwnerBooking(res?.bookings)
+    setOwnerBooking(res?.bookings);
     console.log('🚀 ~ file: Home.js:276 ~ handleBookingCallBack ~ res:', res);
   };
   const headerProps = {
@@ -71,14 +72,15 @@ const Home = ({navigation}) => {
   };
 
   const renderItem = ({item}) => {
-    const data = item?.images?.[0]?.replace(/\\/g, "/");
-    console.log("🚀 ~ file: Home.js:76 ~ renderItem ~ data:", data , item?.images)
+    console.log('🚀 ~ file: Home.js:74 ~ renderItem ~ item:', item);
+    const data = item?.images?.[0]?.replace(/\\/g, '/');
     return (
       <SpaceCard
         mainContainer={{
           width: spaces?.length > 1 ? width * 0.75 : width * 0.85,
           alignSelf: 'center',
         }}
+        item={item}
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
@@ -90,8 +92,9 @@ const Home = ({navigation}) => {
   };
 
   const renderBooking = ({item}) => {
-    return <BookingCard 
-    location={item?.spaceId?.location?.address}
+    return (
+      <BookingCard
+        location={item?.spaceId?.location?.address}
         date={moment(item?.createdAt).format('LL')}
         contact={item?.userId?.phoneNo}
         fullName={item?.userId?.fullName}
@@ -99,8 +102,8 @@ const Home = ({navigation}) => {
         prize={item.price}
         eTime={item?.to}
         sTime={item?.from}
-    
-    />;
+      />
+    );
   };
   const barData = [
     {value: 500, label: 'Jan', frontColor: '#177AD5'},
@@ -117,13 +120,72 @@ const Home = ({navigation}) => {
     {value: 100, label: 'Dec', frontColor: '#177AD5'},
   ];
 
+  
+    // Dummy data for testing
+    const dummyData = {
+      "2023-08-01": {
+        "title": "100",
+        "description": "This is the first event on August 1st, 2023."
+      },
+      "2023-08-02": {
+        "title": "50",
+        "description": "This is the second event on August 2nd, 2023."
+      },
+      "2023-08-05": {
+        "title": "40",
+        "description": "This is the third event on August 5th, 2023."
+      },
+      "2023-08-15": {
+        "title": "20",
+        "description": "This is the fourth event on August 15th, 2023."
+      }
+    };
+
+    const [dataFromAPI, setDataFromAPI] = useState({}); // State to store data from the dummyData object
+
+  useEffect(() => {
+    // Simulate API call and set dummyData in the state when the component mounts
+    setDataFromAPI(dummyData);
+  }, []);
+
+  
+
+  const isWeekend = (date) => {
+    const day = new Date(date).getDay();
+    return day === 0 || day === 6;
+  };
+
+
+  const renderDay = ({date, state}) => {
+    // const isweek =  isWeekend(date.dateString) 
+    const dataForDay = dataFromAPI[date.dateString];
+
+    const textStyle = {
+      // Customize the text style based on whether it's a weekend or not
+      color: state === "disabled" ? "#AAAAAA" : isWeekend(date.dateString) ?   '#0064FA'  : state === 'today' ?"#FFF" : '#171D25',
+    };
+
+    const lengthStyles ={
+      color: state === "today" ? "#0064FA" :  '#FFF',
+      backgroundColor: state === "today" ? "#FFF" :  'rgba(0,100,250 ,0.6)',
+
+
+    }
+    return (
+      <View style={{width:42, height:60, paddingHorizontal:5,paddingHorizontal:0,  backgroundColor:state ==="disabled" ?  "#F4F4F4"  : state === 'today' ?"#0064FA" :  '#FFF' , }}>
+        <CText  style={[Styles.day , textStyle ]}>{date?.day}</CText>
+       {state !== "disabled"   &&  dataForDay &&   <CText  style={[Styles.totalLenght ,lengthStyles ]}>{dataForDay?.title}</CText>}
+
+      </View>
+    );
+  };
+
   return (
     <Container
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView
-      >
+      scrollView>
       <View style={Styles.container}>
         <CText style={Styles.mainHeading}>My Spaces</CText>
         <View style={GlobalStyle.row}>
@@ -194,6 +256,7 @@ const Home = ({navigation}) => {
             // stepHeight={10}
             // stepValue={6}
             // spacing={10}
+
             noOfSections={4}
             frontColor="lightgray"
             yAxisThickness={0}
@@ -201,9 +264,24 @@ const Home = ({navigation}) => {
           />
         </View>
         <View style={Styles.Calender}>
-          <DatePicker
+          <Calendar
+            style={
+              {
+                calendarWidth: 400
+                // backgroundColor:'red'
+                // borderWidth: 1,
+                // borderColor: 'gray',
+              }
+            }
+            initialDate={new Date()}
+            hideArrows={true}
+            
+            dayComponent={renderDay}
+            enableSwipeMonths={true}
+          />
+          {/* <DatePicker
             options={{
-              backgroundColor: '#FFFFF',
+              backgroundColor: '#FFFmnmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmjjFF',
               textHeaderColor: '#707070',
               textDefaultColor: '#707070',
               selectedTextColor: '#fff',
@@ -216,7 +294,7 @@ const Home = ({navigation}) => {
             mode="calendar"
             minuteInterval={30}
             style={{borderRadius: 10}}
-          />
+          /> */}
         </View>
       </View>
     </Container>

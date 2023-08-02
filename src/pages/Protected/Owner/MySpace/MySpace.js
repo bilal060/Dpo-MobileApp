@@ -39,8 +39,7 @@ import MapView, {Marker, Callout} from 'react-native-maps';
 const MySpace = ({navigation, route}) => {
   
   console.log('🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:', route?.params);
-  const {name  , _id} = route?.params
-  console.log("🚀 ~ file: MySpace.js:43 ~ name:", name)
+  const {name  , _id} = route?.params || {}
   const fullName = useRef(null);
   const dispatch = useDispatch();
   const reduxState = useSelector(({auth, language, root}) => {
@@ -88,6 +87,7 @@ const MySpace = ({navigation, route}) => {
     },
   ];
   const renderItem = ({item}) => {
+    console.log("🚀 ~ file: MySpace.js:90 ~ renderItem ~ item:", item)
     var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(
       /\\/g,
       '/',
@@ -101,6 +101,7 @@ const MySpace = ({navigation, route}) => {
         ratePrize={item?.rate_day}
         address={item?.address}
         img={convertedFilePath}
+        item={item}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}
       />
@@ -121,6 +122,8 @@ const MySpace = ({navigation, route}) => {
         address={item?.address}
         img={convertedFilePath}
         mapView
+        item={item}
+
         imgStyles={{width: 100, height: '100%'}}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}

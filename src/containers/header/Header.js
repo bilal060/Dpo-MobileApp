@@ -30,8 +30,8 @@ const Header = props => {
     showCart = false,
     hideBackButton = true,
     backButtonIcon = true,
-    showCenterLogo,
-    headerTitleStyle,
+      showCenterLogo,
+      headerTitleStyle,
     goBackWithRoute,
     headerTransparentStyle,
     bgHeadeStyle,
@@ -39,6 +39,8 @@ const Header = props => {
     centerImage,
     headerRightImg,
     rightPress,
+    headerRightText,
+    rightTextPress
   } = props;
   const navigation = useNavigation();
   const reduxState = useSelector(({auth, language}) => {
@@ -88,15 +90,11 @@ const Header = props => {
       </View>
     );
   };
-  const menuButton = () => {
+  const rightText = () => {
     return (
-      <View>
-        <ProgressiveImage
-          style={styles.profileImage}
-          source={Profile}
-          resizeMode="contain"
-        />
-      </View>
+      <TouchableOpacity onPress={rightTextPress} style={styles.rightTextView}>
+        <CText style={styles.rightText}>{headerRightText}</CText>
+      </TouchableOpacity>
     );
   };
   const cartButton = () => {
@@ -176,12 +174,12 @@ const Header = props => {
                 </CText>
               )}
 
-              {headerRight && rightButton()}
+              {headerRight ? rightButton()   : headerRightText &&  rightText()  }
             </View>
             <View>{showCenterLogo && centerLogo()}</View>
           </>
         ) : (
-          <>
+          <> 
             {/* <View style={[GlobalStyle.row, styles.headerView]}>
               <CInput
                 placeholder={'Sort By'}
@@ -304,4 +302,18 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: theme['light'].colors.primary,
   },
+  rightTextView:{
+    flex:1,
+    justifyContent:"center",
+    marginTop:15,
+    marginRight:10
+  },
+  rightText:{
+    flex:1,
+    textAlign:'right',
+    fontSize: 15,
+    color: theme['light'].colors.primary,
+    fontFamily: theme.font.semiBold,
+
+  }
 });
