@@ -13,11 +13,15 @@ import Styles from './CountriesModal.style';
 
 function CountriesModal(props) {
   const {onSelect, data, key, Value} = props;
-  console.log("🚀 ~ file: CountriesModal.js:16 ~ CountriesModal ~ data:", data)
+  console.log('🚀 ~ file: CountriesModal.js:16 ~ CountriesModal ~ data:', data);
 
   const [searchText, updateSearchText] = useState('');
   const [filteredCountry, updateFilteredCountry] = useState([]);
-  console.log("🚀 ~ file: CountriesModal.js:20 ~ CountriesModal ~ filteredCountry:", filteredCountry)
+  console.log(
+    '🚀 ~ file: CountriesModal.js:20 ~ CountriesModal ~ filteredCountry:',
+    filteredCountry,
+  );
+  console.log(data);
   const [loading, setLoading] = useState(true);
 
   const reduxState = useSelector(({global}) => {
@@ -55,7 +59,10 @@ function CountriesModal(props) {
   };
 
   const renderItem = ({item, index}) => {
-    console.log("🚀 ~ file: CountriesModal.js:58 ~ renderItem ~ item:", item?.name)
+    console.log(
+      '🚀 ~ file: CountriesModal.js:58 ~ renderItem ~ item:',
+      item?.name,
+    );
     return item ? (
       <TouchableOpacity
         style={[Styles.listItem, index === 0 && Styles.lastListItem]}
@@ -70,7 +77,7 @@ function CountriesModal(props) {
           </View>
         )}
         <CText style={Styles.listItemText}>
-          {item?.name?.common || item?.name || item?.description }
+          {item?.name?.common || item?.name || item?.description}
         </CText>
         {item?.detail?.code && (
           <CText style={[Styles.listItemText, Styles.listItemLastText]}>
@@ -99,7 +106,7 @@ function CountriesModal(props) {
           onSubmitEditing={() => null}
         />
       </View>
-      {filteredCountry.length > 0 ? (
+      {filteredCountry?.length > 0 ? (
         <CList
           loading={loading}
           contentContainerStyle={GlobalStyle.list2}

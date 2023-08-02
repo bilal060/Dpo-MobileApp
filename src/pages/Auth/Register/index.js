@@ -74,7 +74,8 @@ function Register({route}) {
   };
   const callBack = res => {
     if (res) {
-      navigation.navigate('VerifyOtp', {email: payload?.email , role:role});
+      navigation.navigate('VerifyOtp', {email: payload?.email, role: role});
+      //navigation.navigate('Information', {role: role});
     }
     console.log('res', res);
   };

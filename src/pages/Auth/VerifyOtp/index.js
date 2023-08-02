@@ -11,9 +11,13 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const {width, height} = Dimensions.get('screen');
 import CountDown from 'react-native-countdown-component';
 import {verifyOTP} from '../../../redux/actions/Auth.action';
+import {useIsFocused} from '@react-navigation/native';
+import {Alert} from 'react-native';
 
 function VerifyOtp({route}) {
-  const {email, isForget , role} = route?.params || {};
+  const isFocused = useIsFocused();
+  //Alert.alert(isFocused.toString());
+  const {email, isForget, role} = route?.params || {};
   console.log('🚀 ~ file: index.js:17 ~ VerifyOtp ~ isForget:', route?.params);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -64,7 +68,7 @@ function VerifyOtp({route}) {
       if (isForget) {
         navigation.navigate('ChangePassword');
       } else {
-        navigation.navigate('Information' ,{role:role} );
+        navigation.navigate('Information', {role: role});
       }
       // else if (reduxState?.role === 'Business Owner') {
       //   navigation.navigate('    ');
@@ -95,16 +99,18 @@ function VerifyOtp({route}) {
 
       <View style={[AuthStyle.orContainer, {marginTop: -20}]}>
         <CText style={AuthStyle.cardBottomText}>Re-Send code in.</CText>
-        <CountDown
-          until={100}
-          onFinish={(va) => {}}
-          onPress={() => {}}
-          size={15}
-          timeToShow={['S']}
-          timeLabels={{s: ''}}
-          digitTxtStyle={AuthStyle.timeCountDown}
-          digitStyle={AuthStyle.timeView}
-        />
+        {isFocused == true ? (
+          <CountDown
+            until={100}
+            onFinish={va => {}}
+            onPress={() => {}}
+            size={15}
+            timeToShow={['S']}
+            timeLabels={{s: ''}}
+            digitTxtStyle={AuthStyle.timeCountDown}
+            digitStyle={AuthStyle.timeView}
+          />
+        ) : null}
         <CText
           onPress={() => navigation.navigate('Login')}
           style={[AuthStyle.cardBottomText2]}></CText>

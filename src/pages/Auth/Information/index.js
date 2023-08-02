@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Container, CountriesModal} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
@@ -21,10 +22,10 @@ function Information({route}) {
 
   const reduxState = useSelector(({auth, global}) => {
     return {
-      loading: auth?.registerLoading ,
+      loading: auth?.registerLoading,
       currentCountry: global?.currentCountry,
       countries: global?.countries,
-    }
+    };
   });
 
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
@@ -66,24 +67,31 @@ function Information({route}) {
   };
 
   const submit = async values => {
+    // console.log('asd');
+    // console.log(profileImage?.uri);
+    // console.log('asd');
+    // return;
     const payload = new FormData();
     payload.append('fullName', values?.fullName);
     payload.append('phoneNo', values?.phone);
     payload.append('dob', moment(selectDate).format('L'));
-    payload.append('bio', values?.bio);   
-     payload.append('field', 'Personal');
+    payload.append('bio', values?.bio);
+    payload.append('field', 'Personal');
     payload.append('profile_img', {
-      uri:profileImage?.uri,
-      type:"image/jpeg",
-      name:"image.jpg"
+      uri:
+        profileImage?.uri == undefined || profileImage?.uri == ''
+          ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvadwNGLxMtCPqFOWpdRoCTcI3qFxjNc234ohBSiBUIg&s'
+          : profileImage?.uri,
+      type: 'image/jpeg',
+      name: 'image.jpg',
     });
-    
-    dispatch(updateUserProfile(payload,  callBack));
+
+    dispatch(updateUserProfile(payload, callBack));
 
     // navigation.navigate("VerifyOtp")
   };
   const callBack = res => {
-    console.log("🚀 ~ file: index.js:93 ~ callBack ~ res:", res)
+    console.log('🚀 ~ file: index.js:93 ~ callBack ~ res:', res);
     if (role === 'Customer') {
       navigation.navigate('Login');
     } else {
@@ -147,7 +155,10 @@ function Information({route}) {
         onRequestClose={() => toggleCountryModal()}>
         <View style={AuthStyle.modalContainer}>
           <View style={AuthStyle.modalInnerContainer}>
-            <CountriesModal onSelect={val => countryOnSelect(val)} />
+            <CountriesModal
+              data={reduxState?.countries}
+              onSelect={val => countryOnSelect(val)}
+            />
           </View>
         </View>
       </Modal>
