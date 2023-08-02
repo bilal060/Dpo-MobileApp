@@ -5,11 +5,11 @@ import {View} from 'react-native';
 import {CButton, CInput, CText} from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
-import { OtpIcon } from '../../../assets/images';
+import {OtpIcon} from '../../../assets/images';
 
 function CForm(props) {
-  const {submit, loading , toggleCountryModal, selectedCountry , email} = props;
-  console.log("🚀 ~ file: Form.js:12 ~ CForm ~ email:", email)
+  const {submit, loading, toggleCountryModal, selectedCountry, email} = props;
+  console.log('🚀 ~ file: Form.js:12 ~ CForm ~ email:', email);
 
   const form = useRef(null);
   const code = useRef(null);
@@ -27,15 +27,11 @@ function CForm(props) {
           <View>
             <View style={AuthStyle.card}>
               <View style={AuthStyle.cardHeader}>
-                <CText style={AuthStyle.cardHeaderTitle}>
-                Verify OTP
-                </CText>
+                <CText style={AuthStyle.cardHeaderTitle}>Verify OTP</CText>
                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                  A 6-digit code sent to your  
+                  A 6-digit code sent to your
                 </CText>
-                <CText style={AuthStyle.cardHeaderSubTitle}>
-                 {email}  
-                </CText>
+                <CText style={AuthStyle.cardHeaderSubTitle}>{email}</CText>
               </View>
 
               <View style={AuthStyle.cardBody}>
@@ -46,44 +42,10 @@ function CForm(props) {
                   onChangeText={handleChange('otp')}
                   error={errors.otp}
                   sec
-                  
                   leftIconNAme={OtpIcon}
                   returnKeyType="next"
                   onSubmitEditing={() => handleSubmit()}
                 />
-
-{/* <CInput
-                  ref={verifyCode}
-                  placeholder={'Enter Mobile OTP'}
-                  value={values.mobileOtp}
-                  onChangeText={handleChange('mobileOtp')}
-                  error={errors.mobileOtp}
-                  sec
-                  leftIconNAme={OtpIcon}
-
-                  
-                  returnKeyType="next"
-                  onSubmitEditing={() => handleSubmit()}
-                /> */}
-                {/* <CInput
-                  ref={password}
-                  placeholder={'Password'}
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  secureTextEntry={true}
-                  error={errors.password}
-                  returnKeyType="next"
-                  onSubmitEditing={() => cpassword.current.focus()}
-                  leftIconType="MaterialCommunityIcons"
-                  leftIconColor={themes.light.colors.fontColor}
-                  leftIconNAme="email"
-                  leftIconeSize={18}
-                  rightIconType="AntDesign"
-                  rightIconName="eyeo"
-                  rightIconeColor={themes.light.colors.gray4}
-                  rightIconeSize={18}
-                /> */}
-               
               </View>
 
               <CButton
@@ -92,10 +54,6 @@ function CForm(props) {
                 loading={loading}
                 onPress={() => handleSubmit()}
               />
-
-              {/* <View>
-                <CText style={AuthStyle.continueText}>Or continue with</CText>
-              </View> */}
             </View>
           </View>
         );

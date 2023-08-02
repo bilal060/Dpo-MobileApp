@@ -25,7 +25,10 @@ import {
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 import {themes} from '../../../../../theme/colors';
 import {useDispatch, useSelector} from 'react-redux';
-import {getConversationMessages, send_messages} from '../../../../../redux/actions/Root.Action';
+import {
+  getConversationMessages,
+  send_messages,
+} from '../../../../../redux/actions/Root.Action';
 import {Socket} from '../../../../../utils/methods';
 import moment from 'moment';
 import {TextInput} from 'react-native-gesture-handler';
@@ -223,13 +226,19 @@ const Managers = ({route}) => {
           </View>
         </View>
         {/* <ScrollView style={Styles.chatlist}> */}
-          {messages != undefined &&
-            messages.length >= 0 &&
-            <FlatList style={{  height:550 }}  nestedScrollEnabled data={messages} renderItem={({item})=> renderProfile(item)}/>
-            // messages.map(item => renderProfile(item))
-          }
+        {
+          messages != undefined && messages.length >= 0 && (
+            <FlatList
+              style={{height: 550}}
+              nestedScrollEnabled
+              data={messages}
+              renderItem={({item}) => renderProfile(item)}
+            />
+          )
+          // messages.map(item => renderProfile(item))
+        }
 
-<View
+        <View
           style={{
             marginTop: 10,
             flexDirection: 'row',
@@ -239,14 +248,23 @@ const Managers = ({route}) => {
             paddingVertical: 10,
             paddingHorizontal: 20,
           }}>
-          <View style={{backgroundColor: '#0064FA' , padding:5 , width: 45, justifyContent:"center", alignItems:"center", height: 45, borderRadius:10}}>
+          <View
+            style={{
+              backgroundColor: '#0064FA',
+              padding: 5,
+              width: 45,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 45,
+              borderRadius: 10,
+            }}>
             <ProgressiveImage
               source={CemeraPhoto}
               resizeMode="contain"
-              style={{width: 25, height: 25, }}
+              style={{width: 25, height: 25}}
             />
           </View>
-          <View style={{flex: 1, marginLeft: 20, marginTop: 5 , }}>
+          <View style={{flex: 1, marginLeft: 20, marginTop: 5}}>
             <CInput
               placeholder={'Send Messgae'}
               value={message}
@@ -265,7 +283,7 @@ const Managers = ({route}) => {
             />
           </View>
         </View>
-          {/* <CList
+        {/* <CList
             style={}
             // numColumns={2}
             //   horizontal
@@ -286,7 +304,6 @@ const Managers = ({route}) => {
             // windowSize={10}
           /> */}
         {/* </ScrollView> */}
-
       </View>
 
       {/* <CList

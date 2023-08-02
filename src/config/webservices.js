@@ -1,10 +1,10 @@
-// export const BASE_URL = "https://api.instantspace.app/api/v1/";
-// export const BASE_URL_IMG = "https://api.instantspace.app/";
+/* eslint-disable prettier/prettier */
+// export const BASE_URL = 'https://api.instantspace.app/api/v1/';
+// export const BASE_URL_IMG = 'https://api.instantspace.app/';
 
-export const BASE_URL = 'http://10.7.55.59:5001/api/v1/';
-export const BASE_URL_IMG = 'http://10.7.55.59:5001/';
+export const BASE_URL = 'http://192.168.1.108:5001/api/v1/';
+export const BASE_URL_IMG = 'http://192.168.1.108:5001/';
 // export const BASE_URL_IMG = "https://api.instantspace.app/";
-
 
 export const SCOKET_URL = 'ws://localhost:8900';
 
@@ -16,13 +16,11 @@ export const UPDATECOMPANYPROFILE = `${BASE_URL}users/UpdateCompanyProfile`;
 export const FORGOTPASSWORD = `${BASE_URL}users/forgotpassword`;
 export const GETALLSPACES = `${BASE_URL}spaces`;
 
-export const GETSPACESBYCATORGY =  (catId) => `${BASE_URL}spaces/cat-spaces/${catId}`;
-
-
+export const GETSPACESBYCATORGY = catId =>
+  `${BASE_URL}spaces/cat-spaces/${catId}`;
 
 export const INVITEMANAGER = `${BASE_URL}users/manager-invitation`;
 export const ADDMEWSPACE = `${BASE_URL}spaces/add_space`;
-
 
 export const GETUSERSPACES = id => `${BASE_URL}spaces/space/${id}`;
 
@@ -31,29 +29,24 @@ export const ALLBOOKING = id => `${BASE_URL}bookings/user_bookings/${id}`;
 export const OWNERBOOKING = id => `${BASE_URL}bookings/owner_bookings/${id}`;
 export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers/${id}`;
 
-export const FILTERMANAGERS = (ownerId , spaceId) => `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
-export const FILTERBOOKING = (ownerId , spaceId) => `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
+export const FILTERMANAGERS = (ownerId, spaceId) =>
+  `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
+export const FILTERBOOKING = (ownerId, spaceId) =>
+  `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
 
-export const GETCATEGORIES = user_role => `${BASE_URL}category/specific?role=${user_role}`;
+export const GETCATEGORIES = user_role =>
+  `${BASE_URL}category/specific?role=${user_role}`;
 
 export const GETALLCATEGORIES = `${BASE_URL}category`;
 
 export const GETCARDS = user_id => `${BASE_URL}users/user-cards/${user_id}`;
-export const GETVEHICLES  = (user_id) => `${BASE_URL}vehicle/user/${user_id}`;
-
+export const GETVEHICLES = user_id => `${BASE_URL}vehicle/user/${user_id}`;
 
 export const ADDCARDS = `${BASE_URL}users/add_card`;
- 
-
-
-
-
 
 export const GETCONVERSATION = id => `${BASE_URL}conversations/${id}`;
 export const CONVERSATIONMESSAGE = id => `${BASE_URL}messages/${id}`;
-export const SENDMESSAGE  = `${BASE_URL}messages`;
-
-
+export const SENDMESSAGE = `${BASE_URL}messages`;
 
 // export const ADDVEHICLE =  `${BASE_URL}vehicle/add_vehicle`;
 // export const ADDVEHICLE =  `${BASE_URL}vehicle/add_vehicle`;
