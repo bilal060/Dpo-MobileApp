@@ -13,15 +13,14 @@ import MaskInput from 'react-native-mask-input';
 import CText from '../cText/CText';
 import CIcon from '../cIcon/CIcon';
 import ProgressiveImage from '../progressiveImage/ProgressiveImage';
-import { EmailIcon } from '../../assets/images';
-import { useTranslation } from 'react-i18next';
+import {EmailIcon} from '../../assets/images';
+import {useTranslation} from 'react-i18next';
 TextInput.defaultProps = {
   ...(TextInput.defaultProps || {}),
   allowFontScaling: false,
 };
 
 const CInput = React.forwardRef((props, ref) => {
-  
   const {t} = useTranslation();
 
   const {
@@ -59,7 +58,7 @@ const CInput = React.forwardRef((props, ref) => {
     rightIconeColor,
     selectValue,
     placeholder,
-    textStyle
+    textStyle,
   } = props;
 
   const renderLabel = () => {
@@ -138,6 +137,7 @@ const CInput = React.forwardRef((props, ref) => {
         style={{
           ...GlobalStyle.inputRightIconButton,
           ...rightIconButtonStyle,
+          //  backgroundColor: 'red',
         }}>
         <CIcon
           type={rightIconType}
@@ -179,31 +179,32 @@ const CInput = React.forwardRef((props, ref) => {
       />
     );
   };
-  
+
   const renderSelectionView = () => {
     return (
       <TouchableOpacity
         style={[
-          {...GlobalStyle.inputStyle ,...style},
-          {flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"},
+          {...GlobalStyle.inputStyle, ...style},
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          },
         ]}
         onPress={onPress}>
         <CText
           style={[
-            {...GlobalStyle.inputTextStyle,  ...textStyle},
-             {color: themes['light'].colors.gray7},
+            {...GlobalStyle.inputTextStyle, ...textStyle},
+            {color: themes['light'].colors.gray7},
           ]}>
-          {selectValue   ? selectValue?.name  || selectValue?.description: placeholder}
+          {selectValue
+            ? selectValue?.name || selectValue?.description
+            : placeholder}
         </CText>
-        <AntDesign
-              name="down"
-              style={GlobalStyle.slectedViewDropDownIcon}
-            />
+        <AntDesign name="down" style={GlobalStyle.slectedViewDropDownIcon} />
       </TouchableOpacity>
     );
   };
-
-
 
   return (
     <View style={{...GlobalStyle.inputContainer, ...inputContainerStyle}}>
@@ -215,16 +216,23 @@ const CInput = React.forwardRef((props, ref) => {
           ...(error && GlobalStyle.errorBorder),
         }}>
         {leftIconNAme ? renderLeftIcon() : null}
-        
-        
-          <View style={{alignSelf:"flex-start" , flex:1 ,borderBottomWidth:0.5 ,  borderBottomColor:"#E7E6E9" , flexDirection:"row" , alignItems:"center" , paddingTop:-15}}>
-          {selectedCountry && Object.keys(selectedCountry).length
-          ? renderCountryView()
-          : null}
-        {type !== 'view' ? renderInputView() : renderSelectionView()}
-        {rightIconName ? renderRightIcon() : null}
 
-            </View>
+        <View
+          style={{
+            alignSelf: 'flex-start',
+            flex: 1,
+            borderBottomWidth: 0.5,
+            borderBottomColor: '#E7E6E9',
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingTop: -15,
+          }}>
+          {selectedCountry && Object.keys(selectedCountry).length
+            ? renderCountryView()
+            : null}
+          {type !== 'view' ? renderInputView() : renderSelectionView()}
+          {rightIconName ? renderRightIcon() : null}
+        </View>
       </View>
       {error ? renderErrorView() : null}
     </View>

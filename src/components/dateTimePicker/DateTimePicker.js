@@ -13,7 +13,8 @@ import moment from 'moment';
 import {themes as theme} from '../../theme/colors';
 import CText from '../cText/CText';
 import ProgressiveImage from '../progressiveImage/ProgressiveImage';
-import { DobIcon } from '../../assets/images';
+import {DobIcon} from '../../assets/images';
+import MonthPicker from 'react-native-month-year-picker';
 
 export const ErrorView = ({message}) => {
   return message ? (
@@ -38,19 +39,26 @@ function DateTimePicker({
   selectButtonText,
   mode = 'date',
   hideIcon,
-  selectContainer
+  selectContainer,
+  Pickertoggle,
+  pickershow,
 }) {
   // const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
   const onChangeInner = selectedDate => {
+    // console.log(Selec)
     onChange(selectedDate);
+
     setShow(false);
   };
 
   const toggle = () => {
     setShow(!show);
   };
+
+  console.log(value);
+  console.log('date');
 
   return (
     <Fragment>
@@ -65,14 +73,16 @@ function DateTimePicker({
             error && GlobalStyle.errorBorder,
           ]}
           activeOpacity={activeOpacity}
-          onPress={() => toggle()}>
+          onPress={() => {
+            type === 'monthly' ? Pickertoggle() : toggle();
+          }}>
           {loading ? (
             <ActivityIndicator style={Styles.buttonLoading} />
           ) : hideIcon ? (
             <View style={GlobalStyle.inputIconButton}>
               <ProgressiveImage
                 source={DobIcon}
-                style={[GlobalStyle.inputIcon ,{marginBottom:8}]}
+                style={[GlobalStyle.inputIcon, {marginBottom: 8}]}
               />
             </View>
           ) : null}
@@ -83,22 +93,32 @@ function DateTimePicker({
               {fontSize: 16},
               !value && {color: theme['light'].colors.lightGray},
             ]}>
-            {value ? mode === "time" ? moment(value).format('LT') :moment(value).format('MM-DD-YYYY') : placeHolder}
+            {value
+              ? mode === 'time'
+                ? moment(value).format('LT')
+                : moment(value).format('MM-DD-YYYY')
+              : placeHolder}
           </CText>
         </TouchableOpacity>
         <ErrorView message={error} />
       </View>
-      <DateTimePickerModal
-        testID="dateTimePicker"
-        isVisible={isVisible || show}
-        mode={mode}
-        date={value ? value : new Date()}
-        onConfirm={onChangeInner}
-        minimumDate={minimumDate}
-        maximumDate={maximumDate}
-        onCancel={() => toggle()}
-        isDarkModeEnabled={false}
-      />
+      <>
+        {type === 'monthly' && pickershow ? (
+          <MonthPicker onChange={onChange} value={value ? value : new Date()} />
+        ) : (
+          <DateTimePickerModal
+            testID="dateTimePicker"
+            isVisible={isVisible || show}
+            mode={mode}
+            date={value ? value : new Date()}
+            onConfirm={onChangeInner}
+            minimumDate={minimumDate}
+            maximumDate={maximumDate}
+            onCancel={() => toggle()}
+            isDarkModeEnabled={false}
+          />
+        )}
+      </>
     </Fragment>
   );
 }

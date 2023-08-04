@@ -2,7 +2,13 @@ import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
 import {View} from 'react-native';
-import {CButton, CInput, CText, DateTimePicker, ProgressiveImage} from '../../../components';
+import {
+  CButton,
+  CInput,
+  CText,
+  DateTimePicker,
+  ProgressiveImage,
+} from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
 import {
@@ -38,7 +44,6 @@ function CForm(props) {
   const dob = useRef(null);
   const idCard = useRef(null);
 
-
   return (
     <Formik
       innerRef={form}
@@ -70,24 +75,27 @@ function CForm(props) {
                       />
                     </View>
 
-                    <View style={{width: 100 ,}}>
+                    <View style={{width: 100}}>
                       <CText style={AuthStyle.uploadProfile}>
                         Upload Picture
                       </CText>
                     </View>
                   </>
                 ) : (
-                  <View style={{width:100 , height:100 ,  overflow:"hidden",   borderRadius:200}}>
-                  <ProgressiveImage
-                    source={profileImage}
-                    style={{width:110 , height:100 ,     borderRadius:100,
-                    }}
-                    resizeMode={'cover'}
-                  />
+                  <View
+                    style={{
+                      width: 100,
+                      height: 100,
+                      overflow: 'hidden',
+                      borderRadius: 200,
+                    }}>
+                    <ProgressiveImage
+                      source={profileImage}
+                      style={{width: 110, height: 100, borderRadius: 100}}
+                      resizeMode={'cover'}
+                    />
                   </View>
-
-                )
-                }
+                )}
               </TouchableOpacity>
 
               <View style={AuthStyle.cardBody}>
@@ -127,8 +135,12 @@ function CForm(props) {
                 />
               </View>
 
-              
-              <DateTimePicker placeHolder={"Date of birth"}  hideIcon value={selectDate} onChange={updateSelectDate}/>
+              <DateTimePicker
+                placeHolder={'Date of birth'}
+                hideIcon
+                value={selectDate}
+                onChange={updateSelectDate}
+              />
               <CInput
                 ref={bio}
                 placeholder={'Add Your Bio'}
