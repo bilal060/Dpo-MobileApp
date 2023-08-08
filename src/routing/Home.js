@@ -1,19 +1,36 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {CLoading} from '../components';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getValueIntoAsyncStorage} from '../utils/asyncStorage/Functions';
 import {WELCOME_SCREEN} from '../utils/asyncStorage/Constants';
-import {ChangePassword, CompanyProfile, Forgot, Information, Login, Register, VerifyOtp} from '../pages/Auth';
+import {
+  ChangePassword,
+  CompanyProfile,
+  Forgot,
+  Information,
+  Login,
+  Register,
+  VerifyOtp,
+} from '../pages/Auth';
 import Welcome from '../pages/Welcome';
-import { AllBooking, Chats, Explore, MyProfile, MySpace, Payment } from '../pages/Protected/Owner';
+import {
+  AllBooking,
+  Chats,
+  Explore,
+  MyProfile,
+  MySpace,
+  Payment,
+} from '../pages/Protected/Owner';
 
-export const Stack = createStackNavigator();  
+export const Stack = createStackNavigator();
 
 function Home({initial}) {
   const dispatch = useDispatch();
 
-  const [initialRouteName, updateInitialRouteName] = useState("Welcome");
+  const [initialRouteName, updateInitialRouteName] = useState('Welcome');
 
   const getAndCheck = async () => {
     let val = await getValueIntoAsyncStorage(WELCOME_SCREEN);
@@ -45,9 +62,7 @@ function Home({initial}) {
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="MySpace" component={MySpace} />
           <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
-         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
-          
-
+          <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
         </Stack.Navigator>
       );
     } else {

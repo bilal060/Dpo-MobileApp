@@ -32,8 +32,18 @@ import GlobalStyle from '../../assets/styling/GlobalStyle';
 // Dummy content to show
 // You can also use dynamic data by calling web service
 
-
-const BookingCard = ({Active , fullName , time , contact , parkingType , prize, eTime , sTime ,date, location }) => {
+const BookingCard = ({
+  Active,
+  fullName,
+  time,
+  contact,
+  parkingType,
+  prize,
+  eTime,
+  sTime,
+  date,
+  location,
+}) => {
   const [activeSections, setActiveSections] = useState([]);
   const [collapsed, setCollapsed] = useState(true);
   const [multipleSelect, setMultipleSelect] = useState(false);
@@ -132,32 +142,36 @@ const BookingCard = ({Active , fullName , time , contact , parkingType , prize, 
             <View style={[styles.header, {marginTop: -30}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Booking From</CText>
-                <CText style={[styles.nameHeaindg ,{fontSize:10}]}>{sTime?.split(":")[0]+": " + sTime?.split(":")[1]}</CText>
-                <CText style={[styles.nameHeaindg , {marginTop:-10 , fontSize:10}]}>{date}</CText>
-
+                <CText style={[styles.nameHeaindg, {fontSize: 10}]}>
+                  {sTime?.split(':')[0] + ': ' + sTime?.split(':')[1]}
+                </CText>
+                <CText
+                  style={[styles.nameHeaindg, {marginTop: -10, fontSize: 10}]}>
+                  {date}
+                </CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Booking To</CText>
-                <CText style={[styles.nameHeaindg ,{fontSize:10}]}>{eTime?.split(":")[0]+": " + eTime?.split(":")[1]}</CText>
-                <CText style={[styles.nameHeaindg , {marginTop:-10 , fontSize:10}]}>{date}</CText>
-
-
+                <CText style={[styles.nameHeaindg, {fontSize: 10}]}>
+                  {eTime?.split(':')[0] + ': ' + eTime?.split(':')[1]}
+                </CText>
+                <CText
+                  style={[styles.nameHeaindg, {marginTop: -10, fontSize: 10}]}>
+                  {date}
+                </CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Status</CText>
-                <CText style={GlobalStyle.activeCard}>{!Active ? 'Active' : 'Paid'}</CText>
-
+                <CText style={GlobalStyle.activeCard}>
+                  {!Active ? 'Active' : 'Paid'}
+                </CText>
               </View>
-
             </View>
             <View style={[styles.header, {marginTop: -30}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Branch Location</CText>
                 <CText style={styles.nameHeaindg}>{location}</CText>
-
               </View>
-              
-
             </View>
           </>
         </Collapsible>

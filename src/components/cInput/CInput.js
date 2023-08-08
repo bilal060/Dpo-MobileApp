@@ -169,13 +169,13 @@ const CInput = React.forwardRef((props, ref) => {
         ref={ref}
         maskChar="x"
         autoCorrect={false}
-        // placeholder={t(placeholder)}
         secureTextEntry={secureTextEntry}
         placeholderTextColor={themes['light'].colors.gray7}
         style={[{...GlobalStyle.inputStyle, ...style}]}
         autoCapitalize="none"
         value={value}
         {...props}
+        placeholder={t(placeholder)}
       />
     );
   };

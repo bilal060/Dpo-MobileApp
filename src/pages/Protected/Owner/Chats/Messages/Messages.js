@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {Container, PackageCard} from '../../../../../containers';
