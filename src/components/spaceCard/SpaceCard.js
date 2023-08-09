@@ -26,6 +26,8 @@ import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
 import {BASE_URL_IMG} from '../../config/webservices';
 import {Rating, AirbnbRating} from 'react-native-ratings';
+import { useDispatch } from 'react-redux';
+import { change_availablity } from '../../redux/actions/Root.Action';
 
 const SpaceCard = ({
   name = 'Belmont, North Carolina',
@@ -39,6 +41,7 @@ const SpaceCard = ({
   mapView,
   imgStyles,
   item,
+  onToggle 
 }) => {
   const {paidSecurity, paidStaff, ownerSite, climateControl, fuel} = item;
 
@@ -74,12 +77,56 @@ const SpaceCard = ({
   };
 
   const [isOn, setIsOn] = useState(false);
+  const [toggleState, setToggleState] = useState(item.available);
+const dispatch = useDispatch()
+
+  const handleToggle = async () => {
+    const payload = {
+      spaceId : item?._id,
+      availability: !toggleState
+    }
+    try {
+        setToggleState(!toggleState);
+
+      dispatch(change_availablity(payload , response))
+
+      
+      
+      // Make API request to update the toggle status
+      // Replace 'your_api_url_here' with your actual API endpoint
+      // const response = await fetch('your_api_url_here', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ isToggled: !toggleState }), // Send the updated toggle status to the API
+      // });
+
+      // if (response.ok) {
+      //   // If the API request is successful, update the local state
+      //   setToggleState(!toggleState);
+      //   // Call the onToggle prop with the updated data to sync the parent component's state
+      //   onToggle({ ...cardData, isToggled: !toggleState });
+      // } else {
+      //   // Handle error if needed
+      //   console.error('Failed to update toggle status.');
+      // }
+    } catch (error) {
+      // Handle error if needed
+      console.error('Error updating toggle status:', error);
+    }
+  };
+  const response = (res) => {
+    console.log("🚀 ~ file: SpaceCard.js:93 ~ response ~ res:", res)
+     onToggle({ ...item, available: !toggleState });
+  }
+
   return (
     <>
       <TouchableOpacity
-        disabled={isOn}
+        disabled={toggleState}
         onPress={onPress}
-        style={[Style.spaceContainer, mainContainer , {opacity:isOn ? 0.5 :1}]}>
+        style={[Style.spaceContainer, mainContainer , {opacity:toggleState ? 0.5 :1}]}>
         {!img ? (
           <ProgressiveImage
             resizeMode="cover"
@@ -203,10 +250,11 @@ const SpaceCard = ({
               <>
                 {!isCustomer ? (
                   <ToggleSwitch
+                  disabled={toggleState}
                     size={'true'}
-                    isOn={isOn}
+                    isOn={toggleState}
                     label="Available"
-                    onPress={() => setIsOn(!isOn)}
+                    onPress={handleToggle}
                   />
                 ) : (
                   <>

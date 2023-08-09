@@ -219,6 +219,12 @@ const SpaceDetails = ({navigation, route}) => {
     console.log("🚀 ~ file: SpaceDetails.js:219 ~ onRangeSelected ~ res:", res)
   
   }
+  const handleToggle = (updatedCard) => {
+    // const updatedData = spaces.map((card) =>
+    //   card._id === updatedCard._id ? updatedCard : card
+    // );
+    // setSpaces(updatedData);
+  };
 
   const timeSlot = ['Hourly', 'Daily', 'Monthly'];
   return (
@@ -243,12 +249,14 @@ const SpaceDetails = ({navigation, route}) => {
           name={item?.description}
           phone={item?.contact}
           ratePrize={item?.rate_day}
-          address={item?.location?.address}
+          address={item?.location?.address || item?.address}
           img={`${BASE_URL_IMG}${item?.images?.[0]}`}
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
           isCustomer={isCustomer}
         item={item}
+        onToggle={handleToggle}
+
 
         />
         {isCustomer ? (

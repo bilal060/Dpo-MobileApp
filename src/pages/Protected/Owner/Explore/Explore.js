@@ -34,7 +34,6 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {BASE_URL_IMG} from '../../../../config/webservices';
 import {get_all_category} from '../../../../redux/actions/Root.Action';
-import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { PayAsYouDriveSkeleton } from '../../../../skeleton';
 

@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+ import { createSelector } from 'reselect';
 
 const authSelector = state => state.auth;
 const languageSelector = state => state.language;

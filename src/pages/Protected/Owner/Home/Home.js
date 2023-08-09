@@ -25,6 +25,10 @@ import {reduxStateSelector} from '../../../../utils/selector';
 import {BASE_URL_IMG} from '../../../../config/webservices';
 import moment from 'moment';
 import {Calendar} from 'react-native-calendars';
+import { useIsFocused } from '@react-navigation/native';
+import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
+import { SkeletonLoader } from '../../../../components/SkeletonLoader';
+import { BookingListCard, ChartListCard, ListCard, SpaceListCard } from '../../../../skeleton';
 
 const width = Dimensions.get('screen').width;
 
@@ -32,26 +36,31 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const [spaces, setSpaces] = useState([]);
   const [ownerBooking, setOwnerBooking] = useState([]);
+  const isFocused = useIsFocused();
+  const [isloading, setisLoading] = useState([]);
 
-  console.log('🚀 ~ file: Home.js:35 ~ Home ~ spaces:', spaces);
-  // const reduxState = useSelector(({auth, language, root}) => {
-  //   console.log('🚀 ~ file: Home.js:260 ~ reduxState ~ auth:', auth);
-  //   return {
-  //     spaces: root?.userSpaces,
-  //     userRole: auth?.user?.role,
-  //     loading: root?.userSpacesLoading,
-  //     userId: auth?.user?._id,
-  //   };
-  // });
+
+
   const {auth, root} = useSelector(reduxStateSelector);
   const {_id} = auth?.user || {};
   const {userSpaces, userSpacesLoading} = root || {};
 
-  useEffect(() => {
-    dispatch(getSpacsss(_id, callBack));
-    dispatch(get_ownerBooking(_id, handleBookingCallBack));
+  useEffect(async() => {
+    console.log('1', 1);
+    setisLoading(true)
+    console.log('2', 2);
+
+  await  dispatch(getSpacsss(_id, callBack));
+  console.log('3', 3);
+
+  await  dispatch(get_ownerBooking(_id, handleBookingCallBack));
+  console.log('4', 4);
+
+  setisLoading(false)
+  console.log('5', 5);
+
     // dispatch(getAllBooking);
-  }, []);
+  }, [isFocused]);
 
   const callBack = res => {
     console.log('🚀 ~ file: Home.js:276 ~ callBack ~ res:', res);
@@ -70,6 +79,13 @@ const Home = ({navigation}) => {
     headerRightImg: Profile,
     rightPress: () => navigation.navigate('Profile'),
   };
+  const handleToggle = (updatedCard) => {
+    const updatedData = spaces.map((card) =>
+      card._id === updatedCard._id ? updatedCard : card
+    );
+    setSpaces(updatedData);
+  };
+  
 
   const renderItem = ({item}) => {
     console.log('🚀 ~ file: Home.js:74 ~ renderItem ~ item:', item);
@@ -84,8 +100,9 @@ const Home = ({navigation}) => {
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.location?.address}
+        address={item?.location?.address || item?.address}
         img={`${BASE_URL_IMG}${data}`}
+        onToggle={handleToggle}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
       />
     );
@@ -197,12 +214,13 @@ const Home = ({navigation}) => {
             <CText style={Styles.view}>View All</CText>
           </View>
         </View>
-        <CList
+      <SkeletonLoader layout={SpaceListCard} loading={isloading}>
+      <CList
           style={Styles.list}
           horizontal
           data={spaces}
           extraData={spaces}
-          // loading={reduxState.loading}
+          // loading={  .loading}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
@@ -210,6 +228,8 @@ const Home = ({navigation}) => {
             text: 'Spaces not found',
           }}
         />
+       </SkeletonLoader>
+       
         <View
           style={[
             GlobalStyle.row,
@@ -219,18 +239,21 @@ const Home = ({navigation}) => {
 
           <CText style={Styles.view}>View All</CText>
         </View>
+      <SkeletonLoader layout={BookingListCard} loading={isloading}>
+
         <CList
           style={Styles.list}
           data={ownerBooking}
           extraData={ownerBooking}
           // loading={reduxState.loading}
           renderItem={renderBooking}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => index.toString()} 
           emptyOptions={{
             // icon: require('../../assets/images/empty.png'),
             text: 'Bookings not found',
           }}
         />
+        </SkeletonLoader >
         <View
           style={[
             GlobalStyle.row,
@@ -244,6 +267,8 @@ const Home = ({navigation}) => {
             style={{width: 25, height: 25, marginTop: 10}}
           />
         </View>
+      <SkeletonLoader layout={ChartListCard} loading={true}>
+
         <View style={Styles.BarChart}>
           <BarChart
             width={330}
@@ -254,7 +279,7 @@ const Home = ({navigation}) => {
             maxValue={1000}
             initialSpacing={3}
             // stepHeight={10}
-            // stepValue={6}
+            // stepValue={6} 
             // spacing={10}
 
             noOfSections={4}
@@ -263,6 +288,9 @@ const Home = ({navigation}) => {
             xAxisThickness={0}
           />
         </View>
+        </SkeletonLoader>
+      <SkeletonLoader layout={BookingListCard} loading={isloading}>
+
         <View style={Styles.Calender}>
           <Calendar
             style={
@@ -279,23 +307,9 @@ const Home = ({navigation}) => {
             dayComponent={renderDay}
             enableSwipeMonths={true}
           />
-          {/* <DatePicker
-            options={{
-              backgroundColor: '#FFFmnmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmjjFF',
-              textHeaderColor: '#707070',
-              textDefaultColor: '#707070',
-              selectedTextColor: '#fff',
-              mainColor: '#0064FA',
-              textSecondaryColor: '#707070',
-              borderColor: 'rgba(122, 146, 165, 0.1)',
-            }}
-            current="2023-05-09"
-            selected="2023-05-09"
-            mode="calendar"
-            minuteInterval={30}
-            style={{borderRadius: 10}}
-          /> */}
+          
         </View>
+        </SkeletonLoader>
       </View>
     </Container>
   );

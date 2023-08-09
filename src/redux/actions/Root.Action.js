@@ -23,6 +23,7 @@ import {
   ADDSPACE,
   ADDVEHICLE,
   ALLBOOKING,
+  CHANGEAVAILABLITY,
   CONVERSATIONMESSAGE,
   CREATEBOOKING,
   FILTERBOOKING,
@@ -373,7 +374,7 @@ export const getAllBooking = (payload, CB) => async dispatch => {
   }
 };
 
-export const getSpacsss = (payload, CB) => async dispatch => {
+export const   getSpacsss = (payload, CB) => async dispatch => {
   console.log(
     '🚀 ~ file: Root.Action.js:141 ~ getConversationMessages ~ payload:',
     payload,
@@ -735,5 +736,29 @@ export const get_all_category = (payload, CB) => async dispatch => {
   }
 };
 
+
+export const change_availablity  = (payload, CB) => async dispatch => {
+  console.log("🚀 ~ file: Root.Action.js:679 ~ payload:", payload)
+  // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: true});
+
+  try {
+    let response = await post(CHANGEAVAILABLITY , payload);
+    console.log("🚀 ~ file: Root.Action.js:746 ~ response:", response.data , payload)
+
+    if (response?.data?.error) {
+
+      handleError(response?.data?.data?.message || '');
+    } else {
+   
+
+    }
+    CB && CB(response?.data);
+  } catch (error) {
+    console.log("🚀 ~ file: Root.Action.js:757 ~ error:", error)
+    // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: false});
+
+    handleError(error?.data?.error, {autoHide: false});
+  }
+};
 
 

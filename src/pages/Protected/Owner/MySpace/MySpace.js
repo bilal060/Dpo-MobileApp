@@ -92,6 +92,13 @@ const MySpace = ({navigation, route}) => {
       /\\/g,
       '/',
     );
+    
+    const handleToggle = (updatedCard) => {
+      const updatedData = spaces.map((card) =>
+        card._id === updatedCard._id ? updatedCard : card
+      );
+      setSpaces(updatedData);
+    };
 
     return (
       <SpaceCard
@@ -99,11 +106,14 @@ const MySpace = ({navigation, route}) => {
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.address}
+        address={item?.location?.address || item?.address}
         img={convertedFilePath}
         item={item}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}
+        onToggle={handleToggle}
+
+
       />
     );
   };

@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
-export const BASE_URL = 'https://api.instantspace.app/api/v1/';
-export const BASE_URL_IMG = 'https://api.instantspace.app/';
+// export const BASE_URL = 'https://api.instantspace.app/api/v1/';
+// export const BASE_URL_IMG = 'https://api.instantspace.app/';
 
 // export const BASE_URL = 'http://192.168.0.103:5001/api/v1/';
 // export const BASE_URL_IMG = 'http://192.168.0.103:5001/';
-// export const BASE_URL = 'http://192.168.1.108:5001/api/v1/';
-// export const BASE_URL_IMG = 'http://192.168.1.108:5001/';
+export const BASE_URL = 'http://10.7.55.59:5001/api/v1/';
+export const BASE_URL_IMG = 'http://10.7.55.59:5001/';
 // export const BASE_URL_IMG = "https://api.instantspace.app/";
 
 export const SCOKET_URL = 'ws://localhost:8900';
@@ -30,6 +30,7 @@ export const CREATEBOOKING = `${BASE_URL}bookings/create_booking`;
 export const ALLBOOKING = id => `${BASE_URL}bookings/user_bookings/${id}`;
 export const OWNERBOOKING = id => `${BASE_URL}bookings/owner_bookings/${id}`;
 export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers/${id}`;
+export const CHANGEAVAILABLITY = `${BASE_URL}spaces/change-availability`;
 
 export const FILTERMANAGERS = (ownerId, spaceId) =>
   `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;
@@ -57,4 +58,3 @@ export const UPLOAD_IMAGE = userId => `${BASE_URL}students/${userId}/image`;
 
 export const GET_STATE = country => `${BASE_URL}country?country=${country}`;
 export const GET_CITY = state => `${BASE_URL}country?state=${state}`;
- 

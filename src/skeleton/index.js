@@ -1,4 +1,4 @@
-// import {HDP, WP} from '../helper';
+import {HDP, WP} from '../helper';
 
 // export const PayAsYouDriveSkeleton = [
 //     {
@@ -9,3 +9,60 @@
 //       alignSelf: 'center',
 //     },
 //   ];
+
+export const SpaceListCard = [
+   
+    {
+      key: 'id1',
+      marginTop: HDP(10),
+      width: WP(90),
+      height: HDP(300),
+      alignSelf: 'center',
+      borderRadius: WP(3),
+    },
+   
+  ];
+
+  export const BookingListCard = [
+   
+    {
+      key: 'id1',
+      marginTop: HDP(10),
+      width: WP(90),
+      height: HDP(100),
+      alignSelf: 'center',
+      borderRadius: WP(3),
+    },
+
+    {
+        key: 'id2',
+        marginTop: HDP(10),
+        width: WP(90),
+        height: HDP(100),
+        alignSelf: 'center',
+        borderRadius: WP(3),
+      },
+   
+  ];
+  export const ChartListCard = [
+   
+    {
+      key: 'id1',
+      marginTop: HDP(10),
+      width: WP(5),
+      height: HDP(100),
+      alignSelf: 'center',
+      borderRadius: WP(0),
+    },
+
+    {
+        key: 'id1',
+        marginTop: HDP(10),
+        width: WP(5),
+        height: HDP(100),
+        // alignSelf: 'center',
+        borderRadius: WP(0),
+        flexDirection: 'row',
+      }
+   
+  ];
