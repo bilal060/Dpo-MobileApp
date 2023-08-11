@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import {FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
@@ -334,5 +336,4 @@ const Managers = ({route}) => {
 };
 
 export default Managers;
-
 const styles = StyleSheet.create({});

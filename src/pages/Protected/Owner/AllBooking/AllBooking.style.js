@@ -1,23 +1,24 @@
+/* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../../../theme/colors';
 const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
-    flex:1,
+    flex: 1,
     paddingHorizontal: 15,
     paddingVertical: 15,
     backgroundColor: theme['light'].colors.tertiaryBackground,
   },
   bookingCard: {
     backgroundColor: theme['light'].colors.tertiary,
-    elevation:5,
+    elevation: 5,
     width: width * 0.415,
     margin: 8,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    height:70,
+    height: 70,
     paddingVertical: 10,
     paddingHorizontal: 10,
     padding: 10,
@@ -39,27 +40,26 @@ export default StyleSheet.create({
     fontSize: 24,
     fontFamily: theme.font.semiBold,
     fontWeight: '600',
-    marginTop:10,
-    marginLeft:10,
+    marginTop: 10,
+    marginLeft: 10,
   },
-  inputInnerContainerStyle:{
+  inputInnerContainerStyle: {
     backgroundColor: 'transparent',
-    border:0,
-    width:width*0.9,
-    marginTop:10
-
+    border: 0,
+    width: width * 0.9,
+    marginTop: 10,
   },
   subHeading: {
     color: theme.light.colors.gray4,
     fontSize: 13,
     fontFamily: theme.font.regular,
-    fontWeight: '600', 
+    fontWeight: '600',
   },
   cardValue: {
     color: theme.light.colors.iconColor,
     fontSize: 16,
     lineHeight: 16,
-    paddingTop:5,
+    paddingTop: 5,
     fontFamily: theme.font.semiBold,
     fontWeight: '600',
   },
@@ -90,8 +90,8 @@ export default StyleSheet.create({
     marginLeft: -5,
   },
   spacelist: {
-    padding:10,
-    width:width*0.92
+    padding: 10,
+    width: width * 0.92,
   },
   menu: {
     backgroundColor: 'rgba(188,217,174,0.3)',
@@ -193,21 +193,21 @@ export default StyleSheet.create({
     paddingTop: 200,
     paddingHorizontal: 20,
   },
-  BarChart:{
+  BarChart: {
     backgroundColor: '#FFF',
-    padding:10,
-    overflow:'hidden',
+    padding: 10,
+    overflow: 'hidden',
     borderRadius: 10,
     elevation: 5,
     marginVertical: 10,
-  }, 
-  Calender:{
+  },
+  Calender: {
     backgroundColor: '#FFF',
-    padding:10,
-    overflow:'hidden',
+    padding: 10,
+    overflow: 'hidden',
     borderRadius: 10,
     elevation: 5,
     marginVertical: 10,
-    marginBottom:20
+    marginBottom: 20,
   },
 });

@@ -86,7 +86,7 @@ const Payment = ({navigation}) => {
     );
   };
   const renderBooking = ({item}) => {
-    return <BookingCard Active />;
+    return <BookingCard item={item} Active />;
   };
   return (
     <Container

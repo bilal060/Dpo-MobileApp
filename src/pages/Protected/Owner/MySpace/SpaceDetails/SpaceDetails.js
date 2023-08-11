@@ -126,6 +126,7 @@ const SpaceDetails = ({navigation, route}) => {
     // };
     // dispatch(createBooking(payload, handleBack));
   };
+  console.log(item);
   const handleBack = res => {
     navigation.navigate('AddVechile');
   };
@@ -256,7 +257,7 @@ const SpaceDetails = ({navigation, route}) => {
           name={item?.description}
           phone={item?.contact}
           ratePrize={item?.rate_day}
-          address={item?.location?.address}
+          address={item?.address}
           img={`${BASE_URL_IMG}${item?.images?.[0]}`}
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}

@@ -75,21 +75,22 @@ const Explore = ({}) => {
       title: 'Car Parking',
     },
     {
-      img: Inventory,
-      title: 'Temporary Storage',
+      img: Warehouse,
+      title: 'Warehouse',
     },
+    // {
+    //   img: Inventory,
+    //   title: 'Temporary Storage',
+    // },
     {
       img: Inventory,
       title: 'Storage Unit',
     },
-    {
-      img: Warehouse,
-      title: 'Warehouse',
-    },
-    {
-      img: Carrier,
-      title: 'Container Storage',
-    },
+
+    // {
+    //   img: Carrier,
+    //   title: 'Container Storage',
+    // },
     {
       img: Wrench,
       title: 'Mechanic',
@@ -159,6 +160,7 @@ const Explore = ({}) => {
         img: match ? match.img : '',
       };
     });
+    console.log(combinedArray);
     setCategories(combinedArray);
   };
   return (
@@ -269,7 +271,7 @@ const Explore = ({}) => {
         <CList
           style={Styles.list}
           //   horizontal
-          numColumns={4}
+          numColumns={3}
           data={categories}
           // loading={reduxState.loading}
           renderItem={renderItem}

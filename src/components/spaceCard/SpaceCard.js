@@ -21,7 +21,7 @@ import {
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
 import {BASE_URL_IMG} from '../../config/webservices';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 
 const SpaceCard = ({
   name = 'Belmont, North Carolina',
@@ -197,21 +197,20 @@ const SpaceCard = ({
                 />
               ) : (
                 <>
-                <Rating
-                  type="star"
-                  isDisabled={true}
-                  selectedColor="yellow"
-                  ratingCount={1}
-                  count={1}
-                  minValue={1}
-                  defaultRating={5}
-                  imageSize={20}
-                  // showRating
-                  // onFinishRating={this.ratingCompleted}
-                />
-                <CText style={[GlobalStyle.contact]}>4.0</CText>
+                  <Rating
+                    type="star"
+                    isDisabled={true}
+                    selectedColor="yellow"
+                    ratingCount={1}
+                    count={1}
+                    minValue={1}
+                    defaultRating={5}
+                    imageSize={20}
+                    // showRating
+                    // onFinishRating={this.ratingCompleted}
+                  />
+                  <CText style={[GlobalStyle.contact]}>4.0</CText>
                 </>
-
               )}
             </>
             <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
