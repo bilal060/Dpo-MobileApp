@@ -1,32 +1,27 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
+import React, {Children} from 'react';
+import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 
 const SkeletonPlaceholderComponent = ({layout, isAtom , SkelonStyle, loading, children}) => {
+    console.log("children", children)
+    console.log("skeleton", SkelonStyle)
   return (
-    <View style={styles.container}>
-      <ShimmerPlaceHolder
-        autoRun={true}
-        visible={loading}
-        style={styles.skeleton}
-      >
-        {children}
-      </ShimmerPlaceHolder>
-    </View>
-  );
+//   <View>{loader ? SkelonStyle : children}</View>;
+<SkeletonContent
+      isLoading={loading}
+      layout={layout}
+      containerStyle={[styles.container, isAtom && {flex: undefined}]}>
+      {children}
+    </SkeletonContent>
+  
+  )
 };
 
+export default SkeletonPlaceholderComponent;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  skeleton: {
-    width: 200,
-    height: 30,
-    borderRadius: 8,
-    backgroundColor: '#E0E0E0',
-  }
-})
-export default SkeletonPlaceholderComponent
+    container: {
+        flex: 1,
+        zIndex: -1,
+      },
+});

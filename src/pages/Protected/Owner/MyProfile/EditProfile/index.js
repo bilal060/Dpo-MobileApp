@@ -66,15 +66,13 @@ function EditProfile({route}) {
       showPattern={true}
       scrollView={true}
       style={AuthStyle.style}
-
-      bottomSpace
       headerProps={headerProps}
       loading={reduxState?.loading}
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
       <View
-        style={{   
+        style={{
           alignItems: 'center',
           marginTop: 20,
         }}>

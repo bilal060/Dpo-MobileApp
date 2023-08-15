@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
@@ -133,7 +134,7 @@ const MyProfile = ({}) => {
         onPress={() =>
           item.address === 'Log Out'
             ? logOut()
-            : navigation.navigate(item?.navigation)
+            : item?.navigation && navigation.navigate(item?.navigation)
         }>
         <View style={Styles.ProfileCard}>
           <ProgressiveImage

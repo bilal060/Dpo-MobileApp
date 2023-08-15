@@ -1,13 +1,7 @@
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import {Alert, View} from 'react-native';
-import {
-  CButton,
-  CInput,
-  CText,
-  CToggleSwitch,
-  ProgressiveImage,
-} from '../../../../components';
+import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
 import Styles from './NewSpace.style';
 import {themes} from '../../../../theme/colors';
 import {
@@ -34,33 +28,25 @@ import * as Yup from 'yup';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ToggleSwitch from '../../../../components/cToggleSwitch/CToggleSwitch';
 
 function WareHouse(props) {
-  
   const {
     submit,
     loading,
     toggleCountryModal,
     selectedCountry,
     toggleFuelModal,
+    selectedFuel,
     toggleStaffModal,
+    selectedStaff,
     selectedClimate,
     toggleClimateModal,
+    selectedSecurity,
     mapAdreess,
     setMapAdreess,
     toggleSecurityModal,
     onDocumentPress,
-    selectedFile,
-    updateSelectedClimate,
-    updateSelectedCctv,
-    selectedCCtv,
-    updateSelectedFuel,
-    selectedFuel,
-    updateSelectedSecurity,
-    selectedSecurity,
-    updateSelectedStaff,
-    selectedStaff
+    selectedFile
   } = props;
 
   const scheme = Yup.object().shape({
@@ -92,7 +78,8 @@ function WareHouse(props) {
   const rWeek = useRef(null);
 
   const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data);
+    setMapAdreess(data)
+
   };
 
   return (
@@ -143,11 +130,12 @@ function WareHouse(props) {
                   style={{width: 20, height: 20}}
                 />
                 <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || 'Select Your Adreess'}
+                  placeholder={mapAdreess || "Select Your Adreess"}
                   debounce={100}
                   listViewDisplayed={true}
                   minLength={2}
                   autoFocus={true}
+                  
                   returnKeyType={'default'}
                   fetchDetails={true}
                   onPress={(data, details) => {
@@ -157,9 +145,9 @@ function WareHouse(props) {
                     handlePlaceSelection(place);
                   }}
                   renderRow={(rowData, details) => (
-                    <TouchableOpacity
-                      onPress={() => handlePlaceSelection(rowData.description)}>
+                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
                       <CText
+                        
                         style={Styles.suggestionText}
                         // onPress={() => console.log('1', 1)}
                       >
@@ -214,6 +202,31 @@ function WareHouse(props) {
               />
 
               <CInput
+                placeholder={'CCTV Cameras'}
+                value={values.dob}
+                error={errors.dob}
+                onPress={toggleFuelModal}
+                selectValue={selectedFuel}
+                sec
+                type="view"
+                leftIconNAme={CctvIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
+
+              <CInput
+                ref={dob}
+                placeholder={'Security Type'}
+                onPress={toggleSecurityModal}
+                selectValue={selectedSecurity}
+                error={errors.dob}
+                sec
+                type="view"
+                leftIconNAme={SecurityIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
+              <CInput
                 ref={decs}
                 placeholder={'Add Description...'}
                 value={values.decs}
@@ -235,53 +248,7 @@ function WareHouse(props) {
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
-              <View style={{flexDirection: 'row'}}>
-                <CToggleSwitch
-                  size="small"
-                  label="CCTV Cameras"
-                  labelStyle={Styles.labelStyle}
-                  conatinerStyles={Styles.conatinerStyles}
-                  isOn={selectedCCtv}
-                  onPress={()=> updateSelectedCctv(!selectedCCtv)}
-                />
-                <CToggleSwitch
-                  size="small"
-                  label="Security Type"
-                  labelStyle={Styles.labelStyle}
-                  conatinerStyles={Styles.conatinerStyles}
-                  isOn={selectedSecurity}
-                  onPress={()=> updateSelectedSecurity(!selectedSecurity)}
-                />
-              </View>
-              <View style={{flexDirection: 'row'}}>
-              <CToggleSwitch
-                size="small"
-                label="Select Paid Staff"
-                labelStyle={Styles.labelStyle}
-                conatinerStyles={Styles.conatinerStyles}
-                isOn={selectedStaff}
-                onPress={()=> updateSelectedStaff(!selectedStaff)}
-              />
-                <CToggleSwitch
-                  size="small"
-                  label="Select Climate Control"
-                  labelStyle={Styles.labelStyle}
-                  conatinerStyles={Styles.conatinerStyles}
-                  isOn={selectedClimate}
-                  onPress={()=> updateSelectedClimate(!selectedClimate)}
-                />
-              </View>
-              
- <CToggleSwitch
-                  size="small"
-                  label="Select Fuel Availability"
-                  labelStyle={Styles.labelStyle}
-                  conatinerStyles={Styles.conatinerStyles}
-                  isOn={selectedFuel}
-                  onPress={()=> updateSelectedFuel(!selectedFuel)}
-                />
-                {/* WareHouse */}
-              {/* <CInput
+              <CInput
                 ref={fuel}
                 placeholder={'Select Fuel Availability'}
                 value={values.fuel}
@@ -305,7 +272,7 @@ function WareHouse(props) {
                 error={errors.fuel}
                 sec
                 type="view"
-                leftIconNAme={FuelIcon} 
+                leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
@@ -322,8 +289,8 @@ function WareHouse(props) {
                 type="view"
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => {}} 
-              /> */}
+                onSubmitEditing={() => {}}
+              />
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
                   <CInput
@@ -383,9 +350,7 @@ function WareHouse(props) {
 
               <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <TouchableOpacity
-                onPress={onDocumentPress}
-                style={Styles.selectFileView}>
+              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
                 <View style={{width: 40}}>
                   <ProgressiveImage
@@ -397,16 +362,17 @@ function WareHouse(props) {
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
+                
               </TouchableOpacity>
               {selectedFile?.name && (
-                <CText
-                  style={[
-                    Styles.uploadText,
-                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                  ]}>
-                  {selectedFile?.name}
-                </CText>
-              )}
+                  <CText
+                    style={[
+                      Styles.uploadText,
+                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                    ]}>
+                    {selectedFile?.name}
+                  </CText>
+                )}
 
               <CButton
                 title={'Cancel'}

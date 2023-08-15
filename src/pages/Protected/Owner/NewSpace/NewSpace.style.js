@@ -129,21 +129,4 @@ export default StyleSheet.create({
     paddingTop: 200,
     paddingHorizontal: 20,
   },
-  labelStyle:{
-    fontSize:16,
-    color: themes['light'].colors.gray4,
-    fontFamily: themes.font.medium,
-  },
-  conatinerStyles:{
-    flexDirection:'row-reverse',
-    flex:1,
-    justifyContent:'flex-end',
-    alignItems:"center"
-  },
-  conatinerStyles2:{
-    flexDirection:'row-reverse',
-    flex:1,
-    justifyContent:'space-between ',
-    alignItems:"center"
-  }
 });

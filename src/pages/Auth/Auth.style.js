@@ -331,11 +331,4 @@ export default StyleSheet.create({
     fontFamily: themes.font.medium,
     fontSize: 13,
   },
-  skip:{
-    textAlign:'right',
-    position:"absolute",
-    right:20,
-    top:-10
-    // top:20
-  }
 });

@@ -1,3 +1,6 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React, {memo} from 'react';
 import {View, TouchableOpacity, FlatList} from 'react-native';
 import {CText, ProgressiveImage, RadioButton} from '../index';
@@ -34,10 +37,10 @@ const SpaceCard = ({
   img,
   mapView,
   imgStyles,
-  truckName ="Mercedes",
-  truckType="Axor",
-  truckNo="LER043602G351",
-  truckLic="KJQ5467",
+  truckName = 'Mercedes',
+  truckType = 'Axor',
+  truckNo = 'LER043602G351',
+  truckLic = 'KJQ5467',
 }) => {
   const renderItem = ({item}) => {
     return (
@@ -118,19 +121,17 @@ const SpaceCard = ({
                   resizeMode="contain"
                   style={{width: 16, height: 16}}
                 />
-                <CText style={[Style.place, {flex: 1 , paddingLeft:10}]}>{truckType}</CText>
+                <CText style={[Style.place, {flex: 1, paddingLeft: 10}]}>
+                  {truckType}
+                </CText>
               </View>
             )}
           </View>
 
           <View
-            style={[
-              GlobalStyle.row,
-              {alignItems: 'center', marginTop:10},
-            ]}>
+            style={[GlobalStyle.row, {alignItems: 'center', marginTop: 10}]}>
             <View
-
-                style={[GlobalStyle.row, {width: '65%', alignItems: 'center'}]}>
+              style={[GlobalStyle.row, {width: '65%', alignItems: 'center'}]}>
               <ProgressiveImage
                 source={TruckNo}
                 resizeMode="contain"

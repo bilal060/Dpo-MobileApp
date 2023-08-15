@@ -16,7 +16,7 @@ export default class ToggleSwitch extends React.Component {
     switch (size) {
       case 'small':
         return {
-          width: 35,
+          width: 30,
           padding: 10,
           circleWidth: 12,
           circleHeight: 12,
@@ -33,7 +33,7 @@ export default class ToggleSwitch extends React.Component {
       default:
         return {
           width: 46,
-          padding: 10,
+          padding: 12,
           circleWidth: 18,
           circleHeight: 18,
           translateX: 26,
@@ -73,7 +73,7 @@ export default class ToggleSwitch extends React.Component {
     },
     this.props.isOn ? this.props.trackOnStyle : this.props.trackOffStyle,
   ];
- 
+
   createInsideCircleStyle = () => [
     {
       alignItems: 'center',
@@ -101,7 +101,7 @@ export default class ToggleSwitch extends React.Component {
   render() {
     const {
       animationSpeed,
-      useNativeDriver =  true,
+      useNativeDriver,
       isOn,
       onToggle,
       onPress,
@@ -109,7 +109,6 @@ export default class ToggleSwitch extends React.Component {
       labelStyle,
       label,
       icon,
-      conatinerStyles
     } = this.props;
 
     let toValue;
@@ -132,7 +131,7 @@ export default class ToggleSwitch extends React.Component {
     // };
 
     return (
-      <View style={[styles.container , conatinerStyles]} {...this.props}>
+      <View style={styles.container} {...this.props}>
         <TouchableOpacity
           style={this.createToggleSwitchStyle()}
           activeOpacity={0.8}
@@ -143,7 +142,7 @@ export default class ToggleSwitch extends React.Component {
         </TouchableOpacity>
         {label ? (
           <CText
-            style={[GlobalStyle.inputLabel,  styles.labelStyle , labelStyle,]}>
+            style={[GlobalStyle.inputLabel, labelStyle, styles.labelStyle]}>
             {label}
           </CText>
         ) : null}

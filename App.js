@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, Button} from 'react-native';
 import React, {useEffect} from 'react';
 import TruckDriverRoot from './src/routing/TruckDriverRoot';
@@ -19,18 +20,15 @@ const App = () => {
   const handleLanguageChange = languageCode => {
     i18n.changeLanguage(languageCode);
   };
-
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
     dispatch(getCountries());
-    handleLanguageChange("en")
+    handleLanguageChange('en');
     dispatch(changeLanguage({lan: 'ger'}));
   }, []);
 
- 
-  
   const reduxState = useSelector(({auth, language}) => {
     return {
       isLoggedin: auth?.isLoggedIn,
@@ -39,21 +37,19 @@ const App = () => {
       user: auth?.user,
     };
   });
-  
-  const userId = reduxState?.user?._id
+
+  const userId = reduxState?.user?._id;
   useEffect(() => {
-    Socket.emit("join",{userId});
+    Socket.emit('join', {userId});
   }, []);
 
   const renderRoot = () => {
     if (!reduxState?.isLoggedin) {
       return <Auth />;
-    } else { 
+    } else {
       return <TruckDriverRoot />;
     }
   };
-
-
 
   return renderRoot();
 };

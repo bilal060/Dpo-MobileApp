@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useRef, useState, useLayoutEffect, useEffect} from 'react';
 import {Container} from '../../../../containers';
@@ -32,7 +33,11 @@ import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllSpaces, getAllVechiles, getSpacsss} from '../../../../redux/actions/Root.Action';
+import {
+  getAllSpaces,
+  getAllVechiles,
+  getSpacsss,
+} from '../../../../redux/actions/Root.Action';
 import {BASE_URL, BASE_URL_IMG} from '../../../../config/webservices';
 import MapView, {Marker} from 'react-native-maps';
 
@@ -98,7 +103,10 @@ const MyVechiles = ({navigation, route}) => {
     );
   };
   const renderVerticalItem = ({item}) => {
-    var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(/\\/g, "/");
+    var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(
+      /\\/g,
+      '/',
+    );
 
     return (
       <TruckCard
@@ -112,17 +120,14 @@ const MyVechiles = ({navigation, route}) => {
       />
     );
   };
-  
 
   useEffect(() => {
-    dispatch(getAllVechiles(reduxState?.userId , callBack))
+    dispatch(getAllVechiles(reduxState?.userId, callBack));
   }, []);
 
-  const callBack = (res)=>{
-    setVehicales(res?.vehicles)
-  }
-    
- 
+  const callBack = res => {
+    setVehicales(res?.vehicles);
+  };
 
   return (
     <Container

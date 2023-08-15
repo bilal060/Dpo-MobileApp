@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 // Example of Collapsible/Accordion/Expandable List View in React Native
 // https://aboutreact.com/collapsible-accordion-expandable-view/
 
@@ -43,6 +45,7 @@ const BookingCard = ({
   sTime,
   date,
   location,
+  item,
 }) => {
   const [activeSections, setActiveSections] = useState([]);
   const [collapsed, setCollapsed] = useState(true);
@@ -103,11 +106,11 @@ const BookingCard = ({
             />
             <View>
               <CText style={styles.titleHeaindg}>Full Name</CText>
-              <CText style={styles.nameHeaindg}>{fullName}</CText>
+              <CText style={styles.nameHeaindg}>{fullName && fullName}</CText>
             </View>
             <View>
               <CText style={styles.titleHeaindg}>Slot Booked</CText>
-              <CText style={styles.nameHeaindg}>{time}</CText>
+              <CText style={styles.nameHeaindg}>{time && time}</CText>
             </View>
             <View>
               <CIcon
@@ -126,15 +129,17 @@ const BookingCard = ({
             <View style={[styles.header, {marginTop: -20}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Contact No.</CText>
-                <CText style={styles.nameHeaindg}>{contact}</CText>
+                <CText style={styles.nameHeaindg}>{contact && contact}</CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Space Type</CText>
-                <CText style={styles.nameHeaindg}>{parkingType}</CText>
+                <CText style={styles.nameHeaindg}>
+                  {parkingType && parkingType}
+                </CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Total Amount</CText>
-                <CText style={styles.nameHeaindg}>{`$${prize}`}</CText>
+                <CText style={styles.nameHeaindg}>{prize && `$${prize}`}</CText>
               </View>
 
               {/*Heading of Single Collapsible*/}
@@ -143,21 +148,21 @@ const BookingCard = ({
               <View>
                 <CText style={styles.titleHeaindg}>Booking From</CText>
                 <CText style={[styles.nameHeaindg, {fontSize: 10}]}>
-                  {sTime?.split(':')[0] + ': ' + sTime?.split(':')[1]}
+                  {sTime && sTime?.split(':')[0] + ': ' + sTime?.split(':')[1]}
                 </CText>
                 <CText
                   style={[styles.nameHeaindg, {marginTop: -10, fontSize: 10}]}>
-                  {date}
+                  {date && date}
                 </CText>
               </View>
               <View>
                 <CText style={styles.titleHeaindg}>Booking To</CText>
                 <CText style={[styles.nameHeaindg, {fontSize: 10}]}>
-                  {eTime?.split(':')[0] + ': ' + eTime?.split(':')[1]}
+                  {eTime && eTime?.split(':')[0] + ': ' + eTime?.split(':')[1]}
                 </CText>
                 <CText
                   style={[styles.nameHeaindg, {marginTop: -10, fontSize: 10}]}>
-                  {date}
+                  {date && date}
                 </CText>
               </View>
               <View>
@@ -170,7 +175,7 @@ const BookingCard = ({
             <View style={[styles.header, {marginTop: -30}]}>
               <View>
                 <CText style={styles.titleHeaindg}>Branch Location</CText>
-                <CText style={styles.nameHeaindg}>{location}</CText>
+                <CText style={styles.nameHeaindg}>{location && location}</CText>
               </View>
             </View>
           </>
