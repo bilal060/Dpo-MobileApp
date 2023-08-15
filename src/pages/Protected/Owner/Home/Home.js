@@ -37,7 +37,8 @@ const Home = ({navigation}) => {
   const [spaces, setSpaces] = useState([]);
   const [ownerBooking, setOwnerBooking] = useState([]);
   const isFocused = useIsFocused();
-  const [isloading, setisLoading] = useState([]);
+  const [isloading, setisLoading] = useState(false);
+  console.log("🚀 ~ file: Home.js:41 ~ Home ~ isloading:", isloading)
 
 
 
@@ -48,16 +49,12 @@ const Home = ({navigation}) => {
   useEffect(async() => {
     console.log('1', 1);
     setisLoading(true)
-    console.log('2', 2);
 
-  await  dispatch(getSpacsss(_id, callBack));
-  console.log('3', 3);
+  // await  dispatch(getSpacsss(_id, callBack));
 
-  await  dispatch(get_ownerBooking(_id, handleBookingCallBack));
-  console.log('4', 4);
+  // await  dispatch(get_ownerBooking(_id, handleBookingCallBack));
 
   setisLoading(false)
-  console.log('5', 5);
 
     // dispatch(getAllBooking);
   }, [isFocused]);

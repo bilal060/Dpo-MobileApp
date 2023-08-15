@@ -6928,7 +6928,7 @@ react-native-size-scaling@^0.5.1:
   resolved "https://registry.npmjs.org/react-native-size-scaling/-/react-native-size-scaling-0.5.1.tgz"
   integrity sha512-OVRox11fjpwUR7DQIPH/4RAhwkqm/r7lKYl5w0dEogFZ3Rz9CK7Bua7oaPLmVP2QnWP0rc0bpgkMc/Rl8ik1yw==
 
-react-native-skeleton-content-nonexpo@1.0.4:
+"react-native-skeleton-content-nonexpo@1.0.4   ":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-skeleton-content-nonexpo/-/react-native-skeleton-content-nonexpo-1.0.4.tgz#83c7e5995a9d0be49b076e6bff4233d199ab4a8e"
   integrity sha512-XLrltBFHmpJJUjUMjk8F468eoBp+msO8mrqQCdiWptRicuzIYowjE2DmSToB/N3m607+P0xB+ANU5ped1Lsxdw==

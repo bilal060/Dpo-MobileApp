@@ -101,7 +101,7 @@ export default class ToggleSwitch extends React.Component {
   render() {
     const {
       animationSpeed,
-      useNativeDriver,
+      useNativeDriver =  true,
       isOn,
       onToggle,
       onPress,

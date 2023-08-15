@@ -139,7 +139,7 @@ function CompanyProfile({route}) {
         <CText style={AuthStyle.cardHeaderTitle}>Business Info</CText>
         <CText style={AuthStyle.cardHeaderSubTitle}>
           Enter your business information below.
-        </CText> v 
+        </CText>
       </View> 
 
       

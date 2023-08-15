@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useRef} from 'react';
 import {Container} from '../../../../containers';
@@ -93,8 +95,6 @@ const Payment = ({navigation}) => {
       headerProps={headerProps}
       scrollView>
       <View style={Styles.container}>
-        
-        
         <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
           <CText style={Styles.mainHeading}>Payment History</CText>
         </View>
@@ -117,7 +117,6 @@ const Payment = ({navigation}) => {
           // onChangeText={handleChange('fuel')}
           // error={errors.fuel}
           inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-        
           sec
           type="view"
           leftIconNAme={FuelIcon}

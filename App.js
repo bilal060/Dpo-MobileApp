@@ -39,7 +39,7 @@ const App = () => {
       user: auth?.user,
     };
   });
-
+  
   const userId = reduxState?.user?._id
   useEffect(() => {
     Socket.emit("join",{userId});

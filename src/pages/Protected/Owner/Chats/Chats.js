@@ -44,13 +44,11 @@ const Chats = ({}) => {
       conversation: root?.conversations,
       userRole: auth?.user?.role,
       loading: root?.conversationsLoading,
-      userId:auth?.user?._id
+      userId: auth?.user?._id,
     };
   });
- 
 
   const dispatch = useDispatch();
-
 
   const data = [
     {
@@ -136,8 +134,6 @@ const Chats = ({}) => {
     );
   };
 
- 
-
   const onSocket = item => {
     dispatch(getConversationMessages(item?._id));
     navigation.navigate('Messages', {conversationId: item?._id});
@@ -172,7 +168,6 @@ const Chats = ({}) => {
       scrollView
       bottomSpace
       edges={['left', 'right']}
-      
       headerProps={headerProps}>
       <View style={Styles.container}>
         <View
@@ -182,21 +177,20 @@ const Chats = ({}) => {
             backgroundColor: '#FFF',
           }}>
           {reduxState?.loading ? (
-              <ContentLoader
-      speed={2}
-      width={400}
-      height={160}
-      viewBox="0 0 400 160"
-      backgroundColor="#d9d9d9"
-      foregroundColor="#ededed"
-    >
-      <Rect x="50" y="10" rx="4" ry="4" width="250" height="45" />
-      <Rect x="8" y="10" rx="4" ry="4" width="35" height="45" />
-      <Rect x="50" y="65" rx="4" ry="4" width="250" height="45" />
-      <Rect x="8" y="65" rx="4" ry="4" width="35" height="45" />
-      <Rect x="50" y="124" rx="4" ry="4" width="250" height="45" />
-      <Rect x="8" y="124" rx="4" ry="4" width="35" heigh   t="45" />
-    </ContentLoader>
+            <ContentLoader
+              speed={2}
+              width={400}
+              height={160}
+              viewBox="0 0 400 160"
+              backgroundColor="#d9d9d9"
+              foregroundColor="#ededed">
+              <Rect x="50" y="10" rx="4" ry="4" width="250" height="45" />
+              <Rect x="8" y="10" rx="4" ry="4" width="35" height="45" />
+              <Rect x="50" y="65" rx="4" ry="4" width="250" height="45" />
+              <Rect x="8" y="65" rx="4" ry="4" width="35" height="45" />
+              <Rect x="50" y="124" rx="4" ry="4" width="250" height="45" />
+              <Rect x="8" y="124" rx="4" ry="4" width="35" heigh t="45" />
+            </ContentLoader>
           ) : (
             <CList
               style={Styles.spacelist}
@@ -222,7 +216,7 @@ const Chats = ({}) => {
         </View>
       </View>
     </Container>
-  ); 
+  );
 };
 
 export default Chats;

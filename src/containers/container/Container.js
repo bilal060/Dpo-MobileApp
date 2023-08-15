@@ -93,7 +93,7 @@ function Container(props) {
             
             children
           )}
-       { reduxState?.isLoggedin && !messagesScreen &&  renderBottomBar()}
+       {/* { reduxState?.isLoggedin && !messagesScreen &&  renderBottomBar()}0 */}
 
 
         </View>

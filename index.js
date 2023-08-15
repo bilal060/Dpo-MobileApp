@@ -42,6 +42,7 @@ const handleDeepLink = ({ url }) => {
   // Register a listener for deep links
   Linking.addEventListener('url', handleDeepLink);
   
+  
   // Handle initial deep link when the app is opened with a deep link URL
   Linking.getInitialURL().then((url) => {
     if (url) {

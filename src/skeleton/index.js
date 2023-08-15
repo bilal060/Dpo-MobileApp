@@ -29,40 +29,21 @@ export const SpaceListCard = [
       key: 'id1',
       marginTop: HDP(10),
       width: WP(90),
-      height: HDP(100),
+      height: HDP(300),
       alignSelf: 'center',
       borderRadius: WP(3),
     },
-
-    {
-        key: 'id2',
-        marginTop: HDP(10),
-        width: WP(90),
-        height: HDP(100),
-        alignSelf: 'center',
-        borderRadius: WP(3),
-      },
    
   ];
   export const ChartListCard = [
    
-    {
+   {
       key: 'id1',
       marginTop: HDP(10),
-      width: WP(5),
-      height: HDP(100),
+      width: WP(90),
+      height: HDP(300),
       alignSelf: 'center',
-      borderRadius: WP(0),
+      borderRadius: WP(3),
     },
-
-    {
-        key: 'id1',
-        marginTop: HDP(10),
-        width: WP(5),
-        height: HDP(100),
-        // alignSelf: 'center',
-        borderRadius: WP(0),
-        flexDirection: 'row',
-      }
    
   ];

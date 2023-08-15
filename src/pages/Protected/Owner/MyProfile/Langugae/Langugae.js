@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {Container, PackageCard} from '../../../../../containers';
@@ -29,68 +30,59 @@ import {
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { MappedElement } from '../../../../../utils/methods';
+import {MappedElement} from '../../../../../utils/methods';
 import i18n from '../../../../../utils/i18n/i18n';
 
 const PrivacyScreen = ({}) => {
   const navigation = useNavigation();
   const [selectedLan, setSelectedLan] = useState(false);
-  const [options, setOptions] = useState([{
-    title: 'English',
-    content: 'Lorem ipsum...',
-    value: false,
-    code:"en"
-  },
-  {
-    title: 'German',
-    content: 'Lorem ipsum...',
-    value: false,
-    code:"hi"
-
-  },
-  {
-    title: 'Arabic',
-    content: 'Lorem ipsum...',
-    value: true,
-    code:"ar"
-
-  },
-])
+  const [options, setOptions] = useState([
+    {
+      title: 'English',
+      content: 'Lorem ipsum...',
+      value: true,
+      code: 'en',
+    },
+    {
+      title: 'German',
+      content: 'Lorem ipsum...',
+      value: false,
+      code: 'hi',
+    },
+    {
+      title: 'Arabic',
+      content: 'Lorem ipsum...',
+      value: false,
+      code: 'ar',
+    },
+  ]);
   const headerProps = {
     ProgressiveImageHeader: true,
     backButtonIcon: true,
 
     headerTitle: 'Langugae',
     headerRight: false,
-  };  
+  };
 
-    
-
-  const handleOptionChange = (option) => {
-    const updatedOptions = options.map((opt) => {
+  const handleOptionChange = option => {
+    const updatedOptions = options.map(opt => {
       if (opt?.title === option?.title) {
-        return { ...opt, value: true };
+        return {...opt, value: true};
       } else {
-        return { ...opt, value: false };
+        return {...opt, value: false};
       }
-      
     });
-    console.log("🚀 ~ file: Langugae.js:72 ~ updatedOptions ~ updatedOptions:", updatedOptions)
+    console.log(
+      '🚀 ~ file: Langugae.js:72 ~ updatedOptions ~ updatedOptions:',
+      updatedOptions,
+    );
     setOptions(updatedOptions);
-    handleLanguageChange(option?.code)
+    handleLanguageChange(option?.code);
   };
   const handleLanguageChange = languageCode => {
     i18n.changeLanguage(languageCode);
   };
 
-  //  const  _renderSectionTitle = (section) => {
-  //     return (
-  //       <View style={styles.content}>
-  //         <Text>{section.content}</Text>
-  //       </View>
-  //     );
-  //   };
-  
   const _renderHeader = section => {
     return (
       <View style={styles.header}>
@@ -154,11 +146,11 @@ const PrivacyScreen = ({}) => {
 
           <MappedElement
             data={options}
-            renderElement={(item , index) => (
+            renderElement={(item, index) => (
               <RadioButton
                 title={item?.title}
                 value={item?.value}
-                onChange={(val) => handleOptionChange(item)}
+                onChange={val => handleOptionChange(item)}
                 containerStyles={Styles.containerStyles}
                 myStyle2={Styles.myStyle2}
               />

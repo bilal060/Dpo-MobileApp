@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {Container} from '../../../../../containers';
@@ -56,6 +60,7 @@ const SpaceDetails = ({navigation, route}) => {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [selectDate, setSelectDate] = useState();
+  const [pickerShow, setPickerShow] = useState(false);
 
   const [prize, updatedPrize] = useState();
   const headerProps = {
@@ -215,18 +220,20 @@ const SpaceDetails = ({navigation, route}) => {
       </>
     );
   };
-  const onRangeSelected = (res) => {
-    console.log("🚀 ~ file: SpaceDetails.js:219 ~ onRangeSelected ~ res:", res)
-  
-  }
-  const handleToggle = (updatedCard) => {
-    // const updatedData = spaces.map((card) =>
-    //   card._id === updatedCard._id ? updatedCard : card
-    // );
-    // setSpaces(updatedData);
+  const onRangeSelected = res => {
+    console.log('🚀 ~ file: SpaceDetails.js:219 ~ onRangeSelected ~ res:', res);
   };
 
-  const timeSlot = ['Hourly', 'Daily', 'Monthly'];
+  const timeSlot = ['Hourly', 'Daily', 'Weekly', 'Monthly'];
+  const onValueChange = (event, newDate) => {
+    setPickerShow(false);
+    const selectedDate = newDate || selectDate;
+    setSelectDate(selectedDate);
+  };
+  const Pickertoggle = () => {
+    setPickerShow(!pickerShow);
+  };
+
   return (
     <Container
       bottomSpace
@@ -303,7 +310,22 @@ const SpaceDetails = ({navigation, route}) => {
                   />
                 </>
               ) : selectValue === 'Weekly' ? (
-                <CCalender   onRangeSelected={onRangeSelected} />
+                <CCalender onRangeSelected={onRangeSelected} />
+              ) : selectValue === 'Monthly' ? (
+                <>
+                  <DateTimePicker
+                    type="monthly"
+                    mode={'date'}
+                    value={selectDate}
+                    onChange={onValueChange}
+                    Pickertoggle={Pickertoggle}
+                    pickershow={pickerShow}
+                    placeHolder={'Select Date'}
+                    inputContainer={Styles.inputDateContainer}
+                    selectButtonText={Styles.selectButtonText}
+                    selectContainer={Styles.selectContainer}
+                  />
+                </>
               ) : (
                 <>
                   <DateTimePicker
