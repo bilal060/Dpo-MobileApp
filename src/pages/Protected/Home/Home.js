@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+/* eslint-disable no-dupe-keys */
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Container} from '../../../containers';
 import {CList, CText, ProgressiveImage} from '../../../components';
@@ -19,9 +20,9 @@ const Home = ({navigation}) => {
     headerTitle: 'Home',
     backButtonIcon: false,
     ProgressiveImageHeader: true,
-    headerRight:true,
-    headerRightImg:false,
-    headerRightImg:Profile
+    headerRight: true,
+    headerRightImg: false,
+    headerRightImg: Profile,
   };
   const listData = [
     {
@@ -44,9 +45,11 @@ const Home = ({navigation}) => {
   ];
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity onPress={item.onPress} style={{flexDirection: 'column', alignItems: 'center'}}>
+      <TouchableOpacity
+        onPress={item.onPress}
+        style={{flexDirection: 'column', alignItems: 'center'}}>
         <View style={Styles.menu}>
-          <ProgressiveImage             
+          <ProgressiveImage
             source={item.img}
             style={{height: 40, width: 40}}
             resizeMode={'contain'}
@@ -57,14 +60,8 @@ const Home = ({navigation}) => {
     );
   };
   return (
-    <Container
-      bottomSpace
-      edges={['left', 'right']}
-       headerProps={headerProps}
-    >
+    <Container bottomSpace edges={['left', 'right']} headerProps={headerProps}>
       <View style={Styles.container}>
-        
-       
         {/* <CList
           style={Styles.list}
           numColumns={2}

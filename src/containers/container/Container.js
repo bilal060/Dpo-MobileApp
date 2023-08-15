@@ -83,7 +83,6 @@ function Container(props) {
           
           {scrollView ? (
             <ScrollView
-             
               {...scrollViewProps}
               nestedScrollEnabled
               scrollEventThrottle={16}>

@@ -84,7 +84,7 @@ const Home = ({navigation}) => {
     },
   ];
   const renderItem = ({item}) => {
-    return <SpaceCard  item={item}/>;
+    return <SpaceCard />;
   };
   const renderBooking = ({item}) => {
     return <BookingCard />;

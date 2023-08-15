@@ -1,3 +1,5 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity, Modal} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {Container, CountriesModal} from '../../../../containers';
@@ -40,20 +42,22 @@ import {
 import moment from 'moment';
 
 const AllBooking = ({navigation}) => {
-  console.log("🚀 ~ file: AllBooking.js:43 ~ AllBooking ~ navigation.getParent():", navigation.getState())
+  console.log(
+    '🚀 ~ file: AllBooking.js:43 ~ AllBooking ~ navigation.getParent():',
+    navigation.getState(),
+  );
   const type = useRef(null);
   const sort = useRef(null);
   const dispatch = useDispatch();
 
-
   const headerProps = {
-    headerTitle: navigation.getState()?.index === 0  ? "Home" : 'All Booking',
+    headerTitle: navigation.getState()?.index === 0 ? 'Home' : 'All Booking',
     backButtonIcon: false,
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
-    rightPress:()=> navigation.navigate("Profile")
+    rightPress: () => navigation.navigate('Profile'),
   };
   const reduxState = useSelector(({auth, language, root}) => {
     return {
@@ -100,7 +104,7 @@ const AllBooking = ({navigation}) => {
     } else {
       dispatch(getSpacsss(reduxState?.userId, spaceCallBack));
 
-      dispatch( (reduxState?.userId, callBack));
+      dispatch((reduxState?.userId, callBack));
     }
   };
 
@@ -185,35 +189,26 @@ const AllBooking = ({navigation}) => {
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView> 
+      scrollView>
       <View style={Styles.container}>
         <CList
           style={Styles.sbookinglist}
           numColumns={2}
-          //   horizontal
-          // contentContainerStyle={[GlobalStyle.list, ]}
           data={listData}
           loading={reduxState.loading}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
-            // icon: require('../../assets/images/empty.png'),
             text: 'Store not found',
           }}
-          // onRefreshLoading={reduxState.loading}
           onRefreshHandler={() => getbooking()}
-          // onEndReached={onEndReached}
-          // onEndReachedThreshold={0.1}
-          // maxToRenderPerBatch={10}
-          // windowSize={10}
         />
         <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
-          <CText style={Styles.mainHeading}>New Booking</CText>
+          <CText style={Styles.mainHeading}>New Bookings</CText>
         </View>
 
         <CList
           style={Styles.spacelist}
-    
           contentContainerStyle={[GlobalStyle.list]}
           data={booking}
           // loading={reduxState.loading}
@@ -238,7 +233,6 @@ const AllBooking = ({navigation}) => {
             <CInput
               ref={type}
               placeholder={'Sort By'}
-              
               onPress={toggleCountryModal}
               selectValue={selectedCountry}
               sec
@@ -250,7 +244,6 @@ const AllBooking = ({navigation}) => {
             <CInput
               ref={type}
               placeholder={'Select Space Type'}
-              
               inputInnerContainerStyle={Styles.inputInnerContainerStyle}
               sec
               type="view"
@@ -278,7 +271,7 @@ const AllBooking = ({navigation}) => {
           // maxToRenderPerBatch={10}
           // windowSize={10}
         />
-         <View style={Styles.BarChart}>
+        <View style={Styles.BarChart}>
           <BarChart
             width={330}
             data={barData}
@@ -315,7 +308,7 @@ const AllBooking = ({navigation}) => {
           />
         </View>
       </View>
-     
+
       <Modal
         transparent={true}
         visible={countryModalIsOpen}

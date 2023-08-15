@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Container} from '../../../../containers';
@@ -36,7 +37,6 @@ import {BASE_URL_IMG} from '../../../../config/webservices';
 import {get_all_category} from '../../../../redux/actions/Root.Action';
 import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import { PayAsYouDriveSkeleton } from '../../../../skeleton';
 
 const Explore = ({}) => {
   const navigation = useNavigation();
@@ -75,21 +75,22 @@ const Explore = ({}) => {
       title: 'Car Parking',
     },
     {
-      img: Inventory,
-      title: 'Temporary Storage',
+      img: Warehouse,
+      title: 'Warehouse',
     },
+    // {
+    //   img: Inventory,
+    //   title: 'Temporary Storage',
+    // },
     {
       img: Inventory,
       title: 'Storage Unit',
     },
-    {
-      img: Warehouse,
-      title: 'Warehouse',
-    },
-    {
-      img: Carrier,
-      title: 'Container Storage',
-    },
+
+    // {
+    //   img: Carrier,
+    //   title: 'Container Storage',
+    // },
     {
       img: Wrench,
       title: 'Mechanic',
@@ -159,6 +160,7 @@ const Explore = ({}) => {
         img: match ? match.img : '',
       };
     });
+    console.log(combinedArray);
     setCategories(combinedArray);
   };
   return (
@@ -169,78 +171,77 @@ const Explore = ({}) => {
 
       scrollView>
       <View style={Styles.container}>
-        
-          <View style={[GlobalStyle.row, Styles.headerView]}>
-            <CInput
-              placeholder={'Sort By'}
-              // value={values.fuel}
-              // onChangeText={handleChange('fuel')}
-              // error={errors.fuel}
-              sec
-              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-              //   type="view"
-              //   leftIconNAme={FuelIcon}
-              returnKeyType="next"
-            />
-            <ProgressiveImage
-              style={Styles.profileImage}
-              source={!reduxState?.user ? Profile : {uri: convertedFilePath}}
-              resizeMode="contain"
-            />
-          </View>
-          <SliderBox
-            images={images}
-            onCurrentImagePressed={index => {
-              // setActiveImg(index);
-              isActive = activeImg === index;
-            }}
-            currentImageEmitter={index => {
-              setActiveImg(index);
-              isActive = activeImg - 1 === index;
-              console.log(
-                '🚀 ~ file: Explore.js:134 ~ Explore ~ isActive:',
-                isActive,
-                index,
-                activeImg - 1,
-              );
-
-              console.warn(`current pos is: ${index}`);
-            }}
-            resizeMethod={'resize'}
-            resizeMode={'cover'}
-            dotColor="rgba(255,255,225,1)"
-            inactiveDotColor="rgba(63,128,225,1)"
-            activeDotColor="rgba(255,255,225,1)"
-            paginationBoxVerticalPadding={0}
-            paginationBoxStyle={{
-              position: 'absolute',
-              left: 0,
-              bottom: 5,
-              padding: 0,
-              alignItems: 'center',
-              alignSelf: 'center',
-              justifyContent: 'center',
-              paddingVertical: 10,
-            }}
-            dotStyle={{
-              width: isActive ? 25 : 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: -5,
-              padding: 0,
-              margin: 0,
-              backgroundColor: '#000',
-            }}
-            ImageComponentStyle={{
-              borderRadius: 15,
-              width: '90%',
-              marginTop: 5,
-              alignSelf: 'flex-start',
-            }}
-            imageLoadingColor="#2196F3"
+        <View style={[GlobalStyle.row, Styles.headerView]}>
+          <CInput
+            placeholder={'Sort By'}
+            // value={values.fuel}
+            // onChangeText={handleChange('fuel')}
+            // error={errors.fuel}
+            sec
+            inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+            //   type="view"
+            //   leftIconNAme={FuelIcon}
+            returnKeyType="next"
           />
-          <CText style={Styles.mainHeading}>All Categories</CText>
-          {/* <SkeletonPlaceholderComponent
+          <ProgressiveImage
+            style={Styles.profileImage}
+            source={!reduxState?.user ? Profile : {uri: convertedFilePath}}
+            resizeMode="contain"
+          />
+        </View>
+        <SliderBox
+          images={images}
+          onCurrentImagePressed={index => {
+            // setActiveImg(index);
+            isActive = activeImg === index;
+          }}
+          currentImageEmitter={index => {
+            setActiveImg(index);
+            isActive = activeImg - 1 === index;
+            console.log(
+              '🚀 ~ file: Explore.js:134 ~ Explore ~ isActive:',
+              isActive,
+              index,
+              activeImg - 1,
+            );
+
+            console.warn(`current pos is: ${index}`);
+          }}
+          resizeMethod={'resize'}
+          resizeMode={'cover'}
+          dotColor="rgba(255,255,225,1)"
+          inactiveDotColor="rgba(63,128,225,1)"
+          activeDotColor="rgba(255,255,225,1)"
+          paginationBoxVerticalPadding={0}
+          paginationBoxStyle={{
+            position: 'absolute',
+            left: 0,
+            bottom: 5,
+            padding: 0,
+            alignItems: 'center',
+            alignSelf: 'center',
+            justifyContent: 'center',
+            paddingVertical: 10,
+          }}
+          dotStyle={{
+            width: isActive ? 25 : 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: -5,
+            padding: 0,
+            margin: 0,
+            backgroundColor: '#000',
+          }}
+          ImageComponentStyle={{
+            borderRadius: 15,
+            width: '90%',
+            marginTop: 5,
+            alignSelf: 'flex-start',
+          }}
+          imageLoadingColor="#2196F3"
+        />
+        <CText style={Styles.mainHeading}>All Categories</CText>
+        {/* <SkeletonPlaceholderComponent
           loader={true}
           SkelonStyle={
             <View
@@ -255,7 +256,7 @@ const Explore = ({}) => {
                   width={150}
                   height={20}
                   borderRadius={4}
-                  marginTop={10} 
+                  marginTop={10}
                 />  
                 <SkeletonPlaceholder.Item
                   width={100}
@@ -264,28 +265,23 @@ const Explore = ({}) => {
                   marginTop={10}
                 />
                 {/* Add more skeleton items as needed */}
-              {/* </SkeletonPlaceholder>
+        {/* </SkeletonPlaceholder>
             </View> */}
-          {/* }> */}
-          {/* <SkeletonPlaceholderComponent layout={PayAsYouDriveSkeleton} > */}
-
-          <CList
-            style={Styles.list}
-            //   horizontal
-            numColumns={4}
-            data={categories}
-            // loading={reduxState.loading}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-            emptyOptions={{ 
-              // icon: require('../../assets/images/empty.png'),
-              text: 'Store not found',
-            }}
-          />
-          {/* </SkeletonPlaceholderComponent> */}
-
-          {/* </SkeletonPlaceholderComponent> */}
-   
+        {/* }> */}
+        <CList
+          style={Styles.list}
+          //   horizontal
+          numColumns={3}
+          data={categories}
+          // loading={reduxState.loading}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          emptyOptions={{
+            // icon: require('../../assets/images/empty.png'),
+            text: 'Store not found',
+          }}
+        />
+        {/* </SkeletonPlaceholderComponent> */}
       </View>
     </Container>
   );
@@ -294,4 +290,3 @@ const Explore = ({}) => {
 export default Explore;
 
 const styles = StyleSheet.create({});
- 

@@ -1,3 +1,7 @@
+/* eslint-disable quotes */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import {FlatList, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Container, PackageCard} from '../../../../containers';
@@ -30,12 +34,12 @@ import {
 } from '../../../../assets/images';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { userLogout } from '../../../../redux/actions/Auth.action';
+import {useDispatch} from 'react-redux';
+import {userLogout} from '../../../../redux/actions/Auth.action';
 
 const MyProfile = ({}) => {
   const navigation = useNavigation();
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const headerProps = {
     ProgressiveImageHeader: false,
     backButtonIcon: false,
@@ -57,7 +61,6 @@ const dispatch = useDispatch()
       phone: '+1 012 3456 789',
       active: true,
       navigation: 'EditProfile',
-
     },
 
     {
@@ -66,7 +69,6 @@ const dispatch = useDispatch()
       phone: '+1 012 3456 789',
       active: true,
       navigation: 'Payment',
-
     },
     {
       img: ChangePass,
@@ -97,7 +99,6 @@ const dispatch = useDispatch()
       phone: '+1 012 3456 789',
       active: true,
       navigation: 'Privacy',
-
     },
     {
       img: Rating,
@@ -107,7 +108,6 @@ const dispatch = useDispatch()
     },
   ];
 
-  
   const prefrencedata = [
     {
       img: Language,
@@ -124,13 +124,18 @@ const dispatch = useDispatch()
       active: false,
     },
   ];
-  const logOut = ()=>{
-    dispatch(userLogout())
-  }
+  const logOut = () => {
+    dispatch(userLogout());
+  };
 
   const renderProfile = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={() => item.address === 'Log Out' ? logOut() : navigation.navigate(item?.navigation)}>
+      <TouchableOpacity
+        onPress={() =>
+          item.address === 'Log Out'
+            ? logOut()
+            : item?.navigation && navigation.navigate(item?.navigation)
+        }>
         <View style={Styles.ProfileCard}>
           <ProgressiveImage
             source={item?.img}
@@ -186,19 +191,12 @@ const dispatch = useDispatch()
               // icon: require('../../assets/images/empty.png'),
               text: 'Store not found',
             }}
-            // onRefreshLoading={reduxState.loading}
-            // onRefreshHandler={() => onRefreshHandler()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
-            // maxToRenderPerBatch={10}
-            // windowSize={10}
           />
 
           <CText style={Styles.profileName}>{`Support`}</CText>
 
           <CList
             style={Styles.spacelist}
-    
             data={supportdata}
             // loading={reduxState.loading}
             renderItem={renderProfile}
@@ -207,7 +205,6 @@ const dispatch = useDispatch()
               // icon: require('../../assets/images/empty.png'),
               text: 'Store not found',
             }}
-        
           />
 
           <CText style={Styles.profileName}>{`Preferences`}</CText>
@@ -224,7 +221,6 @@ const dispatch = useDispatch()
             emptyOptions={{
               text: 'Store not found',
             }}
-           
           />
         </View>
       </View>

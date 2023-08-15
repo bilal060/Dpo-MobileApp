@@ -138,7 +138,16 @@ const Managers = ({navigation}) => {
             leftIconNAme={CNameIcon}
             returnKeyType="next"
           />
-          
+          <CInput
+            ref={type}
+            placeholder={'Select Time Slot'}
+           
+            inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+            sec
+            type="view"
+            leftIconNAme={TimeIcon}
+            returnKeyType="next"
+          />
          
           <CList
             style={Styles.spacelist}

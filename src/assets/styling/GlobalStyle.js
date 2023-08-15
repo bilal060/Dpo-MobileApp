@@ -5,13 +5,11 @@ export default StyleSheet.create({
   fullContainer: {
     flex: 1,
     // backgroundColor: themes.light.colors.tertiary,
-
   },
 
   //input style
   inputContainer: {
     marginBottom: 20,
-    
   },
   inputLabel: {
     fontSize: 14,
@@ -38,7 +36,8 @@ export default StyleSheet.create({
     fontFamily: themes.font.medium,
     fontWeight: '400',
     flex: 1,
-    marginLeft:10,
+    //marginLeft:10,
+    marginHorizontal: 10,
 
     height: 45,
     // paddingHorizontal: 0,
@@ -49,14 +48,14 @@ export default StyleSheet.create({
     color: themes.light.colors.fontColor,
     fontFamily: themes.font.medium,
     fontWeight: '400',
-    marginLeft:5,
+    marginLeft: 5,
     textAlign: 'left',
   },
   inputInnerContainer: {
     // padding:5,
     // position: 'relative',
     alignContent: 'center',
-    backgroundColor:'red',
+    backgroundColor: 'red',
 
     justifyContent: 'center',
 
@@ -618,14 +617,14 @@ export default StyleSheet.create({
   profileDetailsView: {
     flex: 1,
     paddingHorizontal: 10,
-    marginRight:20,
-    
+    marginRight: 20,
+
     height: 90,
     borderBottomWidth: 0.5,
     borderBottomColor: '#E7E6E9',
   },
-  alignItems:{
+  alignItems: {
     alignItems: 'center',
     alignContent: 'center',
-  }
+  },
 });

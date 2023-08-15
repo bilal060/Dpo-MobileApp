@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 import {
   StyleSheet,
   Text,
@@ -14,10 +16,12 @@ import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import { BASE_URL_IMG } from '../../config/webservices';
+import {BASE_URL_IMG} from '../../config/webservices';
 const {width, height} = Dimensions.get('screen');
+import {useTranslation} from 'react-i18next';
 
 const Header = props => {
+  const {t} = useTranslation();
   const {
     headerLeft = true,
     headerTitle = '',
@@ -30,8 +34,8 @@ const Header = props => {
     showCart = false,
     hideBackButton = true,
     backButtonIcon = true,
-      showCenterLogo,
-      headerTitleStyle,
+    showCenterLogo,
+    headerTitleStyle,
     goBackWithRoute,
     headerTransparentStyle,
     bgHeadeStyle,
@@ -39,8 +43,6 @@ const Header = props => {
     centerImage,
     headerRightImg,
     rightPress,
-    headerRightText,
-    rightTextPress
   } = props;
   const navigation = useNavigation();
   const reduxState = useSelector(({auth, language}) => {
@@ -49,9 +51,15 @@ const Header = props => {
       user: auth?.user,
     };
   });
-  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(/\\/g, "/");
+  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(
+    /\\/g,
+    '/',
+  );
 
-  console.log("🚀 ~ file: Header.js:52 ~ convertedFilePath:", convertedFilePath)
+  console.log(
+    '🚀 ~ file: Header.js:52 ~ convertedFilePath:',
+    convertedFilePath,
+  );
   const backPress = () => {
     if (backOnPress) {
       backOnPress();
@@ -90,11 +98,15 @@ const Header = props => {
       </View>
     );
   };
-  const rightText = () => {
+  const menuButton = () => {
     return (
-      <TouchableOpacity onPress={rightTextPress} style={styles.rightTextView}>
-        <CText style={styles.rightText}>{headerRightText}</CText>
-      </TouchableOpacity>
+      <View>
+        <ProgressiveImage
+          style={styles.profileImage}
+          source={Profile}
+          resizeMode="contain"
+        />
+      </View>
     );
   };
   const cartButton = () => {
@@ -120,7 +132,6 @@ const Header = props => {
   const rightButton = () => {
     return (
       <TouchableOpacity style={GlobalStyle.logostyles} onPress={rightPress}>
-        
         {!headerRightImg ? (
           <CIcon
             type="MaterialIcons"
@@ -131,7 +142,9 @@ const Header = props => {
         ) : (
           <ProgressiveImage
             style={styles.profileImage}
-            source={!reduxState?.user ? headerRightImg : {uri: convertedFilePath}}
+            source={
+              !reduxState?.user ? headerRightImg : {uri: convertedFilePath}
+            }
             resizeMode="contain"
           />
         )}
@@ -165,21 +178,21 @@ const Header = props => {
               {backButtonIcon ? backButton() : null}
               {ProgressiveImageHeader && (
                 <CText style={[GlobalStyle.toggleViewText, headerTile]}>
-                  {headerTitle}
+                  {t(headerTitle)}
                 </CText>
               )}
               {headerTile && (
                 <CText style={[GlobalStyle.toggleView2Text, headerTile]}>
-                  {headerTile}
+                  {t(headerTile)}
                 </CText>
               )}
 
-              {headerRight ? rightButton()   : headerRightText &&  rightText()  }
+              {headerRight && rightButton()}
             </View>
             <View>{showCenterLogo && centerLogo()}</View>
           </>
         ) : (
-          <> 
+          <>
             {/* <View style={[GlobalStyle.row, styles.headerView]}>
               <CInput
                 placeholder={'Sort By'}
@@ -302,18 +315,4 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: theme['light'].colors.primary,
   },
-  rightTextView:{
-    flex:1,
-    justifyContent:"center",
-    marginTop:15,
-    marginRight:10
-  },
-  rightText:{
-    flex:1,
-    textAlign:'right',
-    fontSize: 15,
-    color: theme['light'].colors.primary,
-    fontFamily: theme.font.semiBold,
-
-  }
 });

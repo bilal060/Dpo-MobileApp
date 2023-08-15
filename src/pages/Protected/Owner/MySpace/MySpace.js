@@ -1,4 +1,13 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image, Alert} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
 import React, {useRef, useState, useLayoutEffect, useEffect} from 'react';
 import {Container} from '../../../../containers';
 import {
@@ -32,14 +41,19 @@ import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
 import DatePicker from 'react-native-modern-datepicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllSpaces, getSpacesByCategories, getSpacesByCategory, getSpacsss} from '../../../../redux/actions/Root.Action';
+import {
+  getAllSpaces,
+  getSpacesByCategories,
+  getSpacesByCategory,
+  getSpacsss,
+} from '../../../../redux/actions/Root.Action';
 import {BASE_URL, BASE_URL_IMG} from '../../../../config/webservices';
 import MapView, {Marker, Callout} from 'react-native-maps';
 
 const MySpace = ({navigation, route}) => {
-  
   console.log('🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:', route?.params);
-  const {name  , _id} = route?.params || {}
+  const {name, _id} = route?.params;
+  console.log('🚀 ~ file: MySpace.js:43 ~ name:', name);
   const fullName = useRef(null);
   const dispatch = useDispatch();
   const reduxState = useSelector(({auth, language, root}) => {
@@ -87,7 +101,6 @@ const MySpace = ({navigation, route}) => {
     },
   ];
   const renderItem = ({item}) => {
-    console.log("🚀 ~ file: MySpace.js:90 ~ renderItem ~ item:", item)
     var convertedFilePath = `${BASE_URL_IMG}${item?.images?.[0]}`.replace(
       /\\/g,
       '/',
@@ -101,7 +114,6 @@ const MySpace = ({navigation, route}) => {
         ratePrize={item?.rate_day}
         address={item?.address}
         img={convertedFilePath}
-        item={item}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}
       />
@@ -122,8 +134,6 @@ const MySpace = ({navigation, route}) => {
         address={item?.address}
         img={convertedFilePath}
         mapView
-        item={item}
-
         imgStyles={{width: 100, height: '100%'}}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}
@@ -143,22 +153,27 @@ const MySpace = ({navigation, route}) => {
   }, []);
   const allSpaces = () => {
     if (isCustomer) {
-      if(_id){
+      if (_id) {
         dispatch(getSpacesByCategory(_id, callBack));
-
       } else {
-
         dispatch(getAllSpaces('', callBack));
-
       }
     } else {
       dispatch(getSpacsss(reduxState?.userId, callBack));
     }
   };
   const callBack = res => {
-    console.log("🚀 ~ file: MySpace.js:154 ~ callBack ~ res:", res)
+    // console.log(
+    //   '🚀 ~ file: MySpace.js:154 ~ callBack ~ res:',
+    //   JSON.stringify(res),
+    // );
     setSpaces(res);
   };
+
+  useEffect(() => {
+    console.log('osamaa');
+    console.log(spaces[0]?.location?.coordinates);
+  }, [spaces]);
 
   return (
     <Container
@@ -233,28 +248,24 @@ const MySpace = ({navigation, route}) => {
           />
         ) : (
           <>
-            <MapView
-              initialRegion={{
-                latitude: 24.8651,
-                longitude: 67.077643,
-                latitudeDelta: 0.04,
-                longitudeDelta: 0.05,
-              }}
-              minZoomLevel={5}
-              style={{flex: 1, height: 400}}>
-              {spaces.map(item => {
-                console.log(
-                  '🚀 ~ file: MySpace.js:231 ~ MySpace ~ item:',
-                  item,
-                );
-                var convertedFilePath2 =
-                  `${BASE_URL_IMG}${item?.images?.[0]}`.replace(/\\/g, '/');
-                console.log(
-                  '🚀 ~ file: MySpace.js:237 ~ MySpace ~ convertedFilePath2:',
-                  convertedFilePath2,
-                );
-
-                return (
+            {spaces.map(item => {
+              console.log('🚀 ~ file: MySpace.js:231 ~ MySpace ~ item:', item);
+              var convertedFilePath2 =
+                `${BASE_URL_IMG}${item?.images?.[0]}`.replace(/\\/g, '/');
+              console.log(
+                '🚀 ~ file: MySpace.js:237 ~ MySpace ~ convertedFilePath2:',
+                convertedFilePath2,
+              );
+              return (
+                <MapView
+                  initialRegion={{
+                    latitude: item?.location?.coordinates?.[1],
+                    longitude: item?.location?.coordinates?.[0],
+                    latitudeDelta: 0.04,
+                    longitudeDelta: 0.05,
+                  }}
+                  minZoomLevel={5}
+                  style={{flex: 1, height: 400}}>
                   <Marker
                     onPress={evt => setSelectedPlace(item)}
                     calloutVisible={
@@ -276,52 +287,54 @@ const MySpace = ({navigation, route}) => {
                       }}
                       source={MarkerImage}
                     />
-                    <Callout 
-                       onPress={() => navigation.navigate('SpaceDetails', {item})} 
-                    style={{width: 200, height: 130}}>
-                        <View  style={{
-                                width: 100,
-                                height: 70,
-                              }}>
-                          {item?.images?.[0] && (
-                            <ProgressiveImage
-                              resizeMode="contain"
-                              style={{
-                                width: 100,
-                                height: 70,
-                              }}
-                              source={Profile}
-                            />
-                          )}
-                        </View>
-                        
-                        <View style={{flexDirection: 'row'}}>
-                          <CText numberOfLines={1} style={Styles.addCardText}>
-                            Address :
-                          </CText>
-                          <CText numberOfLines={1} style={Styles.cardText}>
-                            {item?.address}
-                          </CText>
-                        </View>
-                        <View style={{flexDirection: 'row'}}>
-                          <CText numberOfLines={1} style={Styles.addCardText}>
-                            Space Name :
-                          </CText>
-                          <CText numberOfLines={1} style={Styles.cardText}>
-                            {item?.description}
-                          </CText>
-                        </View>
-                        <View style={{flexDirection: 'row'}}>
-                          <CText numberOfLines={1} style={Styles.addCardText}>
-                            Price :
-                          </CText>
-                          <CText numberOfLines={1} style={Styles.cardText}>
-                            {item?.rate_hour}
-                          </CText>
-                        </View> 
-                        
+                    <Callout
+                      onPress={() =>
+                        navigation.navigate('SpaceDetails', {item})
+                      }
+                      style={{width: 200, height: 130}}>
+                      <View
+                        style={{
+                          width: 100,
+                          height: 70,
+                        }}>
+                        {item?.images?.[0] && (
+                          <ProgressiveImage
+                            resizeMode="contain"
+                            style={{
+                              width: 100,
+                              height: 70,
+                            }}
+                            source={Profile}
+                          />
+                        )}
+                      </View>
 
-                        {/* <View style={{flexDirection: 'row'}}>
+                      <View style={{flexDirection: 'row'}}>
+                        <CText numberOfLines={1} style={Styles.addCardText}>
+                          Address :
+                        </CText>
+                        <CText numberOfLines={1} style={Styles.cardText}>
+                          {item?.address}
+                        </CText>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <CText numberOfLines={1} style={Styles.addCardText}>
+                          Space Name :
+                        </CText>
+                        <CText numberOfLines={1} style={Styles.cardText}>
+                          {item?.description}
+                        </CText>
+                      </View>
+                      <View style={{flexDirection: 'row'}}>
+                        <CText numberOfLines={1} style={Styles.addCardText}>
+                          Price :
+                        </CText>
+                        <CText numberOfLines={1} style={Styles.cardText}>
+                          {item?.rate_hour}
+                        </CText>
+                      </View>
+
+                      {/* <View style={{flexDirection: 'row'}}>
                           <CText numberOfLines={2} style={Styles.addCardText}}>
                             Address:
                           </CText>
@@ -337,16 +350,17 @@ const MySpace = ({navigation, route}) => {
                 /> */}
                     </Callout>
                   </Marker>
-                );
-              })}
-              {/* {selectedPlace && (
+                </MapView>
+              );
+            })}
+            {/* {selectedPlace && (
                 <View style={{position: 'absolute', bottom: 20, left: 20 , backgroundColor:"red"}}>
                   {/* <Image
                     resizeMode="cover"
                     style={{width: 100, height: 100}}
                     source={selectedPlace?.image}
                   /> */}
-            </MapView>
+
             {/* <CList
               style={Styles.spacelist}
               // numColumns={2}
