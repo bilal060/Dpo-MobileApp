@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {Container, CountriesModal} from '../../../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../../../components';
@@ -15,7 +16,7 @@ import {
 } from '../../../../../assets/images';
 import {BASE_URL_IMG} from '../../../../../config/webservices';
 import {
-    add_CustomerCard,
+  add_CustomerCard,
   add_vehicle,
   get_CustomerCard,
 } from '../../../../../redux/actions/Root.Action';
@@ -48,7 +49,6 @@ function AddCard({route}) {
     getCard();
   }, []);
 
-  
   const getCard = () => {
     dispatch(get_CustomerCard(reduxState?.userId));
   };
@@ -57,19 +57,19 @@ function AddCard({route}) {
     const payload = {
       userId: reduxState?.userId,
       cardNo: values?.cardNo?.trim(),
-      expMonth: values?.expMonth?.split("/")[0],
-      expYear: values?.expMonth?.split("/")[1],
+      expMonth: values?.expMonth?.split('/')[0],
+      expYear: values?.expMonth?.split('/')[1],
       cvc: values?.cvc,
       name: values?.fullName,
     };
-    dispatch(add_CustomerCard(payload , cardsCallBack))
+    dispatch(add_CustomerCard(payload, cardsCallBack));
     console.log('🚀 ~ file: index.js:54 ~ submit ~ values:', values);
   };
-  const cardsCallBack = (res)=>{
-    if(res){
-        navigation.goBack()
+  const cardsCallBack = res => {
+    if (res) {
+      navigation.goBack();
     }
-  }
+  };
   const data = [
     {name: 'Kenworth'},
     {name: 'Peterbilt'},
@@ -105,7 +105,6 @@ function AddCard({route}) {
     {name: 'Compactors'},
   ];
 
-  
   return (
     <Container
       backgroundColor={'theme-color'}

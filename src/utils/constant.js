@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Booking,
   Explore,
@@ -20,7 +21,6 @@ import {
   FocusedManager,
 } from '../assets/images';
 
-
 export const customerRoutes = [
   {
     id: 1,
@@ -41,7 +41,7 @@ export const customerRoutes = [
     img2: FPaymentHistory,
     navigate: 'Payment',
   },
-  
+
   {
     id: 4,
     img: Message,
@@ -198,4 +198,3 @@ export const storageOwnerRoutes = [
     navigate: 'Profile',
   },
 ];
-

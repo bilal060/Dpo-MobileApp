@@ -91,26 +91,7 @@ const dispatch = useDispatch()
       dispatch(change_availablity(payload , response))
 
       
-      
-      // Make API request to update the toggle status
-      // Replace 'your_api_url_here' with your actual API endpoint
-      // const response = await fetch('your_api_url_here', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ isToggled: !toggleState }), // Send the updated toggle status to the API
-      // });
-
-      // if (response.ok) {
-      //   // If the API request is successful, update the local state
-      //   setToggleState(!toggleState);
-      //   // Call the onToggle prop with the updated data to sync the parent component's state
-      //   onToggle({ ...cardData, isToggled: !toggleState });
-      // } else {
-      //   // Handle error if needed
-      //   console.error('Failed to update toggle status.');
-      // }
+    
     } catch (error) {
       // Handle error if needed
       console.error('Error updating toggle status:', error);
@@ -123,75 +104,57 @@ const dispatch = useDispatch()
 
   return (
     <>
-      <TouchableOpacity
+    <TouchableOpacity
         disabled={toggleState}
-        onPress={onPress}
+      onPress={onPress}
         style={[Style.spaceContainer, mainContainer , {opacity:toggleState ? 0.5 :1}]}>
-        {!img ? (
-          <ProgressiveImage
-            resizeMode="cover"
-            source={SpaceImg}
-            style={[{width: '100%', height: '50%'}, imgStyles]}
-          />
-        ) : (
-          <ProgressiveImage
-            resizeMode="cover"
-            source={{uri: img}}
-            style={[{width: '100%', height: '50%'}, imgStyles]}
-          />
-        )}
-        <View>
+      {!img ? (
+        <ProgressiveImage
+          resizeMode="cover"
+          source={SpaceImg}
+          style={[{width: '100%', height: '50%'}, imgStyles]}
+        />
+      ) : (
+        <ProgressiveImage
+          resizeMode="cover"
+          source={{uri: img}}
+          style={[{width: '100%', height: '50%'}, imgStyles]}
+        />
+      )}
+      <View>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            paddingBottom: 20,
+            borderBottomWidth: 1,
+            borderBottomColor: '#E7E6E9',
+            padding: 4,
+          }}>
+          {imgData && (
+            <FlatList
+              data={imgData}
+              nestedScrollEnabled
+              renderItem={renderItem}
+              ListFooterComponent={renderFooter}
+              horizontal
+            />
+          )}
+          <CText style={Style.ProfileName}>{name}</CText>
           <View
-            style={{
-              paddingHorizontal: 10,
-              paddingBottom: 20,
-              borderBottomWidth: 1,
-              borderBottomColor: '#E7E6E9',
-              padding: 4,
-            }}>
-            {imgData && (
-              <FlatList
-                data={imgData}
-                nestedScrollEnabled
-                renderItem={renderItem}
-                ListFooterComponent={renderFooter}
-                horizontal
+            style={[
+              GlobalStyle.row,
+              {alignItems: 'center', marginVertical: 5},
+            ]}>
+            <View style={[GlobalStyle.row, {width: '45%'}]}>
+              <ProgressiveImage
+                source={CallColoured}
+                resizeMode="contain"
+                style={{width: 12, height: 12}}
               />
-            )}
-            <CText style={Style.ProfileName}>{name}</CText>
-            <View
-              style={[
-                GlobalStyle.row,
-                {alignItems: 'center', marginVertical: 5},
-              ]}>
-              <View style={[GlobalStyle.row, {width: '45%'}]}>
-                <ProgressiveImage
-                  source={CallColoured}
-                  resizeMode="contain"
-                  style={{width: 12, height: 12}}
-                />
-                <CText style={GlobalStyle.contact}>{phone}</CText>
-              </View>
-
-              {!mapView && (
-                <View
-                  style={[
-                    GlobalStyle.row,
-                    {width: '45%', alignItems: 'center'},
-                  ]}>
-                  <ProgressiveImage
-                    source={rateIcon}
-                    resizeMode="contain"
-                    style={{width: 12, height: 12}}
-                  />
-                  <CText style={[GlobalStyle.contact]}>Rate :</CText>
-                  <CText style={[Style.place, {flex: 1, marginLeft: -30}]}>
-                    {'$ ' + ratePrize}
-                  </CText>
-                </View>
-              )}
+              <CText style={GlobalStyle.contact}>{phone}</CText>
             </View>
-            {mapView && (
+
+            {!mapView && (
               <View
                 style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
                 <ProgressiveImage
@@ -200,107 +163,122 @@ const dispatch = useDispatch()
                   style={{width: 12, height: 12}}
                 />
                 <CText style={[GlobalStyle.contact]}>Rate :</CText>
-                <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
+                <CText style={[Style.place, {flex: 1, marginLeft: -30}]}>
                   {'$ ' + ratePrize}
                 </CText>
               </View>
             )}
-
+          </View>
+          {mapView && (
             <View
-              style={[
-                GlobalStyle.row,
-                {alignItems: 'center', marginVertical: 5},
-              ]}>
+              style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
               <ProgressiveImage
-                source={LocationColored}
+                source={rateIcon}
                 resizeMode="contain"
                 style={{width: 12, height: 12}}
               />
-              <CText numberOfLines={1} style={GlobalStyle.contact}>
-                {address}
+              <CText style={[GlobalStyle.contact]}>Rate :</CText>
+              <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
+                {'$ ' + ratePrize}
               </CText>
             </View>
+          )}
+
+          <View
+            style={[
+              GlobalStyle.row,
+              {alignItems: 'center', marginVertical: 5},
+            ]}>
+            <ProgressiveImage
+              source={LocationColored}
+              resizeMode="contain"
+              style={{width: 12, height: 12}}
+            />
+            <CText numberOfLines={1} style={GlobalStyle.contact}>
+              {address}
+            </CText>
+          </View>
+          <View
+            style={[
+              GlobalStyle.row,
+              {alignItems: 'center', marginVertical: 4},
+            ]}>
             <View
-              style={[
-                GlobalStyle.row,
-                {alignItems: 'center', marginVertical: 4},
-              ]}>
-              <View
-                style={[GlobalStyle.row, {width: '55%', alignItems: 'center'}]}>
-                <ProgressiveImage
-                  source={bookingIcon}
-                  resizeMode="contain"
-                  style={{width: 11, height: 11}}
-                />
-                <CText style={[GlobalStyle.contact]}>Type :</CText>
-                <CText style={[Style.place, {flex: 1, marginLeft: -10}]}>
-                  Car Parking
-                </CText>
-              </View>
+              style={[GlobalStyle.row, {width: '55%', alignItems: 'center'}]}>
+              <ProgressiveImage
+                source={bookingIcon}
+                resizeMode="contain"
+                style={{width: 11, height: 11}}
+              />
+              <CText style={[GlobalStyle.contact]}>Type :</CText>
+              <CText style={[Style.place, {flex: 1, marginLeft: -10}]}>
+                Car Parking
+              </CText>
             </View>
           </View>
-          {!mapView && (
+        </View>
+        {!mapView && (
             <>
             
-            <View
-              style={[
-                GlobalStyle.row,
-                {marginHorizontal: 10, marginVertical: 7},
-              ]}>
-              <>
+          <View
+            style={[
+              GlobalStyle.row,
+              {marginHorizontal: 10, marginVertical: 7},
+            ]}>
+            <>
                 {!isCustomer ? (
-                  <ToggleSwitch
+                <ToggleSwitch
                   disabled={toggleState}
-                    size={'true'}
+                  size={'true'}
                     isOn={toggleState}
-                    label="Available"
+                  label="Available"
                     onPress={handleToggle}
+                />
+              ) : (
+                <>
+                  <Rating
+                    type="star"
+                    isDisabled={true}
+                    selectedColor="yellow"
+                    ratingCount={1}
+                    count={1}
+                    minValue={1}
+                    defaultRating={5}
+                    imageSize={20}
+                    // showRating
+                    // onFinishRating={this.ratingCompleted}
                   />
-                ) : (
-                  <>
-                    <Rating
-                      type="star"
-                      isDisabled={true}
-                      selectedColor="yellow"
-                      ratingCount={1}
-                      count={1}
-                      minValue={1}
-                      defaultRating={5}
-                      imageSize={20}
-                      // showRating
-                      // onFinishRating={this.ratingCompleted}
-                    />
-                    <CText style={[GlobalStyle.contact]}>4.0</CText>
-                  </>
-                )}
-              </>
-              <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
-                <ProgressiveImage
+                  <CText style={[GlobalStyle.contact]}>4.0</CText>
+                </>
+              )}
+            </>
+            <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
+              <ProgressiveImage
                   source={paidStaff ? plugIcon : FplugIcon}
-                  resizeMode="contain"
-                  style={{width: 17, height: 17, marginLeft: 7}}
-                />
-                <ProgressiveImage
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+              <ProgressiveImage
                   source={paidSecurity ? lengthIcon : FlengthIcon}
-                  resizeMode="contain"
-                  style={{width: 17, height: 17, marginLeft: 7}}
-                />
-                <ProgressiveImage
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+              <ProgressiveImage
                   source={ownerSite ? docIcon : FdocIcon}
-                  resizeMode="contain"
-                  style={{width: 17, height: 17, marginLeft: 7}}
-                />
-                <ProgressiveImage
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
+              <ProgressiveImage
                   source={fuel ? fuelIcon : FfuelIcon}
-                  resizeMode="contain"
-                  style={{width: 17, height: 17, marginLeft: 7}}
-                />
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
 
-                <ProgressiveImage
-                  source={threeDots}
-                  resizeMode="contain"
-                  style={{width: 17, height: 17, marginLeft: 7}}
-                />
+              <ProgressiveImage
+                source={threeDots}
+                resizeMode="contain"
+                style={{width: 17, height: 17, marginLeft: 7}}
+              />
                 
               </View>
               
@@ -308,11 +286,11 @@ const dispatch = useDispatch()
             
             </>
 
-          )}
+        )}
           
-        </View>
+      </View>
 
-      </TouchableOpacity>
+    </TouchableOpacity>
     </>
   );
 };

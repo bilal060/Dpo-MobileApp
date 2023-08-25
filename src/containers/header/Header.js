@@ -34,8 +34,8 @@ const Header = props => {
     showCart = false,
     hideBackButton = true,
     backButtonIcon = true,
-      showCenterLogo,
-      headerTitleStyle,
+    showCenterLogo,
+    headerTitleStyle,
     goBackWithRoute,
     headerTransparentStyle,
     bgHeadeStyle,
@@ -43,8 +43,6 @@ const Header = props => {
     centerImage,
     headerRightImg,
     rightPress,
-    headerRightText,
-    rightTextPress
   } = props;
   const navigation = useNavigation();
   const reduxState = useSelector(({auth, language}) => {
@@ -185,12 +183,12 @@ const Header = props => {
                 </CText>
               )}
 
-              {headerRight ? rightButton()   : headerRightText &&  rightText()  }
+              {headerRight && rightButton()}
             </View>
             <View>{showCenterLogo && centerLogo()}</View>
           </>
         ) : (
-          <> 
+          <>
             {/* <View style={[GlobalStyle.row, styles.headerView]}>
               <CInput
                 placeholder={'Sort By'}

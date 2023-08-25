@@ -1,13 +1,7 @@
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import {Alert, View} from 'react-native';
-import {
-  CButton,
-  CInput,
-  CText,
-  CToggleSwitch,
-  ProgressiveImage,
-} from '../../../../components';
+import {CButton, CInput, CText, CToggleSwitch, ProgressiveImage} from '../../../../components';
 import Styles from './NewSpace.style';
 import {themes} from '../../../../theme/colors';
 import {
@@ -91,7 +85,8 @@ function Storage(props) {
   const rWeek = useRef(null);
 
   const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data);
+    setMapAdreess(data)
+
   };
 
   return (
@@ -142,11 +137,11 @@ function Storage(props) {
                   style={{width: 20, height: 20}}
                 />
                 <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || 'Select Your Adreess'}
+                  placeholder={mapAdreess || "Select Your Adreess"}
                   debounce={100}
                   listViewDisplayed={true}
                   minLength={2}
-                  autoFocus={true}
+                  autoFocus={true}            
                   returnKeyType={'default'}
                   fetchDetails={true}
                   onPress={(data, details) => {
@@ -156,9 +151,9 @@ function Storage(props) {
                     handlePlaceSelection(place);
                   }}
                   renderRow={(rowData, details) => (
-                    <TouchableOpacity
-                      onPress={() => handlePlaceSelection(rowData.description)}>
+                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
                       <CText
+                        
                         style={Styles.suggestionText}
                         // onPress={() => console.log('1', 1)}
                       >
@@ -304,7 +299,7 @@ function Storage(props) {
                 error={errors.fuel}
                 sec
                 type="view"
-                leftIconNAme={FuelIcon} 
+                leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
@@ -321,7 +316,7 @@ function Storage(props) {
                 type="view"
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => {}} 
+                onSubmitEditing={() => {}}
               /> */}
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
@@ -398,14 +393,14 @@ function Storage(props) {
                 </View>
               </TouchableOpacity>
               {selectedFile?.name && (
-                <CText
-                  style={[
-                    Styles.uploadText,
-                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                  ]}>
-                  {selectedFile?.name}
-                </CText>
-              )}
+                  <CText
+                    style={[
+                      Styles.uploadText,
+                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                    ]}>
+                    {selectedFile?.name}
+                  </CText>
+                )}
 
               <CButton
                 title={'Cancel'}

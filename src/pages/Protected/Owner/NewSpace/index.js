@@ -120,7 +120,6 @@ const NewSpace = ({navigation}) => {
 
   const [cctcModalIsOpen, updateCctvModalIsOpen] = useState(false);
   const [selectedCCtv, updateSelectedCctv] = useState('');
-  console.log("🚀 ~ file: index.js:123 ~ NewSpace ~ selectedCCtv:", selectedCCtv)
 
   const toggleCctvModal = () => {
     updateCctvModalIsOpen(!cctcModalIsOpen);
@@ -132,8 +131,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const [securityModalIsOpen, updateSecurityModalIsOpen] = useState(false);
-  const [selectedSecurity, updateSelectedSecurity] = useState(false);
-  console.log("🚀 ~ file: index.js:136 ~ NewSpace ~ selectedSecurity:", selectedSecurity)
+  const [selectedSecurity, updateSelectedSecurity] = useState('');
 
   const toggleSecurityModal = () => {
     updateSecurityModalIsOpen(!securityModalIsOpen);
@@ -145,8 +143,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const [fuelModalIsOpen, updateFuelModalIsOpen] = useState(false);
-  const [selectedFuel, updateSelectedFuel] = useState(false);
-  console.log("🚀 ~ file: index.js:149 ~ NewSpace ~ selectedFuel:", selectedFuel)
+  const [selectedFuel, updateSelectedFuel] = useState('');
 
   const toggleFuelModal = () => {
     updateFuelModalIsOpen(!fuelModalIsOpen);
@@ -158,8 +155,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const [staffModalIsOpen, updateStaffModalIsOpen] = useState(false);
-  const [selectedStaff, updateSelectedStaff] = useState(false);
-  console.log("🚀 ~ file: index.js:162 ~ NewSpace ~ selectedStaff:", selectedStaff)
+  const [selectedStaff, updateSelectedStaff] = useState('');
 
   const toggleStaffModal = () => {
     updateStaffModalIsOpen(!staffModalIsOpen);
@@ -171,8 +167,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const [climateModalIsOpen, updateClimateModalIsOpen] = useState(false);
-  const [selectedClimate, updateSelectedClimate] = useState(false);
-  console.log("🚀 ~ file: index.js:175 ~ NewSpace ~ selectedClimate:", selectedClimate)
+  const [selectedClimate, updateSelectedClimate] = useState('');
 
   const toggleClimateModal = () => {
     updateClimateModalIsOpen(!climateModalIsOpen);
@@ -207,9 +202,6 @@ const NewSpace = ({navigation}) => {
     );
   };
 
-
-
-
   const onDocumentPress = async () => {
     try {
       const res = await DocumentPicker.pick({
@@ -236,6 +228,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const submit = async values => {
+
     navigation.navigate('NewSpace');
     const formData = new FormData();
     formData.append('userId', reduxState?.userId);
@@ -277,24 +270,24 @@ const NewSpace = ({navigation}) => {
     if (value === 'Truck Parking') {
       return (
         <TruckParking
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-        selectedCCtv={selectedCCtv}
-        toggleCctvModal={toggleCctvModal}
-        selectedFuel={selectedFuel}
-        toggleFuelModal={toggleFuelModal}
-        mapAdreess={mapAdreess}
-        setMapAdreess={setMapAdreess}
-        selectedClimate={selectedClimate}
-        toggleClimateModal={toggleClimateModal}
-        selectedSecurity={selectedSecurity}
-        toggleSecurityModal={toggleSecurityModal}
-        selectedStaff={selectedStaff}
-        toggleStaffModal={toggleStaffModal}
-        onDocumentPress={onDocumentPress}
-        selectedFile={selectedFile}
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          selectedCCtv={selectedCCtv}
+          toggleCctvModal={toggleCctvModal}
+          selectedFuel={selectedFuel}
+          toggleFuelModal={toggleFuelModal}
+          mapAdreess={mapAdreess}
+          setMapAdreess={setMapAdreess}
+          selectedClimate={selectedClimate}
+          toggleClimateModal={toggleClimateModal}
+          selectedSecurity={selectedSecurity}
+          toggleSecurityModal={toggleSecurityModal}
+          selectedStaff={selectedStaff}
+          toggleStaffModal={toggleStaffModal}
+          onDocumentPress={onDocumentPress}
+          selectedFile={selectedFile}
         updateSelectedClimate={updateSelectedClimate}
         updateSelectedFuel={updateSelectedFuel}
         updateSelectedSecurity={updateSelectedSecurity}
@@ -305,24 +298,24 @@ const NewSpace = ({navigation}) => {
     } else if (value === 'Car Parking') {
       return (
         <CarParking
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-        selectedCCtv={selectedCCtv}
-        toggleCctvModal={toggleCctvModal}
-        selectedFuel={selectedFuel}
-        toggleFuelModal={toggleFuelModal}
-        mapAdreess={mapAdreess}
-        setMapAdreess={setMapAdreess}
-        selectedClimate={selectedClimate}
-        toggleClimateModal={toggleClimateModal}
-        selectedSecurity={selectedSecurity}
-        toggleSecurityModal={toggleSecurityModal}
-        selectedStaff={selectedStaff}
-        toggleStaffModal={toggleStaffModal}
-        onDocumentPress={onDocumentPress}
-        selectedFile={selectedFile}
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          selectedCCtv={selectedCCtv}
+          toggleCctvModal={toggleCctvModal}
+          selectedFuel={selectedFuel}
+          toggleFuelModal={toggleFuelModal}
+          mapAdreess={mapAdreess}
+          setMapAdreess={setMapAdreess}
+          selectedClimate={selectedClimate}
+          toggleClimateModal={toggleClimateModal}
+          selectedSecurity={selectedSecurity}
+          toggleSecurityModal={toggleSecurityModal}
+          selectedStaff={selectedStaff}
+          toggleStaffModal={toggleStaffModal}
+          onDocumentPress={onDocumentPress}
+          selectedFile={selectedFile}
         updateSelectedClimate={updateSelectedClimate}
         updateSelectedFuel={updateSelectedFuel}
         updateSelectedSecurity={updateSelectedSecurity}
@@ -333,24 +326,24 @@ const NewSpace = ({navigation}) => {
     } else if (value === 'Warehouse') {
       return (
         <WareHouse
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-        selectedCCtv={selectedCCtv}
-        toggleCctvModal={toggleCctvModal}
-        selectedFuel={selectedFuel}
-        toggleFuelModal={toggleFuelModal}
-        mapAdreess={mapAdreess}
-        setMapAdreess={setMapAdreess}
-        selectedClimate={selectedClimate}
-        toggleClimateModal={toggleClimateModal}
-        selectedSecurity={selectedSecurity}
-        toggleSecurityModal={toggleSecurityModal}
-        selectedStaff={selectedStaff}
-        toggleStaffModal={toggleStaffModal}
-        onDocumentPress={onDocumentPress}
-        selectedFile={selectedFile}
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          selectedCCtv={selectedCCtv}
+          toggleCctvModal={toggleCctvModal}
+          selectedFuel={selectedFuel}
+          toggleFuelModal={toggleFuelModal}
+          mapAdreess={mapAdreess}
+          setMapAdreess={setMapAdreess}
+          selectedClimate={selectedClimate}
+          toggleClimateModal={toggleClimateModal}
+          selectedSecurity={selectedSecurity}
+          toggleSecurityModal={toggleSecurityModal}
+          selectedStaff={selectedStaff}
+          toggleStaffModal={toggleStaffModal}
+          onDocumentPress={onDocumentPress}
+          selectedFile={selectedFile}
         updateSelectedClimate={updateSelectedClimate}
         updateSelectedFuel={updateSelectedFuel}
         updateSelectedSecurity={updateSelectedSecurity}
@@ -416,7 +409,7 @@ const NewSpace = ({navigation}) => {
         </View>
         {renderForm(selectValue?.name)}
 
-        <Modal 
+        <Modal
           transparent={true}
           visible={countryModalIsOpen}
           onRequestClose={() => toggleCountryModal()}>

@@ -138,7 +138,7 @@ const Managers = ({navigation}) => {
             leftIconNAme={CNameIcon}
             returnKeyType="next"
           />
-          
+           
          
           <CList
             style={Styles.spacelist}

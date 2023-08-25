@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../../../theme/colors';
 const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
     flexGrow: 1,
-    flex:1,
+    flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
     // backgroundColor: theme['light'].colors.tertiaryBackground,
@@ -24,9 +25,8 @@ export default StyleSheet.create({
     width: width * 0.7,
     marginTop: 10,
     borderRadius: 50,
-    borderWidth:0.5,
+    borderWidth: 0.5,
     // backgroundColor: theme['light'].colors.tertiaryBackground,
-
   },
   mainHeading: {
     color: theme.light.colors.iconColor,
@@ -64,6 +64,7 @@ export default StyleSheet.create({
     // marginHorizontal:10,
     marginVertical: 10,
     flexDirection: 'row',
+    // backgroundColor: 'red',
     // marginLeft: -10,
   },
   menu: {
@@ -103,29 +104,29 @@ export default StyleSheet.create({
   icon: {
     width: 45,
     height: 45,
-    alignSelf:"center"
+    alignSelf: 'center',
     // justifyContent:"center",
 
     // alignItems:"center"
   },
-  iconView:{
-    marginHorizontal:10,
+  iconView: {
+    marginHorizontal: 10,
     // marginVertical:10,
-    width:62,
-    height:100,
-    alignSelf:"center",
-    alignContent:"center"
+    width: 62,
+    height: 100,
+    //backgroundColor: 'red',
+    alignSelf: 'center',
+    alignContent: 'center',
     // width:'10%'
 
     // justifyContent:"center",
-
   },
-  iconTitle:{
+  iconTitle: {
     color: theme.light.colors.dark,
     fontSize: 13,
     fontFamily: theme.font.semiBold,
     fontWeight: '400',
     // width:'80%',
-    textAlign:"center"
-  }
+    textAlign: 'center',
+  },
 });

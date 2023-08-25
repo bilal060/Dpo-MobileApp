@@ -55,4 +55,5 @@ export {
     CCalender,
     TruckCard,
     SkeletonLoader
+
 }

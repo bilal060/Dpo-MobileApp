@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {TabBar} from '../containers';
-import HomeStack from './Stacks/HomeStack';
 import {
   AddCard,
   AddNewManager,
@@ -25,9 +23,6 @@ import {
   MyVechiles,
   NewSpace,
 } from '../pages/Protected/Owner';
-import ChatStack from './Stacks/Chat';
-import ProfileStack from './Stacks/MyProfile';
-import SpaceStack from './Stacks/SpaceStack';
 import {customerRoutes, truckDriverRoutes} from '../utils/constant';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
@@ -47,37 +42,28 @@ const Stack = createStackNavigator();
 const Root = ({initial}) => {
   const TruckDriverStack = () => {
     return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
+      <>
         <Stack.Screen name="Booking" component={AllBooking} />
         <Stack.Screen name="Profile" component={MyProfile} />
-      </Stack.Navigator>
+      </>
     );
   };
 
   const StorageOwnerStack = () => {
     return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
+      <>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Profile" component={MyProfile} />
-      </Stack.Navigator>
+        {/* <Stack.Screen name="Profile" component={MyProfile} /> */}
+      </>
     );
   };
 
   const CustomerStack = () => {
     return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
+      <>
         <Stack.Screen name="Explore" component={ExploreScreen} />
-        <Stack.Screen name="Profile" component={MyProfile} />
-      </Stack.Navigator>
+        {/* <Stack.Screen name="Profile" component={MyProfile} /> */}
+      </>
     );
   };
 
@@ -90,14 +76,18 @@ const Root = ({initial}) => {
 
   const getScreen = () => {
     if (reduxState?.userRole === 'Storage Owner') {
-      return <StorageOwnerStack />;
+      return <ExploreScreen />;
     } else if (reduxState?.userRole === 'Customer') {
-      return <CustomerStack />;
+      return <ExploreScreen />;
     } else if (reduxState?.userRole === 'Truck Driver') {
-      return <TruckDriverStack />;
+      return <AllBooking />;
+    } else {
+      <ExploreScreen />
     }
     // return <TruckDriverStack />;
   };
+
+  
 
   return (
     <Stack.Navigator

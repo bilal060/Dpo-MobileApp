@@ -83,7 +83,6 @@ function Container(props) {
           
           {scrollView ? (
             <ScrollView
-             
               {...scrollViewProps}
               nestedScrollEnabled
               scrollEventThrottle={16}>
@@ -93,7 +92,7 @@ function Container(props) {
             
             children
           )}
-       {/* { reduxState?.isLoggedin && !messagesScreen &&  renderBottomBar()}0 */}
+       { reduxState?.isLoggedin && !messagesScreen &&  renderBottomBar()}
 
 
         </View>

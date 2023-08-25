@@ -92,7 +92,7 @@ const SpaceDetails = ({navigation, route}) => {
   ];
   const renderItem = ({item}) => {
     return (
-      <SpaceCard item={item} mainContainer={Styles.mainContainer} imgData={listData} />
+      <SpaceCard mainContainer={Styles.mainContainer} imgData={listData} />
     );
   };
   const reverseSlot = () => {
@@ -126,6 +126,7 @@ const SpaceDetails = ({navigation, route}) => {
     // };
     // dispatch(createBooking(payload, handleBack));
   };
+  console.log(item);
   const handleBack = res => {
     navigation.navigate('AddVechile');
   };
@@ -256,15 +257,11 @@ const SpaceDetails = ({navigation, route}) => {
           name={item?.description}
           phone={item?.contact}
           ratePrize={item?.rate_day}
-          address={item?.location?.address || item?.address}
+          address={item?.address}
           img={`${BASE_URL_IMG}${item?.images?.[0]}`}
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
           isCustomer={isCustomer}
-        item={item}
-        onToggle={handleToggle}
-
-
         />
         {isCustomer ? (
           <View style={Styles.reverseSlot}>

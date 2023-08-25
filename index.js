@@ -21,7 +21,8 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 // import { DeepLinking } from 'react-native-deep-linking';
 
 
-LogBox.ignoreAllLogs();
+LogBox.ignoreLogs(['Warning: ...']); 
+console.disableYellowBox = true;
 interceptor()
 
 const theme = {
@@ -41,7 +42,6 @@ const handleDeepLink = ({ url }) => {
   
   // Register a listener for deep links
   Linking.addEventListener('url', handleDeepLink);
-  
   
   // Handle initial deep link when the app is opened with a deep link URL
   Linking.getInitialURL().then((url) => {
@@ -70,6 +70,7 @@ function dpoApp() {
       }, [])
 
     return (
+        
         <Provider store={store} >
             <StatusBar
                 backgroundColor="transparent"

@@ -1,13 +1,7 @@
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import {Alert, View} from 'react-native';
-import {
-  CButton,
-  CInput,
-  CText,
-  CToggleSwitch,
-  ProgressiveImage,
-} from '../../../../components';
+import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
 import Styles from './NewSpace.style';
 import {themes} from '../../../../theme/colors';
 import {
@@ -37,7 +31,6 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import ToggleSwitch from '../../../../components/cToggleSwitch/CToggleSwitch';
 
 function WareHouse(props) {
-  
   const {
     submit,
     loading,
@@ -92,7 +85,7 @@ function WareHouse(props) {
   const rWeek = useRef(null);
 
   const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data);
+    setMapAdreess(data)
   };
 
   return (
@@ -143,11 +136,12 @@ function WareHouse(props) {
                   style={{width: 20, height: 20}}
                 />
                 <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || 'Select Your Adreess'}
+                  placeholder={mapAdreess || "Select Your Adreess"}
                   debounce={100}
                   listViewDisplayed={true}
                   minLength={2}
                   autoFocus={true}
+                  
                   returnKeyType={'default'}
                   fetchDetails={true}
                   onPress={(data, details) => {
@@ -157,9 +151,9 @@ function WareHouse(props) {
                     handlePlaceSelection(place);
                   }}
                   renderRow={(rowData, details) => (
-                    <TouchableOpacity
-                      onPress={() => handlePlaceSelection(rowData.description)}>
+                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
                       <CText
+                        
                         style={Styles.suggestionText}
                         // onPress={() => console.log('1', 1)}
                       >
@@ -305,7 +299,7 @@ function WareHouse(props) {
                 error={errors.fuel}
                 sec
                 type="view"
-                leftIconNAme={FuelIcon} 
+                leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
@@ -322,7 +316,7 @@ function WareHouse(props) {
                 type="view"
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => {}} 
+                onSubmitEditing={() => {}}
               /> */}
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
@@ -383,9 +377,7 @@ function WareHouse(props) {
 
               <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <TouchableOpacity
-                onPress={onDocumentPress}
-                style={Styles.selectFileView}>
+              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
                 <View style={{width: 40}}>
                   <ProgressiveImage
@@ -397,16 +389,17 @@ function WareHouse(props) {
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
+                
               </TouchableOpacity>
               {selectedFile?.name && (
-                <CText
-                  style={[
-                    Styles.uploadText,
-                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                  ]}>
-                  {selectedFile?.name}
-                </CText>
-              )}
+                  <CText
+                    style={[
+                      Styles.uploadText,
+                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                    ]}>
+                    {selectedFile?.name}
+                  </CText>
+                )}
 
               <CButton
                 title={'Cancel'}

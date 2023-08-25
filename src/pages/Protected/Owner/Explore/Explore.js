@@ -35,8 +35,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {BASE_URL_IMG} from '../../../../config/webservices';
 import {get_all_category} from '../../../../redux/actions/Root.Action';
+import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import { PayAsYouDriveSkeleton } from '../../../../skeleton';
 
 const Explore = ({}) => {
   const navigation = useNavigation();
@@ -75,21 +75,22 @@ const Explore = ({}) => {
       title: 'Car Parking',
     },
     {
-      img: Inventory,
-      title: 'Temporary Storage',
+      img: Warehouse,
+      title: 'Warehouse',
     },
+    // {
+    //   img: Inventory,
+    //   title: 'Temporary Storage',
+    // },
     {
       img: Inventory,
       title: 'Storage Unit',
     },
-    {
-      img: Warehouse,
-      title: 'Warehouse',
-    },
-    {
-      img: Carrier,
-      title: 'Container Storage',
-    },
+
+    // {
+    //   img: Carrier,
+    //   title: 'Container Storage',
+    // },
     {
       img: Wrench,
       title: 'Mechanic',
@@ -159,6 +160,7 @@ const Explore = ({}) => {
         img: match ? match.img : '',
       };
     });
+    console.log(combinedArray);
     setCategories(combinedArray);
   };
   return (
@@ -254,7 +256,7 @@ const Explore = ({}) => {
                   width={150}
                   height={20}
                   borderRadius={4}
-                  marginTop={10} 
+                  marginTop={10}
                 />  
                 <SkeletonPlaceholder.Item
                   width={100}
@@ -265,7 +267,7 @@ const Explore = ({}) => {
                 {/* Add more skeleton items as needed */}
         {/* </SkeletonPlaceholder>
             </View> */}
-          {/* }> */}
+        {/* }> */}
           {/* <SkeletonPlaceholderComponent layout={PayAsYouDriveSkeleton} > */}
 
           <CList
@@ -308,4 +310,3 @@ const Explore = ({}) => {
 export default Explore;
 
 const styles = StyleSheet.create({});
- 

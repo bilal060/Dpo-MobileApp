@@ -74,7 +74,7 @@ function EditProfile({route}) {
         contentContainerStyle: AuthStyle.container,
       }}>
       <View
-        style={{   
+        style={{
           alignItems: 'center',
           marginTop: 20,
         }}>
