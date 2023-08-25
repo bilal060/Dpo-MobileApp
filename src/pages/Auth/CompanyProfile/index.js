@@ -59,8 +59,6 @@ function CompanyProfile({route}) {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Sing in',
-    headerRightText:'Skip',
-    rightTextPress:()=> navigation.navigate('Login')
     // showCenterLogo: RegisterImg
   };
 

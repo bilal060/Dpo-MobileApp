@@ -291,7 +291,7 @@ const Explore = ({}) => {
         <CList
           style={Styles.list}
           //   horizontal
-          numColumns={4}
+          numColumns={3}
           data={categories}
           // loading={reduxState.loading}
           renderItem={renderItem}

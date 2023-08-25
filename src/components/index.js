@@ -23,7 +23,6 @@ import BookingCard from "./BookingCard/BookingCard";
 import TruckCard from './truckCard/TruckCard'
 import CCalender from './cCalender/CCalender'
 
-import SkeletonLoader from './SkeletonLoader/index'
 
 
 
@@ -54,6 +53,5 @@ export {
     BookingCard,
     CCalender,
     TruckCard,
-    SkeletonLoader
 
 }

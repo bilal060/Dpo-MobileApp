@@ -109,7 +109,6 @@ export default class ToggleSwitch extends React.Component {
       labelStyle,
       label,
       icon,
-      conatinerStyles
     } = this.props;
 
     let toValue;
@@ -132,7 +131,7 @@ export default class ToggleSwitch extends React.Component {
     // };
 
     return (
-      <View style={[styles.container , conatinerStyles]} {...this.props}>
+      <View style={styles.container} {...this.props}>
         <TouchableOpacity
           style={this.createToggleSwitchStyle()}
           activeOpacity={0.8}
@@ -143,7 +142,7 @@ export default class ToggleSwitch extends React.Component {
         </TouchableOpacity>
         {label ? (
           <CText
-            style={[GlobalStyle.inputLabel,  styles.labelStyle , labelStyle,]}>
+            style={[GlobalStyle.inputLabel, labelStyle, styles.labelStyle]}>
             {label}
           </CText>
         ) : null}

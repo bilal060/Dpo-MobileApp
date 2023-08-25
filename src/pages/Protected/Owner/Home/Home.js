@@ -1,3 +1,5 @@
+
+
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,12 +24,11 @@ import {
   get_ownerBooking,
 } from '../../../../redux/actions/Root.Action';
 import {reduxStateSelector} from '../../../../utils/selector';
-import {BASE_URL_IMG} from '../../../../config/webservices';
+import { BASE_URL_IMG } from '../../../../config/webservices';
 import moment from 'moment';
 import {Calendar} from 'react-native-calendars';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
-import { SkeletonLoader } from '../../../../components/SkeletonLoader';
 import { BookingListCard, ChartListCard, ListCard, SpaceListCard } from '../../../../skeleton';
 
 const width = Dimensions.get('screen').width;
@@ -43,29 +44,32 @@ const Home = ({}) => {
 
 
 
+  console.log('🚀 ~ file: Home.js:35 ~ Home ~ spaces:', spaces);
+  // const reduxState = useSelector(({auth, language, root}) => {
+  //   console.log('🚀 ~ file: Home.js:260 ~ reduxState ~ auth:', auth);
+  //   return {
+  //     spaces: root?.userSpaces,
+  //     userRole: auth?.user?.role,
+  //     loading: root?.userSpacesLoading,
+  //     userId: auth?.user?._id,
+  //   };
+  // });
   const {auth, root} = useSelector(reduxStateSelector);
   const {_id} = auth?.user || {};
   const {userSpaces, userSpacesLoading} = root || {};
 
-  useEffect(async() => {
-    console.log('1', 1);
-    setisLoading(true)
-
-  // await  dispatch(getSpacsss(_id, callBack));
-
-  // await  dispatch(get_ownerBooking(_id, handleBookingCallBack));
-
-  setisLoading(false)
-
+  useEffect(() => {
+    dispatch(getSpacsss(_id, callBack));
+    dispatch(get_ownerBooking(_id, handleBookingCallBack));
     // dispatch(getAllBooking);
-  }, [isFocused]);
+  }, []);
 
   const callBack = res => {
-    console.log('🚀 ~ file: Home.js:276 ~ callBack ~ res:', res);
-    setSpaces(res);
+    console.log("🚀 ~ file: Home.js:276 ~ callBack ~ res:", res)
+    setSpaces(res?.spaces);
   };
   const handleBookingCallBack = res => {
-    setOwnerBooking(res?.bookings);
+    setOwnerBooking(res?.bookings)
     console.log('🚀 ~ file: Home.js:276 ~ handleBookingCallBack ~ res:', res);
   };
   const headerProps = {
@@ -77,39 +81,29 @@ const Home = ({}) => {
     headerRightImg: Profile,
     rightPress: () => navigation.navigate('Profile'),
   };
-  const handleToggle = (updatedCard) => {
-    const updatedData = spaces.map((card) =>
-      card._id === updatedCard._id ? updatedCard : card
-    );
-    setSpaces(updatedData);
-  };
-  
 
   const renderItem = ({item}) => {
-    console.log('🚀 ~ file: Home.js:74 ~ renderItem ~ item:', item);
-    const data = item?.images?.[0]?.replace(/\\/g, '/');
+    const data = item?.images?.[0]?.replace(/\\/g, "/");
+    console.log("🚀 ~ file: Home.js:76 ~ renderItem ~ data:", data , item?.images)
     return (
       <SpaceCard
         mainContainer={{
           width: spaces?.length > 1 ? width * 0.75 : width * 0.85,
           alignSelf: 'center',
         }}
-        item={item}
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.location?.address || item?.address}
+        address={item?.location?.address}
         img={`${BASE_URL_IMG}${data}`}
-        onToggle={handleToggle}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
       />
     );
   };
 
   const renderBooking = ({item}) => {
-    return (
-      <BookingCard
-        location={item?.spaceId?.location?.address}
+    return <BookingCard 
+    location={item?.spaceId?.location?.address}
         date={moment(item?.createdAt).format('LL')}
         contact={item?.userId?.phoneNo}
         fullName={item?.userId?.fullName}
@@ -117,8 +111,8 @@ const Home = ({}) => {
         prize={item.price}
         eTime={item?.to}
         sTime={item?.from}
-      />
-    );
+    
+    />;
   };
   const barData = [
     {value: 500, label: 'Jan', frontColor: '#177AD5'},
@@ -135,72 +129,13 @@ const Home = ({}) => {
     {value: 100, label: 'Dec', frontColor: '#177AD5'},
   ];
 
-  
-    // Dummy data for testing
-    const dummyData = {
-      "2023-08-01": {
-        "title": "100",
-        "description": "This is the first event on August 1st, 2023."
-      },
-      "2023-08-02": {
-        "title": "50",
-        "description": "This is the second event on August 2nd, 2023."
-      },
-      "2023-08-05": {
-        "title": "40",
-        "description": "This is the third event on August 5th, 2023."
-      },
-      "2023-08-15": {
-        "title": "20",
-        "description": "This is the fourth event on August 15th, 2023."
-      }
-    };
-
-    const [dataFromAPI, setDataFromAPI] = useState({}); // State to store data from the dummyData object
-
-  useEffect(() => {
-    // Simulate API call and set dummyData in the state when the component mounts
-    setDataFromAPI(dummyData);
-  }, []);
-
-  
-
-  const isWeekend = (date) => {
-    const day = new Date(date).getDay();
-    return day === 0 || day === 6;
-  };
-
-
-  const renderDay = ({date, state}) => {
-    // const isweek =  isWeekend(date.dateString) 
-    const dataForDay = dataFromAPI[date.dateString];
-
-    const textStyle = {
-      // Customize the text style based on whether it's a weekend or not
-      color: state === "disabled" ? "#AAAAAA" : isWeekend(date.dateString) ?   '#0064FA'  : state === 'today' ?"#FFF" : '#171D25',
-    };
-
-    const lengthStyles ={
-      color: state === "today" ? "#0064FA" :  '#FFF',
-      backgroundColor: state === "today" ? "#FFF" :  'rgba(0,100,250 ,0.6)',
-
-
-    }
-    return (
-      <View style={{width:42, height:60, paddingHorizontal:5,paddingHorizontal:0,  backgroundColor:state ==="disabled" ?  "#F4F4F4"  : state === 'today' ?"#0064FA" :  '#FFF' , }}>
-        <CText  style={[Styles.day , textStyle ]}>{date?.day}</CText>
-       {state !== "disabled"   &&  dataForDay &&   <CText  style={[Styles.totalLenght ,lengthStyles ]}>{dataForDay?.title}</CText>}
-
-      </View>
-    );
-  };
-
   return (
     <Container
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView>
+      scrollView
+      >
       <View style={Styles.container}>
         <CText style={Styles.mainHeading}>My Spaces</CText>
         <View style={GlobalStyle.row}>
@@ -212,13 +147,12 @@ const Home = ({}) => {
             <CText style={Styles.view}>View All</CText>
           </View>
         </View>
-      <SkeletonLoader layout={SpaceListCard} loading={isloading}>
-      <CList
+        <CList
           style={Styles.list}
           horizontal
           data={spaces}
           extraData={spaces}
-          // loading={  .loading}
+          // loading={reduxState.loading}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
@@ -226,8 +160,6 @@ const Home = ({}) => {
             text: 'Spaces not found',
           }}
         />
-       </SkeletonLoader>
-       
         <View
           style={[
             GlobalStyle.row,
@@ -237,21 +169,18 @@ const Home = ({}) => {
 
           <CText style={Styles.view}>View All</CText>
         </View>
-      <SkeletonLoader layout={BookingListCard} loading={isloading}>
-
         <CList
           style={Styles.list}
           data={ownerBooking}
           extraData={ownerBooking}
           // loading={reduxState.loading}
           renderItem={renderBooking}
-          keyExtractor={(item, index) => index.toString()} 
+          keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
             // icon: require('../../assets/images/empty.png'),
             text: 'Bookings not found',
           }}
         />
-        </SkeletonLoader >
         <View
           style={[
             GlobalStyle.row,
@@ -265,8 +194,6 @@ const Home = ({}) => {
             style={{width: 25, height: 25, marginTop: 10}}
           />
         </View>
-      <SkeletonLoader layout={ChartListCard} loading={true}>
-
         <View style={Styles.BarChart}>
           <BarChart
             width={330}
@@ -277,37 +204,32 @@ const Home = ({}) => {
             maxValue={1000}
             initialSpacing={3}
             // stepHeight={10}
-            // stepValue={6} 
+            // stepValue={6}
             // spacing={10}
-
             noOfSections={4}
             frontColor="lightgray"
             yAxisThickness={0}
             xAxisThickness={0}
           />
         </View>
-        </SkeletonLoader>
-      <SkeletonLoader layout={BookingListCard} loading={isloading}>
-
         <View style={Styles.Calender}>
-          <Calendar
-            style={
-              {
-                calendarWidth: 400
-                // backgroundColor:'red'
-                // borderWidth: 1,
-                // borderColor: 'gray',
-              }
-            }
-            initialDate={new Date()}
-            hideArrows={true}
-            
-            dayComponent={renderDay}
-            enableSwipeMonths={true}
+          <DatePicker
+            options={{
+              backgroundColor: '#FFFFF',
+              textHeaderColor: '#707070',
+              textDefaultColor: '#707070',
+              selectedTextColor: '#fff',
+              mainColor: '#0064FA',
+              textSecondaryColor: '#707070',
+              borderColor: 'rgba(122, 146, 165, 0.1)',
+            }}
+            current="2023-05-09"
+            selected="2023-05-09"
+            mode="calendar"
+            minuteInterval={30}
+            style={{borderRadius: 10}}
           />
-          
         </View>
-        </SkeletonLoader>
       </View>
     </Container>
   );

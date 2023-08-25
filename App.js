@@ -46,11 +46,7 @@ const App = () => {
 
   const renderRoot = () => {
 
-    // if (!reduxState?.isLoggedin) {
-    //   return <Auth />;
-    // } else {
-    //   return <TruckDriverRoot />;
-    // }
+    
   };
 
   return  reduxState?.isLoggedin ?  <Auth /> :  <TruckDriverRoot /> 

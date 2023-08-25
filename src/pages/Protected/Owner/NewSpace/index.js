@@ -228,7 +228,6 @@ const NewSpace = ({navigation}) => {
   };
 
   const submit = async values => {
-
     navigation.navigate('NewSpace');
     const formData = new FormData();
     formData.append('userId', reduxState?.userId);
@@ -372,11 +371,6 @@ const NewSpace = ({navigation}) => {
           toggleStaffModal={toggleStaffModal}
           onDocumentPress={onDocumentPress}
           selectedFile={selectedFile}
-          updateSelectedClimate={updateSelectedClimate}
-          updateSelectedFuel={updateSelectedFuel}
-          updateSelectedSecurity={updateSelectedSecurity}
-          updateSelectedCctv={updateSelectedCctv}
-          updateSelectedStaff={updateSelectedStaff}
         />
       );
     }

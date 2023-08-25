@@ -105,13 +105,6 @@ const MySpace = ({navigation, route}) => {
       /\\/g,
       '/',
     );
-    
-    const handleToggle = (updatedCard) => {
-      const updatedData = spaces.map((card) =>
-        card._id === updatedCard._id ? updatedCard : card
-      );
-      setSpaces(updatedData);
-    };
 
     return (
       <SpaceCard
@@ -141,8 +134,6 @@ const MySpace = ({navigation, route}) => {
         address={item?.address}
         img={convertedFilePath}
         mapView
-        item={item}
-
         imgStyles={{width: 100, height: '100%'}}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
         isCustomer={isCustomer}
@@ -179,10 +170,10 @@ const MySpace = ({navigation, route}) => {
     setSpaces(res);
   };
 
-  // useEffect(() => {
-  //   console.log('osamaa');
-  //   console.log(spaces[0]?.location?.coordinates);
-  // }, [spaces]);
+  useEffect(() => {
+    console.log('osamaa');
+    console.log(spaces[0]?.location?.coordinates);
+  }, [spaces]);
 
   return (
     <Container
@@ -343,7 +334,6 @@ const MySpace = ({navigation, route}) => {
                         </CText>
                       </View>
 
-
                       {/* <View style={{flexDirection: 'row'}}>
                           <CText numberOfLines={2} style={Styles.addCardText}}>
                             Address:
@@ -362,6 +352,7 @@ const MySpace = ({navigation, route}) => {
                   </Marker>
               );
             })}
+            </MapView>
             {/* {selectedPlace && (
                 <View style={{position: 'absolute', bottom: 20, left: 20 , backgroundColor:"red"}}>
                   {/* <Image
@@ -369,7 +360,7 @@ const MySpace = ({navigation, route}) => {
                     style={{width: 100, height: 100}}
                     source={selectedPlace?.image}
                   /> */}
-            </MapView>
+
             {/* <CList
               style={Styles.spacelist}
               // numColumns={2}
@@ -391,6 +382,7 @@ const MySpace = ({navigation, route}) => {
               // windowSize={10}
             /> */}
           </>
+        
         )}
       </View>
     </Container>

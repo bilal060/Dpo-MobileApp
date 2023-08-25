@@ -98,11 +98,15 @@ const Header = props => {
       </View>
     );
   };
-  const rightText = () => {
+  const menuButton = () => {
     return (
-      <TouchableOpacity onPress={rightTextPress} style={styles.rightTextView}>
-        <CText style={styles.rightText}>{headerRightText}</CText>
-      </TouchableOpacity>
+      <View>
+        <ProgressiveImage
+          style={styles.profileImage}
+          source={Profile}
+          resizeMode="contain"
+        />
+      </View>
     );
   };
   const cartButton = () => {
@@ -311,18 +315,4 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: theme['light'].colors.primary,
   },
-  rightTextView:{
-    flex:1,
-    justifyContent:"center",
-    marginTop:15,
-    marginRight:10
-  },
-  rightText:{
-    flex:1,
-    textAlign:'right',
-    fontSize: 15,
-    color: theme['light'].colors.primary,
-    fontFamily: theme.font.semiBold,
-
-  }
 });

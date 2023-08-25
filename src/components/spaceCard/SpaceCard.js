@@ -17,17 +17,11 @@ import {
   rateIcon,
   Camera,
   isCustomer,
-  FplugIcon,
-  FfuelIcon,
-  FdocIcon,
-  FlengthIcon,
 } from '../../assets/images';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
 import {BASE_URL_IMG} from '../../config/webservices';
 import {Rating, AirbnbRating} from 'react-native-ratings';
-import { useDispatch } from 'react-redux';
-import { change_availablity } from '../../redux/actions/Root.Action';
 
 const SpaceCard = ({
   name = 'Belmont, North Carolina',
@@ -40,11 +34,7 @@ const SpaceCard = ({
   img,
   mapView,
   imgStyles,
-  item,
-  onToggle 
 }) => {
-  const {paidSecurity, paidStaff, ownerSite, climateControl, fuel} = item;
-
   const renderItem = ({item}) => {
     return (
       <ProgressiveImage
