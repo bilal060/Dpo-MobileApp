@@ -7158,6 +7158,7 @@ redux-persist@^6.0.0:
   integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 redux-persist@5.6.12:
   version "5.6.12"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.6.12.tgz#7c65f7d9cdd04104507526ef02b30423c4b85743"
@@ -7167,12 +7168,19 @@ redux-thunk@^2.4.1, redux-thunk@^2.4.2:
 =======
 redux-thunk@^2.4.2:
 >>>>>>> 4ea9066a192386d5134205f0b2d95b85b33de50b
+=======
+redux-thunk@^2.4.2:
+>>>>>>> 4ea9066a192386d5134205f0b2d95b85b33de50b
   version "2.4.2"
   resolved "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.2.tgz"
   integrity sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 redux@^4.2.0, redux@^4.2.1:
+=======
+redux@^4.2.1:
+>>>>>>> 4ea9066a192386d5134205f0b2d95b85b33de50b
 =======
 redux@^4.2.1:
 >>>>>>> 4ea9066a192386d5134205f0b2d95b85b33de50b

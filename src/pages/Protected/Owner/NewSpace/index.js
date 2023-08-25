@@ -228,6 +228,7 @@ const NewSpace = ({navigation}) => {
   };
 
   const submit = async values => {
+    console.log('🚀 ~ file: index.js:195 ~ submit ~ values:', values);
     navigation.navigate('NewSpace');
     const formData = new FormData();
     formData.append('userId', reduxState?.userId);
