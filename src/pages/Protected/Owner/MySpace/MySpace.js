@@ -248,6 +248,15 @@ const MySpace = ({navigation, route}) => {
           />
         ) : (
           <>
+            <MapView
+              initialRegion={{
+                latitude: 24.8651,
+                longitude: 67.077643,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.05,
+              }}
+              minZoomLevel={5}
+              style={{flex: 1, height: 400}}>
             {spaces.map(item => {
               console.log('🚀 ~ file: MySpace.js:231 ~ MySpace ~ item:', item);
               var convertedFilePath2 =
@@ -257,15 +266,6 @@ const MySpace = ({navigation, route}) => {
                 convertedFilePath2,
               );
               return (
-                <MapView
-                  initialRegion={{
-                    latitude: item?.location?.coordinates?.[1],
-                    longitude: item?.location?.coordinates?.[0],
-                    latitudeDelta: 0.04,
-                    longitudeDelta: 0.05,
-                  }}
-                  minZoomLevel={5}
-                  style={{flex: 1, height: 400}}>
                   <Marker
                     onPress={evt => setSelectedPlace(item)}
                     calloutVisible={
@@ -350,9 +350,9 @@ const MySpace = ({navigation, route}) => {
                 /> */}
                     </Callout>
                   </Marker>
-                </MapView>
               );
             })}
+            </MapView>
             {/* {selectedPlace && (
                 <View style={{position: 'absolute', bottom: 20, left: 20 , backgroundColor:"red"}}>
                   {/* <Image
@@ -382,6 +382,7 @@ const MySpace = ({navigation, route}) => {
               // windowSize={10}
             /> */}
           </>
+        
         )}
       </View>
     </Container>

@@ -26,11 +26,23 @@ import {
 import {reduxStateSelector} from '../../../../utils/selector';
 import { BASE_URL_IMG } from '../../../../config/webservices';
 import moment from 'moment';
+import {Calendar} from 'react-native-calendars';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import SkeletonPlaceholderComponent from '../../../../components/SkeletonPlaceholder/SkeletonPlaceholder';
+import { BookingListCard, ChartListCard, ListCard, SpaceListCard } from '../../../../skeleton';
+
 const width = Dimensions.get('screen').width;
-const Home = ({navigation}) => {
+
+const Home = ({}) => {
   const dispatch = useDispatch();
   const [spaces, setSpaces] = useState([]);
   const [ownerBooking, setOwnerBooking] = useState([]);
+  const isFocused = useIsFocused();
+  const [isloading, setisLoading] = useState(false);
+  const navigation = useNavigation()
+  console.log("🚀 ~ file: Home.js:41 ~ Home ~ isloading:", isloading)
+
+
 
   console.log('🚀 ~ file: Home.js:35 ~ Home ~ spaces:', spaces);
   // const reduxState = useSelector(({auth, language, root}) => {

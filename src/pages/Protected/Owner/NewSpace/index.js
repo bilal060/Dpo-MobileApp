@@ -288,6 +288,11 @@ const NewSpace = ({navigation}) => {
           toggleStaffModal={toggleStaffModal}
           onDocumentPress={onDocumentPress}
           selectedFile={selectedFile}
+        updateSelectedClimate={updateSelectedClimate}
+        updateSelectedFuel={updateSelectedFuel}
+        updateSelectedSecurity={updateSelectedSecurity}
+        updateSelectedCctv={updateSelectedCctv}
+        updateSelectedStaff={updateSelectedStaff}
         />
       );
     } else if (value === 'Car Parking') {
@@ -311,6 +316,11 @@ const NewSpace = ({navigation}) => {
           toggleStaffModal={toggleStaffModal}
           onDocumentPress={onDocumentPress}
           selectedFile={selectedFile}
+        updateSelectedClimate={updateSelectedClimate}
+        updateSelectedFuel={updateSelectedFuel}
+        updateSelectedSecurity={updateSelectedSecurity}
+        updateSelectedCctv={updateSelectedCctv}
+        updateSelectedStaff={updateSelectedStaff}
         />
       );
     } else if (value === 'Warehouse') {
@@ -334,6 +344,11 @@ const NewSpace = ({navigation}) => {
           toggleStaffModal={toggleStaffModal}
           onDocumentPress={onDocumentPress}
           selectedFile={selectedFile}
+        updateSelectedClimate={updateSelectedClimate}
+        updateSelectedFuel={updateSelectedFuel}
+        updateSelectedSecurity={updateSelectedSecurity}
+        updateSelectedCctv={updateSelectedCctv}
+        updateSelectedStaff={updateSelectedStaff}
         />
       );
     } else if (value === 'Storage Unit') {

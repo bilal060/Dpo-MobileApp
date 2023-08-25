@@ -268,6 +268,26 @@ const Explore = ({}) => {
         {/* </SkeletonPlaceholder>
             </View> */}
         {/* }> */}
+          {/* <SkeletonPlaceholderComponent layout={PayAsYouDriveSkeleton} > */}
+
+          <CList
+            style={Styles.list}
+            //   horizontal
+            numColumns={4}
+            data={categories}
+            // loading={reduxState.loading}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            emptyOptions={{ 
+              // icon: require('../../assets/images/empty.png'),
+              text: 'Store not found',
+            }}
+          />
+          {/* </SkeletonPlaceholderComponent> */}
+
+          {/* </SkeletonPlaceholderComponent> */}
+   
+        {/* }> */}
         <CList
           style={Styles.list}
           //   horizontal

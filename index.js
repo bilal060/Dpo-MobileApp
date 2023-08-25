@@ -21,7 +21,8 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 // import { DeepLinking } from 'react-native-deep-linking';
 
 
-LogBox.ignoreAllLogs();
+LogBox.ignoreLogs(['Warning: ...']); 
+console.disableYellowBox = true;
 interceptor()
 
 const theme = {
@@ -69,6 +70,7 @@ function dpoApp() {
       }, [])
 
     return (
+        
         <Provider store={store} >
             <StatusBar
                 backgroundColor="transparent"

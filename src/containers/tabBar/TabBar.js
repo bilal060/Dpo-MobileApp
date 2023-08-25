@@ -57,6 +57,9 @@ const TabBar = ({state}) => {
     }
   }
 
+
+
+
   return (
     <SafeAreaView
       edges={['left', 'right', 'bottom']}

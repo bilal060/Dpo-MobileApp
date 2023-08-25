@@ -28,7 +28,6 @@ import CCalender from './cCalender/CCalender'
 
 
 
-
 export {
     CInput,
     CButton,
@@ -53,5 +52,6 @@ export {
     SpaceCard,
     BookingCard,
     CCalender,
-    TruckCard
+    TruckCard,
+
 }

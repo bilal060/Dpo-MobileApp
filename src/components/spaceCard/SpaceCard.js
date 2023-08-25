@@ -67,11 +67,37 @@ const SpaceCard = ({
   };
 
   const [isOn, setIsOn] = useState(false);
+  const [toggleState, setToggleState] = useState(item.available);
+const dispatch = useDispatch()
+
+  const handleToggle = async () => {
+    const payload = {
+      spaceId : item?._id,
+      availability: !toggleState
+    }
+    try {
+        setToggleState(!toggleState);
+
+      dispatch(change_availablity(payload , response))
+
+      
+    
+    } catch (error) {
+      // Handle error if needed
+      console.error('Error updating toggle status:', error);
+    }
+  };
+  const response = (res) => {
+    console.log("🚀 ~ file: SpaceCard.js:93 ~ response ~ res:", res)
+     onToggle({ ...item, available: !toggleState });
+  }
+
   return (
+    <>
     <TouchableOpacity
-      // disabled={true}
+        disabled={toggleState}
       onPress={onPress}
-      style={[Style.spaceContainer, mainContainer]}>
+        style={[Style.spaceContainer, mainContainer , {opacity:toggleState ? 0.5 :1}]}>
       {!img ? (
         <ProgressiveImage
           resizeMode="cover"
@@ -182,18 +208,21 @@ const SpaceCard = ({
           </View>
         </View>
         {!mapView && (
+            <>
+            
           <View
             style={[
               GlobalStyle.row,
               {marginHorizontal: 10, marginVertical: 7},
             ]}>
             <>
-              {isCustomer ? (
+                {!isCustomer ? (
                 <ToggleSwitch
+                  disabled={toggleState}
                   size={'true'}
-                  isOn={isOn}
+                    isOn={toggleState}
                   label="Available"
-                  onPress={() => setIsOn(!isOn)}
+                    onPress={handleToggle}
                 />
               ) : (
                 <>
@@ -215,22 +244,22 @@ const SpaceCard = ({
             </>
             <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
               <ProgressiveImage
-                source={plugIcon}
+                  source={paidStaff ? plugIcon : FplugIcon}
                 resizeMode="contain"
                 style={{width: 17, height: 17, marginLeft: 7}}
               />
               <ProgressiveImage
-                source={lengthIcon}
+                  source={paidSecurity ? lengthIcon : FlengthIcon}
                 resizeMode="contain"
                 style={{width: 17, height: 17, marginLeft: 7}}
               />
               <ProgressiveImage
-                source={docIcon}
+                  source={ownerSite ? docIcon : FdocIcon}
                 resizeMode="contain"
                 style={{width: 17, height: 17, marginLeft: 7}}
               />
               <ProgressiveImage
-                source={fuelIcon}
+                  source={fuel ? fuelIcon : FfuelIcon}
                 resizeMode="contain"
                 style={{width: 17, height: 17, marginLeft: 7}}
               />
@@ -240,11 +269,19 @@ const SpaceCard = ({
                 resizeMode="contain"
                 style={{width: 17, height: 17, marginLeft: 7}}
               />
+                
+              </View>
+              
             </View>
-          </View>
+            
+            </>
+
         )}
+          
       </View>
+
     </TouchableOpacity>
+    </>
   );
 };
 

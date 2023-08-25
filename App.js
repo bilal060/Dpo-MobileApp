@@ -11,6 +11,7 @@ import {changeLanguage} from './src/redux/actions/Language.action';
 import {useTranslation} from 'react-i18next';
 import i18n from './src/utils/i18n/i18n';
 import {Socket} from './src/utils/methods';
+import Root from './src/routing/Auth copy';
 // yaha import kro welcome Screen
 
 const App = () => {
@@ -44,14 +45,11 @@ const App = () => {
   }, []);
 
   const renderRoot = () => {
-    if (!reduxState?.isLoggedin) {
-      return <Auth />;
-    } else {
-      return <TruckDriverRoot />;
-    }
+
+    
   };
 
-  return renderRoot();
+  return  reduxState?.isLoggedin ?  <Auth /> :  <TruckDriverRoot /> 
 };
 
 export default App;

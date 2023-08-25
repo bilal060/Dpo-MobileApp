@@ -248,7 +248,53 @@ function WareHouse(props) {
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
-              <CInput
+              <View style={{flexDirection: 'row'}}>
+                <CToggleSwitch
+                  size="small"
+                  label="CCTV Cameras"
+                  labelStyle={Styles.labelStyle}
+                  conatinerStyles={Styles.conatinerStyles}
+                  isOn={selectedCCtv}
+                  onPress={()=> updateSelectedCctv(!selectedCCtv)}
+                />
+                <CToggleSwitch
+                  size="small"
+                  label="Security Type"
+                  labelStyle={Styles.labelStyle}
+                  conatinerStyles={Styles.conatinerStyles}
+                  isOn={selectedSecurity}
+                  onPress={()=> updateSelectedSecurity(!selectedSecurity)}
+                />
+              </View>
+              <View style={{flexDirection: 'row'}}>
+              <CToggleSwitch
+                size="small"
+                label="Select Paid Staff"
+                labelStyle={Styles.labelStyle}
+                conatinerStyles={Styles.conatinerStyles}
+                isOn={selectedStaff}
+                onPress={()=> updateSelectedStaff(!selectedStaff)}
+              />
+                <CToggleSwitch
+                  size="small"
+                  label="Select Climate Control"
+                  labelStyle={Styles.labelStyle}
+                  conatinerStyles={Styles.conatinerStyles}
+                  isOn={selectedClimate}
+                  onPress={()=> updateSelectedClimate(!selectedClimate)}
+                />
+              </View>
+              
+ <CToggleSwitch
+                  size="small"
+                  label="Select Fuel Availability"
+                  labelStyle={Styles.labelStyle}
+                  conatinerStyles={Styles.conatinerStyles}
+                  isOn={selectedFuel}
+                  onPress={()=> updateSelectedFuel(!selectedFuel)}
+                />
+                {/* TruckParking */}
+              {/* <CInput
                 ref={fuel}
                 placeholder={'Select Fuel Availability'}
                 value={values.fuel}
@@ -350,8 +396,9 @@ function WareHouse(props) {
 
               <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
+              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
+
                 <View style={{width: 40}}>
                   <ProgressiveImage
                     source={UploadIcon}
