@@ -16,7 +16,7 @@ export default class ViewContainer extends PureComponent {
       pagingEnabled,
       horizontal,
       showsHorizontalScrollIndicator,
-      renderFooter
+      renderFooter,
     } = this.props;
     if (source) {
       return (

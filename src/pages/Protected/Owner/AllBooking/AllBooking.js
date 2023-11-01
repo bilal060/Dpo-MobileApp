@@ -57,6 +57,7 @@ const AllBooking = ({navigation}) => {
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    backGroundColor: 'red',
     rightPress: () => navigation.navigate('Profile'),
   };
   const reduxState = useSelector(({auth, language, root}) => {
@@ -171,18 +172,18 @@ const AllBooking = ({navigation}) => {
   };
 
   const barData = [
-    {value: 500, label: 'Jan', frontColor: '#177AD5'},
-    {value: 700, label: 'Feb', frontColor: '#177AD5'},
-    {value: 630, label: 'Mar', frontColor: '#177AD5'},
-    {value: 270, label: 'Apr', frontColor: '#177AD5'},
-    {value: 520, label: 'May', frontColor: '#177AD5'},
-    {value: 710, label: 'June', frontColor: '#177AD5'},
-    {value: 180, label: 'July', frontColor: '#177AD5'},
-    {value: 950, label: 'Aug', frontColor: '#177AD5'},
-    {value: 800, label: 'Sep', frontColor: '#177AD5'},
-    {value: 450, label: 'Oct', frontColor: '#177AD5'},
-    {value: 830, label: 'Nov', frontColor: '#177AD5'},
-    {value: 100, label: 'Dec', frontColor: '#177AD5'},
+    {value: 500, label: 'Jan', frontColor: '#ED675D'},
+    {value: 700, label: 'Feb', frontColor: '#ED675D'},
+    {value: 630, label: 'Mar', frontColor: '#ED675D'},
+    {value: 270, label: 'Apr', frontColor: '#ED675D'},
+    {value: 520, label: 'May', frontColor: '#ED675D'},
+    {value: 710, label: 'June', frontColor: '#ED675D'},
+    {value: 180, label: 'July', frontColor: '#ED675D'},
+    {value: 950, label: 'Aug', frontColor: '#ED675D'},
+    {value: 800, label: 'Sep', frontColor: '#ED675D'},
+    {value: 450, label: 'Oct', frontColor: '#ED675D'},
+    {value: 830, label: 'Nov', frontColor: '#ED675D'},
+    {value: 100, label: 'Dec', frontColor: '#ED675D'},
   ];
   return (
     <Container
@@ -296,7 +297,7 @@ const AllBooking = ({navigation}) => {
               textHeaderColor: '#707070',
               textDefaultColor: '#707070',
               selectedTextColor: '#fff',
-              mainColor: '#0064FA',
+              mainColor: '#ED675D',
               textSecondaryColor: '#707070',
               borderColor: 'rgba(122, 146, 165, 0.1)',
             }}

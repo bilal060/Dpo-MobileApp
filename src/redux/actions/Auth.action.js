@@ -7,7 +7,7 @@ import {
   get,
   patch,
 } from '../../utils/methods';
-import {TOKEN} from '../../utils/asyncStorage/Constants';
+import {TOKEN, USERLOGIN} from '../../utils/asyncStorage/Constants';
 import {useNavigation} from '@react-navigation/native';
 
 import {
@@ -16,6 +16,7 @@ import {
   getValueIntoAsyncStorage,
   getValueIntoLocalStorage,
   removeUserDetail,
+  _setDataObjectToAsyncStorage,
 } from '../../utils/asyncStorage/Functions';
 import {
   FORGOTPASSWORD,
@@ -41,15 +42,15 @@ export const login = (payload, CB) => async dispatch => {
     );
     if (response?.data?.error) {
       dispatch({type: AUTH.LOGIN_USER_API, loading: false});
-      handleError(response?.data?.data?.message || '');
+      handleError(response?.data?.message || '');
     } else {
+      await _setDataObjectToAsyncStorage(USERLOGIN, response?.data?.user);
       await _setDataToAsyncStorage(TOKEN, response?.data?.token);
       await getTokenAndSetIntoHeaders(response?.data?.token);
       dispatch({
         type: AUTH.LOGIN_USER_API,
         loading: false,
-        user: response?.data?.data?.user,
-        // role: payload?.role,
+        user: response?.data?.user,
         isLoggedIn: true,
       });
       // handleSuccess(response?.data?.message);
@@ -138,14 +139,14 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
     '🚀 ~ file: Auth.action.js:121 ~ updateUserProfile ~ payload:',
     payload,
   );
-  const token = await getValueIntoAsyncStorage(TOKEN);
-  getTokenAndSetIntoHeaders(token);
-  dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: true});
+  // const token = await getValueIntoAsyncStorage(TOKEN);
+  // getTokenAndSetIntoHeaders(token);
+  // dispatch({type: AUTH.UPDATE_USERPROFILE_API, loading: true});
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     },
   };
   try {
@@ -163,7 +164,6 @@ export const updateUserProfile = (payload, CB) => async dispatch => {
         type: AUTH.UPDATE_USERPROFILE_API,
         loading: false,
         user: response?.data?.data?.user,
-        // isLoggedIn: true,
       });
       handleSuccess(response?.data?.message);
     }
@@ -240,10 +240,6 @@ export const forgotPass = (payload, CB) => async dispatch => {
       dispatch({
         type: AUTH.FORGOT_PASS,
         loading: false,
-        //   user: response?.data?.data?.user,
-        //   role: payload?.role,
-
-        // isLoggedIn: true,
       });
       handleSuccess(response?.data?.message);
     }

@@ -23,7 +23,7 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     flexDirection: 'row',
-    paddingTop:5,
+    paddingTop: 5,
     justifyContent: 'space-between',
     // paddingHorizontal: 10,
     // height: 55,

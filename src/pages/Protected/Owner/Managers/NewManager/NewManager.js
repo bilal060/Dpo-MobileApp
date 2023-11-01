@@ -1,4 +1,5 @@
-import {FlatList, StyleSheet, Text, View, Modal} from 'react-native';
+/* eslint-disable prettier/prettier */
+import {FlatList, StyleSheet, Text, View, Modal, Alert} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {
   Container,
@@ -33,6 +34,8 @@ const NewManager = ({navigation}) => {
     headerTitle: 'Add New Manager',
     backButtonIcon: true,
     headerRight: false,
+
+    backGroundColor: 'red',
   };
 
   const reduxState = useSelector(({auth, global}) => {
@@ -52,7 +55,6 @@ const NewManager = ({navigation}) => {
   const [branchModalIsOpen, updateBranchModalIsOpen] = useState(false);
   const [selectedBranch, updateSelectedBranch] = useState('');
 
-
   const [timeModalIsOpen, updateTimeModalIsOpen] = useState(false);
   const [selectedTime, updateSelectedTime] = useState('');
   console.log(
@@ -61,12 +63,19 @@ const NewManager = ({navigation}) => {
   );
 
   useEffect(() => {
-    dispatch(getSpacsss(reduxState?.userId, callBack));
+    // Alert.alert('2333');
+    dispatch(getSpacsss(1, callBack));
   }, []);
+
+  function onEndReached(pag) {
+    // Alert.alert(pag.toString());
+    dispatch(getSpacsss(pag, callBack));
+  }
 
   const callBack = res => {
     console.log('🚀 ~ file: Managers.js:54 ~ callBack ~ res:', res);
-    setSpaces(res?.spaces);
+    // setSpaces(res);
+    setSpaces([...spaces, ...res]);
   };
 
   const time = [
@@ -106,19 +115,26 @@ const NewManager = ({navigation}) => {
   };
 
   const submit = async values => {
+    var time = null;
+    if (selectedTime?.name) {
+      time = selectedTime?.name?.split('-');
+    }
+
     const payload = {
       fullName: values?.fullName,
-      role: 'Manager',
+      managerOwner: 'Manager',
       email: values?.email,
       phoneNo: values?.phone,
       branch: selectedBranch?._id,
       slot: {
-        from: '9:00 am',
-        to: '10:00 pm',
+        from: time[0],
+        to: time[1],
       },
-      managerOwner: reduxState?.userId
+      // managerOwner: reduxState?.userId,
     };
     console.log('🚀 ~ file: NewManager.js:120 ~ submit ~ payload:', payload);
+
+    // return;
     dispatch(add_managers(payload, managerCallBack));
     // navigation.navigate('NewSpace');
   };
@@ -128,59 +144,73 @@ const NewManager = ({navigation}) => {
 
   return (
     <Container
-    bottomSpace
-    edges={['left', 'right']}
-    headerProps={headerProps}
-    scrollView
-    >
-      <View style={{paddingHorizontal: 20, paddingVertical: 25}}>
-        <CForm
-          submit={submit}
-          loading={reduxState?.loading}
-          selectedCountry={selectedCountry}
-          selectedBranch={selectedBranch}
-          selectedTime={selectedTime}
-          toggleBranchModal={toggleBranchModal}
-          toggleCountryModal={toggleCountryModal}
-          toggleTimeModal={toggleTimeModal}
-        />
-        <Modal
-          transparent={true}
-          visible={countryModalIsOpen}
-          onRequestClose={() => toggleCountryModal()}>
-          <View style={Styles.modalContainer}>
-            <View style={Styles.modalInnerContainer}>
-              <CountriesModal
-                data={reduxState?.countries}
-                onSelect={val => countryOnSelect(val)}
-              />
-            </View>
-          </View>
-        </Modal>
+      bottomSpace
+      scrollViewProps={{
+        contentContainerStyle: {
+          flexGrow: 1,
 
-        <Modal
-          transparent={true}
-          visible={branchModalIsOpen}
-          onRequestClose={() => toggleBranchModal()}>
-          <View style={Styles.modalContainer}>
-            <View style={Styles.modalInnerContainer}>
-              <CountriesModal
-                data={spaces}
-                onSelect={val => branchOnSelect(val)}
-              />
+          paddingHorizontal: 0,
+        },
+      }}
+      edges={['left', 'right']}
+      headerProps={headerProps}
+      scrollView>
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <View style={{paddingHorizontal: 20, paddingVertical: 25}}>
+          <CForm
+            submit={submit}
+            loading={reduxState?.loading}
+            selectedCountry={selectedCountry}
+            selectedBranch={selectedBranch}
+            selectedTime={selectedTime}
+            toggleBranchModal={toggleBranchModal}
+            toggleCountryModal={toggleCountryModal}
+            toggleTimeModal={toggleTimeModal}
+          />
+
+          <Modal
+            transparent={true}
+            visible={countryModalIsOpen}
+            onRequestClose={() => toggleCountryModal()}>
+            <View style={Styles.modalContainer}>
+              <View style={Styles.modalInnerContainer}>
+                <CountriesModal
+                  data={reduxState?.countries}
+                  onSelect={val => countryOnSelect(val)}
+                />
+              </View>
             </View>
-          </View>
-        </Modal>
-        <Modal
-          transparent={true}
-          visible={timeModalIsOpen}
-          onRequestClose={() => toggleTimeModal()}>
-          <View style={Styles.modalContainer}>
-            <View style={Styles.modalInnerContainer}>
-              <CountriesModal data={time} onSelect={val => timeOnSelect(val)} />
+          </Modal>
+
+          <Modal
+            transparent={true}
+            visible={branchModalIsOpen}
+            onRequestClose={() => toggleBranchModal()}>
+            <View style={Styles.modalContainer}>
+              <View style={Styles.modalInnerContainer}>
+                <CountriesModal
+                  isId={true}
+                  onEndReached={onEndReached}
+                  data={spaces}
+                  onSelect={val => branchOnSelect(val)}
+                />
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+          <Modal
+            transparent={true}
+            visible={timeModalIsOpen}
+            onRequestClose={() => toggleTimeModal()}>
+            <View style={Styles.modalContainer}>
+              <View style={Styles.modalInnerContainer}>
+                <CountriesModal
+                  data={time}
+                  onSelect={val => timeOnSelect(val)}
+                />
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </Container>
   );

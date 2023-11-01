@@ -41,16 +41,24 @@ const MyProfile = ({}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const headerProps = {
-    ProgressiveImageHeader: false,
+    // ProgressiveImageHeader: false,
+    // backButtonIcon: false,
+
+    // headerTitle: 'Setting',
+    // headerRight: true,
+    // headerRightImg: false,
+    // backButtonIcon: true,
+
+    // headerRightImg: Profile,
+    // backGroundColor: 'red',
+
+    ProgressiveImageHeader: true,
     backButtonIcon: false,
 
-    headerTile: 'Setting',
-    headerRight: true,
-    headerRightImg: false,
-    backButtonIcon: true,
-    headerTransparentStyle: Styles.headerTransparentStyle,
-    headerTitleText: Styles.headerTitleText,
-    headerRightImg: Profile,
+    headerTitle: 'Settings',
+    headerRight: false,
+    backGroundColor: 'red',
+
     // rightPress: ()=> navigation.navigate("AddNewManager")
   };
 

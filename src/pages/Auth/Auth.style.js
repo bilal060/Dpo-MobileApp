@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../theme/colors';
 const {width, height} = Dimensions.get('screen');
@@ -5,9 +6,9 @@ export default StyleSheet.create({
   container: {
     flexGrow: 1,
 
-
     paddingHorizontal: 0,
-    backgroundColor: theme['light'].colors.backgroundColor,
+    // backgroundColor: theme['light'].colors.backgroundColor,
+    // backgroundColor: 'red',
     // textAlign:'right'
   },
 
@@ -22,8 +23,8 @@ export default StyleSheet.create({
 
   style: {
     flex: 1,
-
- 
+    // backgroundColor: 'red',
+    // height: '60%',
   },
   forgot: {
     marginTop: -30,
@@ -33,9 +34,11 @@ export default StyleSheet.create({
   },
   card: {
     // borderRadius: 20,
-    backgroundColor: theme['light'].colors.backgroundColor,
+    // backgroundColor: theme['light'].colors.backgroundColor,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    // backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   uploadProfile: {
     fontSize: 10,
@@ -47,7 +50,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 30,
     alignItems: 'center',
-    marginTop:-30
+    marginTop: -30,
   },
   cardHeaderTitle: {
     fontSize: 35,
@@ -69,7 +72,7 @@ export default StyleSheet.create({
   },
 
   cardBottomText: {
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: theme.font.semiBold,
     color: theme['light'].colors.dark,
     textAlign: 'center',
@@ -81,11 +84,12 @@ export default StyleSheet.create({
     color: theme['light'].colors.dark,
   },
   cardBottomText2: {
-    fontSize: 13,
+    fontSize: 14,
     paddingLeft: 5,
     fontFamily: theme.font.semiBold,
-    color: theme['light'].colors.fontColor,
+    color: '#DF525B',
   },
+
   profileView: {
     width: 100,
     height: 100,
@@ -105,14 +109,32 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    // marginTop: 2,
     // marginVertical: 10,
   },
+  regesiterProvider: {
+    fontFamily: themes.font.bold,
+    // fontWeight: '700',
+    color: '#000000',
+    fontWeight: 'bold',
+    fontSize: 15,
+    //marginTop: 1.2,
+  },
   googleContainer: {
-    backgroundColor: theme['light'].colors.lightenGray,
+    backgroundColor: '#FFFFFF',
     marginHorizontal: 30,
     borderRadius: 10,
-    padding: 13,
+    padding: 13.6,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2.4,
   },
   orContainerText: {
     fontSize: 20,
@@ -121,10 +143,9 @@ export default StyleSheet.create({
   },
   inputIcon: {
     // marginRight: 10,
-    height:28,
-    width:28,
-    alignSelf:'center',
-  
+    height: 28,
+    width: 28,
+    alignSelf: 'center',
   },
 
   bottomButton: {
@@ -149,7 +170,6 @@ export default StyleSheet.create({
   inputLeftIconButton: {
     widht: 20,
     height: 20,
-   
   },
 
   codeInputFieldStyle: {
@@ -181,10 +201,13 @@ export default StyleSheet.create({
     fontSize: 10,
   },
   forgotText: {
-    color: themes['light'].colors.primary,
+    // color: themes['light'].colors.primary,
     // marginTop: -10,
-    fontFamily: themes.font.regular,
-    fontWeight: '700',
+    fontFamily: themes.font.bold,
+    // fontWeight: '700',
+    color: '#000000',
+    fontWeight: 'bold',
+    marginTop: 1.2,
   },
 
   codeInputHighlightStyle: {
@@ -264,51 +287,57 @@ export default StyleSheet.create({
     alignItems: 'center',
     // flexDirection: 'row',
     justifyContent: 'center',
-    borderRadius: 5,
-    width: width * 0.25,
-    height: 95,
+    borderRadius: 8,
+    width: width * 0.42,
+    height: 44,
     marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
+    flexDirection: 'row',
   },
   unactiveUser: {
-    backgroundColor: themes['light'].colors.lightenGray,
+    backgroundColor: themes['light'].colors.backgroundColor,
     alignItems: 'center',
     // flexDirection: 'row',
     justifyContent: 'center',
-    borderRadius: 5,
-    width: width * 0.25 ,
-    height: 95,
+    borderRadius: 8,
+    width: width * 0.42,
+    height: 44,
     marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
+    flexDirection: 'row',
   },
   typesView: {
     paddingVertical: 5,
     // paddingHorizontal: 20,
     marginVertical: 10,
     marginTop: -10,
+    //  backgroundColor: 'red',
     flexDirection: 'row',
+    justifyContent: 'space-around',
     // alignSelf: 'center',
   },
 
   activeText: {
     color: themes['light'].colors.tertiary,
     fontFamily: themes.font.medium,
-    fontSize: 15,
-    paddingTop:5,
-    fontWeight: '600',
-    textAlign:"center"
+    fontSize: 13,
+    paddingTop: 5,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginLeft: 6,
   },
   unActiveText: {
-    paddingTop:5,
+    paddingTop: 5,
     color: themes['light'].colors.gray4,
     fontFamily: themes.font.medium,
-    fontSize: 15,
-    fontWeight: '600',
-    textAlign:"center"
+    fontSize: 13,
+    marginLeft: 6,
+    fontWeight: '800',
+    textAlign: 'center',
   },
-  
+
   unactiveText: {
     color: themes['light'].colors.primary,
     fontFamily: themes.font.medium,

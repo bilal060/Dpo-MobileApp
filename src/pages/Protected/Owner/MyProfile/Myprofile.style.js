@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 0,
-    backgroundColor: theme['light'].colors.tertiary,
+    // backgroundColor: theme['light'].colors.tertiary,
   },
   subcontainer: {
     flexGrow: 1,
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     textAlign: 'left',
     lineHeight: 18,
     marginTop: 10,
-    paddingTop:5,
+    paddingTop: 5,
     letterSpacing: 0.5,
   },
   profileEmail: {
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     lineHeight: 12,
     marginTop: 5,
-    letterSpacing: 0.5, 
+    letterSpacing: 0.5,
   },
   profileContact: {
     color: theme['light'].colors.dark,
@@ -71,28 +71,27 @@ export default StyleSheet.create({
     letterSpacing: 0.5,
     marginVertical: 10,
   },
-  headerTransparentStyle:{
-    backgrounColor:"red"
+  headerTransparentStyle: {
+    backgrounColor: 'red',
   },
   answer: {
     color: theme['light'].colors.dark,
-    fontSize: 13, 
+    fontSize: 13,
     fontFamily: theme.font.light,
     lineHeight: 13,
     marginTop: 5,
     letterSpacing: 1,
     marginVertical: 10,
   },
-  headerTitleText:{
-    color:theme['light'].colors.dark
+  headerTitleText: {
+    color: theme['light'].colors.dark,
   },
   card: {
     // borderRadius: 20,
     backgroundColor: theme['light'].colors.tertiary,
     paddingHorizontal: 10,
     paddingVertical: 30,
-    marginBottom:50
-
+    marginBottom: 50,
   },
   buttonStyle: {
     marginTop: height * 0.05,
@@ -117,22 +116,22 @@ export default StyleSheet.create({
     marginTop: 5,
     letterSpacing: 0.5,
   },
-  content:{
-     color: "#A3A3A3",
+  content: {
+    color: '#A3A3A3',
     fontSize: 12,
     fontFamily: theme.font.light,
     lineHeight: 14,
     marginTop: 5,
     letterSpacing: 0.5,
   },
-  containerStyles:{
-    flex:1,
-    flexDirection:"row-reverse",
-    justifyContent:"space-between",
-    padding:10
+  containerStyles: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    padding: 10,
   },
-  myStyle2:{
-    height:15,
-    width:15
-  }
+  myStyle2: {
+    height: 15,
+    width: 15,
+  },
 });

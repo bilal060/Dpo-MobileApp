@@ -1,4 +1,6 @@
-import React, {useRef, memo} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
+import React, {useRef, memo, useState, useEffect} from 'react';
 import {Formik} from 'formik';
 import {Alert, View} from 'react-native';
 import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
@@ -28,6 +30,9 @@ import * as Yup from 'yup';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ToggleSwitch from '../../../../components/cToggleSwitch/CToggleSwitch';
+import {RadioButton} from '../../../../components';
+import {Text} from 'react-native-animatable';
 
 function WareHouse(props) {
   const {
@@ -46,20 +51,43 @@ function WareHouse(props) {
     setMapAdreess,
     toggleSecurityModal,
     onDocumentPress,
-    selectedFile
+    onVideoPress,
+    selectedWarehouseVideo,
+    selectedFile,
+    setToggleType,
+    LongtermOn,
+    ShorttermOn,
+    Pickupservice,
+    Climatecontrol,
+    Boxpacking,
+    Pickanddelivery,
+    Locks,
+    Householditems,
+    Businessitems,
+    Coldstorage,
+    Furniture,
+    foodproducts,
+    Firealarm,
+    Aircondition,
+    Sprinklersystem,
+    Security,
+    CCTV,
+    DoorAlarm,
+    Dustfree,
+    Pastcontrol,
   } = props;
 
   const scheme = Yup.object().shape({
     phone: Yup.string().required('Please enter phone number '),
     areaSize: Yup.string().required('Please enter are size '),
     decs: Yup.string().required('Please enter descripition  '),
-    parking: Yup.string().required('Please enter parking'),
+    fullName: Yup.string().required('Please enter name'),
     rHour: Yup.string().required('Please enter your rate as per hour'),
 
     rDay: Yup.string().required('Please enter your rate as per day'),
-    rWeek: Yup.string().required('Please enter your rate as per week'),
+    // rWeek: Yup.string().required('Please enter your rate as per week'),
 
-    rMonth: Yup.string().required('Please enter your rate as per Month'),
+    // rMonth: Yup.string().required('Please enter your rate as per Month'),
   });
 
   const form = useRef(null);
@@ -78,14 +106,23 @@ function WareHouse(props) {
   const rWeek = useRef(null);
 
   const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data)
-
+    console.log(data);
+    setMapAdreess(data);
   };
+  const [IsImageSelect, setIsImageSelect] = useState(false);
+  useEffect(() => {
+    if (selectedFile?.name) {
+      setIsImageSelect(true);
+    }
+  }, [selectedFile]);
 
   return (
     <Formik
       innerRef={form}
-      onSubmit={values => submit(values)}
+      onSubmit={values => {
+        // console.log(values);
+        submit(values);
+      }}
       initialValues={{}}
       validationSchema={scheme}>
       {({handleChange, values, handleSubmit, errors}) => {
@@ -116,6 +153,17 @@ function WareHouse(props) {
                   onSubmitEditing={() => fullName.current.focus()}
                 />
               </View>
+              <CInput
+                ref={fullName}
+                placeholder={'Add name.'}
+                value={values.fullName}
+                onChangeText={handleChange('fullName')}
+                error={errors.fullName}
+                sec
+                leftIconNAme={AreaIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => {}}
+              />
               <View
                 style={{
                   flexDirection: 'row',
@@ -130,24 +178,23 @@ function WareHouse(props) {
                   style={{width: 20, height: 20}}
                 />
                 <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || "Select Your Adreess"}
+                  placeholder={'Select Your Adreess'}
                   debounce={100}
                   listViewDisplayed={true}
                   minLength={2}
                   autoFocus={true}
-                  
                   returnKeyType={'default'}
                   fetchDetails={true}
                   onPress={(data, details) => {
                     handlePlaceSelection(details);
                   }}
                   onPlaceSelected={place => {
-                    handlePlaceSelection(place);
+                    // handlePlaceSelection(place);
                   }}
                   renderRow={(rowData, details) => (
-                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
+                    <TouchableOpacity
+                      onPress={() => handlePlaceSelection(rowData.description)}>
                       <CText
-                        
                         style={Styles.suggestionText}
                         // onPress={() => console.log('1', 1)}
                       >
@@ -156,7 +203,7 @@ function WareHouse(props) {
                     </TouchableOpacity>
                   )}
                   query={{
-                    key: 'AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA',
+                    key: 'AIzaSyCYhvw2XU6XduQuV4JDHHwmE02yPYwBBGA',
                     language: 'en',
                   }}
                   textInputProps={{
@@ -200,8 +247,7 @@ function WareHouse(props) {
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
-
-              <CInput
+              {/* <CInput
                 placeholder={'CCTV Cameras'}
                 value={values.dob}
                 error={errors.dob}
@@ -212,9 +258,8 @@ function WareHouse(props) {
                 leftIconNAme={CctvIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
-              />
-
-              <CInput
+              /> */}
+              {/* <CInput
                 ref={dob}
                 placeholder={'Security Type'}
                 onPress={toggleSecurityModal}
@@ -225,8 +270,122 @@ function WareHouse(props) {
                 leftIconNAme={SecurityIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
+              /> */}
+              {/* <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={LongtermOn}
+                label="Long-term"
+                onPress={() => setToggleType('longTerm', !LongtermOn)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={ShorttermOn}
+                label="Short-term"
+                onPress={() => setToggleType('shortTerm', !ShorttermOn)}
+              /> */}
+              <RadioButton
+                title={'Longterm On'}
+                value={LongtermOn}
+                onChange={val => {
+                  setToggleType('longTerm', !LongtermOn);
+                  setToggleType('shortTerm', false);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <RadioButton
+                title={'Shortterm On'}
+                value={ShorttermOn}
+                onChange={val => {
+                  setToggleType('longTerm', false);
+                  setToggleType('shortTerm', !ShorttermOn);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  color: themes['light'].colors.dark,
+                }}
+                size={'small'}
+                isOn={Pickupservice}
+                label="Pickup service"
+                onPress={() => setToggleType('Pickupservice', !Pickupservice)}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Climatecontrol}
+                label="Climate control"
+                onPress={() => setToggleType('Climatecontrol', !Climatecontrol)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Boxpacking}
+                label="Box packing"
+                onPress={() => setToggleType('Boxpacking', !Boxpacking)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Pickanddelivery}
+                label="pick and delivery"
+                onPress={() =>
+                  setToggleType('Pickanddelivery', !Pickanddelivery)
+                }
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Locks}
+                label="Locks"
+                onPress={() => setToggleType('Locks', !Locks)}
               />
               <CInput
+                inputContainerStyle={{}}
                 ref={decs}
                 placeholder={'Add Description...'}
                 value={values.decs}
@@ -237,7 +396,174 @@ function WareHouse(props) {
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
               />
-              <CInput
+              <RadioButton
+                title={'Household items'}
+                value={Householditems}
+                onChange={val => {
+                  setToggleType('Householditems', !Householditems);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <RadioButton
+                title={'Business Items'}
+                value={Businessitems}
+                onChange={val => {
+                  setToggleType('Businessitems', !Businessitems);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <RadioButton
+                title={'Furniture'}
+                value={Furniture}
+                onChange={val => {
+                  setToggleType('Furniture', !Furniture);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <RadioButton
+                title={'Cold Storage'}
+                value={Coldstorage}
+                onChange={val => {
+                  setToggleType('Coldstorage', !Coldstorage);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+              <RadioButton
+                title={'food Products'}
+                value={foodproducts}
+                onChange={val => {
+                  setToggleType('foodproducts', !foodproducts);
+                }}
+                containerStyles={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                  justifyContent: 'flex-start',
+                  alignItems: 'flex-start',
+                }}
+                stylesTitle={{color: themes['light'].colors.dark}}
+              />
+
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Firealarm}
+                label="Firealarm"
+                onPress={() => setToggleType('Firealarm', !Firealarm)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Aircondition}
+                label="Air Condition"
+                onPress={() => setToggleType('Aircondition', !Aircondition)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Sprinklersystem}
+                label="Sprinkler System"
+                onPress={() =>
+                  setToggleType('Sprinkler System', !Sprinklersystem)
+                }
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Security}
+                label="Security"
+                onPress={() => setToggleType('Security', !Security)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={CCTV}
+                label="CCTV"
+                onPress={() => setToggleType('CCTV', !CCTV)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={DoorAlarm}
+                label="DoorAlarm"
+                onPress={() => setToggleType('DoorAlarm', !DoorAlarm)}
+              />
+
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Dustfree}
+                label="Dust free"
+                onPress={() => setToggleType('Dustfree', !Dustfree)}
+              />
+              <ToggleSwitch
+                containerStyle={{
+                  marginLeft: 17,
+                  paddingVertical: 3,
+                  marginBottom: 20,
+                }}
+                size={'small'}
+                isOn={Pastcontrol}
+                label="Past Control"
+                onPress={() => setToggleType('Pastcontrol', !Pastcontrol)}
+              />
+              {/* <CInput
                 ref={parking}
                 placeholder={'Enter Parking Capacity '}
                 value={values.parking}
@@ -247,8 +573,8 @@ function WareHouse(props) {
                 leftIconNAme={ParkingIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
-              />
-              <CInput
+              /> */}
+              {/* <CInput
                 ref={fuel}
                 placeholder={'Select Fuel Availability'}
                 value={values.fuel}
@@ -261,8 +587,8 @@ function WareHouse(props) {
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
-              />
-              <CInput
+              /> */}
+              {/* <CInput
                 ref={fuel}
                 placeholder={'Select Paid Staff'}
                 value={values.fuel}
@@ -275,9 +601,8 @@ function WareHouse(props) {
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
-              />
-
-              <CInput
+              /> */}
+              {/* <CInput
                 ref={fuel}
                 placeholder={'Select Climate Control'}
                 value={values.fuel}
@@ -290,7 +615,7 @@ function WareHouse(props) {
                 leftIconNAme={FuelIcon}
                 returnKeyType="next"
                 onSubmitEditing={() => {}}
-              />
+              /> */}
               <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
                   <CInput
@@ -319,7 +644,7 @@ function WareHouse(props) {
                   />
                 </View>
               </View>
-              <View style={GlobalStyle.row}>
+              {/* <View style={GlobalStyle.row}>
                 <View style={Styles.inputView}>
                   <CInput
                     ref={rWeek}
@@ -346,12 +671,12 @@ function WareHouse(props) {
                     onSubmitEditing={() => {}}
                   />
                 </View>
-              </View>
+              </View> */}
 
               <CText style={Styles.uploadText}>Upload Images</CText>
-
-              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
-                {/* <CText>HHHH</CText> */}
+              <TouchableOpacity
+                onPress={onDocumentPress}
+                style={Styles.selectFileView}>
                 <View style={{width: 40}}>
                   <ProgressiveImage
                     source={UploadIcon}
@@ -362,24 +687,55 @@ function WareHouse(props) {
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
-                
               </TouchableOpacity>
+
               {selectedFile?.name && (
-                  <CText
-                    style={[
-                      Styles.uploadText,
-                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                    ]}>
-                    {selectedFile?.name}
-                  </CText>
-                )}
+                <CText
+                  style={[
+                    Styles.uploadText,
+                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                  ]}>
+                  {selectedFile?.name}
+                </CText>
+              )}
+              {IsImageSelect == false && (
+                <CText style={[Styles.uploadText, {color: 'red', bottom: 20}]}>
+                  {'Please select Image'}
+                </CText>
+              )}
+
+              <CText style={Styles.uploadText}>Upload Video</CText>
+              <TouchableOpacity
+                onPress={onVideoPress}
+                style={Styles.selectFileView}>
+                <View style={{width: 40}}>
+                  <ProgressiveImage
+                    source={UploadIcon}
+                    style={Styles.inputLeftIconButton}
+                    resizeMode={'contain'}
+                  />
+                </View>
+                <View style={{width: 100}}>
+                  <CText style={Styles.selectFile}>Choose File</CText>
+                </View>
+              </TouchableOpacity>
+
+              {selectedWarehouseVideo?.name && (
+                <CText
+                  style={[
+                    Styles.uploadText,
+                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                  ]}>
+                  {selectedWarehouseVideo?.name}
+                </CText>
+              )}
 
               <CButton
                 title={'Cancel'}
                 iconType="left"
                 loading={loading}
                 buttonStyle={Styles.spaceCancelBtn}
-                buttonText={Styles.buttonText}
+                // buttonText={Styles.buttonText}
                 onPress={() => handleSubmit()}
               />
               <CButton
@@ -389,7 +745,6 @@ function WareHouse(props) {
                 buttonStyle={Styles.spaceSaveBtn}
                 onPress={() => handleSubmit()}
               />
-
               {/* <View>
                 <CText style={Styles.continueText}>Or continue with</CText>
               </View> */}

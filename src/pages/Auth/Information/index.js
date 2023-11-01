@@ -95,7 +95,8 @@ function Information({route}) {
     if (role === 'Customer') {
       navigation.navigate('Login');
     } else {
-      navigation.navigate('CompanyProfile');
+      // navigation.navigate('CompanyProfile');
+      navigation.navigate('Login');
     }
     console.log('🚀 ~ file: index.js:58 ~ callBack ~ res:', res);
   };
@@ -111,57 +112,59 @@ function Information({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CForm
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        onImageClick={openLibrary}
-        profileImage={profileImage}
-        toggleCountryModal={toggleCountryModal}
-        updateSelectDate={updateSelectDate}
-        selectDate={selectDate}
-      />
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <CForm
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          onImageClick={openLibrary}
+          profileImage={profileImage}
+          toggleCountryModal={toggleCountryModal}
+          updateSelectDate={updateSelectDate}
+          selectDate={selectDate}
+        />
 
-      <View
-        style={[
-          AuthStyle.orContainer,
-          {paddingHorizontal: 20, marginStart: 30, alignSelf: 'center'},
-        ]}>
-        <CText style={AuthStyle.cardBottomText}>
-          By registering, you’re agree to our,
-        </CText>
-      </View>
-      <View
-        style={[
-          AuthStyle.orContainer,
-          {paddingHorizontal: 20, alignSelf: 'center'},
-        ]}>
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}>
-          Terms & Condition
-        </CText>
-
-        <CText style={AuthStyle.cardBottomText}>and</CText>
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}>
-          Privacy Policy
-        </CText>
-      </View>
-      <Modal
-        transparent={true}
-        visible={countryModalIsOpen}
-        onRequestClose={() => toggleCountryModal()}>
-        <View style={AuthStyle.modalContainer}>
-          <View style={AuthStyle.modalInnerContainer}>
-            <CountriesModal
-              data={reduxState?.countries}
-              onSelect={val => countryOnSelect(val)}
-            />
-          </View>
+        <View
+          style={[
+            AuthStyle.orContainer,
+            {paddingHorizontal: 20, marginStart: 30, alignSelf: 'center'},
+          ]}>
+          <CText style={AuthStyle.cardBottomText}>
+            By registering, you’re agree to our,
+          </CText>
         </View>
-      </Modal>
+        <View
+          style={[
+            AuthStyle.orContainer,
+            {paddingHorizontal: 20, alignSelf: 'center'},
+          ]}>
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}>
+            Terms & Condition
+          </CText>
+
+          <CText style={AuthStyle.cardBottomText}>and</CText>
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}>
+            Privacy Policy
+          </CText>
+        </View>
+        <Modal
+          transparent={true}
+          visible={countryModalIsOpen}
+          onRequestClose={() => toggleCountryModal()}>
+          <View style={AuthStyle.modalContainer}>
+            <View style={AuthStyle.modalInnerContainer}>
+              <CountriesModal
+                data={reduxState?.countries}
+                onSelect={val => countryOnSelect(val)}
+              />
+            </View>
+          </View>
+        </Modal>
+      </View>
     </Container>
   );
 }

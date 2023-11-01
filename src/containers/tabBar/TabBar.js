@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {View, Platform, StatusBar} from 'react-native';
+import {View, Platform, StatusBar, Alert} from 'react-native';
 import {CIcon, CLoading, CText, ProgressiveImage} from '../../components';
 import Styles from './TabBar.style';
 import {SafeAreaView} from '../index';
@@ -31,10 +31,17 @@ import {
   User,
 } from '../../assets/images';
 import {useNavigation} from '@react-navigation/native';
-import {customerRoutes, storageOwnerRoutes, truckDriverRoutes} from '../../utils/constant';
+import {
+  customerRoutes,
+  storageOwnerRoutes,
+  truckDriverRoutes,
+} from '../../utils/constant';
 import {useRoute} from '@react-navigation/native';
+import {Image} from 'react-native-animatable';
 
 const TabBar = ({state}) => {
+  // Alert.alert('call tabbbar');
+  // console.log(reduxState?.userRole);
   const [currentState, setState] = useState(1);
   const navigation = useNavigation();
   const routes = useRoute();
@@ -47,15 +54,17 @@ const TabBar = ({state}) => {
       user: auth?.user,
     };
   });
-  const returnRoutes = ()=>{
-    if(reduxState?.userRole === "Storage Owner"){
-      return  storageOwnerRoutes
-    } else if(reduxState?.userRole === "Customer"){
-      return  customerRoutes
-    } else if(reduxState?.userRole === "Truck Driver"){
-      return  truckDriverRoutes
+  const returnRoutes = () => {
+    console.log('call');
+    console.log(reduxState?.userRole);
+    if (reduxState?.userRole === 'Storage Owner') {
+      return storageOwnerRoutes;
+    } else if (reduxState?.userRole === 'Customer') {
+      return customerRoutes;
+    } else if (reduxState?.userRole === 'Truck Driver') {
+      return truckDriverRoutes;
     }
-  }
+  };
 
   return (
     <SafeAreaView
@@ -72,25 +81,35 @@ const TabBar = ({state}) => {
                 )}
                 key={i}
                 style={Styles.tab}>
-                <ProgressiveImage
+                <Image
                   source={
-                    route?.navigate === routes?.name ? route?.img2 : route.img
+                    route?.navigate === routes?.name ? route?.img : route.img
                   }
-                  style={{width: 50, height: 50}}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    tintColor:
+                      route?.navigate === routes?.name ? '#DF525B' : '',
+                  }}
                   resizeMode="contain"
                 />
               </TouchableOpacity>
             );
           }}
         />
-       {reduxState?.userRole  == "Storage Owner" &&
-        <TouchableOpacity style={Styles.addBtnn} onPress={() => {navigation.navigate("NewSpace")}} >
-          <ProgressiveImage
-            source={Add}
-            style={{width: 32, height: 32}}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>}
+        {reduxState?.userRole == 'Storage Owner' && (
+          <TouchableOpacity
+            style={Styles.addBtnn}
+            onPress={() => {
+              navigation.navigate('NewSpace');
+            }}>
+            <ProgressiveImage
+              source={Add}
+              style={{width: 32, height: 32}}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );

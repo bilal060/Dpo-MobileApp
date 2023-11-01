@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
   StyleSheet,
@@ -9,6 +10,7 @@ import {
 } from 'react-native';
 import {themes as theme} from '../../theme/colors';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
+import {themes} from '../../theme/colors';
 import {CText} from '../index';
 
 export default class ToggleSwitch extends React.Component {
@@ -109,6 +111,7 @@ export default class ToggleSwitch extends React.Component {
       labelStyle,
       label,
       icon,
+      containerStyle,
     } = this.props;
 
     let toValue;
@@ -131,11 +134,11 @@ export default class ToggleSwitch extends React.Component {
     // };
 
     return (
-      <View style={styles.container} {...this.props}>
+      <View style={{...styles.container, ...containerStyle}} {...this.props}>
         <TouchableOpacity
           style={this.createToggleSwitchStyle()}
           activeOpacity={0.8}
-          onPress={() => (disabled ? null : onPress())}>
+          onPress={() => (disabled ? null : onPress && onPress())}>
           <Animated.View style={this.createInsideCircleStyle()}>
             {icon}
           </Animated.View>
@@ -160,8 +163,7 @@ const styles = StyleSheet.create({
   labelStyle: {
     marginHorizontal: 10,
     marginBottom: 0,
-    fontSize:15,
-    color: theme['light'].colors.iconColor,
-
+    fontSize: 15,
+    color: themes['light'].colors.dark,
   },
 });

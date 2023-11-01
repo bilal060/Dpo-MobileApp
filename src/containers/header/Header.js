@@ -43,6 +43,7 @@ const Header = props => {
     centerImage,
     headerRightImg,
     rightPress,
+    backGroundColor,
   } = props;
   const navigation = useNavigation();
   const reduxState = useSelector(({auth, language}) => {
@@ -92,7 +93,7 @@ const Header = props => {
       <View style={styles.headerLogo}>
         <ProgressiveImage
           style={styles.headerLogoImage}
-          source={showCenterLogo}
+          source={require('../../assets/images/newlock.png')}
           resizeMode="contain"
         />
       </View>
@@ -166,7 +167,11 @@ const Header = props => {
         styles.headerStyle,
         transparent,
         headerTransparentStyle,
-        {backgroundColor: getBackgroundColor()},
+        {
+          backgroundColor: backGroundColor
+            ? theme['light'].colors.primary
+            : '#f1f6f7',
+        },
       ]}
       edges={['top']}>
       <View>

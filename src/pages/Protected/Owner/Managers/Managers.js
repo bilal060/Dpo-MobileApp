@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import {FlatList, StyleSheet, Text, View, Modal} from 'react-native';
 import React, {useRef, useState, useEffect} from 'react';
 import {Container, CountriesModal, PackageCard} from '../../../../containers';
@@ -35,6 +37,7 @@ const Managers = ({navigation}) => {
     headerTitle: 'My Managers',
     headerRight: true,
     backButtonIcon: false,
+    backGroundColor: 'red',
     headerRight: true,
     rightPress: () => navigation.navigate('AddNewManager'),
   };
@@ -48,25 +51,75 @@ const Managers = ({navigation}) => {
     };
   });
 
-  const timeSlot = ['09 :00', '10 :00'];
+  const time = [
+    {name: '7:00 am - 8:00 am'},
+    {name: '9:00 am - 10:00 am'},
+
+    {name: '1:00 am - 2:00 pm'},
+    {name: '2:00 pm - 3:00 pm'},
+    {name: '3:00 pm - 4:00 pm'},
+  ];
+
   const [spaces, setSpaces] = useState([]);
+  const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
+  const [selectedCountry, updateSelectedCountry] = useState('');
+
+  const [branchModalIsOpen, updateBranchModalIsOpen] = useState(false);
+  const [selectedBranch, updateSelectedBranch] = useState('');
+
+  const [timeModalIsOpen, updateTimeModalIsOpen] = useState(false);
+  const [selectedTime, updateSelectedTime] = useState('');
   const [managers, setManagers] = useState([]);
 
   const dispatch = useDispatch();
+
+  const toggleCountryModal = () => {
+    updateCountryModalIsOpen(!countryModalIsOpen);
+  };
+
+  const countryOnSelect = item => {
+    updateSelectedCountry(item);
+    toggleCountryModal();
+  };
+
+  const toggleBranchModal = () => {
+    updateBranchModalIsOpen(!branchModalIsOpen);
+  };
+
+  const branchOnSelect = item => {
+    updateSelectedBranch(item);
+    toggleBranchModal();
+  };
+
+  const toggleTimeModal = () => {
+    updateTimeModalIsOpen(!timeModalIsOpen);
+  };
+
+  const timeOnSelect = item => {
+    updateSelectedTime(item);
+    toggleTimeModal();
+  };
 
   useEffect(() => {
     getAllAPi();
   }, [reduxState?.userId]);
 
   const getAllAPi = () => {
-    dispatch(getSpacsss(reduxState?.userId, callBack));
+    // console.log(reduxState?.userId);
+    // console.log('id user');
+    dispatch(getSpacsss(1, callBack));
     dispatch(get_ownerManager(reduxState?.userId, managerCallBack));
   };
 
   const callBack = res => {
     console.log('🚀 ~ file: Managers.js:54 ~ callBack ~ res:', res);
-    setSpaces(res?.spaces);
+    setSpaces([...spaces, ...res]);
   };
+
+  function onEndReached(pag) {
+    // Alert.alert(pag.toString());
+    dispatch(getSpacsss(pag, callBack));
+  }
 
   const filterManger = id => {
     const payload = {
@@ -77,16 +130,9 @@ const Managers = ({navigation}) => {
   };
 
   const managerCallBack = res => {
-    
     setManagers(res?.managers);
   };
 
- 
-
-  const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
-  const [selectedCountry, updateSelectedCountry] = useState('');
-
- 
   const renderListHeader = () => (
     <CText style={Styles.mainHeading}>{`All Managers`}</CText>
   );
@@ -103,87 +149,76 @@ const Managers = ({navigation}) => {
       </View>
     );
   };
-  const toggleCountryModal = () => {
-    updateCountryModalIsOpen(!countryModalIsOpen);
-  };
-
-  const countryOnSelect = item => {
-    filterManger(item?._id);
-    updateSelectedCountry(item);
-    toggleCountryModal();
-  };
 
   return (
     <Container
       scrollView
       bottomSpace
       edges={['left', 'right']}
-      headerProps={headerProps}>
+      headerProps={headerProps}
+      scrollViewProps={{
+        contentContainerStyle: {
+          flexGrow: 1,
+
+          paddingHorizontal: 0,
+        },
+      }}>
       <View style={Styles.container}>
-        <View style={{paddingHorizontal: 20, paddingVertical: 25}}>
-          <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
-            <CText style={Styles.mainHeading}>Booking History</CText>
+        <View
+          style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+          <View
+            style={{
+              paddingHorizontal: 20,
+              paddingVertical: 25,
+            }}>
+            <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
+              <CText style={Styles.mainHeading}>Booking History</CText>
+            </View>
+            <CInput
+              ref={type}
+              placeholder={'Select Branch'}
+              // selectedCountry={selectedCountry}
+              // onPress={toggleCountryModal}
+              // selectValue={selectedCountry}
+              // sec
+              // onChangeText={handleChange('fullName')}
+              onPress={toggleBranchModal}
+              selectValue={selectedBranch}
+              sec
+              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+              type="view"
+              leftIconNAme={CNameIcon}
+              returnKeyType="next"
+            />
+            <CInput
+              ref={type}
+              placeholder={'Select Time Slot'}
+              inputInnerContainerStyle={Styles.inputInnerContainerStyle}
+              sec
+              onPress={toggleTimeModal}
+              selectValue={selectedTime}
+              type="view"
+              leftIconNAme={TimeIcon}
+              returnKeyType="next"
+            />
+
+            <CList
+              style={Styles.spacelist}
+              loading={reduxState.loading}
+              renderItem={renderProfile}
+              ListHeaderComponent={renderListHeader}
+              ListHeaderComponentStyle={Styles.listHeader}
+              keyExtractor={(item, index) => index.toString()}
+              showsVerticalScrollIndicator={false}
+              emptyOptions={{
+                text: 'Mangers not found',
+              }}
+              onRefreshLoading={reduxState.loading}
+              onRefreshHandler={() => getAllAPi()}
+            />
           </View>
-          <CInput
-            ref={type}
-            placeholder={'Select Branch'}
-            // selectedCountry={selectedCountry}
-            onPress={toggleCountryModal}
-            selectValue={selectedCountry}
-            // onChangeText={handleChange('fuel')}
-            // error={errors.fuel}
-            sec
-            inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-            type="view"
-            leftIconNAme={CNameIcon}
-            returnKeyType="next"
-          />
-          <CInput
-            ref={type}
-            placeholder={'Select Time Slot'}
-           
-            inputInnerContainerStyle={Styles.inputInnerContainerStyle}
-            sec
-            type="view"
-            leftIconNAme={TimeIcon}
-            returnKeyType="next"
-          />
-         
-          <CList
-            style={Styles.spacelist}
-            // numColumns={2}
-            //   horizontal
-            // contentContainerStyle={[GlobalStyle.list, ]}
-            data={managers}
-            loading={reduxState.loading}
-            renderItem={renderProfile}
-            ListHeaderComponent={renderListHeader}
-            ListHeaderComponentStyle={Styles.listHeader}
-            keyExtractor={(item, index) => index.toString()}
-            showsVerticalScrollIndicator={false}
-            emptyOptions={{
-              // icon: require('../../assets/images/empty.png'),
-              text: 'Mangers not found',
-            }}
-            onRefreshLoading={reduxState.loading}
-            onRefreshHandler={() => getAllAPi()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
-            // maxToRenderPerBatch={10}
-            // windowSize={10}
-          />
-          {/* <FlatList
-            ListHeaderComponent={renderListHeader}
-            ListHeaderComponentStyle={Styles.listHeader}
-            data={managers}
-            nestedScrollEnabled
-            extraData={managers}
-            renderItem={renderProfile}
-            showsVerticalScrollIndicator={false}
-          /> */}
         </View>
       </View>
-
       <Modal
         transparent={true}
         visible={countryModalIsOpen}
@@ -191,9 +226,35 @@ const Managers = ({navigation}) => {
         <View style={Styles.modalContainer}>
           <View style={Styles.modalInnerContainer}>
             <CountriesModal
-              data={spaces}
+              data={reduxState?.countries}
               onSelect={val => countryOnSelect(val)}
             />
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        transparent={true}
+        visible={branchModalIsOpen}
+        onRequestClose={() => toggleBranchModal()}>
+        <View style={Styles.modalContainer}>
+          <View style={Styles.modalInnerContainer}>
+            <CountriesModal
+              isId={true}
+              onEndReached={onEndReached}
+              data={spaces}
+              onSelect={val => branchOnSelect(val)}
+            />
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        transparent={true}
+        visible={timeModalIsOpen}
+        onRequestClose={() => toggleTimeModal()}>
+        <View style={Styles.modalContainer}>
+          <View style={Styles.modalInnerContainer}>
+            <CountriesModal data={time} onSelect={val => timeOnSelect(val)} />
           </View>
         </View>
       </Modal>

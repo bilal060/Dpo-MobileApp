@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import React, {useRef, memo} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
 import {View} from 'react-native';
-import {CButton, CInput, CText , } from '../../../../../components';
+import {CButton, CInput, CText} from '../../../../../components';
 import Styles from '../Managers.styles';
 import {themes} from '../../../../../theme/colors';
 import {
@@ -25,7 +26,7 @@ function CForm(props) {
     toggleBranchModal,
     selectedBranch,
     selectedTime,
-    toggleTimeModal
+    toggleTimeModal,
   } = props;
 
   const form = useRef(null);
@@ -44,98 +45,102 @@ function CForm(props) {
       initialValues={{}}
       validationSchema={Validations}>
       {({handleChange, values, handleSubmit, errors}) => {
-        console.log('errorserrorserrorserrors', errors);
+        {
+          /* console.log('errorserrorserrorserrors', errors); */
+        }
         return (
-            <View style={[Styles.card]}>
-              <View style={Styles.cardBody}>
-                <CInput
-                  ref={fullName}
-                  placeholder={'Full Name'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  error={errors.fullName}
-                  sec
-                  leftIconNAme={NameIcon}
-                  returnKeyType="next"
-                  onSubmitEditing={() => number.current.focus()}
-                />
-
-                <CInput
-                  ref={fullName}
-                  placeholder={'Select Branch'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  onPress={toggleBranchModal}
-                  selectValue={selectedBranch}
-                  sec
-                  type="view"
-                  leftIconNAme={CNameIcon}
-                  returnKeyType="next"
-                  onSubmitEditing={() => dob.current.focus()}
-                />
-
-                <CInput
-                  ref={fullName}
-                  placeholder={'Select Time Slot'}
-                  value={values.fullName}
-                  onChangeText={handleChange('fullName')}
-                  sec
-                  onPress={toggleTimeModal}
-                  selectValue={selectedTime}
-                  type="view"
-                  leftIconNAme={TimeIcon}
-                  returnKeyType="next"
-                  onSubmitEditing={() => dob.current.focus()}
-                />
-
-                <CInput
-                  ref={phone}
-                  type="number"
-                  // disabled={true}
-                  selectedCountry={selectedCountry}
-                  onPress={() => toggleCountryModal()}
-                  keyboardType={'numeric'}
-                  leftIconNAme={PhoneIcon}
-                  placeholder={'000-000-0000'}
-                  value={values?.phone}
-                  onChangeText={val => {
-                    let phone = val;
-                    let reg = /^0+/gi;
-                    if (phone.match(reg)) {
-                      phone = phone.replace(reg, '');
-                    }
-                    handleChange('phone')(phone);
-                  }}
-                  error={errors.phone}
-                  returnKeyType="next"
-                  onSubmitEditing={() => fullName.current.focus()}
-                />
-              </View>
+          <View style={[Styles.card]}>
+            <View style={Styles.cardBody}>
+              <CInput
+                ref={fullName}
+                placeholder={'Full Name'}
+                value={values.fullName}
+                onChangeText={handleChange('fullName')}
+                error={errors.fullName}
+                sec
+                leftIconNAme={NameIcon}
+                returnKeyType="next"
+                onSubmitEditing={() => number.current.focus()}
+              />
 
               <CInput
-                ref={email}
-                placeholder={'Manager’s Email Address'}
-                value={values.email}
-                onChangeText={handleChange('email')}
-                error={errors.email}
+                ref={fullName}
+                placeholder={'Select Branch'}
+                value={values.fullName}
+                onChangeText={handleChange('fullName')}
+                onPress={toggleBranchModal}
+                selectValue={selectedBranch}
                 sec
-                leftIconNAme={EmailIcon}
+                type="view"
+                leftIconNAme={CNameIcon}
                 returnKeyType="next"
-                onSubmitEditing={() => idCard.current.focus()}
+                error={selectedBranch == '' ? 'Select branch' : ''}
+                onSubmitEditing={() => dob.current.focus()}
               />
 
-              <CButton
-                title={'Send Invite'}
-                iconType="left"
-                loading={loading}
-                buttonStyle={Styles.buttonStyle}
-                onPress={() => handleSubmit()}
+              <CInput
+                ref={fullName}
+                placeholder={'Select Time Slot'}
+                value={values.fullName}
+                onChangeText={handleChange('fullName')}
+                sec
+                onPress={toggleTimeModal}
+                selectValue={selectedTime}
+                type="view"
+                leftIconNAme={TimeIcon}
+                returnKeyType="next"
+                error={selectedTime?.name ? '' : 'Select time slot'}
+                onSubmitEditing={() => dob.current.focus()}
               />
 
-              {/* <View>
+              <CInput
+                ref={phone}
+                type="number"
+                // disabled={true}
+                selectedCountry={selectedCountry}
+                onPress={() => toggleCountryModal()}
+                keyboardType={'numeric'}
+                leftIconNAme={PhoneIcon}
+                placeholder={'000-000-0000'}
+                value={values?.phone}
+                onChangeText={val => {
+                  let phone = val;
+                  let reg = /^0+/gi;
+                  if (phone.match(reg)) {
+                    phone = phone.replace(reg, '');
+                  }
+                  handleChange('phone')(phone);
+                }}
+                error={errors.phone}
+                returnKeyType="next"
+                onSubmitEditing={() => fullName.current.focus()}
+              />
+            </View>
+
+            <CInput
+              ref={email}
+              placeholder={'Manager’s Email Address'}
+              value={values.email}
+              onChangeText={handleChange('email')}
+              error={errors.email}
+              sec
+              leftIconNAme={EmailIcon}
+              returnKeyType="next"
+              onSubmitEditing={() => idCard.current.focus()}
+            />
+
+            <CButton
+              title={'Send Invite'}
+              iconType="left"
+              loading={loading}
+              buttonStyle={Styles.buttonStyle}
+              onPress={() => handleSubmit()}
+            />
+
+            {/* <View>
                 <CText style={Styles.continueText}>Or continue with</CText>
               </View> */}
-            </View>
+          </View>
         );
       }}
     </Formik>

@@ -38,6 +38,7 @@ function CList(props) {
         <CLoading transparent={true} loading={true} />
       ) : (
         <FlatList
+          showsHorizontalScrollIndicator={false}
           {...props}
           data={data}
           nestedScrollEnabled

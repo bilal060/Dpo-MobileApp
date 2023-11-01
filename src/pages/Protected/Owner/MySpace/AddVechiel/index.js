@@ -30,7 +30,7 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import GlobalStyle from '../../../../../assets/styling/GlobalStyle';
 const {width, height} = Dimensions.get('screen');
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
 function AddVechiel({route}) {
   const {spaceId, startTime, price, endTime} = route?.params || {};
@@ -39,10 +39,10 @@ function AddVechiel({route}) {
   const isFocused = useIsFocused();
 
   const [carValue, selectCarValue] = useState(false);
-  
+
   const [spaces, setSpaces] = useState([]);
   const [selectValue, setSelectedValue] = useState('Storage Unit');
- 
+
   const [categories, setCategories] = useState({});
 
   const [stateModalIsOpen, updateStateModalIsOpen] = useState(false);
@@ -119,7 +119,7 @@ function AddVechiel({route}) {
     getCard();
     getSpaceCategory();
     // dispatch(getAllSpaces('', callBack));
-  }, [reduxState?.userId , isFocused]);
+  }, [reduxState?.userId, isFocused]);
   const getCard = () => {
     dispatch(get_CustomerCard(reduxState?.userId));
   };
@@ -127,7 +127,7 @@ function AddVechiel({route}) {
   const getSpaceCategory = () => {
     dispatch(get_spaceCategory('Storage Owner', categoryCallBack));
   };
-  const categoryCallBack = res => { 
+  const categoryCallBack = res => {
     setCategories(res?.roleCategory);
   };
 
@@ -328,7 +328,7 @@ function AddVechiel({route}) {
       })}
       <TouchableOpacity
         onPress={() => navigation.navigate('AddCard')}
-        style={AuthStyle.addCard}> 
+        style={AuthStyle.addCard}>
         <ProgressiveImage source={AddCard} style={{width: 20, height: 20}} />
         <CText style={AuthStyle.addCardText}>Add Card</CText>
       </TouchableOpacity>

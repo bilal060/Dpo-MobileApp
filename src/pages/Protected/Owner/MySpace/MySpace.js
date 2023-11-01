@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useRef, useState, useLayoutEffect, useEffect} from 'react';
 import {Container} from '../../../../containers';
@@ -46,17 +47,21 @@ import {
   getSpacesByCategories,
   getSpacesByCategory,
   getSpacsss,
+  getwarehouseByCategory,
 } from '../../../../redux/actions/Root.Action';
 import {BASE_URL, BASE_URL_IMG} from '../../../../config/webservices';
 import MapView, {Marker, Callout} from 'react-native-maps';
 
 const MySpace = ({navigation, route}) => {
   console.log('🚀 ~ file: MySpace.js:39 ~ MySpace ~ route:', route?.params);
-  const {name, _id} = route?.params;
-  console.log('🚀 ~ file: MySpace.js:43 ~ name:', name);
+
+  // const {name, _id} = route?.params;
+
+  // console.log('🚀 ~ file: MySpace.js:43 ~ name:', name);
   const fullName = useRef(null);
   const dispatch = useDispatch();
   const reduxState = useSelector(({auth, language, root}) => {
+    // Alert.alert('11');
     console.log('rootrootroot', root?.spaces, auth);
     return {
       spaces: root?.spaces,
@@ -70,15 +75,18 @@ const MySpace = ({navigation, route}) => {
   console.log('🚀 ~ file: MySpace.js:54 ~ MySpace ~ isCustomer:', isCustomer);
   const [spaces, setSpaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [paganation, setpaganation] = useState(1);
+  const [isLoader, setisLoader] = useState(false);
 
   const [account, setAccount] = useState('Grid View');
   const headerProps = {
-    headerTitle: name || 'My Spaces',
-    backButtonIcon: false,
+    headerTitle: route?.params?.name || 'My Spaces',
+    backButtonIcon: true,
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    backGroundColor: 'red',
     rightPress: () => navigation.navigate('Profile'),
   };
   const listData = [
@@ -106,11 +114,14 @@ const MySpace = ({navigation, route}) => {
       '/',
     );
 
+    console.log(item);
+
     return (
       <SpaceCard
         mainContainer={Styles.mainContainer}
         name={item?.description}
         phone={item?.contact}
+        capacity={item?.space ? item?.space : item?.capacity}
         ratePrize={item?.rate_day}
         address={item?.address}
         img={convertedFilePath}
@@ -130,6 +141,7 @@ const MySpace = ({navigation, route}) => {
         mainContainer={Styles.mainContainer2}
         name={item?.description}
         phone={item?.contact}
+        capacity={item?.capacity}
         ratePrize={item?.rate_day}
         address={item?.address}
         img={convertedFilePath}
@@ -153,34 +165,67 @@ const MySpace = ({navigation, route}) => {
   }, []);
   const allSpaces = () => {
     if (isCustomer) {
-      if (_id) {
-        dispatch(getSpacesByCategory(_id, callBack));
+      // Alert.alert('123');
+      if (route?.params?._id) {
+        if (route?.params?._id == '6470b05d2490274856cf6475') {
+          dispatch(getwarehouseByCategory(route?.params?._id, callBack));
+        } else {
+          dispatch(getSpacesByCategory(route?.params?._id, callBack));
+        }
       } else {
-        dispatch(getAllSpaces('', callBack));
+        dispatch(getAllSpaces(1, callBack));
       }
     } else {
-      dispatch(getSpacsss(reduxState?.userId, callBack));
+      // Alert.alert('12333');
+      // dispatch(getSpacsss(reduxState?.userId, callBack));
+      if (route?.params?._id) {
+        if (route?.params?._id == '6470b05d2490274856cf6475') {
+          dispatch(getwarehouseByCategory(route?.params?._id, callBack));
+        } else {
+          console.log(route?.params?._id);
+
+          dispatch(getSpacesByCategory(route?.params?._id, callBack));
+        }
+      } else {
+        // Alert.alert('dhdhd');
+        console.log('feffsf');
+        dispatch(getAllSpaces(1, callBack));
+      }
     }
   };
   const callBack = res => {
-    // console.log(
-    //   '🚀 ~ file: MySpace.js:154 ~ callBack ~ res:',
-    //   JSON.stringify(res),
-    // );
-    setSpaces(res);
+    setSpaces([...res, ...spaces]);
+    setisLoader(false);
   };
 
+  function onEndReached() {
+    if (route?.params?._id) {
+      // dispatch(getSpacesByCategory(route?.params?._id, callBack));
+    } else {
+      setisLoader(true);
+      dispatch(getAllSpaces(paganation, callBack));
+    }
+  }
+
   useEffect(() => {
-    console.log('osamaa');
-    console.log(spaces[0]?.location?.coordinates);
-  }, [spaces]);
+    if (paganation > 1) {
+      onEndReached();
+    }
+  }, [paganation]);
 
   return (
     <Container
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView>
+      scrollView
+      scrollViewProps={{
+        contentContainerStyle: {
+          flexGrow: 1,
+
+          paddingHorizontal: 0,
+        },
+      }}>
       <View style={Styles.container}>
         {isCustomer && (
           <CText
@@ -224,25 +269,39 @@ const MySpace = ({navigation, route}) => {
             ))}
           </View>
         )}
+        <View
+          style={{
+            flexDirection: 'row',
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute', //Here is the trick
+            bottom: 60,
+            width: '100%',
+            left: 34,
+            zIndex: 1000,
+            elevation: 1000,
+          }}>
+          {isLoader && <ActivityIndicator color={'#ED675D'} size={'large'} />}
+        </View>
 
         {account === 'Grid View' ? (
           <CList
             style={Styles.spacelist}
-            // numColumns={2}
-            //   horizontal
-            // contentContainerStyle={[GlobalStyle.list, ]}
             data={spaces}
-            loading={reduxState.loading}
+            // loading={reduxState.loading}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
             emptyOptions={{
               // icon: require('../../assets/images/empty.png'),
               text: 'Spaces not found',
             }}
-            onRefreshLoading={reduxState.loading}
-            onRefreshHandler={() => allSpaces()}
-            // onEndReached={onEndReached}
-            // onEndReachedThreshold={0.1}
+            // onRefreshLoading={reduxState.loading}
+            // onRefreshHandler={() => allSpaces()}
+            onEndReached={({distanceFromEnd}) => {
+              setpaganation(paganation + 1);
+            }}
+            onEndReachedThreshold={5}
             // maxToRenderPerBatch={10}
             // windowSize={10}
           />

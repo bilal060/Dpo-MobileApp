@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Container, CountriesModal} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
@@ -89,42 +91,44 @@ function VerifyOtp({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CForm
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-        email={email}
-      />
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <CForm
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          email={email}
+        />
 
-      <View style={[AuthStyle.orContainer, {marginTop: -20}]}>
-        <CText style={AuthStyle.cardBottomText}>Re-Send code in.</CText>
-        {isFocused == true ? (
-          <CountDown
-            until={100}
-            onFinish={va => {}}
-            onPress={() => {}}
-            size={15}
-            timeToShow={['S']}
-            timeLabels={{s: ''}}
-            digitTxtStyle={AuthStyle.timeCountDown}
-            digitStyle={AuthStyle.timeView}
-          />
-        ) : null}
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}></CText>
-      </View>
-      <Modal
-        transparent={true}
-        visible={countryModalIsOpen}
-        onRequestClose={() => toggleCountryModal()}>
-        <View style={AuthStyle.modalContainer}>
-          <View style={AuthStyle.modalInnerContainer}>
-            <CountriesModal onSelect={val => countryOnSelect(val)} />
-          </View>
+        <View style={[AuthStyle.orContainer, {marginTop: -20}]}>
+          <CText style={AuthStyle.cardBottomText}>Re-Send code in.</CText>
+          {isFocused == true ? (
+            <CountDown
+              until={100}
+              onFinish={va => {}}
+              onPress={() => {}}
+              size={15}
+              timeToShow={['S']}
+              timeLabels={{s: ''}}
+              digitTxtStyle={AuthStyle.timeCountDown}
+              digitStyle={AuthStyle.timeView}
+            />
+          ) : null}
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}></CText>
         </View>
-      </Modal>
+        <Modal
+          transparent={true}
+          visible={countryModalIsOpen}
+          onRequestClose={() => toggleCountryModal()}>
+          <View style={AuthStyle.modalContainer}>
+            <View style={AuthStyle.modalInnerContainer}>
+              <CountriesModal onSelect={val => countryOnSelect(val)} />
+            </View>
+          </View>
+        </Modal>
+      </View>
     </Container>
   );
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -14,7 +16,7 @@ import ChatStack from './Stacks/Chat';
 import ProfileStack from './Stacks/MyProfile';
 import {Home} from '../pages/Protected';
 import SpaceStack from './Stacks/SpaceStack';
-import { customerRoutes } from '../utils/constant';
+import {customerRoutes} from '../utils/constant';
 
 // import {
 //     HomeStack,

@@ -3,7 +3,7 @@ import React from 'react';
 import {CButton, CText, RadioButton} from '../../components';
 import Styles from './PackageCard.style';
 import {FlatList} from 'react-native-gesture-handler';
-const PackageCard = ({name = '', data , onBtnPress}) => {
+const PackageCard = ({name = '', data, onBtnPress}) => {
   const renderFeatures = title => {
     return (
       <CText style={Styles.packageDetails}>
@@ -33,10 +33,18 @@ const PackageCard = ({name = '', data , onBtnPress}) => {
       {data && data.map(({title}) => renderFeatures(title))}
 
       <CText style={Styles.selectPackage}>{'Select Package'}</CText>
-      <FlatList data={data} renderItem={renderPrizeBox} horizontal 
-              nestedScrollEnabled
-              />
-      <CButton title="Next" iconType="left" iconStyle={{}} onPress={onBtnPress} />
+      <FlatList
+        data={data}
+        renderItem={renderPrizeBox}
+        horizontal
+        nestedScrollEnabled
+      />
+      <CButton
+        title="Next"
+        iconType="left"
+        iconStyle={{}}
+        onPress={onBtnPress}
+      />
     </View>
   );
 };

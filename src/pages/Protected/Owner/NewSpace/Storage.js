@@ -1,6 +1,8 @@
-import React, {useRef, memo} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
+import React, {useRef, memo, useEffect, useState} from 'react';
 import {Formik} from 'formik';
-import {Alert, View} from 'react-native';
+import {Alert, View, ScrollView} from 'react-native';
 import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
 import Styles from './NewSpace.style';
 import {themes} from '../../../../theme/colors';
@@ -46,7 +48,7 @@ function Storage(props) {
     setMapAdreess,
     toggleSecurityModal,
     onDocumentPress,
-    selectedFile
+    selectedFile,
   } = props;
 
   const scheme = Yup.object().shape({
@@ -60,6 +62,7 @@ function Storage(props) {
     rWeek: Yup.string().required('Please enter your rate as per week'),
 
     rMonth: Yup.string().required('Please enter your rate as per Month'),
+    selectedFile: Yup.object().required('Please select Image'),
   });
 
   const form = useRef(null);
@@ -77,10 +80,17 @@ function Storage(props) {
   const rDay = useRef(null);
   const rWeek = useRef(null);
 
-  const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data)
+  const [IsImageSelect, setIsImageSelect] = useState(false);
 
+  const handlePlaceSelection = (data, details) => {
+    setMapAdreess(data);
   };
+
+  useEffect(() => {
+    if (selectedFile?.name) {
+      setIsImageSelect(true);
+    }
+  }, [selectedFile]);
 
   return (
     <Formik
@@ -129,65 +139,76 @@ function Storage(props) {
                   resizeMode="contain"
                   style={{width: 20, height: 20}}
                 />
-                <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || "Select Your Adreess"}
-                  debounce={100}
-                  listViewDisplayed={true}
-                  minLength={2}
-                  autoFocus={true}
-                  
-                  returnKeyType={'default'}
-                  fetchDetails={true}
-                  onPress={(data, details) => {
-                    handlePlaceSelection(details);
-                  }}
-                  onPlaceSelected={place => {
-                    handlePlaceSelection(place);
-                  }}
-                  renderRow={(rowData, details) => (
-                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
-                      <CText
-                        
-                        style={Styles.suggestionText}
-                        // onPress={() => console.log('1', 1)}
-                      >
-                        {rowData.description}
-                      </CText>
-                    </TouchableOpacity>
-                  )}
-                  query={{
-                    key: 'AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA',
-                    language: 'en',
-                  }}
-                  textInputProps={{
-                    leftIcon: {type: 'font-awesome', name: 'back'},
-                    errorStyle: {color: 'red'},
-                  }}
-                  styles={{
-                    textInputContainer: Styles.textInput,
-                    textInput: Styles.input,
-                    predefinedPlacesDescription: {
-                      color: '#1faadb',
-                    },
-                    powered: {},
-                    listView: {},
-                    row: {
-                      height: 44,
-                      flexDirection: 'row',
-                    },
-                    separator: {
-                      height: 0.5,
-                      backgroundColor: '#c8c7cc',
-                      marginHorizontal: 22,
-                    },
-                    description: {},
-                    loader: {
-                      flexDirection: 'row',
-                      justifyContent: 'flex-end',
-                      height: 20,
-                    },
-                  }}
-                />
+                <ScrollView
+                  horizontal={true}
+                  style={{
+                    flex: 1,
+                    width: '100%',
+                    height: '100%',
+                    // backgroundColor: 'red',
+                  }}>
+                  <GooglePlacesAutocomplete
+                    placeholder={'Select Your Adreess'}
+                    debounce={100}
+                    listViewDisplayed={false}
+                    keepResultsAfterBlur={true}
+                    minLength={2}
+                    autoFocus={true}
+                    returnKeyType={'default'}
+                    fetchDetails={true}
+                    onPress={(data, details) => {
+                      handlePlaceSelection(details);
+                    }}
+                    onPlaceSelected={place => {
+                      handlePlaceSelection(place);
+                    }}
+                    renderRow={(rowData, details) => (
+                      <TouchableOpacity
+                        onPress={() =>
+                          handlePlaceSelection(rowData.description)
+                        }>
+                        <CText
+                          style={Styles.suggestionText}
+                          // onPress={() => console.log('1', 1)}
+                        >
+                          {rowData.description}
+                        </CText>
+                      </TouchableOpacity>
+                    )}
+                    query={{
+                      key: 'AIzaSyC9VLm6XXwIkifsvZ0Xx3M2FjzB7ncSJbg',
+                      language: 'en',
+                    }}
+                    textInputProps={{
+                      leftIcon: {type: 'font-awesome', name: 'back'},
+                      errorStyle: {color: 'red'},
+                    }}
+                    styles={{
+                      textInputContainer: Styles.textInput,
+                      textInput: Styles.input,
+                      predefinedPlacesDescription: {
+                        color: '#1faadb',
+                      },
+                      powered: {},
+                      listView: {},
+                      row: {
+                        height: 44,
+                        flexDirection: 'row',
+                      },
+                      separator: {
+                        height: 0.5,
+                        backgroundColor: '#c8c7cc',
+                        marginHorizontal: 22,
+                      },
+                      description: {},
+                      loader: {
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        height: 20,
+                      },
+                    }}
+                  />
+                </ScrollView>
               </View>
               <CInput
                 ref={areaSize}
@@ -350,7 +371,9 @@ function Storage(props) {
 
               <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
+              <TouchableOpacity
+                onPress={onDocumentPress}
+                style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
                 <View style={{width: 40}}>
                   <ProgressiveImage
@@ -362,17 +385,21 @@ function Storage(props) {
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
-                
               </TouchableOpacity>
+              {IsImageSelect == false && (
+                <CText style={[Styles.uploadText, {color: 'red'}]}>
+                  {'Please select Image'}
+                </CText>
+              )}
               {selectedFile?.name && (
-                  <CText
-                    style={[
-                      Styles.uploadText,
-                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                    ]}>
-                    {selectedFile?.name}
-                  </CText>
-                )}
+                <CText
+                  style={[
+                    Styles.uploadText,
+                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                  ]}>
+                  {selectedFile?.name}
+                </CText>
+              )}
 
               <CButton
                 title={'Cancel'}

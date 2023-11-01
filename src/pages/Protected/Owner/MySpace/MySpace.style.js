@@ -1,3 +1,5 @@
+/* eslint-disable no-dupe-keys */
+/* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../../../theme/colors';
 const {width, height} = Dimensions.get('screen');
@@ -96,7 +98,7 @@ export default StyleSheet.create({
   mainPlaceContainer: {
     width: width * 0.9,
     marginLeft: -5,
-    height:height*0.56
+    height: height * 0.56,
     // marginLeft:-5
   },
   inputStyles: {
@@ -211,33 +213,32 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   timevIew: {
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center"
-    },
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   inputContainer: {
-    width: width*0.38,
-    height:50
+    width: width * 0.38,
+    height: 50,
   },
   inputDateContainer: {
-    width: width*0.8,
-    height:50
+    width: width * 0.8,
+    height: 50,
   },
   selectButtonText: {
     borderBottomWidth: 0,
-    justifyContent:"center",
-    alignItems:"center",
-    textAlign:"center"
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
   selectContainer: {
     backgroundColor: themes['light'].colors.lightenGray,
-    height:50,
-    marginTop:10,
-    justifyContent:"center",
-    alignItems:"center",
-    paddingTop:10,
-    borderRadius:0
-
+    height: 50,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10,
+    borderRadius: 0,
   },
   spaceCancelBtn: {
     backgroundColor: themes['light'].colors.secondary3,
@@ -259,49 +260,49 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  addCard:{
-     alignItems:"center",
-     backgroundColor:themes['light'].colors.tertiary,
-     elevation:1 ,
-     borderRadius:10,
-     padding:15,
+  addCard: {
+    alignItems: 'center',
+    backgroundColor: themes['light'].colors.tertiary,
+    elevation: 1,
+    borderRadius: 10,
+    padding: 15,
     //  marginBottom:50
   },
-  multplyCard:{
-     alignItems:"flex-start",
-     backgroundColor:themes['light'].colors.tertiary,
-     elevation:1 ,
-     borderRadius:10,
-     padding:15,
-     marginVertical:10
+  multplyCard: {
+    alignItems: 'flex-start',
+    backgroundColor: themes['light'].colors.tertiary,
+    elevation: 1,
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 10,
   },
-  selectedMultplyCard:{
-     alignItems:"flex-start",
-     backgroundColor:themes['light'].colors.tertiary,
-     elevation:1 ,
-     borderRadius:10,
-     padding:15,
-     marginVertical:10,
-     borderWidth:1,
-     borderColor:themes['light'].colors.primaryb ,
-
+  selectedMultplyCard: {
+    alignItems: 'flex-start',
+    backgroundColor: themes['light'].colors.tertiary,
+    elevation: 1,
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: themes['light'].colors.primaryb,
   },
-  img:{
-    width:25, height:25,
-    justifyContent:"center"
+  img: {
+    width: 25,
+    height: 25,
+    justifyContent: 'center',
   },
-  cardText:{
+  cardText: {
     color: theme.light.colors.iconColor,
     fontSize: 14,
     fontFamily: theme.font.semiBold,
   },
-  addCardText:{
+  addCardText: {
     color: theme.light.colors.primary,
     fontSize: 13,
     fontFamily: theme.font.semiBold,
   },
-  inputView:{
-    width:width*0.45
+  inputView: {
+    width: width * 0.45,
   },
   memberCard: {
     // flex: 1,
@@ -309,7 +310,6 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     backgroundColor: theme['light'].colors.primary,
     borderRadius: 7,
-    
   },
   unActiveMember: {
     // flex: 1,
@@ -319,7 +319,6 @@ export default StyleSheet.create({
     borderRadius: 7,
   },
 
-  
   manager: {
     fontSize: 12,
     color: theme['light'].colors.tertiary,
@@ -330,4 +329,4 @@ export default StyleSheet.create({
     color: theme['light'].colors.gray4,
     fontFamily: theme.font.medium,
   },
-})
+});

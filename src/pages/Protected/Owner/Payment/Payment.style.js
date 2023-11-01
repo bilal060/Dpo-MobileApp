@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../../../theme/colors';
 const {width, height} = Dimensions.get('screen');
@@ -6,17 +7,17 @@ export default StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: 15,
     paddingVertical: 15,
-    backgroundColor: theme['light'].colors.tertiaryBackground,
+    backgroundColor: '#f1f6f7',
   },
   bookingCard: {
     backgroundColor: theme['light'].colors.tertiary,
-    elevation:5,
+    elevation: 5,
     width: width * 0.415,
     margin: 8,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    height:70,
+    height: 70,
     paddingVertical: 10,
     paddingHorizontal: 10,
     padding: 10,
@@ -38,28 +39,27 @@ export default StyleSheet.create({
     fontSize: 24,
     fontFamily: theme.font.semiBold,
     fontWeight: '600',
-    marginTop:10,
-    marginLeft:10,
-    color:"#171D25"
+    marginTop: 10,
+    marginLeft: 10,
+    color: '#171D25',
   },
-  inputInnerContainerStyle:{
+  inputInnerContainerStyle: {
     backgroundColor: 'transparent',
-    border:0,
-    width:width*0.9,
-    marginTop:10
-
+    border: 0,
+    width: width * 0.9,
+    marginTop: 10,
   },
   subHeading: {
     color: theme.light.colors.gray4,
     fontSize: 13,
     fontFamily: theme.font.regular,
-    fontWeight: '600', 
+    fontWeight: '600',
   },
   cardValue: {
     color: theme.light.colors.iconColor,
     fontSize: 16,
     lineHeight: 16,
-    paddingTop:5,
+    paddingTop: 5,
     fontFamily: theme.font.semiBold,
     fontWeight: '600',
   },
@@ -90,8 +90,8 @@ export default StyleSheet.create({
     marginLeft: -5,
   },
   spacelist: {
-    padding:10,
-    width:width*0.92
+    padding: 10,
+    width: width * 0.92,
   },
   menu: {
     backgroundColor: 'rgba(188,217,174,0.3)',

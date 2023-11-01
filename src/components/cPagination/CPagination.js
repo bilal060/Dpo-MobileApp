@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Dots from 'react-native-dots-pagination';
@@ -9,7 +10,7 @@ const CPagination = () => {
         justifyContent: 'flex-start',
         alignSelf: 'flex-start',
         height: 20,
-        marginHorizontal:20,
+        marginHorizontal: 20,
       }}>
       <Dots
         length={3}

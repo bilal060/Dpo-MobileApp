@@ -1,5 +1,8 @@
+/* eslint-disable no-dupe-keys */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React, {memo, useState} from 'react';
-import {View, TouchableOpacity, FlatList} from 'react-native';
+import {View, TouchableOpacity, FlatList, Image} from 'react-native';
 import {CText, ProgressiveImage, RadioButton} from '../index';
 import Style from './SpaceCard.style';
 import {
@@ -17,6 +20,7 @@ import {
   rateIcon,
   Camera,
   isCustomer,
+  Rectangle,
 } from '../../assets/images';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import ToggleSwitch from '../cToggleSwitch/CToggleSwitch';
@@ -27,6 +31,7 @@ const SpaceCard = ({
   name = 'Belmont, North Carolina',
   phone = '+1 012 3456 789',
   address = 'Belmont, North Carolina',
+  capacity,
   mainContainer,
   onPress,
   imgData,
@@ -35,17 +40,18 @@ const SpaceCard = ({
   mapView,
   imgStyles,
 }) => {
+  // console.log(imgData);
   const renderItem = ({item}) => {
     return (
       <ProgressiveImage
         resizeMode="cover"
-        source={{uri: `${BASE_URL_IMG}${item}`}}
+        source={{uri: `${BASE_URL_IMG}${item?.replace(/\\/g, '/')}`}}
         style={{
           width: 50,
           height: 50,
           marginHorizontal: 5,
           marginVertical: 5,
-          borderRadius: 5,
+          borderRadius: 9,
         }}
       />
     );
@@ -56,8 +62,8 @@ const SpaceCard = ({
         resizeMode="cover"
         source={Camera}
         style={{
-          width: 50,
-          height: 50,
+          width: 52.6,
+          height: 52.6,
           marginHorizontal: 5,
           marginVertical: 5,
           borderRadius: 5,
@@ -72,16 +78,19 @@ const SpaceCard = ({
       // disabled={true}
       onPress={onPress}
       style={[Style.spaceContainer, mainContainer]}>
-      {!img ? (
+      {!img || img == undefined ? (
         <ProgressiveImage
           resizeMode="cover"
-          source={SpaceImg}
+          source={SpaceImg ? SpaceImg : img}
+          // source={{uri: img}}
+          rec={true}
           style={[{width: '100%', height: '50%'}, imgStyles]}
         />
       ) : (
         <ProgressiveImage
           resizeMode="cover"
           source={{uri: img}}
+          rec={true}
           style={[{width: '100%', height: '50%'}, imgStyles]}
         />
       )}
@@ -93,6 +102,7 @@ const SpaceCard = ({
             borderBottomWidth: 1,
             borderBottomColor: '#E7E6E9',
             padding: 4,
+            // backgroundColor: 'red',
           }}>
           {imgData && (
             <FlatList
@@ -101,19 +111,17 @@ const SpaceCard = ({
               renderItem={renderItem}
               ListFooterComponent={renderFooter}
               horizontal
+              showsHorizontalScrollIndicator={false}
             />
           )}
           <CText style={Style.ProfileName}>{name}</CText>
           <View
-            style={[
-              GlobalStyle.row,
-              {alignItems: 'center', marginVertical: 5},
-            ]}>
+            style={[GlobalStyle.row, {alignItems: 'center', marginTop: 10}]}>
             <View style={[GlobalStyle.row, {width: '45%'}]}>
-              <ProgressiveImage
+              <Image
                 source={CallColoured}
                 resizeMode="contain"
-                style={{width: 12, height: 12}}
+                style={{width: 12, height: 12, tintColor: '#DF525B'}}
               />
               <CText style={GlobalStyle.contact}>{phone}</CText>
             </View>
@@ -121,13 +129,13 @@ const SpaceCard = ({
             {!mapView && (
               <View
                 style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
-                <ProgressiveImage
+                <Image
                   source={rateIcon}
                   resizeMode="contain"
-                  style={{width: 12, height: 12}}
+                  style={{width: 12, height: 12, tintColor: '#DF525B'}}
                 />
-                <CText style={[GlobalStyle.contact]}>Rate :</CText>
-                <CText style={[Style.place, {flex: 1, marginLeft: -30}]}>
+                <CText style={[GlobalStyle.contact, {flex: 0}]}>Rate :</CText>
+                <CText style={[Style.place, {flex: 1, Left: '10%'}]}>
                   {'$ ' + ratePrize}
                 </CText>
               </View>
@@ -136,13 +144,13 @@ const SpaceCard = ({
           {mapView && (
             <View
               style={[GlobalStyle.row, {width: '45%', alignItems: 'center'}]}>
-              <ProgressiveImage
+              <Image
                 source={rateIcon}
                 resizeMode="contain"
-                style={{width: 12, height: 12}}
+                style={{width: 12, height: 12, tintColor: '#DF525B'}}
               />
-              <CText style={[GlobalStyle.contact]}>Rate :</CText>
-              <CText style={[Style.place, {flex: 1, marginLeft: 0}]}>
+              <CText style={[GlobalStyle.contact, {flex: 0}]}>Rate :</CText>
+              <CText style={[Style.place, {flex: 1, Left: '10%'}]}>
                 {'$ ' + ratePrize}
               </CText>
             </View>
@@ -153,10 +161,10 @@ const SpaceCard = ({
               GlobalStyle.row,
               {alignItems: 'center', marginVertical: 5},
             ]}>
-            <ProgressiveImage
+            <Image
               source={LocationColored}
               resizeMode="contain"
-              style={{width: 12, height: 12}}
+              style={{width: 12, height: 12, tintColor: '#DF525B'}}
             />
             <CText numberOfLines={1} style={GlobalStyle.contact}>
               {address}
@@ -169,14 +177,24 @@ const SpaceCard = ({
             ]}>
             <View
               style={[GlobalStyle.row, {width: '55%', alignItems: 'center'}]}>
-              <ProgressiveImage
+              <Image
                 source={bookingIcon}
                 resizeMode="contain"
-                style={{width: 11, height: 11}}
+                style={{width: 12, height: 12, tintColor: '#DF525B'}}
               />
-              <CText style={[GlobalStyle.contact]}>Type :</CText>
-              <CText style={[Style.place, {flex: 1, marginLeft: -10}]}>
-                Car Parking
+              <CText style={[GlobalStyle.contact, {flex: 0}]}>Capacity :</CText>
+              <CText
+                numberofLines={1}
+                style={[
+                  Style.place,
+                  {
+                    // flex: 12,
+                    Left: '10%',
+                    width: '80%',
+                    // backgroundColor: 'red',
+                  },
+                ]}>
+                {capacity}
               </CText>
             </View>
           </View>
@@ -185,7 +203,7 @@ const SpaceCard = ({
           <View
             style={[
               GlobalStyle.row,
-              {marginHorizontal: 10, marginVertical: 7},
+              {marginHorizontal: 10, marginVertical: 8},
             ]}>
             <>
               {isCustomer ? (
@@ -194,51 +212,87 @@ const SpaceCard = ({
                   isOn={isOn}
                   label="Available"
                   onPress={() => setIsOn(!isOn)}
+                  containerStyle={{width: 10, height: 10}}
                 />
               ) : (
                 <>
-                  <Rating
+                  {/* <Rating
                     type="star"
                     isDisabled={true}
-                    selectedColor="yellow"
+                    selectedColor="#DF525B"
                     ratingCount={1}
                     count={1}
                     minValue={1}
                     defaultRating={5}
                     imageSize={20}
-                    // showRating
-                    // onFinishRating={this.ratingCompleted}
+                   
                   />
-                  <CText style={[GlobalStyle.contact]}>4.0</CText>
+                  <CText style={[GlobalStyle.contact]}>4.0</CText> */}
+                  <ToggleSwitch
+                    size={'true'}
+                    isOn={isOn}
+                    label="Available"
+                    onPress={() => setIsOn(!isOn)}
+                  />
                 </>
               )}
             </>
-            <View style={[GlobalStyle.row, {marginHorizontal: 10}]}>
-              <ProgressiveImage
+            <View
+              style={[
+                GlobalStyle.row,
+                {marginHorizontal: 10, marginVertical: 6},
+              ]}>
+              <Image
                 source={plugIcon}
                 resizeMode="contain"
-                style={{width: 17, height: 17, marginLeft: 7}}
+                style={{
+                  width: 15,
+                  height: 15,
+                  marginLeft: 7,
+                  tintColor: '#DF525B',
+                }}
               />
-              <ProgressiveImage
+              <Image
                 source={lengthIcon}
                 resizeMode="contain"
-                style={{width: 17, height: 17, marginLeft: 7}}
+                style={{
+                  width: 15,
+                  height: 15,
+                  marginLeft: 7,
+                  tintColor: '#DF525B',
+                }}
               />
-              <ProgressiveImage
+              <Image
                 source={docIcon}
                 resizeMode="contain"
-                style={{width: 17, height: 17, marginLeft: 7}}
+                style={{
+                  width: 15,
+                  height: 15,
+                  marginLeft: 7,
+                  tintColor: '#DF525B',
+                }}
               />
-              <ProgressiveImage
+              <Image
                 source={fuelIcon}
                 resizeMode="contain"
-                style={{width: 17, height: 17, marginLeft: 7}}
+                style={{
+                  width: 15,
+                  height: 15,
+                  marginLeft: 7,
+                  tintColor: '#DF525B',
+                }}
               />
 
-              <ProgressiveImage
+              <Image
                 source={threeDots}
                 resizeMode="contain"
-                style={{width: 17, height: 17, marginLeft: 7}}
+                style={{
+                  width: 15,
+                  height: 15,
+                  marginLeft: 7,
+                  tintColor: '#171D25',
+                  left: 2.4,
+                }}
               />
             </View>
           </View>
@@ -248,4 +302,4 @@ const SpaceCard = ({
   );
 };
 
-export default memo(SpaceCard);
+export default SpaceCard;

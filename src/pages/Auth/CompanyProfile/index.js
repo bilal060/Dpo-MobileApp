@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Container, CountriesModal} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
@@ -19,7 +20,10 @@ import {
   Truck,
 } from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {updateCompnayProfile, updateUserProfile} from '../../../redux/actions/Auth.action';
+import {
+  updateCompnayProfile,
+  updateUserProfile,
+} from '../../../redux/actions/Auth.action';
 const {width, height} = Dimensions.get('screen');
 import DocumentPicker from 'react-native-document-picker';
 import GlobalStyle from '../../../assets/styling/GlobalStyle';
@@ -63,16 +67,16 @@ function CompanyProfile({route}) {
   };
 
   const submit = async values => {
-    console.log("🚀 ~ file: index.js:66 ~ submit ~ values:", values, null, 2)
+    console.log('🚀 ~ file: index.js:66 ~ submit ~ values:', values, null, 2);
     // "cAddress": "ee", "cName": "aabb", "noOFTruck": "12", "phone": "1234", "truckType": "abc"}
     const formData = new FormData();
     formData.append('companyName', values?.cName);
-    formData.append('companyType', "Individual");
+    formData.append('companyType', 'Individual');
     formData.append('companyPhone', values?.phone);
     formData.append('companyLicenseNo', values?.cLicenseNo);
     formData.append('companyAddress', values?.cAddress);
     formData.append('c_docs', selectedFile);
-    
+
     dispatch(updateCompnayProfile(formData, callBack));
 
     // navigation.navigate("VerifyOtp")
@@ -93,16 +97,14 @@ function CompanyProfile({route}) {
     {label: 'Five', value: '5'},
   ];
 
-
-
   const onDocumentPress = async () => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles]
+        type: [DocumentPicker.types.allFiles],
       });
 
-      setSelectedFile(res?.[0])
-      
+      setSelectedFile(res?.[0]);
+
       //Printing the log realted to the file
 
       //Setting the state to show single file attributes
@@ -131,15 +133,15 @@ function CompanyProfile({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <View style={[AuthStyle.cardHeader, {marginTop: 20}]}>
-        <CText style={AuthStyle.cardHeaderTitle}>Business Info</CText>
-        <CText style={AuthStyle.cardHeaderSubTitle}>
-          Enter your business information below.
-        </CText>
-      </View> 
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <View style={[AuthStyle.cardHeader, {marginTop: 20}]}>
+          <CText style={AuthStyle.cardHeaderTitle}>Business Info</CText>
+          <CText style={AuthStyle.cardHeaderSubTitle}>
+            Enter your business information below.
+          </CText>
+        </View>
 
-      
-      {/* <View style={AuthStyle.typesView}>
+        {/* <View style={AuthStyle.typesView}>
         {cData?.map(e => (
           <TouchableOpacity
             onPress={() => setAccount(e.name)}  
@@ -167,7 +169,7 @@ function CompanyProfile({route}) {
           </TouchableOpacity>
         ))}
       </View> */}
-      
+
         <CForm
           selectedFile={selectedFile}
           onDocumentPress={onDocumentPress}
@@ -181,51 +183,51 @@ function CompanyProfile({route}) {
           account={account}
           setAccount={setAccount}
         />
-    
 
-      <View
-        style={[
-          AuthStyle.orContainer,
-          {paddingHorizontal: 20, width: '70%', alignSelf: 'center'},
-        ]}>
-        <CText style={AuthStyle.cardBottomText}>
-          By registering, you’re agree to our,
-        </CText>
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}>
-          Terms & Condition{' '}
-        </CText>
-      </View>
-      <View
-        style={[
-          AuthStyle.orContainer,
-          {paddingHorizontal: 20, width: '70%', alignSelf: 'center'},
-        ]}>
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={AuthStyle.cardBottomText}>
-          {' '}
-          and
-        </CText>
-
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}>
-          {' '}
-          Privacy Policy
-        </CText>
-      </View>
-      <Modal
-        transparent={true}
-        visible={countryModalIsOpen}
-        onRequestClose={() => toggleCountryModal()}>
-        <View style={AuthStyle.modalContainer}>
-          <View style={AuthStyle.modalInnerContainer}>
-            <CountriesModal onSelect={val => countryOnSelect(val)} />
-          </View>
+        <View
+          style={[
+            AuthStyle.orContainer,
+            {paddingHorizontal: 20, width: '70%', alignSelf: 'center'},
+          ]}>
+          <CText style={AuthStyle.cardBottomText}>
+            By registering, you’re agree to our,
+          </CText>
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}>
+            Terms & Condition{' '}
+          </CText>
         </View>
-      </Modal>
+        <View
+          style={[
+            AuthStyle.orContainer,
+            {paddingHorizontal: 20, width: '70%', alignSelf: 'center'},
+          ]}>
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={AuthStyle.cardBottomText}>
+            {' '}
+            and
+          </CText>
+
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}>
+            {' '}
+            Privacy Policy
+          </CText>
+        </View>
+        <Modal
+          transparent={true}
+          visible={countryModalIsOpen}
+          onRequestClose={() => toggleCountryModal()}>
+          <View style={AuthStyle.modalContainer}>
+            <View style={AuthStyle.modalInnerContainer}>
+              <CountriesModal onSelect={val => countryOnSelect(val)} />
+            </View>
+          </View>
+        </Modal>
+      </View>
     </Container>
   );
 }

@@ -44,6 +44,7 @@ const Payment = ({navigation}) => {
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    backGroundColor: 'red',
   };
   const listData = [
     {
@@ -93,7 +94,14 @@ const Payment = ({navigation}) => {
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView>
+      scrollView
+      scrollViewProps={{
+        contentContainerStyle: {
+          flexGrow: 1,
+
+          paddingHorizontal: 0,
+        },
+      }}>
       <View style={Styles.container}>
         <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
           <CText style={Styles.mainHeading}>Payment History</CText>

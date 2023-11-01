@@ -5,11 +5,10 @@ import {View} from 'react-native';
 import {CButton, CInput, CText} from '../../../components';
 import AuthStyle from '../Auth.style';
 import {themes} from '../../../theme/colors';
-import { EmailIcon, PhoneIcon } from '../../../assets/images';
+import {EmailIcon, PhoneIcon} from '../../../assets/images';
 
 function CForm(props) {
   const {submit, loading, toggleCountryModal, selectedCountry} = props;
-
 
   const form = useRef(null);
   const fullName = useRef(null);
@@ -29,16 +28,16 @@ function CForm(props) {
             <View style={AuthStyle.card}>
               <View style={AuthStyle.cardHeader}>
                 <CText style={AuthStyle.cardHeaderTitle}>
-                Forgot Password?
+                  Forgot Password?
                 </CText>
                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                Don’t worry! it happens. Please enter your email
-address and contact number to get code.
+                  Don’t worry! it happens. Please enter your email address and
+                  contact number to get code.
                 </CText>
               </View>
 
               <View style={AuthStyle.cardBody}>
-              <CInput
+                <CInput
                   ref={email}
                   placeholder={'Email Address'}
                   value={values.email}
@@ -54,7 +53,7 @@ address and contact number to get code.
                   onSubmitEditing={() => handleSubmit()}
                 />
 
-{/* <CInput
+                {/* <CInput
                   ref={number}
                   type="number"
                   // disabled={true}
@@ -76,7 +75,6 @@ address and contact number to get code.
                   returnKeyType="next"
                   onSubmitEditing={() => handleSubmit()}
                 /> */}
-               
               </View>
 
               <CButton
@@ -85,7 +83,7 @@ address and contact number to get code.
                 loading={loading}
                 onPress={() => handleSubmit()}
               />
-{/* 
+              {/* 
               <View>
                 <CText style={AuthStyle.continueText}>Or continue with</CText>
               </View> */}

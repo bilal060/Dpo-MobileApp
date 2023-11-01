@@ -1,4 +1,5 @@
-import React, {useRef, memo} from 'react';
+/* eslint-disable prettier/prettier */
+import React, {useRef, memo, useState, useEffect} from 'react';
 import {Formik} from 'formik';
 import {Alert, View} from 'react-native';
 import {CButton, CInput, CText, ProgressiveImage} from '../../../../components';
@@ -46,7 +47,7 @@ function TruckParking(props) {
     setMapAdreess,
     toggleSecurityModal,
     onDocumentPress,
-    selectedFile
+    selectedFile,
   } = props;
 
   const scheme = Yup.object().shape({
@@ -78,10 +79,14 @@ function TruckParking(props) {
   const rWeek = useRef(null);
 
   const handlePlaceSelection = (data, details) => {
-    setMapAdreess(data)
-
+    setMapAdreess(data);
   };
-
+  const [IsImageSelect, setIsImageSelect] = useState(false);
+  useEffect(() => {
+    if (selectedFile?.name) {
+      setIsImageSelect(true);
+    }
+  }, [selectedFile]);
   return (
     <Formik
       innerRef={form}
@@ -130,24 +135,23 @@ function TruckParking(props) {
                   style={{width: 20, height: 20}}
                 />
                 <GooglePlacesAutocomplete
-                  placeholder={mapAdreess || "Select Your Adreess"}
+                  placeholder={'Select Your Adreess'}
                   debounce={100}
                   listViewDisplayed={true}
                   minLength={2}
                   autoFocus={true}
-                  
                   returnKeyType={'default'}
                   fetchDetails={true}
                   onPress={(data, details) => {
                     handlePlaceSelection(details);
                   }}
                   onPlaceSelected={place => {
-                    handlePlaceSelection(place);
+                    // handlePlaceSelection(place);
                   }}
                   renderRow={(rowData, details) => (
-                    <TouchableOpacity onPress={()=> handlePlaceSelection(rowData.description)}>
+                    <TouchableOpacity
+                      onPress={() => handlePlaceSelection(rowData.description)}>
                       <CText
-                        
                         style={Styles.suggestionText}
                         // onPress={() => console.log('1', 1)}
                       >
@@ -156,7 +160,7 @@ function TruckParking(props) {
                     </TouchableOpacity>
                   )}
                   query={{
-                    key: 'AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA',
+                    key: 'AIzaSyCYhvw2XU6XduQuV4JDHHwmE02yPYwBBGA',
                     language: 'en',
                   }}
                   textInputProps={{
@@ -350,7 +354,9 @@ function TruckParking(props) {
 
               <CText style={Styles.uploadText}>Upload Images</CText>
 
-              <TouchableOpacity onPress={onDocumentPress} style={Styles.selectFileView}>
+              <TouchableOpacity
+                onPress={onDocumentPress}
+                style={Styles.selectFileView}>
                 {/* <CText>HHHH</CText> */}
                 <View style={{width: 40}}>
                   <ProgressiveImage
@@ -362,24 +368,28 @@ function TruckParking(props) {
                 <View style={{width: 100}}>
                   <CText style={Styles.selectFile}>Choose File</CText>
                 </View>
-                
               </TouchableOpacity>
+              {IsImageSelect == false && (
+                <CText style={[Styles.uploadText, {color: 'red'}]}>
+                  {'Please select Image'}
+                </CText>
+              )}
               {selectedFile?.name && (
-                  <CText
-                    style={[
-                      Styles.uploadText,
-                      {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
-                    ]}>
-                    {selectedFile?.name}
-                  </CText>
-                )}
+                <CText
+                  style={[
+                    Styles.uploadText,
+                    {marginLeft: 10, marginBottom: 10, color: '#0064FA'},
+                  ]}>
+                  {selectedFile?.name}
+                </CText>
+              )}
 
               <CButton
                 title={'Cancel'}
                 iconType="left"
                 loading={loading}
                 buttonStyle={Styles.spaceCancelBtn}
-                buttonText={Styles.buttonText}
+                // buttonText={Styles.buttonText}
                 onPress={() => handleSubmit()}
               />
               <CButton

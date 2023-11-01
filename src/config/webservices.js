@@ -2,9 +2,8 @@
 // export const BASE_URL = 'https://api.instantspace.app/api/v1/';
 // export const BASE_URL_IMG = 'https://api.instantspace.app/';
 
-export const BASE_URL = 'http://192.168.1.105:5001/api/v1/';
-export const BASE_URL_IMG = 'http://192.168.1.105:5001/';
-// export const BASE_URL_IMG = "https://api.instantspace.app/";
+export const BASE_URL = 'http://192.168.0.105:5001/api/v1/';
+export const BASE_URL_IMG = 'http://192.168.0.105:5001/';
 
 export const SCOKET_URL = 'ws://localhost:8900';
 
@@ -19,15 +18,20 @@ export const GETALLSPACES = `${BASE_URL}spaces`;
 export const GETSPACESBYCATORGY = catId =>
   `${BASE_URL}spaces/cat-spaces/${catId}`;
 
+export const GETWAREHOUSEBYCATORGY = catId =>
+  `${BASE_URL}warehouses/cat-warehouses/${catId}`;
+
 export const INVITEMANAGER = `${BASE_URL}users/manager-invitation`;
 export const ADDMEWSPACE = `${BASE_URL}spaces/add_space`;
+export const ADDNEWAREHOUSESPACE = `${BASE_URL}warehouses/add_warehouse`;
 
-export const GETUSERSPACES = id => `${BASE_URL}spaces/space/${id}`;
+export const GETUSERSPACES = id => `${BASE_URL}spaces/?page=${id}`;
 
 export const CREATEBOOKING = `${BASE_URL}bookings/create_booking`;
 export const ALLBOOKING = id => `${BASE_URL}bookings/user_bookings/${id}`;
 export const OWNERBOOKING = id => `${BASE_URL}bookings/owner_bookings/${id}`;
-export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers/${id}`;
+export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers`;
+// export const OWNERMANAGERS = id => `${BASE_URL}users/owner-managers/${id}`;
 
 export const FILTERMANAGERS = (ownerId, spaceId) =>
   `${BASE_URL}users/owner-managers/${ownerId}?page=1&filterBy=${spaceId}`;

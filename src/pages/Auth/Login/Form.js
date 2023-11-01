@@ -85,7 +85,7 @@ function CForm(props) {
 
               <View style={{flexDirection: 'row'}}>
                 <CText style={{marginTop: 5, color: '#E7E6E9'}}>
-                  ______________________
+                  ____________________________
                 </CText>
                 <CText style={AuthStyle.continueText}> OR </CText>
                 <CText style={{marginTop: 5, color: '#E7E6E9'}}>

@@ -90,14 +90,12 @@ const Home = ({navigation}) => {
     return <BookingCard />;
   };
   useEffect(() => {
-    getApi()
+    getApi();
   }, []);
   const getApi = () => {
-    const payload= "sssss"
-    dispatch(getSpacsss("ss"));
+    const payload = 'sssss';
+    dispatch(getSpacsss('ss'));
   };
-
-  
 
   const listData2 = [
     {
@@ -110,7 +108,7 @@ const Home = ({navigation}) => {
       title: 'Paid Bookings',
       value: '185',
     },
-    
+
     {
       img: Cancel,
       title: 'Cancelled Bookings',

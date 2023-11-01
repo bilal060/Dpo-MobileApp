@@ -64,12 +64,13 @@ const SpaceDetails = ({navigation, route}) => {
 
   const [prize, updatedPrize] = useState();
   const headerProps = {
-    headerTitle: 'My Space',
-    backButtonIcon: false,
+    headerTitle: 'My Spaces',
+    backButtonIcon: true,
     ProgressiveImageHeader: true,
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    backGroundColor: 'red',
   };
   const listData = [
     {
@@ -244,7 +245,7 @@ const SpaceDetails = ({navigation, route}) => {
       <View style={Styles.container}>
         {!isCustomer && (
           <View style={[GlobalStyle.row, {alignItems: 'center'}]}>
-            <CText style={Styles.mainHeading}>My Spaces</CText>
+            <CText style={Styles.mainHeading}>My Space</CText>
 
             <View style={[GlobalStyle.row]}>
               {/* <CText style={Styles.subHeading}>Total Spaces:</CText> */}
@@ -258,7 +259,12 @@ const SpaceDetails = ({navigation, route}) => {
           phone={item?.contact}
           ratePrize={item?.rate_day}
           address={item?.address}
-          img={`${BASE_URL_IMG}${item?.images?.[0]}`}
+          capacity={item?.space ? item?.space : item?.capacity}
+          img={
+            item?.images?.length >= 1
+              ? `${BASE_URL_IMG}${item?.images?.[0]?.replace(/\\/g, '/')}`
+              : undefined
+          }
           mainContainer={Styles.mainPlaceContainer}
           imgData={item?.images}
           isCustomer={isCustomer}

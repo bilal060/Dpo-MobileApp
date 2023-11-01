@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View, Alert} from 'react-native';
 import GlobalStyle from '../../assets/styling/GlobalStyle';
 import {useSelector} from 'react-redux';
 import {
@@ -17,12 +18,13 @@ function CountriesModal(props) {
 
   const [searchText, updateSearchText] = useState('');
   const [filteredCountry, updateFilteredCountry] = useState([]);
-  console.log(
-    '🚀 ~ file: CountriesModal.js:20 ~ CountriesModal ~ filteredCountry:',
-    filteredCountry,
-  );
-  console.log(data);
+  // console.log(
+  //   '🚀 ~ file: CountriesModal.js:20 ~ CountriesModal ~ filteredCountry:',
+  //   filteredCountry,
+  // );
+
   const [loading, setLoading] = useState(true);
+  const [paganation, setpaganation] = useState(1);
 
   const reduxState = useSelector(({global}) => {
     return {
@@ -32,11 +34,27 @@ function CountriesModal(props) {
   });
 
   useEffect(() => {
+    // console.log(data[0]);
     updateFilteredCountry(data);
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    // console.log(data[0]);
+    if (props?.isId) {
+      updateFilteredCountry(data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (paganation > 1) {
+      props.onEndReached(paganation);
+    }
+  }, [paganation]);
 
   const handleChange = val => {
     setLoading(true);
@@ -59,10 +77,7 @@ function CountriesModal(props) {
   };
 
   const renderItem = ({item, index}) => {
-    console.log(
-      '🚀 ~ file: CountriesModal.js:58 ~ renderItem ~ item:',
-      item?.name,
-    );
+    // console.log('🚀 ~ file: CountriesModal.js:58 ~ renderItem ~ item:', item);
     return item ? (
       <TouchableOpacity
         style={[Styles.listItem, index === 0 && Styles.lastListItem]}
@@ -76,13 +91,22 @@ function CountriesModal(props) {
             />
           </View>
         )}
-        <CText style={Styles.listItemText}>
-          {item?.name?.common || item?.name || item?.description}
-        </CText>
-        {item?.detail?.code && (
-          <CText style={[Styles.listItemText, Styles.listItemLastText]}>
-            {item?.detail?.code}
-          </CText>
+        {props?.isId ? (
+          <CText style={Styles.listItemText}>{item?._id}</CText>
+        ) : (
+          <>
+            <CText style={Styles.listItemText}>
+              {item?.name?.common ||
+                item?.name ||
+                item?.description ||
+                item?._id}
+            </CText>
+            {item?.detail?.code && (
+              <CText style={[Styles.listItemText, Styles.listItemLastText]}>
+                {item?.detail?.code}
+              </CText>
+            )}
+          </>
         )}
       </TouchableOpacity>
     ) : null;
@@ -119,6 +143,14 @@ function CountriesModal(props) {
             // icon: require('../../assets/images/country-not-found.png'),
             text: `${Value} not found`,
           }}
+          onEndReached={({distanceFromEnd}) => {
+            // Alert.alert('call');
+            // setpaganation(paganation + 1);
+            if (props?.isId) {
+              setpaganation(paganation + 1);
+            }
+          }}
+          // onEndReachedThreshold={5}
         />
       ) : (
         <CLoading loading={true} />
@@ -127,4 +159,4 @@ function CountriesModal(props) {
   );
 }
 
-export default React.memo(CountriesModal);
+export default CountriesModal;

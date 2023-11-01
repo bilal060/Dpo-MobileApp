@@ -1,6 +1,5 @@
-
-
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+/* eslint-disable prettier/prettier */
+import {StyleSheet, Text, View, Dimensions, Alert, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -13,7 +12,12 @@ import {
   ProgressiveImage,
   SpaceCard,
 } from '../../../../components';
-import {Booking, Profile, filterIcon} from '../../../../assets/images';
+import {
+  Booking,
+  Profile,
+  filterIcon,
+  newFilter,
+} from '../../../../assets/images';
 import Styles from './Home.styles';
 import GlobalStyle from '../../../../assets/styling/GlobalStyle';
 import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
@@ -24,7 +28,7 @@ import {
   get_ownerBooking,
 } from '../../../../redux/actions/Root.Action';
 import {reduxStateSelector} from '../../../../utils/selector';
-import { BASE_URL_IMG } from '../../../../config/webservices';
+import {BASE_URL_IMG} from '../../../../config/webservices';
 import moment from 'moment';
 const width = Dimensions.get('screen').width;
 const Home = ({navigation}) => {
@@ -47,17 +51,23 @@ const Home = ({navigation}) => {
   const {userSpaces, userSpacesLoading} = root || {};
 
   useEffect(() => {
-    dispatch(getSpacsss(_id, callBack));
-    dispatch(get_ownerBooking(_id, handleBookingCallBack));
+    dispatch(getSpacsss(1, callBack));
+    // dispatch(get_ownerBooking(_id, handleBookingCallBack));
     // dispatch(getAllBooking);
   }, []);
 
   const callBack = res => {
-    console.log("🚀 ~ file: Home.js:276 ~ callBack ~ res:", res)
-    setSpaces(res?.spaces);
+    console.log('🚀 ~ file: Home.js:276 ~ callBack ~ res:', res);
+    // Alert.alert(res?.length.toString());
+    if (res && res?.length >= 3) {
+      const data = res?.filter((data, idx) => idx < 3);
+      setSpaces(data);
+    } else {
+      setSpaces(res);
+    }
   };
   const handleBookingCallBack = res => {
-    setOwnerBooking(res?.bookings)
+    setOwnerBooking(res?.bookings);
     console.log('🚀 ~ file: Home.js:276 ~ handleBookingCallBack ~ res:', res);
   };
   const headerProps = {
@@ -65,56 +75,79 @@ const Home = ({navigation}) => {
     backButtonIcon: false,
     ProgressiveImageHeader: true,
     headerRight: true,
-    headerRightImg: false,
-    headerRightImg: Profile,
+    headerRightImg: true,
+    // headerRightImg: Profile,
+    backGroundColor: 'red',
     rightPress: () => navigation.navigate('Profile'),
   };
 
   const renderItem = ({item}) => {
-    const data = item?.images?.[0]?.replace(/\\/g, "/");
-    console.log("🚀 ~ file: Home.js:76 ~ renderItem ~ data:", data , item?.images)
+    const data = item?.images?.[0]?.replace(/\\/g, '/');
+    // console.log(
+    //   '🚀 ~ file: Home.js:76 ~ renderItem ~ data:',
+    //   data,
+    //   item?.images,
+    // );
+    // Alert.alert(data);
+    // console.log('itemmm');
+
+    // console.log(data);
+    // return;
+
     return (
       <SpaceCard
         mainContainer={{
-          width: spaces?.length > 1 ? width * 0.75 : width * 0.85,
+          width: spaces?.length > 1 ? width * 0.75 : width * 0.75,
           alignSelf: 'center',
         }}
         name={item?.description}
         phone={item?.contact}
         ratePrize={item?.rate_day}
-        address={item?.location?.address}
-        img={`${BASE_URL_IMG}${data}`}
+        address={item?.address}
+        capacity={item?.capacity}
+        img={data == undefined ? undefined : `${BASE_URL_IMG}${data}`}
         onPress={() => navigation.navigate('SpaceDetails', {item})}
       />
     );
   };
 
   const renderBooking = ({item}) => {
-    return <BookingCard 
-    location={item?.spaceId?.location?.address}
-        date={moment(item?.createdAt).format('LL')}
-        contact={item?.userId?.phoneNo}
-        fullName={item?.userId?.fullName}
-        time={moment(item?.createdAt).startOf('hour').fromNow()}
-        prize={item.price}
-        eTime={item?.to}
-        sTime={item?.from}
-    
-    />;
+    return (
+      // <BookingCard
+      //   location={item?.spaceId?.location?.address}
+      //   date={moment(item?.createdAt).format('LL')}
+      //   contact={item?.userId?.phoneNo}
+      //   fullName={item?.userId?.fullName}
+      //   time={moment(item?.createdAt).startOf('hour').fromNow()}
+      //   prize={item.price}
+      //   eTime={item?.to}
+      //   sTime={item?.from}
+      // />
+      <BookingCard
+        location={'Malir halt'}
+        date={'12/3/March'}
+        contact={'03323669509'}
+        fullName={'osama'}
+        time={'3 hours'}
+        prize={'300 Prize'}
+        eTime={'2/12'}
+        sTime={'3/12'}
+      />
+    );
   };
   const barData = [
-    {value: 500, label: 'Jan', frontColor: '#177AD5'},
-    {value: 700, label: 'Feb', frontColor: '#177AD5'},
-    {value: 630, label: 'Mar', frontColor: '#177AD5'},
-    {value: 270, label: 'Apr', frontColor: '#177AD5'},
-    {value: 520, label: 'May', frontColor: '#177AD5'},
-    {value: 710, label: 'June', frontColor: '#177AD5'},
-    {value: 180, label: 'July', frontColor: '#177AD5'},
-    {value: 950, label: 'Aug', frontColor: '#177AD5'},
-    {value: 800, label: 'Sep', frontColor: '#177AD5'},
-    {value: 450, label: 'Oct', frontColor: '#177AD5'},
-    {value: 830, label: 'Nov', frontColor: '#177AD5'},
-    {value: 100, label: 'Dec', frontColor: '#177AD5'},
+    {value: 500, label: 'Jan', frontColor: '#DF525B60'},
+    {value: 700, label: 'Feb', frontColor: '#DF525B60'},
+    {value: 630, label: 'Mar', frontColor: '#DF525B60'},
+    {value: 270, label: 'Apr', frontColor: '#DF525B60'},
+    {value: 520, label: 'May', frontColor: '#DF525B60'},
+    {value: 710, label: 'June', frontColor: '#DF525B60'},
+    {value: 180, label: 'July', frontColor: '#DF525B60'},
+    {value: 950, label: 'Aug', frontColor: '#DF525B60'},
+    {value: 800, label: 'Sep', frontColor: '#DF525B60'},
+    {value: 450, label: 'Oct', frontColor: '#DF525B60'},
+    {value: 830, label: 'Nov', frontColor: '#DF525B60'},
+    {value: 100, label: 'Dec', frontColor: '#DF525B60'},
   ];
 
   return (
@@ -122,8 +155,7 @@ const Home = ({navigation}) => {
       bottomSpace
       edges={['left', 'right']}
       headerProps={headerProps}
-      scrollView
-      >
+      scrollView>
       <View style={Styles.container}>
         <CText style={Styles.mainHeading}>My Spaces</CText>
         <View style={GlobalStyle.row}>
@@ -140,11 +172,9 @@ const Home = ({navigation}) => {
           horizontal
           data={spaces}
           extraData={spaces}
-          // loading={reduxState.loading}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
-            // icon: require('../../assets/images/empty.png'),
             text: 'Spaces not found',
           }}
         />
@@ -159,9 +189,9 @@ const Home = ({navigation}) => {
         </View>
         <CList
           style={Styles.list}
-          data={ownerBooking}
+          // data={ownerBooking}
+          data={[1, 2]}
           extraData={ownerBooking}
-          // loading={reduxState.loading}
           renderItem={renderBooking}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{
@@ -177,7 +207,7 @@ const Home = ({navigation}) => {
           <CText style={Styles.mainHeading}>My Earnings</CText>
 
           <ProgressiveImage
-            source={filterIcon}
+            source={newFilter}
             resizeMode="contain"
             style={{width: 25, height: 25, marginTop: 10}}
           />
@@ -186,14 +216,11 @@ const Home = ({navigation}) => {
           <BarChart
             width={330}
             data={barData}
-            barWidth={14}
+            barWidth={22}
             isAnimated={true}
             height={150}
             maxValue={1000}
             initialSpacing={3}
-            // stepHeight={10}
-            // stepValue={6}
-            // spacing={10}
             noOfSections={4}
             frontColor="lightgray"
             yAxisThickness={0}
@@ -203,11 +230,11 @@ const Home = ({navigation}) => {
         <View style={Styles.Calender}>
           <DatePicker
             options={{
-              backgroundColor: '#FFFFF',
+              // backgroundColor: '#FFFFF',
               textHeaderColor: '#707070',
               textDefaultColor: '#707070',
               selectedTextColor: '#fff',
-              mainColor: '#0064FA',
+              mainColor: '#DF525B',
               textSecondaryColor: '#707070',
               borderColor: 'rgba(122, 146, 165, 0.1)',
             }}
@@ -218,6 +245,17 @@ const Home = ({navigation}) => {
             style={{borderRadius: 10}}
           />
         </View>
+        <CText style={{...Styles.mainHeading}}>How it Works</CText>
+        <Image
+          style={{
+            width: Dimensions.get('window').width * 0.96,
+            height: Dimensions.get('window').height * 0.8,
+            marginTop: 20,
+            alignSelf: 'center',
+          }}
+          resizeMode="cover"
+          source={require('../../../../assets/images/howitworks.png')}
+        />
       </View>
     </Container>
   );

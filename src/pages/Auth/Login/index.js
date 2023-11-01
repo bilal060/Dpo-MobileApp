@@ -1,17 +1,20 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-dupe-keys */
 import React, {useEffect, useState} from 'react';
 import {Container} from '../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, View, Alert} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
-import {Facebook, Google, LoginImg} from '../../../assets/images';
+import {Facebook, Google, LoginImg, newlock} from '../../../assets/images';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {login} from '../../../redux/actions/Auth.action';
 import ToggleSwitch from '../../../components/cToggleSwitch/CToggleSwitch';
 import i18n from '../../../utils/i18n/i18n';
 const {width, height} = Dimensions.get('screen');
+
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -70,13 +73,14 @@ function Login({route}) {
     showCenterLogo: false,
     headerLeft: true,
     headerTitle: 'Sing in',
-    showCenterLogo: LoginImg,
+    showCenterLogo: newlock,
   };
 
   const submit = async values => {
     dispatch(login(values, callBack));
   };
   const callBack = res => {
+    //Alert.alert('call');
     console.log('🚀 ~ file: index.js:37 ~ callBack ~ res:', res);
   };
 
@@ -91,30 +95,42 @@ function Login({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CForm
-        submit={submit}
-        loading={reduxState?.loading}
-        onForgotPress={() => navigation.navigate('Forgot')}
-      />
-
-      <TouchableOpacity
-        onPress={() => handleGoogleSignIn()}
-        style={[AuthStyle.orContainer, AuthStyle.googleContainer]}>
-        <ProgressiveImage
-          source={Google}
-          resizeMode={'contain'}
-          style={AuthStyle.IconImage}
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <CForm
+          submit={submit}
+          loading={reduxState?.loading}
+          onForgotPress={() => navigation.navigate('Forgot')}
         />
-        <CText style={AuthStyle.googleAccount}>Login With Google</CText>
-      </TouchableOpacity>
 
-      <View style={AuthStyle.orContainer}>
-        <CText style={AuthStyle.cardBottomText}>Don’t have an account?</CText>
-        <CText
-          onPress={() => navigation.navigate('Register', {role: 'Customer'})}
-          style={[AuthStyle.cardBottomText2]}>
-          Register?
-        </CText>
+        <TouchableOpacity
+          onPress={() => handleGoogleSignIn()}
+          style={[AuthStyle.orContainer, AuthStyle.googleContainer]}>
+          <ProgressiveImage
+            source={Google}
+            resizeMode={'contain'}
+            style={AuthStyle.IconImage}
+          />
+          <CText style={AuthStyle.googleAccount}>Login With Google</CText>
+        </TouchableOpacity>
+
+        <View style={AuthStyle.orContainer}>
+          <CText style={AuthStyle.cardBottomText}>Don’t have an account?</CText>
+          <CText
+            onPress={() => navigation.navigate('Register', {role: 'Customer'})}
+            style={[AuthStyle.cardBottomText2]}>
+            Register?
+          </CText>
+        </View>
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Register', {role: 'Storage Owner'})
+          }
+          style={{...AuthStyle.orContainer, marginTop: 20}}>
+          <CText style={AuthStyle.regesiterProvider}>
+            Register as Service Povider
+          </CText>
+        </TouchableOpacity>
       </View>
     </Container>
   );

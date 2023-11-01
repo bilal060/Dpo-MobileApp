@@ -37,7 +37,7 @@ function CForm(props) {
     selectedCountry,
     account,
     setAccount,
-    role
+    role,
   } = props;
   const form = useRef(null);
   const fullName = useRef(null);
@@ -46,13 +46,12 @@ function CForm(props) {
   const cpassword = useRef(null);
   const password = useRef(null);
   const data = [
-    {name: 'Truck Driver', image: Truck, activeImg: FocusedTruck},
-    {name: 'Service Provider', image: BServices, activeImg: FocusedServices},
+    // {name: 'Truck Driver', image: Truck, activeImg: FocusedTruck},
+    {name: 'Customer', image: BServices, activeImg: FocusedServices},
     {name: 'Storage Owner', image: Onwer, activeImg: FocusedOwner},
   ];
-  const [passShow , setPassShow]= useState(true)
-  const [cPassShow , setCPassShow]= useState(true)
-
+  const [passShow, setPassShow] = useState(true);
+  const [cPassShow, setCPassShow] = useState(true);
 
   return (
     <Formik
@@ -74,7 +73,6 @@ function CForm(props) {
               <View style={AuthStyle.cardBody}>
                 {role !== 'Customer' && (
                   <>
-                  
                     <View style={AuthStyle.typesView}>
                       {data?.map(e => (
                         <TouchableOpacity
@@ -148,7 +146,7 @@ function CForm(props) {
                   value={values.password}
                   onChangeText={handleChange('password')}
                   secureTextEntry={passShow}
-                  toggleRightIconFunc={()=> setPassShow(!passShow)}
+                  toggleRightIconFunc={() => setPassShow(!passShow)}
                   error={errors.password}
                   returnKeyType="next"
                   onSubmitEditing={() => cpassword.current.focus()}
@@ -165,8 +163,7 @@ function CForm(props) {
                   value={values.cpassword}
                   onChangeText={handleChange('cpassword')}
                   secureTextEntry={cPassShow}
-                  
-                  toggleRightIconFunc={()=> setCPassShow(!cPassShow)}
+                  toggleRightIconFunc={() => setCPassShow(!cPassShow)}
                   error={errors.cpassword}
                   returnKeyType="done"
                   onSubmitEditing={() => handleSubmit()}

@@ -45,6 +45,8 @@ import {
   REGISTER,
   SENDMESSAGE,
   UPDATEPROFILE,
+  ADDNEWAREHOUSESPACE,
+  GETWAREHOUSEBYCATORGY,
 } from '../../config/webservices';
 
 export const getAllSpaces = (payload, CB) => async dispatch => {
@@ -60,14 +62,15 @@ export const getAllSpaces = (payload, CB) => async dispatch => {
       dispatch({type: ROOT.GET_SPACES, loading: false});
       handleError(response?.data?.data?.message || '');
     } else {
-      dispatch({
-        type: ROOT.GET_SPACES,
-        loading: false,
-        allSpace: response?.data?.spaces,
-      });
+      // dispatch({
+      //   type: ROOT.GET_SPACES,
+      //   loading: false,
+      //   allSpace: response?.data?.spaces,
+      // });
       // handleSuccess(response?.data?.message);
+      dispatch({type: ROOT.GET_SPACES, loading: false});
+      CB && CB(response?.data?.spaces);
     }
-    CB && CB(response?.data?.spaces);
   } catch (error) {
     console.log('🚀 ~ file: Root.A  AllSpaces ~ error:', error);
 
@@ -77,13 +80,19 @@ export const getAllSpaces = (payload, CB) => async dispatch => {
 };
 
 export const getSpacesByCategory = (payload, CB) => async dispatch => {
-  console.log("🚀 ~ file: Root.Action.js:80 ~ getSpacesByCategory ~ payload:", payload)
+  console.log(
+    '🚀 ~ file: Root.Action.js:80 ~ getSpacesByCategory ~ payload:',
+    payload,
+  );
   dispatch({type: ROOT.GET_SPACES, loading: true});
   await getTokenAndSetIntoHeaders();
   try {
     let response = await get(GETSPACESBYCATORGY(payload));
-    console.log("🚀 ~ file: Root.Action.js:84 ~ getSpacesByCategory ~ response:", response?.data?.subcatSpaces)
-   
+    console.log(
+      '🚀 ~ file: Root.Action.js:84 ~ getSpacesByCategory ~ response:',
+      response?.data?.subcatSpaces,
+    );
+
     if (response?.data?.error) {
       dispatch({type: ROOT.GET_SPACES, loading: false});
       handleError(response?.data?.data?.message || '');
@@ -96,6 +105,41 @@ export const getSpacesByCategory = (payload, CB) => async dispatch => {
       // handleSuccess(response?.data?.message);
     }
     CB && CB(response?.data?.subcatSpaces);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.A  AllSpaces ~ error:', error);
+
+    handleError(error?.data?.error, {autoHide: false});
+    // dispatch({type: ROOT.GET_SPACES, loading: false});
+  }
+};
+
+export const getwarehouseByCategory = (payload, CB) => async dispatch => {
+  console.log(
+    '🚀 ~ file: Root.Action.js:80 ~ getSpacesByCategory ~ payload:',
+    payload,
+  );
+  dispatch({type: ROOT.GET_SPACES, loading: true});
+  await getTokenAndSetIntoHeaders();
+  try {
+    let response = await get(GETWAREHOUSEBYCATORGY(payload));
+    console.log(
+      '🚀 ~ file: Root.Action.js:84 ~ getSpacesByCategory ~ response:',
+      response?.data,
+    );
+
+    if (response?.data?.error) {
+      console.log(response?.data?.error);
+      dispatch({type: ROOT.GET_SPACES, loading: false});
+      handleError(response?.data?.data?.message || '');
+    } else {
+      dispatch({
+        type: ROOT.GET_SPACES,
+        loading: false,
+        allSpace: response?.data?.spaces,
+      });
+      // handleSuccess(response?.data?.message);
+    }
+    CB && CB(response?.data?.subcatWarehouses);
   } catch (error) {
     console.log('🚀 ~ file: Root.A  AllSpaces ~ error:', error);
 
@@ -177,7 +221,10 @@ export const createBooking = (payload, CB) => async dispatch => {
   await getTokenAndSetIntoHeaders();
   try {
     let response = await post(CREATEBOOKING, payload);
-    console.log("🚀 ~ file: Root.Action.js:148 ~ createBooking ~ response:", response)
+    console.log(
+      '🚀 ~ file: Root.Action.js:148 ~ createBooking ~ response:',
+      response,
+    );
 
     if (response?.data?.error) {
       dispatch({type: ROOT.CREATE_BOOKING, loading: false});
@@ -189,7 +236,7 @@ export const createBooking = (payload, CB) => async dispatch => {
       });
       handleSuccess(response?.data?.message);
     }
-    CB && CB(response?.data); 
+    CB && CB(response?.data);
   } catch (error) {
     console.log('🚀 ~ file: Root.Action.js:77 ~ createBooking ~ error:', error);
 
@@ -243,7 +290,7 @@ export const add_managers = (payload, CB) => async dispatch => {
   } catch (error) {
     console.log('🚀 ~ file: Root.Action.js:196 ~ error:', error);
 
-    handleError(error?.data?.error, {autoHide: false});
+    handleError(error?.data?.message, {autoHide: false});
     // dispatch({type: ROOT.ADD_MANAGER, loading: false});
   }
 };
@@ -463,7 +510,7 @@ export const get_ownerManager = (payload, CB) => async dispatch => {
 
     if (response?.data?.error) {
       // dispatch({type: ROOT.GET_USER_SPACES, loading: false});
-      handleError(response?.data?.data?.message || '');
+      handleError(response?.data?.message || '');
     } else {
       // dispatch({
       //   type: ROOT.GET_USER_SPACES,
@@ -479,7 +526,7 @@ export const get_ownerManager = (payload, CB) => async dispatch => {
       error,
     );
 
-    handleError(error?.data?.error, {autoHide: false});
+    handleError(error?.data?.message, {autoHide: false});
     // dispatch({type: ROOT.GET_USER_SPACES, loading: false});
   }
 };
@@ -537,7 +584,6 @@ export const get_spaceCategory = (payload, CB) => async dispatch => {
   await getTokenAndSetIntoHeaders();
   try {
     let response = await get(GETCATEGORIES(payload));
-   
 
     if (response?.data?.error) {
       handleError(response?.data?.data?.message || '');
@@ -562,7 +608,7 @@ export const add_newSpace = (payload, CB) => async dispatch => {
     headers: {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     },
   };
 
@@ -572,9 +618,42 @@ export const add_newSpace = (payload, CB) => async dispatch => {
     console.log('🚀 ~ file: Root.Action.js:535 ~ response:', response);
 
     if (response?.data?.error) {
-      handleError(response?.data?.data?.message || '');
+      handleError(response?.data?.message || '');
     } else {
       console.log('');
+      handleSuccess(response?.data?.message);
+    }
+    CB && CB(response?.data);
+  } catch (error) {
+    console.log('🚀 ~ file: Root.Action.js:545 ~ error:', error?.data?.message);
+
+    handleError(error?.data?.message, {autoHide: false});
+  }
+};
+
+export const add_newWarehoue = (payload, CB) => async dispatch => {
+  //Alert.alert('call');
+  console.log('🚀 ~ file: Root.Action.js:502 ~ payload:', payload);
+  // const token = await getValueIntoAsyncStorage(TOKEN);
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Accept: 'application/json',
+      // Authorization: `Bearer ${token}`,
+    },
+  };
+
+  // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
+  //console.log(ADDNEWAREHOUSESPACE);
+  try {
+    let response = await post(ADDNEWAREHOUSESPACE, payload, config);
+    console.log('🚀 ~ file: Root.Action.js:535 ~ response:', response);
+
+    if (response?.data?.error) {
+      console.log('error 2');
+      handleError(response?.data?.data?.message || '');
+    } else {
+      console.log('error 1');
       handleSuccess(response?.data?.message);
     }
     CB && CB(response?.data);
@@ -621,7 +700,7 @@ export const add_CustomerCard = (payload, CB) => async dispatch => {
   // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
   try {
     let response = await post(ADDCARDS, payload);
-    console.log("🚀 ~ file: Root.Action.js:596 ~ response:", response?.data)
+    console.log('🚀 ~ file: Root.Action.js:596 ~ response:', response?.data);
 
     if (response?.data?.error) {
       dispatch({type: ROOT.ADD_CUSTOMER_CARDS, loading: false});
@@ -651,7 +730,7 @@ export const getAllVechiles = (payload, CB) => async dispatch => {
   // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
   try {
     let response = await get(GETVEHICLES(payload));
-    console.log("🚀 ~ file: Root.Action.js:596 ~ response:", response?.data)
+    console.log('🚀 ~ file: Root.Action.js:596 ~ response:', response?.data);
 
     if (response?.data?.error) {
       dispatch({type: ROOT.GET_VEHICLE, loading: false});
@@ -664,7 +743,6 @@ export const getAllVechiles = (payload, CB) => async dispatch => {
         loading: false,
         data: response?.data,
       });
-
     }
     CB && CB(response?.data);
   } catch (error) {
@@ -674,14 +752,13 @@ export const getAllVechiles = (payload, CB) => async dispatch => {
   }
 };
 
-
 export const send_messages = (payload, CB) => async dispatch => {
   dispatch({type: ROOT.SEND_MESSAGE, loading: true});
 
   // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
   try {
-    let response = await post(SENDMESSAGE  , payload);
-    console.log("🚀 ~ file: Root.Action.js:596 ~ response:", response?.data)
+    let response = await post(SENDMESSAGE, payload);
+    console.log('🚀 ~ file: Root.Action.js:596 ~ response:', response?.data);
 
     if (response?.data?.error) {
       dispatch({type: ROOT.SEND_MESSAGE, loading: false});
@@ -694,7 +771,6 @@ export const send_messages = (payload, CB) => async dispatch => {
         loading: false,
         data: response.data.messages,
       });
-
     }
     CB && CB(response?.data);
   } catch (error) {
@@ -705,13 +781,13 @@ export const send_messages = (payload, CB) => async dispatch => {
 };
 
 export const get_all_category = (payload, CB) => async dispatch => {
-  console.log("🚀 ~ file: Root.Action.js:679 ~ payload:", payload)
+  console.log('🚀 ~ file: Root.Action.js:679 ~ payload:', payload);
   // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: true});
 
   // dispatch({type: ROOT.GET_USER_SPACES, loading: true});
   try {
     let response = await get(GETALLCATEGORIES);
-    console.log("🚀 ~ file: Root.Action.js:684 ~ response:", response)
+    console.log('🚀 ~ file: Root.Action.js:684 ~ response:', response);
 
     if (response?.data?.error) {
       // dispatch({type: ROOT.GET_ALL_CATEGORY, loading: false});
@@ -724,7 +800,6 @@ export const get_all_category = (payload, CB) => async dispatch => {
       //   loading: false,
       //   data: response.data,
       // });
-
     }
     CB && CB(response?.data);
   } catch (error) {
@@ -734,6 +809,3 @@ export const get_all_category = (payload, CB) => async dispatch => {
     handleError(error?.data?.error, {autoHide: false});
   }
 };
-
-
-

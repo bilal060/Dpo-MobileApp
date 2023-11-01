@@ -1,10 +1,19 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {CLoading} from '../components';
 import {createStackNavigator} from '@react-navigation/stack';
 import {getValueIntoAsyncStorage} from '../utils/asyncStorage/Functions';
 import {WELCOME_SCREEN} from '../utils/asyncStorage/Constants';
-import {ChangePassword, CompanyProfile, Forgot, Information, Login, Register, VerifyOtp} from '../pages/Auth';
+import {
+  ChangePassword,
+  CompanyProfile,
+  Forgot,
+  Information,
+  Login,
+  Register,
+  VerifyOtp,
+} from '../pages/Auth';
 import Welcome from '../pages/Welcome';
 
 export const Stack = createStackNavigator();
@@ -12,7 +21,7 @@ export const Stack = createStackNavigator();
 function Auth({initial}) {
   const dispatch = useDispatch();
 
-  const [initialRouteName, updateInitialRouteName] = useState("Welcome");
+  const [initialRouteName, updateInitialRouteName] = useState('Welcome');
 
   const getAndCheck = async () => {
     let val = await getValueIntoAsyncStorage(WELCOME_SCREEN);
@@ -44,9 +53,7 @@ function Auth({initial}) {
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
           <Stack.Screen name="Information" component={Information} />
           <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
-         <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
-          
-
+          <Stack.Screen name="CompanyProfile" component={CompanyProfile} />
         </Stack.Navigator>
       );
     } else {

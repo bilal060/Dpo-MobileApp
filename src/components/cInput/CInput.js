@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React, {Fragment} from 'react';
 import {
   View,
@@ -59,6 +61,8 @@ const CInput = React.forwardRef((props, ref) => {
     selectValue,
     placeholder,
     textStyle,
+    editable,
+    parentStyle,
   } = props;
 
   const renderLabel = () => {
@@ -169,8 +173,9 @@ const CInput = React.forwardRef((props, ref) => {
         ref={ref}
         maskChar="x"
         autoCorrect={false}
+        editable={editable && editable}
         secureTextEntry={secureTextEntry}
-        placeholderTextColor={themes['light'].colors.gray7}
+        placeholderTextColor={themes['light'].colors.dark}
         style={[{...GlobalStyle.inputStyle, ...style}]}
         autoCapitalize="none"
         value={value}
@@ -195,7 +200,7 @@ const CInput = React.forwardRef((props, ref) => {
         <CText
           style={[
             {...GlobalStyle.inputTextStyle, ...textStyle},
-            {color: themes['light'].colors.gray7},
+            {color: themes['light'].colors.dark},
           ]}>
           {selectValue
             ? selectValue?.name || selectValue?.description
@@ -213,6 +218,7 @@ const CInput = React.forwardRef((props, ref) => {
         style={{
           ...GlobalStyle.inputInnerContainer,
           ...inputInnerContainerStyle,
+          backgroundColor: '#f1f6f7',
           ...(error && GlobalStyle.errorBorder),
         }}>
         {leftIconNAme ? renderLeftIcon() : null}
@@ -221,11 +227,13 @@ const CInput = React.forwardRef((props, ref) => {
           style={{
             alignSelf: 'flex-start',
             flex: 1,
-            borderBottomWidth: 0.5,
-            borderBottomColor: '#E7E6E9',
+            borderBottomWidth: 0.8,
+            borderBottomColor: '#D6D6D6',
             flexDirection: 'row',
             alignItems: 'center',
             paddingTop: -15,
+            backgroundColor: '#f1f6f7',
+            ...parentStyle,
           }}>
           {selectedCountry && Object.keys(selectedCountry).length
             ? renderCountryView()

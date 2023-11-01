@@ -4,16 +4,18 @@ import {themes as theme, themes} from '../../theme/colors';
 export default StyleSheet.create({
   fullContainer: {
     flex: 1,
+
     // backgroundColor: themes.light.colors.tertiary,
   },
 
   //input style
   inputContainer: {
     marginBottom: 20,
+    // backgroundColor: 'red',
   },
   inputLabel: {
     fontSize: 14,
-    color: themes.light.colors.gray1,
+    color: themes['light'].colors.gray7,
     fontFamily: themes.font.semiBold,
   },
   logostyles: {
@@ -31,7 +33,7 @@ export default StyleSheet.create({
   },
   inputStyle: {
     fontSize: 16,
-    color: themes.light.colors.gray7,
+    color: themes['light'].colors.dark,
 
     fontFamily: themes.font.medium,
     fontWeight: '400',
@@ -40,6 +42,9 @@ export default StyleSheet.create({
     marginHorizontal: 10,
 
     height: 45,
+    backgroundColor: '#f1f6f7',
+    borderRadius: 12,
+    // borderRadius: 14,
     // paddingHorizontal: 0,
     // minHeight: 30,
   },
@@ -55,7 +60,7 @@ export default StyleSheet.create({
     // padding:5,
     // position: 'relative',
     alignContent: 'center',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
 
     justifyContent: 'center',
 
@@ -97,21 +102,24 @@ export default StyleSheet.create({
   },
   contact: {
     flex: 1,
-    fontSize: 14,
-    color: theme.light.colors.iconColor,
-    fontFamily: themes.font.medium,
+    fontSize: 13.6,
+    color: '#8F8F8F',
+    fontFamily: themes.font.semiBold,
     // paddingTop:3,
-    paddingLeft: 5,
+    paddingLeft: 6,
+    fontWeight: '700',
   },
   ProfileName: {
     fontSize: 18,
     color: theme.light.colors.iconColor,
     fontFamily: themes.font.semiBold,
+    fontWeight: '500',
   },
 
   inputLeftIconButton: {
     padding: 5,
     marginLeft: 10,
+    backgroundColor: '#f1f6f7',
   },
 
   inputIconButton: {
@@ -349,6 +357,7 @@ export default StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // backgroundColor: theme.light.colors.primary,
   },
   twoInputsViewContainer: {
     flex: 1,

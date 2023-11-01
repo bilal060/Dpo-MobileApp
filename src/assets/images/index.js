@@ -97,6 +97,9 @@ import Cancel from './Cancel.png';
 import Earning from './Earning.png';
 import WelcomeLogo from './WelcomeLogo.png';
 
+import newWelcomeLogo from './newWelcomeLogo.png';
+import newlock from './newlock.png';
+
 import Explore from './explore.png';
 import Banner from './banner.png';
 
@@ -150,15 +153,19 @@ import CompanyLince from './icons/truckLin.png';
 import TruckName from './icons/truckName.png';
 import TruckType from './icons/truckType.png';
 import TruckNo from './icons/truckNo.png';
-
-
-
+import newFilter from './newFilter.png';
+import starLogin from './starLogin.png';
+import Rectangle from './Rectangle.png';
+import Spacemoon from './spacemoon.png';
+import HowItworks from './howitworks.png';
 export {
   Company,
   AreaIcon,
   FocusedCompany,
   CemeraPhoto,
   WelcomeLogo,
+  newWelcomeLogo,
+  newlock,
   VisaCard,
   CompanyLince,
   TruckName,
@@ -167,7 +174,7 @@ export {
   AddCard,
   ChargingStation,
   FTruckIcon,
-  TruckIcon, 
+  TruckIcon,
   MarkerImage,
   GasStation,
   PitStop,
@@ -284,4 +291,9 @@ export {
   Home,
   FocusedHome,
   ServiceImg,
+  newFilter,
+  starLogin,
+  Rectangle,
+  Spacemoon,
+  HowItworks,
 };

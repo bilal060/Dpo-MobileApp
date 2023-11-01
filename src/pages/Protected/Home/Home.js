@@ -67,7 +67,7 @@ const Home = ({navigation}) => {
           numColumns={2}
           contentContainerStyle={[GlobalStyle.list, {marginBottom: 15}]}
           data={listData}
-          // loading={reduxState.loading}
+          // loading={reduxState.loading}jhhjhjhjhjhjgfhfgfhhnj
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           emptyOptions={{

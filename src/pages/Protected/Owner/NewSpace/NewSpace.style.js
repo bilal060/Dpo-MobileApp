@@ -38,10 +38,12 @@ export default StyleSheet.create({
   },
   listHeader: {
     flex: 1,
-    fontSize: 16,
-    color: theme['light'].colors.gray4,
-    fontFamily: theme.font.medium,
+    fontSize: 22,
+    color: theme['light'].colors.secondary3dark,
+    // fontFamily: theme.font.semiBold,
     paddingLeft: 10,
+    fontWeight: 'bold',
+    marginVertical: 13,
   },
   buttonStyle: {
     marginTop: height * 0,
@@ -55,6 +57,7 @@ export default StyleSheet.create({
     // borderRadius: 20,
     backgroundColor: theme['light'].colors.backgroundColor,
     paddingHorizontal: 15,
+    backgroundColor: '#f1f6f7',
   },
   inputView: {
     width: width * 0.45,
@@ -97,17 +100,16 @@ export default StyleSheet.create({
   },
   spaceSaveBtn: {
     marginHorizontal: 10,
-    marginBottom:50
+    marginBottom: 50,
   },
   buttonText: {
     color: themes['light'].colors.primary,
-
-
   },
   input: {
     height: 42,
     color: themes['light'].colors.gray4,
     fontFamily: themes.font.medium,
+    // width: '100%',
 
     borderColor: themes['light'].colors.gray3,
     backgroundColor: 'transparent',

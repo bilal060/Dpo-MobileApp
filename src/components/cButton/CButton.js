@@ -1,13 +1,15 @@
+/* eslint-disable prettier/prettier */
 import React, {Fragment} from 'react';
 import {TouchableOpacity, ActivityIndicator, Animated} from 'react-native';
 import styles from './CButton.style';
 import {themes} from '../../theme/colors';
 import CIcon from '../cIcon/CIcon';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import LinearGradient from 'react-native-linear-gradient';
 // import Icon from '../../assets/icons/CustomIcon';
 
 const CButton = props => {
-  const {t,} = useTranslation();
+  const {t} = useTranslation();
 
   const {
     title,
@@ -25,8 +27,8 @@ const CButton = props => {
     iconType = 'custom',
     iconName,
     iconStyle = {},
-    iconSize=22,
-    iconColor =themes.light.colors.tertiary
+    iconSize = 22,
+    iconColor = themes.light.colors.tertiary,
   } = props;
 
   let backgroundColor = colorType;
@@ -60,24 +62,33 @@ const CButton = props => {
         (disabled || loading) && {opacity: 0.5},
         buttonStyle,
       ]}>
-      
       {title ? (
-        <Fragment>
-          <Animated.Text
-            style={[
-              styles.buttonText,
-              {
-                color: themes['light'].colors[textColor],
-              },
-              buttonText,
-            ]}>
-            {t(title)}
-          </Animated.Text>
-          {iconType === 'custom' && iconName
-            ? null
-            : // <Icon name={iconName} style={[styles.buttonIcon, iconStyle]}/>
-              null}
-        </Fragment>
+        <LinearGradient
+          colors={['#FB7C5F', '#DF525B']}
+          style={{
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Fragment>
+            <Animated.Text
+              style={[
+                styles.buttonText,
+                {
+                  color: themes['light'].colors[textColor],
+                  fontWeight: 'bold',
+                },
+                buttonText,
+              ]}>
+              {t(title)}
+            </Animated.Text>
+            {iconType === 'custom' && iconName
+              ? null
+              : // <Icon name={iconName} style={[styles.buttonIcon, iconStyle]}/>
+                null}
+          </Fragment>
+        </LinearGradient>
       ) : (
         children
       )}

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -10,9 +12,16 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-import {Profile, WelcomeLogo} from '../../assets/images';
+import {
+  Profile,
+  WelcomeLogo,
+  newWelcomeLogo,
+  starLogin,
+} from '../../assets/images';
 import {CText, ProgressiveImage} from '../../components';
 import {themes} from '../../theme/colors';
 const {width, height} = Dimensions.get('screen');
@@ -22,33 +31,51 @@ const Welcome = ({navigation}) => {
   };
   const onPressForgotPassword = () => {
     navigation.navigate('Register');
-
   };
   const onPressSignUp = () => {
-    navigation.navigate('Register', {role: 'Business Owner'});
+    navigation.navigate('Register', {role: 'Storage Owner'});
+    // navigation.navigate('VerifyOtp', {role: 'Storage Owner'});
   };
   const onPressCustomerSignUp = () => {
     navigation.navigate('Register', {role: 'Customer'});
-
   };
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={starLogin}
+      resizeMode="cover"
+      style={styles.container}>
       <ProgressiveImage
-        source={WelcomeLogo}
+        source={newWelcomeLogo}
         style={styles.logo}
         resizeMode="contain"
       />
 
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-        <CText style={[styles.loginText, {color: 'white', fontWeight: 'bold'}]}>
-          Login
-        </CText>
+        <LinearGradient
+          colors={['#FB7C5F', '#DF525B']}
+          style={{
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <CText
+            style={[
+              styles.loginText,
+              {color: 'white', fontWeight: 'bold', fontSize: 15},
+            ]}>
+            Login
+          </CText>
+        </LinearGradient>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={onPressCustomerSignUp}
         style={styles.createBtn}>
         <CText
-          style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
+          style={[
+            styles.loginText,
+            {color: '#DF525B', fontWeight: 'bold', fontSize: 15},
+          ]}>
           Create New Account
         </CText>
       </TouchableOpacity>
@@ -61,19 +88,22 @@ const Welcome = ({navigation}) => {
         <View style={styles.hairline} />
       </View>
 
-      <TouchableOpacity onPress={onPressSignUp} style={styles.registerBtn}>
+      <TouchableOpacity onPress={onPressSignUp} style={styles.createBtn}>
         <CText
-          style={[styles.loginText, {color: '#0064FA', fontWeight: 'bold'}]}>
+          style={[
+            styles.loginText,
+            {color: '#000000', fontWeight: 'bold', fontSize: 15},
+          ]}>
           Register as Service Provder
         </CText>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: themes.light.colors.tertiary,
+    backgroundColor: '#f1f6f7',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -91,7 +121,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 187,
-    height: 65,
+    height: 130,
     marginBottom: 120,
   },
   forgotAndSignUpText: {
@@ -123,12 +153,21 @@ const styles = StyleSheet.create({
   createBtn: {
     width: '80%',
     color: themes.light.colors.fontColor,
-    backgroundColor: themes.light.colors.lightenGray,
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 1,
     // marginBottom: 10
   },
   registerBtn: {

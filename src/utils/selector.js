@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createSelector } from 'reselect';
 
 const authSelector = state => state.auth;

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -83,17 +84,19 @@ const Root = ({initial}) => {
   };
 
   const reduxState = useSelector(({auth, language}) => {
+    // console.log(auth?.user?.role);
     return {
       userRole: auth?.user?.role,
     };
   });
 
   const getScreen = () => {
-    if (reduxState?.userRole === 'Storage Owner') {
+    console.log(reduxState?.userRole);
+    if (reduxState?.userRole == 'Storage Owner') {
       return <StorageOwnerStack />;
-    } else if (reduxState?.userRole === 'Customer') {
+    } else if (reduxState?.userRole == 'Customer') {
       return <CustomerStack />;
-    } else if (reduxState?.userRole === 'Truck Driver') {
+    } else if (reduxState?.userRole == 'Truck Driver') {
       return <TruckDriverStack />;
     }
     // return <TruckDriverStack />;

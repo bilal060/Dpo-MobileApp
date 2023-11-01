@@ -7,7 +7,7 @@ import {
   RadioButton,
 } from '../../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {Dimensions, Modal, View} from 'react-native';
+import {Dimensions, Modal, View, Text} from 'react-native';
 import AuthStyle from '../Auth.style';
 import CForm from './Form';
 import {useNavigation} from '@react-navigation/native';
@@ -68,6 +68,7 @@ function Register({route}) {
       password: values?.password,
       role: account,
       passwordConfirm: values?.cpassword,
+      companyType: 'Individual',
     };
     // navigation.navigate('VerifyOtp', {email: payload?.email});
     dispatch(registerOwner(payload, callBack));
@@ -91,33 +92,38 @@ function Register({route}) {
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <CForm
-        submit={submit}
-        loading={reduxState?.loading}
-        selectedCountry={selectedCountry}
-        toggleCountryModal={toggleCountryModal}
-        account={account}
-        setAccount={setAccount}
-        role={role}
-      />
-      <View style={AuthStyle.orContainer}>
-        <CText style={AuthStyle.cardBottomText}>Already have an account?</CText>
-        <CText
-          onPress={() => navigation.navigate('Login')}
-          style={[AuthStyle.cardBottomText2]}>
-          Sign in
-        </CText>
-      </View>
-      <Modal
-        transparent={true}
-        visible={countryModalIsOpen}
-        onRequestClose={() => toggleCountryModal()}>
-        <View style={AuthStyle.modalContainer}>
-          <View style={AuthStyle.modalInnerContainer}>
-            <CountriesModal onSelect={val => countryOnSelect(val)} />
-          </View>
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <CForm
+          submit={submit}
+          loading={reduxState?.loading}
+          selectedCountry={selectedCountry}
+          toggleCountryModal={toggleCountryModal}
+          account={account}
+          setAccount={setAccount}
+          role={role}
+        />
+        <View style={AuthStyle.orContainer}>
+          <CText style={AuthStyle.cardBottomText}>
+            Already have an account?
+          </CText>
+          <CText
+            onPress={() => navigation.navigate('Login')}
+            style={[AuthStyle.cardBottomText2]}>
+            Sign in
+          </CText>
+          <Text></Text>
         </View>
-      </Modal>
+        <Modal
+          transparent={true}
+          visible={countryModalIsOpen}
+          onRequestClose={() => toggleCountryModal()}>
+          <View style={AuthStyle.modalContainer}>
+            <View style={AuthStyle.modalInnerContainer}>
+              <CountriesModal onSelect={val => countryOnSelect(val)} />
+            </View>
+          </View>
+        </Modal>
+      </View>
     </Container>
   );
 }

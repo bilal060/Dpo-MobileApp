@@ -37,6 +37,7 @@ const Chats = ({}) => {
     headerRight: true,
     headerRightImg: false,
     headerRightImg: Notification,
+    backGroundColor: 'red',
     // rightPress: ()=> navigation.navigate("AddNewManager")
   };
   const reduxState = useSelector(({auth, language, root}) => {

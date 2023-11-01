@@ -1,38 +1,53 @@
 /* eslint-disable prettier/prettier */
 import {Dimensions, StyleSheet} from 'react-native';
 import {themes as theme, themes} from '../../../../theme/colors';
+
 const {width, height} = Dimensions.get('screen');
 export default StyleSheet.create({
   container: {
-    flexGrow: 1,
-    flex: 1,
+    // flexGrow: 1,
+    // flex: 1,
+    height: '100%',
     paddingHorizontal: 20,
     paddingVertical: 20,
+    // height: '100%',
+    // backgroundColor: 'red',
+    // width: '100%',
     // backgroundColor: theme['light'].colors.tertiaryBackground,
   },
   headerContainer: {
     marginVertical: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: theme.light.colors.primary,
   },
   headerView: {
     alignItems: 'center',
-    marginVertical: 10,
+    // marginVertical: 10,
+    // backgroundColor: theme.light.colors.primary,
   },
   inputInnerContainerStyle: {
     backgroundColor: 'white',
     border: 0,
-    width: width * 0.7,
+    width: width * 0.72,
     marginTop: 10,
     borderRadius: 50,
-    borderWidth: 0.5,
-    // backgroundColor: theme['light'].colors.tertiaryBackground,
+    // borderWidth: 0.5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 1,
   },
   mainHeading: {
     color: theme.light.colors.iconColor,
-    fontSize: 18,
-    fontFamily: theme.font.regular,
-    fontWeight: '800',
+    fontSize: 20,
+    fontFamily: theme.font.bold,
+    fontWeight: '900',
     marginTop: 10,
   },
   subHeading: {
@@ -42,15 +57,20 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    // backgroundColor: 'yellow',
+    marginLeft: 12,
+    // marginTop: 10,
+    // alignSelf: 'center',
   },
   view: {
     color: theme.light.colors.primary,
     fontSize: 16,
     fontFamily: theme.font.semiBold,
-    fontWeight: '600',
+    fontWeight: '900',
+    // marginLeft: 70,
   },
   spaceTotal: {
     color: theme.light.colors.iconColor,
@@ -59,13 +79,9 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   list: {
-    // alignSelf: 'center',
-    // marginBottom:-40,
-    // marginHorizontal:10,
-    marginVertical: 10,
+    // flex: 1,
     flexDirection: 'row',
-    // backgroundColor: 'red',
-    // marginLeft: -10,
+    paddingVertical: 8,
   },
   menu: {
     backgroundColor: 'rgba(188,217,174,0.3)',
@@ -123,9 +139,9 @@ export default StyleSheet.create({
   },
   iconTitle: {
     color: theme.light.colors.dark,
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: theme.font.semiBold,
-    fontWeight: '400',
+    fontWeight: '600',
     // width:'80%',
     textAlign: 'center',
   },

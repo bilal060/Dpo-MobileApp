@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {Container} from '../../../../../containers';
 import {CPagination, CText, ProgressiveImage} from '../../../../../components';
@@ -13,7 +16,7 @@ import {
   Profile,
 } from '../../../../../assets/images';
 import {BASE_URL_IMG} from '../../../../../config/webservices';
-import { updateUserProfile } from '../../../../../redux/actions/Auth.action';
+import {updateUserProfile} from '../../../../../redux/actions/Auth.action';
 import moment from 'moment';
 const {width, height} = Dimensions.get('screen');
 
@@ -29,7 +32,7 @@ function EditProfile({route}) {
     };
   });
   const [selectDate, updateSelectDate] = useState(null);
-  console.log("🚀 ~ file: index.js:32 ~ EditProfile ~ selectDate:", selectDate)
+  console.log('🚀 ~ file: index.js:32 ~ EditProfile ~ selectDate:', selectDate);
 
   const headerProps = {
     ProgressiveImageHeader: true,
@@ -37,10 +40,14 @@ function EditProfile({route}) {
 
     headerTitle: 'Edit Profile',
     headerRight: false,
+    backGroundColor: 'red',
   };
-  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(/\\/g, "/");
+  var convertedFilePath = `${BASE_URL_IMG}${reduxState?.user?.photo}`.replace(
+    /\\/g,
+    '/',
+  );
 
-  const submit = (values) => {
+  const submit = values => {
     const payload = new FormData();
     payload.append('fullName', values?.fullName);
     payload.append('phoneNo', values?.phone);
@@ -51,12 +58,14 @@ function EditProfile({route}) {
       uri: convertedFilePath,
       type: 'image/jpeg',
       name: 'image.jpg',
-    }); 
-    dispatch(updateUserProfile(payload, reduxState?.user, callBack));
+    });
 
+    console.log(payload);
+    // console.log(convertedFilePath);
+    // return;
+    dispatch(updateUserProfile(payload, callBack));
   };
   const callBack = res => {
-    
     console.log('🚀 ~ file: index.js:58 ~ callBack ~ res:', res);
   };
 
@@ -65,40 +74,46 @@ function EditProfile({route}) {
       backgroundColor={'theme-color'}
       showPattern={true}
       scrollView={true}
-      style={AuthStyle.style}
+      // style={AuthStyle.style}
       headerProps={headerProps}
       loading={reduxState?.loading}
+      messagesScreen
       scrollViewProps={{
         contentContainerStyle: AuthStyle.container,
       }}>
-      <View
-        style={{
-          alignItems: 'center',
-          marginTop: 20,
-        }}>
-        {reduxState?.user?.photo ? (
-          <ProgressiveImage
-            source={{uri: convertedFilePath}}
-            resizeMode="contain"
-            style={{width: 100, height: 100, borderRadius: 10}}
-          />
-        ) : (
-          <ProgressiveImage
-            source={Profile}
-            resizeMode="contain"
-            style={{width: 100, height: 100, borderRadius: 10}}
-          />
-        )}
+      <View style={{backgroundColor: '#f1f6f7', height: '100%', width: '100%'}}>
+        <View
+          style={{
+            alignItems: 'center',
+            marginTop: 20,
+            backgroundColor: '#f1f6f7',
+          }}>
+          {reduxState?.user?.photo ? (
+            <ProgressiveImage
+              source={{uri: convertedFilePath}}
+              resizeMode="contain"
+              style={{width: 100, height: 100, borderRadius: 10}}
+            />
+          ) : (
+            <ProgressiveImage
+              source={{uri: convertedFilePath}}
+              resizeMode="contain"
+              style={{width: 100, height: 100, borderRadius: 10}}
+            />
+          )}
+        </View>
+        {/* <CPagination /> */}
+        {/* <View style={{backgroundColor: 'red', height: '100%', width: '100%'}}> */}
+        <CForm
+          user={reduxState?.user}
+          submit={submit}
+          loading={reduxState?.loading}
+          onForgotPress={() => navigation.navigate('Forgot')}
+          updateSelectDate={updateSelectDate}
+          selectDate={selectDate}
+        />
       </View>
-      {/* <CPagination /> */}
-      <CForm
-        user={reduxState?.user}
-        submit={submit}
-        loading={reduxState?.loading}
-        onForgotPress={() => navigation.navigate('Forgot')}
-        updateSelectDate={updateSelectDate}
-        selectDate={selectDate}
-      />
+      {/* </View> */}
     </Container>
   );
 }
